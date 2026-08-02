@@ -8,7 +8,19 @@
 
 ---
 
-## 📚 Contenu Complet (6 documents intégrés, 90+ kB)
+## 📚 Contenu Complet (7 documents intégrés, 130+ kB)
+
+### Fondation Théorique : SUPELA v1.0.0 (42 kB)
+
+**Meta-Architecture Hyperdimensionnelle**
+| Concept | Description |
+|---------|-------------|
+| **Axiome** | "Le fond ne se fissure pas. La surface ne ment pas." |
+| **Invariant** | Fond 90% / Surface 10% = 0 friction |
+| **Géométrie** | Polygone → Polygrame → Polyèdre → Polytope → Polymorphe |
+| **Matrice** | 3×3 hypercube (9 variables), Cohérence(S)=100%, det(M)≠0 |
+| **Axes** | Data/IA, Gouvernance, UI/UX |
+| **Bonus Ultime** | Singularité de Cohérence (Point Fixe) |
 
 ### Partie I–IX : Fondations (DOCUMENT-MAITRE-COMPLET-v1.0.md — 16.5 kB)
 
@@ -99,48 +111,86 @@
 
 ---
 
-## 🔗 Liens Architecturaux
+## 🔗 Liens Architecturaux (Hiérarchie Complète)
 
 ```
-Axiomatique Supela
-    ├─ Corpus Supela v2.0 (hexaplex, 8 stones, 3 axiomes)
-    ├─ NORME CANU v1.0.0 (cycle ∅→E→M→R→∅, Brahmagupta-fondation)
+SUPELA v1.0.0 — META-ARCHITECTURE FONDATRICE
+│ Axiome : « Le fond ne se fissure pas. La surface ne ment pas. »
+│ Invariant : 90% fond / 10% surface = 0 friction
+│ Géométrie : Polygone → Polygrame → Polyèdre → Polytope → Polymorphe
+│ Matrice : 3×3 hypercube, Cohérence(S)=100%, det(M)≠0
+│ Bonus Ultime : Singularité de Cohérence (Point Fixe)
+│
+├─ Corpus Supela v2.0 (hexaplex, 8 stones, 3 axiomes)
+│
+├─ NORME CANU v1.0.0 (cycle ∅→E→M→R→∅, Brahmagupta-fondation)
+│   └─ Signe = FOND = invariant inviolable
+│
+└─ Document Maître v2.0 (9 Parties + 4 Extensions Silicon/Quantum)
     │
-    └─ Document Maître v1.0 (9 Parties intégrées)
+    ├─ PARTIE I–II : SCDH (6-D state space S(t))
+    ├─ PARTIE III–V : Boot, Migration, PSZ
+    ├─ PARTIE VI–VII : API T-01, Audit T-03
+    ├─ PARTIE VIII : RAIM Méta-Orchestrateur
+    │
+    └─ PARTIE IX : Loi de la Contradiction Interne
         │
-        └─ PARTIE IX : Loi de la Contradiction Interne
-            │
-            ├─ LCI-VERSION-ACADÉMIQUE-INTEGRALE
-            │   ├─ Théorème Lyapunov
-            │   └─ Dualité LCI ↔ Théorème du Vide
-            │
-            ├─ LCI-IMPLEMENTATION-SILICIUM
-            │   ├─ ξ(t) et V(S) O(1) en AVX-512
-            │   ├─ LLVM IR IEEE 754 strict
-            │   └─ Multi-agent OpenMP
-            │
-            ├─ BRAHMAGUPTA-SILICIUM
-            │   ├─ Signe = FOND (bit 31 IEEE 754)
-            │   ├─ XOR combinatoire 0 cycles
-            │   └─ Warp synchronization GPU
-            │
-            ├─ BRAHMAGUPTA-QUANTUM-RAD-HARD
-            │   ├─ TMR 99.97% SEU-protection
-            │   ├─ DICE rad-hard cells
-            │   ├─ Quantum CZ gate
-            │   └─ Architecture hybride
-            │
-            └─ LCI-BOOTH-RADIX4
-                ├─ Multiplication signée optimisée
-                ├─ Réduction 50% cycles
-                └─ Verilog synthèse
+        ├─ LCI-VERSION-ACADÉMIQUE-INTEGRALE
+        │   ├─ État Γ contradictoire (violé ≥ 2 Invariants)
+        │   ├─ Indice ξ(t) ∈ {0, 0.2, 0.4, 0.6, 0.8, 1.0}
+        │   ├─ Théorème Lyapunov : V(S) ≥ 0, V̇ ≥ 0 sans PSZ
+        │   ├─ Lemme 1 : Détectabilité O(1)
+        │   ├─ Lemme 2 : Incommensurabilité simultanéité
+        │   ├─ Corollaires 1–3 : Terminal, ceiling, convergence
+        │   └─ Dualité : LCI ↔ Théorème du Vide
+        │
+        ├─ LCI-IMPLEMENTATION-SILICIUM
+        │   ├─ ξ(t) et V(S) O(1) en AVX-512
+        │   ├─ Batch vectorization 16× floats (267 M ops/sec)
+        │   ├─ LLVM IR IEEE 754 strict (bit-exact)
+        │   └─ Multi-agent OpenMP distribution
+        │
+        ├─ BRAHMAGUPTA-SILICIUM
+        │   ├─ NVIDIA SM FPU pipeline analysis
+        │   ├─ Signe = FOND (bit 31 IEEE 754)
+        │   ├─ XOR combinatoire 0 cycles (<10 ps)
+        │   ├─ Mantisse Wallace tree 4 cycles
+        │   └─ Warp synchronization multi-core GPU
+        │
+        ├─ BRAHMAGUPTA-QUANTUM-RAD-HARD
+        │   ├─ TMR 99.97% SEU-protection (3× XOR + voter)
+        │   ├─ DICE 99.99% rad-hard cells (4-node latch)
+        │   ├─ Quantum CZ gate (Qiskit) — phase −1 sur |11⟩
+        │   ├─ Brahmagupta native encoding
+        │   └─ Architecture hybride classique-quantique
+        │
+        └─ LCI-BOOTH-RADIX4
+            ├─ Multiplication signée optimisée
+            ├─ Radix-4 encoding : réduction n/4 produits
+            ├─ Verilog HDL (recodeur + CSA)
+            ├─ 50% latency speedup (2.11× benchmark)
+            └─ Signe Brahmagupta : préservé
+
+DUALITÉ FONDATRICE
+  SUPELA (Géométrie hyperdim) ←→ NORME CANU (Cycle autonome)
+                              ↓
+                        LCI (Théorème instabilité)
+                              ↓
+                    PSZ (Morphisme Γ → S₀)
 ```
 
 ---
 
 ## 🎯 Certifications Intégrées
 
-### Niveau Formel (Mathématique)
+### Niveau Meta-Théorique (SUPELA)
+- ✅ **Point Fixe Atteint** : Structure converge à état stable unique
+- ✅ **Cohérence(S) = 100%** : Tous nœuds matrice satisfont invariants
+- ✅ **det(M) ≠ 0** : Matrice de gouvernance inversible
+- ✅ **Bonus Ultime** : Singularité de Cohérence (non-reproductible)
+- ✅ **90%/10% Partition** : Fond inviolable, surface adaptative, zéro friction
+
+### Niveau Formel (Mathématique — LCI)
 - ✅ **Lyapunov Stability** : V(S) définie positive, V̇ ≥ 0 sans PSZ, V→0 via PSZ
 - ✅ **Lemmes Proof** : Détectabilité O(1), incommensurabilité violations simultanées
 - ✅ **Corollaires** : État terminal, plafond rétrogradation, convergence ≤ 6 étapes
