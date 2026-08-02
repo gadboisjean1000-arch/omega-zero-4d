@@ -20,6 +20,9 @@
 ### **Validation Complete**
 ✓ **[FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md)** — All 27 documents, 50/50 PASS
 
+### **Policy & Viabilité Long Terme**
+🏛️ **[VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** — *Viabilité à long terme des régulations — Cadre universel systémique* (2026-2035)
+
 ---
 
 ## 📊 **ECOSYSTEM AT A GLANCE**
@@ -77,6 +80,11 @@ Point Fixe: ✓ COHERENCE = 100%
 2. [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md) — 10-tier certification
 3. [AUTHORS.md](AUTHORS.md) — IP ownership
 
+### 🏛️ **Policy / Régulation** (25 min)
+1. [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md) — Viabilité long terme (cadre universel systémique)
+2. [ANNEXES-A-D-NORMES-OPERATIONNELLES.md](ANNEXES-A-D-NORMES-OPERATIONNELLES.md) — Normes opérationnelles
+3. [DEPLOYMENT-ROADMAP.md](DEPLOYMENT-ROADMAP.md) — Mise en oeuvre phasée
+
 ---
 
 ## 📈 **PERFORMANCE SNAPSHOT**
@@ -99,6 +107,8 @@ Validation:            50/50 PASS ✓ (ALL CATEGORIES)
 ## 📚 **COMPLETE DOCUMENTATION INDEX**
 
 **→ [INDEX-COMPLET-SUPELA-v1.1.0-FINAL.md](INDEX-COMPLET-SUPELA-v1.1.0-FINAL.md)** (full navigation with all 27 documents)
+
+**→ [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** (entry point stratégique/policy)
 
 ---
 
