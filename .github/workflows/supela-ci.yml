@@ -1,0 +1,43 @@
+name: SUPELA CI Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          for f in \
+            SYNTHESE-FINALE-SUPELA-v1.1.0.md \
+            MASTER-FORMALIZATION.md \
+            PERFORMANCE-VALIDATION-50-50.md \
+            ANNEXES-A-D-NORMES-OPERATIONNELLES.md \
+            DASHBOARD-SGG-v2-INTERACTIVE.html \
+            AUTHORS.md \
+            RFC-SUPELA-K3-ANNEXE-E-SCDH.md \
+            NORMALISATION-COMPLETE.md \
+            DEPLOYMENT-ROADMAP.md; do
+            test -f "$f" || (echo "MISSING: $f" && exit 1)
+            echo "OK: $f"
+          done
+
+      - name: Check content markers
+        run: |
+          grep -q "50/50 PASS"        PERFORMANCE-VALIDATION-50-50.md
+          grep -q "19/19 PASS"        RFC-SUPELA-K3-ANNEXE-E-SCDH.md
+          grep -q "Point Fixe Atteint" NORMALISATION-COMPLETE.md
+          grep -q "SGG_v2"            DASHBOARD-SGG-v2-INTERACTIVE.html
+          echo "All content markers OK"
+
+      - name: Repo stats
+        run: |
+          echo "Commit count: $(git rev-list --count HEAD)"
+          git tag -l v1.1.0-PRODUCTION-READY
+          echo "Validation PASS"

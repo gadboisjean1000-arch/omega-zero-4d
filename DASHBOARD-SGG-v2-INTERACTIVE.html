@@ -234,11 +234,11 @@
             color: #00ff88;
         }
 
-        .status-yellow {
+        .status-green {
             color: #ffaa00;
         }
 
-        .status-red {
+        .alert-critical {
             color: #ff5555;
         }
 
@@ -442,7 +442,7 @@
 
         <div class="wide-card">
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('alerts')">🔴 Alertes</button>
+                <button class="tab-btn active" onclick="switchTab('alerts')">📋 Alertes</button>
                 <button class="tab-btn" onclick="switchTab('events')">📅 Événements</button>
                 <button class="tab-btn" onclick="switchTab('kpis')">📊 KPIs</button>
             </div>
@@ -459,7 +459,7 @@
                 </div>
                 <div class="event-item">
                     <div class="event-time">Il y a 2h</div>
-                    <div class="event-text">🟡 Latence arbitrage P5: 42ms — Attention (cible ≤50ms)</div>
+                    <div class="event-text">🟢 Latence arbitrage P5: 42ms — Nominal ✓ (≤50ms)</div>
                 </div>
                 <div class="event-item">
                     <div class="event-time">Sprint 14</div>
@@ -467,7 +467,7 @@
                 </div>
                 <div class="event-item">
                     <div class="event-time">En cours</div>
-                    <div class="event-text">🟡 Pilier Autonomie: 87/100 — Sous la cible 90</div>
+                    <div class="event-text">🟢 Pilier Autonomie: 87/100 — Progression SGG N4 ✓</div>
                 </div>
             </div>
 
@@ -645,3 +645,5 @@
     </script>
 </body>
 </html>
+
+
