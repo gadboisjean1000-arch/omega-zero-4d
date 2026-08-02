@@ -1,0 +1,189 @@
+{
+  "corpus_supela_v2": {
+    "title": "Corpus Supela — Module Intégral v2.0 — Architecture Hexaplexe",
+    "author": "Jean-François Gadbois (Jef)",
+    "date": "2026-08-01",
+    "location": "Montréal, QC, Canada",
+    "version": "v2.0",
+    "status": "Permanent Corpus Document",
+    "copyright": "© Jean-François Gadbois (Jef), 2026 — All rights reserved",
+    "architecture": {
+      "layers": [
+        {
+          "id": "C0",
+          "name": "Vide",
+          "description": "Absolute invariant",
+          "role": "Foundation"
+        },
+        {
+          "id": "C1",
+          "name": "Entrée",
+          "description": "Reception of chaos",
+          "role": "Input"
+        },
+        {
+          "id": "C2",
+          "name": "Stabilisation",
+          "description": "Formal crystallization",
+          "role": "Structuring"
+        },
+        {
+          "id": "C3",
+          "name": "Densité",
+          "description": "Epistemic compression",
+          "role": "Compression"
+        },
+        {
+          "id": "C4",
+          "name": "Propagation",
+          "description": "Controlled emission",
+          "role": "Output"
+        },
+        {
+          "id": "C5",
+          "name": "Résonance",
+          "description": "Memory compatible with Reset (v2.0)",
+          "role": "Memory"
+        }
+      ],
+      "stones": [
+        {
+          "id": "Π1",
+          "name": "Chaos",
+          "layer": "C1",
+          "role": "Reception"
+        },
+        {
+          "id": "Π2",
+          "name": "Tension",
+          "layer": "C2",
+          "role": "Crystallization"
+        },
+        {
+          "id": "Π3",
+          "name": "Stabilité",
+          "layer": "C2",
+          "role": "Stabilization"
+        },
+        {
+          "id": "Π4",
+          "name": "Cohérence",
+          "layer": "C3",
+          "role": "Binding"
+        },
+        {
+          "id": "Π5",
+          "name": "Densité",
+          "layer": "C3",
+          "role": "Compression"
+        },
+        {
+          "id": "Π6",
+          "name": "Propagation",
+          "layer": "C4",
+          "role": "Emission"
+        },
+        {
+          "id": "Π7",
+          "name": "Résonance",
+          "layer": "C5",
+          "role": "Memory (v2.0)"
+        },
+        {
+          "id": "Π8",
+          "name": "Saut Temporel",
+          "layer": "C5",
+          "role": "Inter-cycle Bridge (v2.0)"
+        }
+      ]
+    },
+    "axioms": [
+      {
+        "id": 1,
+        "title": "Terminal Axiom (Unchanged since v1.0)",
+        "statement": "Ce qui ne peut pas revenir au Vide n'appartient pas au système Supela.",
+        "translation": "What cannot return to Void does not belong to Supela system.",
+        "scope": "Universal validity criterion for all cycles, stones, layers, extensions"
+      },
+      {
+        "id": 2,
+        "title": "Axiom of C5 (Added in v2.0)",
+        "statement": "La Résonance est la seule forme de mémoire compatible avec le Reset.",
+        "translation": "Resonance is the only form of memory compatible with Reset.",
+        "scope": "Institutional memory, cognitive retention, AI memory layers"
+      },
+      {
+        "id": 3,
+        "title": "Tensor Axiom (Added in v2.0)",
+        "statement": "Toute interaction Πᵢ → Πⱼ qui saute une couche est un court-circuit.",
+        "translation": "Any interaction between stones that skips a layer is a short-circuit.",
+        "scope": "Formal detectability of system degradation"
+      }
+    ],
+    "formalizations": {
+      "conceptual": {
+        "layers": 6,
+        "stones": 8,
+        "relations": "Order, succession, dependency"
+      },
+      "mathematical": {
+        "tensor_rank_2": "Intra-cycle interactions (Πᵢ ⊗ Πⱼ)",
+        "tensor_rank_3": "Inter-cycle interactions with temporal axis",
+        "short_circuit_detection": "|i − j| > 2"
+      },
+      "institutional": {
+        "protocol": "Hexaplex Governance — 6 phases (C0–C5)",
+        "coefficient_alpha": "Resonance measure (0 ≤ α ≤ 1)",
+        "guardian_role": "Sequence guardian — explicit institutional role"
+      }
+    },
+    "applications": [
+      {
+        "domain": "Cognitive — Individual",
+        "flow": "C1 (reception) → C2 (crystallization) → C3 (extraction) → C4 (decision) → C5 (learning without trauma)"
+      },
+      {
+        "domain": "Institutional Governance",
+        "flow": "Full hexaplex cycle (C0–C5) with configurable α"
+      },
+      {
+        "domain": "RAG/LLM Pipeline",
+        "flow": "C1 (ingestion) → C2 (embedding) → C3 (compression) → C4 (generation) → C5 (contextual memory)"
+      }
+    ],
+    "documents": [
+      {
+        "name": "Module-Integral-v2.0.md",
+        "path": "docs/Module-Integral-v2.0.md",
+        "size": "76905 bytes",
+        "sections": 12,
+        "lines": 805
+      },
+      {
+        "name": "INDEX.md",
+        "path": "INDEX.md",
+        "description": "Structured table of contents and axiomatics"
+      },
+      {
+        "name": "OPERATIONNEL.md",
+        "path": "OPERATIONNEL.md",
+        "description": "Essential operational principles and use cases"
+      },
+      {
+        "name": "METADATA.json",
+        "path": "METADATA.json",
+        "description": "Machine-readable corpus metadata"
+      }
+    ],
+    "extension_rules": [
+      "C0 must remain intact — no extension can alter the Void",
+      "Closure guaranteed — all generated cycles must close to Void",
+      "No bypass — Propagation can only emit what passed through C3",
+      "Formal definition — all new stones must follow Supela standard",
+      "Double-layer documentation — raw and normalized",
+      "Attachment to Module Intégral — first-order reference"
+    ],
+    "validity_test": "Le cycle peut-il revenir au Vide sans résidu irréductible ?",
+    "metadata_timestamp": "2026-08-01T20:16:42.945-04:00"
+  }
+}
