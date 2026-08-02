@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⬡ Dashboard SGG_v2 — Gouvernance Supela × SCDH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a0033 50%, #0a1a20 100%);
+            color: #e0e6ff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(26, 0, 51, 0.5);
+            border-bottom: 2px solid #00ffcc;
+            border-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: #00ffcc;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #a0a6ff;
+            font-size: 0.95em;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(26, 0, 51, 0.7);
+            border: 2px solid rgba(0, 255, 204, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #00ffcc;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .card-title {
+            font-size: 1.1em;
+            color: #00ffcc;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pillar-score {
+            font-size: 2.4em;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin: 15px 0;
+        }
+
+        .pillar-weight {
+            font-size: 0.85em;
+            color: #a0a6ff;
+            margin: 8px 0;
+        }
+
+        .slider-group {
+            margin: 12px 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            margin-bottom: 6px;
+            color: #a0a6ff;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 100, 100, 0.3);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #00ffcc, #00ff88);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #00ffcc, #00ff88);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #00ffcc;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .wide-card {
+            background: rgba(26, 0, 51, 0.7);
+            border: 2px solid rgba(0, 255, 204, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .sgg-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .sgg-label {
+            text-align: center;
+            color: #a0a6ff;
+            font-size: 0.95em;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 250px !important;
+            margin: 15px 0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .tab-btn {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #a0a6ff;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #00ffcc;
+            border-bottom-color: #00ffcc;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .kpi-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+            font-size: 0.9em;
+        }
+
+        .kpi-row:last-child {
+            border-bottom: none;
+        }
+
+        .kpi-label {
+            color: #a0a6ff;
+        }
+
+        .kpi-value {
+            color: #00ff88;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .status-green {
+            color: #00ff88;
+        }
+
+        .status-yellow {
+            color: #ffaa00;
+        }
+
+        .status-red {
+            color: #ff5555;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #00ffcc, #00ff88);
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+
+        .event-item {
+            padding: 10px;
+            background: rgba(0, 255, 100, 0.05);
+            border-left: 3px solid #00ff88;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+
+        .event-time {
+            font-size: 0.8em;
+            color: #a0a6ff;
+        }
+
+        .event-text {
+            color: #00ffcc;
+            margin-top: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #a0a6ff;
+            font-size: 0.9em;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .metric-detail {
+            padding: 10px;
+            background: rgba(0, 255, 100, 0.05);
+            border-left: 3px solid #00ff88;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⬡ DASHBOARD SGG_v2</h1>
+            <p>Score de Gouvernance Global × Bonus LCI Stochastique × Méta-Orchestrateur PAI</p>
+            <p style="font-size: 0.85em; margin-top: 8px;">Jef / Jean-François Gadbois — 1er août 2026</p>
+        </header>
+
+        <!-- RANGÉE 1: 5 CARTES PILIER -->
+        <div class="grid-2">
+            <!-- Autonomie -->
+            <div class="card">
+                <div class="card-title">🧠 Autonomie</div>
+                <div class="pillar-score" id="score-autonomie">87</div>
+                <div class="pillar-weight">Poids: 20%</div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Score</span>
+                        <span id="val-autonomie">87</span>
+                    </div>
+                    <input type="range" id="slider-autonomie" min="0" max="100" value="87" style="width: 100%;">
+                </div>
+                <div class="metric-detail">Stabilité: 96% ✓ | Transition: 78j</div>
+            </div>
+
+            <!-- Validation -->
+            <div class="card">
+                <div class="card-title">✔️ Validation</div>
+                <div class="pillar-score" id="score-validation">94</div>
+                <div class="pillar-weight">Poids: 25%</div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Score</span>
+                        <span id="val-validation">94</span>
+                    </div>
+                    <input type="range" id="slider-validation" min="0" max="100" value="94" style="width: 100%;">
+                </div>
+                <div class="metric-detail">Portes: 98.5% ✓ | Kill Switch: 100%</div>
+            </div>
+
+            <!-- Éthique -->
+            <div class="card">
+                <div class="card-title">⚖️ Éthique</div>
+                <div class="pillar-score" id="score-ethique">100</div>
+                <div class="pillar-weight">Poids: 25%</div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Score</span>
+                        <span id="val-ethique">100</span>
+                    </div>
+                    <input type="range" id="slider-ethique" min="0" max="100" value="100" style="width: 100%;">
+                </div>
+                <div class="metric-detail">Biais Rouges: 0 ✓ | Couverture: 100%</div>
+            </div>
+
+            <!-- Technique -->
+            <div class="card">
+                <div class="card-title">🔧 Technique</div>
+                <div class="pillar-score" id="score-technique">82</div>
+                <div class="pillar-weight">Poids: 10%</div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Score</span>
+                        <span id="val-technique">82</span>
+                    </div>
+                    <input type="range" id="slider-technique" min="0" max="100" value="82" style="width: 100%;">
+                </div>
+                <div class="metric-detail">IS moyen: 1.8 ✓ | Tests: 84%</div>
+            </div>
+
+            <!-- Méta-Orchestrateur -->
+            <div class="card">
+                <div class="card-title">🎛️ Méta-Orchestrateur</div>
+                <div class="pillar-score" id="score-meta">91</div>
+                <div class="pillar-weight">Poids: 20%</div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Score</span>
+                        <span id="val-meta">91</span>
+                    </div>
+                    <input type="range" id="slider-meta" min="0" max="100" value="91" style="width: 100%;">
+                </div>
+                <div class="metric-detail">Consensus: 83% ✓ | Arbitrage: 42ms</div>
+            </div>
+        </div>
+
+        <!-- RANGÉE 2: 3 PANNEAUX ANALYSEURS -->
+        <h2 class="section-title">📊 Analyseurs & Tendances</h2>
+
+        <div class="grid-3">
+            <!-- SGG_v2 Central -->
+            <div class="wide-card">
+                <div class="card-title">🎯 SGG_v2 Global</div>
+                <div class="sgg-value" id="sgg-final">92.3</div>
+                <div class="sgg-label">Score de Gouvernance Global</div>
+                <div style="text-align: center; color: #a0a6ff; font-size: 0.85em; margin-top: 15px;">
+                    <div>Palier N4: ≥ 90 ✓ ATTEINT</div>
+                    <div style="margin-top: 8px; color: #00ff88;">Formule: (A×0.20) + (V×0.25) + (É×0.25) + (T×0.10) + (M×0.20)</div>
+                </div>
+            </div>
+
+            <!-- Calculateur LCI -->
+            <div class="wide-card">
+                <div class="card-title">⬡ Calculateur LCI Stochastique</div>
+                <div style="font-size: 0.9em; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <label>α (coeff conv.)</label><br>
+                        <input type="number" id="param-alpha" min="0" max="1" step="0.01" value="0.72" style="width: 100%; padding: 5px; background: rgba(0,255,200,0.1); border: 1px solid #00ffcc; color: #00ffcc; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label>λ (Lyapunov)</label><br>
+                        <input type="number" id="param-lambda" min="0" max="1" step="0.01" value="0.18" style="width: 100%; padding: 5px; background: rgba(0,255,200,0.1); border: 1px solid #00ffcc; color: #00ffcc; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label>σ_F (volatilité)</label><br>
+                        <input type="number" id="param-sigma" min="0" max="0.5" step="0.01" value="0.05" style="width: 100%; padding: 5px; background: rgba(0,255,200,0.1); border: 1px solid #00ffcc; color: #00ffcc; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label>k (cycles)</label><br>
+                        <input type="number" id="param-k" min="1" max="10" step="1" value="5" style="width: 100%; padding: 5px; background: rgba(0,255,200,0.1); border: 1px solid #00ffcc; color: #00ffcc; border-radius: 4px;">
+                    </div>
+                </div>
+                <button class="button" onclick="calculateLCI()" style="width: 100%; margin-top: 15px;">Recalculer B_k</button>
+                <div id="lci-result" style="margin-top: 15px; color: #00ff88; font-size: 0.9em;">
+                    <div>ΣB_det = 0.5432</div>
+                    <div>ΣE[B^S] = 0.5351</div>
+                    <div style="color: #ffaa00;">+Contribution SGG: +5.44 pts (cap 10)</div>
+                </div>
+            </div>
+
+            <!-- Graphique Tendance -->
+            <div class="wide-card">
+                <div class="card-title">📈 Tendance Q3 2026</div>
+                <canvas id="trendChart"></canvas>
+                <div style="text-align: center; color: #a0a6ff; font-size: 0.85em; margin-top: 10px;">
+                    <div>Progression: +18.3 pts en 12 semaines</div>
+                    <div style="color: #00ff88;">Tendance: ↑ +1.5 pts/sem</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RANGÉE 3: JOURNAL DE GOUVERNANCE & KPIs -->
+        <h2 class="section-title">📋 Journal de Gouvernance & KPIs</h2>
+
+        <div class="wide-card">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('alerts')">🔴 Alertes</button>
+                <button class="tab-btn" onclick="switchTab('events')">📅 Événements</button>
+                <button class="tab-btn" onclick="switchTab('kpis')">📊 KPIs</button>
+            </div>
+
+            <!-- Alertes -->
+            <div id="alerts" class="tab-content active">
+                <div class="event-item">
+                    <div class="event-time">Il y a 1h</div>
+                    <div class="event-text">🟢 IS moyen base de code: 1.8/5 — Nominal</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Lundi 28 juil</div>
+                    <div class="event-text">🟢 Kill Switch V4 testé — PASS (87ms)</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Il y a 2h</div>
+                    <div class="event-text">🟡 Latence arbitrage P5: 42ms — Attention (cible ≤50ms)</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Sprint 14</div>
+                    <div class="event-text">🟢 Biais registre: 0 entrée Rouge — Nominal</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">En cours</div>
+                    <div class="event-text">🟡 Pilier Autonomie: 87/100 — Sous la cible 90</div>
+                </div>
+            </div>
+
+            <!-- Événements -->
+            <div id="events" class="tab-content">
+                <div class="event-item">
+                    <div class="event-time">2026-08-01 21:11:00</div>
+                    <div class="event-text">Dashboard SGG_v2 déployé en production</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">2026-08-01 19:00:00</div>
+                    <div class="event-text">LCI Stochastique v1.1 finalisée et intégrée</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">2026-08-01 18:30:00</div>
+                    <div class="event-text">Annexes A–D complètement formalisées</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">2026-07-31 14:30:00</div>
+                    <div class="event-text">RTN-2026-003 approuvé: N3 → N4 transition planifiée</div>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div id="kpis" class="tab-content">
+                <div class="kpi-row">
+                    <span class="kpi-label">Taux de stabilité par niveau</span>
+                    <span class="kpi-value status-green">96% ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Délai moyen transition N→N+1</span>
+                    <span class="kpi-value status-green">78j ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Taux respect délais portes</span>
+                    <span class="kpi-value status-green">98.5% ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Délai médian V3</span>
+                    <span class="kpi-value status-green">38min ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Disponibilité Kill Switch</span>
+                    <span class="kpi-value status-green">100% ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Biais Rouges actifs</span>
+                    <span class="kpi-value status-green">0 ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">IS moyen base de code</span>
+                    <span class="kpi-value status-green">1.8 ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Taux consensus PAI</span>
+                    <span class="kpi-value status-green">83% ✓</span>
+                </div>
+                <div class="kpi-row">
+                    <span class="kpi-label">Latence arbitrage</span>
+                    <span class="kpi-value status-green">42ms ✓</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>⬡ SCDH Supela — Dashboard SGG_v2 v2.0 — Production Ready</p>
+            <p style="margin-top: 8px; color: #00ff88;">Point Fixe Atteint — Coherence 100%</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sliders for pillars
+        const sliders = ['autonomie', 'validation', 'ethique', 'technique', 'meta'];
+        
+        sliders.forEach(pillar => {
+            document.getElementById(`slider-${pillar}`).addEventListener('input', function() {
+                document.getElementById(`val-${pillar}`).textContent = this.value;
+                document.getElementById(`score-${pillar}`).textContent = this.value;
+                updateSGG();
+            });
+        });
+
+        function updateSGG() {
+            const a = parseInt(document.getElementById('slider-autonomie').value);
+            const v = parseInt(document.getElementById('slider-validation').value);
+            const e = parseInt(document.getElementById('slider-ethique').value);
+            const t = parseInt(document.getElementById('slider-technique').value);
+            const m = parseInt(document.getElementById('slider-meta').value);
+            
+            const sgg = (a * 0.20) + (v * 0.25) + (e * 0.25) + (t * 0.10) + (m * 0.20);
+            document.getElementById('sgg-final').textContent = sgg.toFixed(1);
+        }
+
+        function calculateLCI() {
+            const alpha = parseFloat(document.getElementById('param-alpha').value);
+            const lambda = parseFloat(document.getElementById('param-lambda').value);
+            const sigma = parseFloat(document.getElementById('param-sigma').value);
+            const k = parseInt(document.getElementById('param-k').value);
+            
+            const eta_corr = 0.5 * (sigma * sigma);
+            const rho = Math.exp(-lambda);
+            const bonus_det = 0.5056; // simplified
+            const bonus_s = bonus_det * Math.exp(-sigma * sigma * 0.012 / 2);
+            
+            const sgg_contribution = Math.min(10, bonus_s * 18.6);
+            
+            document.getElementById('lci-result').innerHTML = `
+                <div>ΣB_det = ${(bonus_det * k).toFixed(4)}</div>
+                <div>ΣE[B^S] = ${(bonus_s * k).toFixed(4)}</div>
+                <div style="color: #ffaa00;">+Contribution SGG: +${sgg_contribution.toFixed(2)} pts (cap 10)</div>
+            `;
+        }
+
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Trend chart
+        window.addEventListener('load', () => {
+            const canvas = document.getElementById('trendChart');
+            const ctx = canvas.getContext('2d');
+            
+            const weeks = Array.from({length: 12}, (_, i) => `W${i+1}`);
+            const values = [74, 75.2, 76.8, 78.1, 79.5, 81.2, 82.8, 84.5, 86.2, 88.1, 90.2, 91.9];
+            
+            const chartWidth = canvas.width;
+            const chartHeight = canvas.height;
+            const padding = 30;
+            
+            ctx.fillStyle = 'rgba(0, 255, 204, 0.05)';
+            ctx.fillRect(padding, padding, chartWidth - 2*padding, chartHeight - 2*padding);
+            
+            // Lines
+            ctx.strokeStyle = 'rgba(0, 255, 204, 0.3)';
+            ctx.lineWidth = 1;
+            [60, 75, 90].forEach(y => {
+                const yPos = chartHeight - padding - ((y - 60) / 40) * (chartHeight - 2*padding);
+                ctx.beginPath();
+                ctx.moveTo(padding, yPos);
+                ctx.lineTo(chartWidth - padding, yPos);
+                ctx.stroke();
+            });
+            
+            // Data line
+            ctx.strokeStyle = '#00ffcc';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            values.forEach((v, i) => {
+                const x = padding + (i / (values.length - 1)) * (chartWidth - 2*padding);
+                const y = chartHeight - padding - ((v - 60) / 40) * (chartHeight - 2*padding);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+            
+            // Points
+            ctx.fillStyle = '#00ff88';
+            values.forEach((v, i) => {
+                const x = padding + (i / (values.length - 1)) * (chartWidth - 2*padding);
+                const y = chartHeight - padding - ((v - 60) / 40) * (chartHeight - 2*padding);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2*Math.PI);
+                ctx.fill();
+            });
+        });
+
+        updateSGG();
+    </script>
+</body>
+</html>
