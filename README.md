@@ -17,6 +17,11 @@
 ### Live Dashboard — Real-Time Governance
 [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Open in browser
 
+### Apps interactives
+- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome 5 onglets (Dashboard, CI/CD Proof, KPI Explorer, Export, TPDM)
+- [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) — Dashboard performance temps réel
+- [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Dashboard gouvernance SGG_v2
+
 ### Validation Complete
 ✓ [FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md) — All 27 documents, 50/50 PASS
 
@@ -70,7 +75,8 @@ Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de parte
 ### Executive Decision-Maker (15 min)
 1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
 2. [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Gouvernance live
-3. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
+3. [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Vue consolidée CI/KPI/TPDM
+4. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
 
 ### System Architect (45 min)
 1. [MASTER-FORMALIZATION.md](MASTER-FORMALIZATION.md) — Architecture complète
