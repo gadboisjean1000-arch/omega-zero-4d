@@ -23,9 +23,6 @@
 ### **Policy & Viabilité Long Terme**
 🏛️ **[VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** — *Viabilité à long terme des régulations — Cadre universel systémique* (2026-2035)
 
-### **Theory / Foundations**
-📘 **[TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md)** — *Document fondateur: Théorie du Passage et des Deux Mondes* (v1.0)
-
 ---
 
 ## Ecosystem at a Glance
@@ -33,7 +30,7 @@
 ```
 SUPELA v1.1.0 Production Ecosystem
 ├─ Layer 0: Meta-Architecture (SUPELA-CORPUS-v1.0.0)
-├─ Layer 1: Frameworks (LCI + TPDM v1.0 + LCI Stochastique v1.1 + RFC K3)
+├─ Layer 1: Frameworks (LCI + LCI Stochastique v1.1 + RFC K3)
 ├─ Layer 2: Integration (MASTER-FORMALIZATION + Navigation)
 ├─ Layer 3: Implementation (Silicon/Quantum/Rad-Hard)
 └─ Operations: Governance (Annexes A–D), Performance (50/50), Deployment (Phase 1–4)
@@ -71,9 +68,8 @@ Point Fixe: ✓ COHERENCE = 100%
 
 ### System Architect (45 min)
 1. [MASTER-FORMALIZATION.md](MASTER-FORMALIZATION.md) — Architecture complète
-2. [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md) — Fondations théoriques
-3. [SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md](SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md) — Integration
-4. [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md) — Safety OS
+2. [SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md](SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md) — Integration
+3. [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md) — Safety OS
 
 ### Implementation Engineer (60 min)
 1. [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md) — Mathematical foundations
