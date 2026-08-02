@@ -1,0 +1,165 @@
+{
+  "title": "SUPELA — Corpus Officiel v1.0.0",
+  "subtitle": "Système Universel Polymorphe d'Extension Logique et Adaptative",
+  "version": "1.0.0",
+  "date": "2026-08-01",
+  "author": "Jef (Jean-François Gadbois)",
+  "status": "Document de référence — Point fixe atteint",
+  "language": "Français (Canada)",
+  "copyright": "© Jean-François Gadbois (Jef), 2026 — Tous droits réservés",
+  
+  "metadata": {
+    "coherence": "100%",
+    "determinant": "≠ 0",
+    "force_sum": "ΣF(vᵢ) = 0",
+    "fixed_point": true
+  },
+  
+  "axiom_primary": "Le fond ne se fissure pas. La surface ne ment pas.",
+  
+  "invariant_main": "Fond intact (90%) / Surface adaptative (10%) = 0 friction",
+  
+  "architecture": {
+    "levels": [
+      {
+        "level": 1,
+        "name": "Polygone",
+        "description": "Structure externe régulière N-sommets",
+        "property": "Topologie fermée"
+      },
+      {
+        "level": 2,
+        "name": "Polygrame",
+        "description": "Réseau interne des liaisons",
+        "property": "Connectivité formelle"
+      },
+      {
+        "level": 3,
+        "name": "Polyèdre",
+        "description": "Extension tridimensionnelle",
+        "property": "Profondeur structurelle"
+      },
+      {
+        "level": 4,
+        "name": "Polytope",
+        "description": "N-dimensionnel (N > 3)",
+        "property": "Moteur de complexité"
+      },
+      {
+        "level": 5,
+        "name": "Polymorphe",
+        "description": "Morphing contextuel",
+        "property": "Moteur d'adaptabilité"
+      }
+    ]
+  },
+  
+  "matrix_hypercubic": {
+    "dimensions": "3 × 3",
+    "variables": 9,
+    "description": "Hypercube de gouvernance",
+    "stability_conditions": [
+      "Cohérence(S) = 100%",
+      "det(M) ≠ 0"
+    ]
+  },
+  
+  "landing_axes": [
+    {
+      "axis": "Data/IA",
+      "focus": "Vectorisation N-dimensionnelle",
+      "application": "Traitement signal multidimensionnel"
+    },
+    {
+      "axis": "Gouvernance",
+      "focus": "Topologie rôles auto-reconfigurable",
+      "application": "Orchestration distribuée"
+    },
+    {
+      "axis": "UI/UX",
+      "focus": "Projection adaptative per observateur",
+      "application": "Interfaces polymorphes"
+    }
+  ],
+  
+  "bonus_ultimate": {
+    "name": "Singularité de Cohérence",
+    "definition": "Conjonction simultanée Cohérence(S)=100% et det(M)≠0",
+    "reproducible": false,
+    "significance": "Indicateur de maturité structurelle maximale",
+    "equivalent_to": "Théorème du Vide dans LCI"
+  },
+  
+  "integration": {
+    "hierarchy": [
+      {
+        "level": 0,
+        "name": "SUPELA v1.0.0",
+        "role": "Meta-architecture théorique hyperdimensionnelle"
+      },
+      {
+        "level": 1,
+        "name": "Document Maître v2.0",
+        "role": "Implémentation concrète 9 Parties + 4 Extensions"
+      },
+      {
+        "level": 2,
+        "name": "LCI-VERSION-ACADÉMIQUE",
+        "role": "Formalisation théorème instabilité Lyapunov"
+      },
+      {
+        "level": 3,
+        "name": "NORME CANU v1.0.0",
+        "role": "Cycle opérationnel autonome normatif"
+      },
+      {
+        "level": 4,
+        "name": "Silicon/Quantum Extensions",
+        "role": "Implémentations AVX-512, GPU, Rad-Hard, CZ"
+      }
+    ]
+  },
+  
+  "documents": [
+    {
+      "file": "SUPELA-CORPUS-OFFICIEL-v1.0.0.md",
+      "size_kb": 42,
+      "sections": 10,
+      "lines": 531,
+      "description": "Texte complet officiel"
+    },
+    {
+      "file": "INDEX.md",
+      "description": "Table des matières complète"
+    },
+    {
+      "file": "README.md",
+      "description": "Guide d'accès et résumé"
+    }
+  ],
+  
+  "keywords": [
+    "Géométrie hyperdimensionnelle",
+    "Polytope",
+    "Polymorphe",
+    "Cohérence systémique",
+    "Singularité matricielle",
+    "Gouvernance adaptative",
+    "Homéostasie dynamique",
+    "Projection topologique",
+    "Bonus Ultime",
+    "Point fixe"
+  ],
+  
+  "institutional_context": [
+    "ÉTS (École de technologie supérieure, Montréal)",
+    "UdeM (Université de Montréal)"
+  ],
+  
+  "validation_status": {
+    "fixed_point_achieved": true,
+    "coherence_verified": true,
+    "non_singular_matrix": true,
+    "ready_deployment": true
+  }
+}
