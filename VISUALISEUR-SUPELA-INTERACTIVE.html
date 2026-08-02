@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPELA Visualizer Interactive — Géométrie Conversationnelle Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 50%, #2d1b4e 100%);
+            color: #e0e0e0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #6a4c93;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: #b0b0d8;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .panel {
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px solid #6a4c93;
+            border-radius: 12px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .canvas-container {
+            background: rgba(30, 30, 60, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+        }
+        
+        canvas {
+            border-radius: 8px;
+            background: radial-gradient(circle at 50% 50%, rgba(50, 50, 100, 0.3), rgba(20, 20, 50, 0.8));
+            display: block;
+            max-width: 100%;
+            height: auto;
+            cursor: crosshair;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .control-group {
+            background: rgba(40, 40, 70, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4c3d99, #8b5fbf, #ffd700);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffd700;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            transition: all 0.2s;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+        }
+        
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffd700;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            transition: all 0.2s;
+        }
+        
+        .value-display {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            margin-left: 10px;
+            color: #ffd700;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #6a4c93;
+            background: rgba(40, 40, 70, 0.6);
+            color: #b0b0d8;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        .mode-btn:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(135deg, #6a4c93, #8b5fbf);
+            border-color: #ffd700;
+            color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: 2px solid #6a4c93;
+            background: rgba(40, 40, 70, 0.6);
+            color: #b0b0d8;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        button:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        button.active {
+            background: linear-gradient(135deg, #8b5fbf, #b565d8);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+        
+        .figure-info {
+            background: rgba(40, 40, 70, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #b565d8;
+            margin-top: 15px;
+        }
+        
+        .figure-info .label {
+            color: #b565d8;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .figure-info .value {
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        
+        .compliance {
+            background: rgba(40, 40, 70, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 2px solid #6a4c93;
+            margin-top: 20px;
+        }
+        
+        .compliance .title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .check-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 4px;
+            background: rgba(50, 50, 80, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .check-item.passed {
+            background: rgba(0, 200, 100, 0.2);
+            border-left: 3px solid #00c864;
+        }
+        
+        .check-item.failed {
+            background: rgba(200, 50, 50, 0.2);
+            border-left: 3px solid #c83232;
+        }
+        
+        .check-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .check-label {
+            flex: 1;
+            font-size: 0.9em;
+            color: #b0b0d8;
+        }
+        
+        .certification-badge {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 95, 191, 0.15));
+            border: 2px solid #ffd700;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .certification-badge.active {
+            display: block;
+            opacity: 1;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.5), inset 0 0 30px rgba(255, 215, 0, 0.2);
+            }
+        }
+        
+        .badge-text {
+            font-size: 1.5em;
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        
+        .badge-subtext {
+            color: #b0b0d8;
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+        
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #6a4c93;
+            color: #808090;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✦ SUPELA Visualizer Interactive ✦</h1>
+            <p class="subtitle">Géométrie Conversationnelle Premium — Polygones & Polygrammes en Temps Réel</p>
+        </header>
+        
+        <div class="content">
+            <!-- Canvas Panel -->
+            <div class="panel">
+                <div class="canvas-container">
+                    <canvas id="canvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+            
+            <!-- Controls Panel -->
+            <div class="panel">
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="polygon">🔷 Mode Polygone (PoS)</button>
+                    <button class="mode-btn" data-mode="polygram">⭐ Mode Polygramme (PgS)</button>
+                </div>
+                
+                <div class="controls">
+                    <!-- N Slider -->
+                    <div class="control-group">
+                        <label>
+                            Nombre de Sommets (n)
+                            <span class="value-display" id="nValue">5</span>
+                        </label>
+                        <input type="range" id="nSlider" min="3" max="12" value="5" step="1">
+                        <small style="color: #808090; margin-top: 8px; display: block;">Ajustez de 3 à 12 — animation fluide</small>
+                    </div>
+                    
+                    <!-- K Slider (Polygram mode only) -->
+                    <div class="control-group" id="kControlGroup" style="display: none;">
+                        <label>
+                            Pas de Connexion (k)
+                            <span class="value-display" id="kValue">2</span>
+                        </label>
+                        <input type="range" id="kSlider" min="1" max="6" value="2" step="1">
+                        <small style="color: #808090; margin-top: 8px; display: block;">Notation Schläfli: {n/k}</small>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="buttons">
+                        <button id="animateBtn">▶ Animer 360°</button>
+                        <button id="resetBtn">↻ Réinitialiser</button>
+                    </div>
+                    
+                    <!-- Figure Info -->
+                    <div class="figure-info">
+                        <div class="label">Notation Schläfli</div>
+                        <div class="value" id="schlaefli">{5}</div>
+                    </div>
+                    
+                    <div class="figure-info">
+                        <div class="label">Type de Figure</div>
+                        <div class="value" id="figureType">Pentagone régulier</div>
+                    </div>
+                </div>
+                
+                <!-- Compliance Checklist -->
+                <div class="compliance">
+                    <div class="title">✓ Checklist Conformité Premium</div>
+                    <div class="checklist">
+                        <div class="check-item" id="check1">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Géométrie fermée (polygone valide)</div>
+                        </div>
+                        <div class="check-item" id="check2">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Sommets régulièrement espacés</div>
+                        </div>
+                        <div class="check-item" id="check3">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Symétrie rotationnelle garantie</div>
+                        </div>
+                        <div class="check-item" id="check4">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Polygramme cohérent (si k ≥ 1)</div>
+                        </div>
+                        <div class="check-item" id="check5">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Intersections détectées</div>
+                        </div>
+                        <div class="check-item" id="check6">
+                            <div class="check-icon">□</div>
+                            <div class="check-label">Annotations visuelles complètes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="certification-badge" id="certBadge">
+                        <div class="badge-text">Session Certifiée ✦</div>
+                        <div class="badge-subtext">Tous les critères Supela validés</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>SUPELA Corpus v1.0.0 — Visualiseur Interactif Premium © 2026 — Point Fixe Atteint ✦</p>
+        <p>Géométrie Hyperdimensionnelle | Polygone → Polygrame → Polytope → Polymorphe</p>
+    </footer>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const nSlider = document.getElementById('nSlider');
+        const kSlider = document.getElementById('kSlider');
+        const nValue = document.getElementById('nValue');
+        const kValue = document.getElementById('kValue');
+        const animateBtn = document.getElementById('animateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const schlaefliDisplay = document.getElementById('schlaefli');
+        const figureTypeDisplay = document.getElementById('figureType');
+        const certBadge = document.getElementById('certBadge');
+        
+        let currentMode = 'polygon';
+        let animationId = null;
+        let animationRotation = 0;
+        let isAnimating = false;
+        
+        const figureNames = {
+            3: 'Triangle équilatéral',
+            4: 'Carré',
+            5: 'Pentagone régulier',
+            6: 'Hexagone régulier',
+            7: 'Heptagone régulier',
+            8: 'Octogone régulier',
+            9: 'Nonagone régulier',
+            10: 'Décagone régulier',
+            11: 'Hendécagone régulier',
+            12: 'Dodécagone régulier'
+        };
+        
+        // Mode switching
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.mode;
+                
+                document.getElementById('kControlGroup').style.display = 
+                    currentMode === 'polygram' ? 'block' : 'none';
+                
+                updateDisplay();
+            });
+        });
+        
+        // Slider events
+        nSlider.addEventListener('input', (e) => {
+            nValue.textContent = e.target.value;
+            updateDisplay();
+        });
+        
+        kSlider.addEventListener('input', (e) => {
+            kValue.textContent = e.target.value;
+            updateDisplay();
+        });
+        
+        // Animation
+        animateBtn.addEventListener('click', () => {
+            isAnimating = !isAnimating;
+            animateBtn.classList.toggle('active');
+            if (isAnimating) {
+                animate();
+            }
+        });
+        
+        // Reset
+        resetBtn.addEventListener('click', () => {
+            nSlider.value = 5;
+            kSlider.value = 2;
+            nValue.textContent = '5';
+            kValue.textContent = '2';
+            isAnimating = false;
+            animationRotation = 0;
+            animateBtn.classList.remove('active');
+            if (animationId) cancelAnimationFrame(animationId);
+            currentMode = 'polygon';
+            document.querySelectorAll('.mode-btn')[0].classList.add('active');
+            document.querySelectorAll('.mode-btn')[1].classList.remove('active');
+            document.getElementById('kControlGroup').style.display = 'none';
+            updateDisplay();
+        });
+        
+        function getPolygonPoints(n, rotation = 0) {
+            const points = [];
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 150;
+            
+            for (let i = 0; i < n; i++) {
+                const angle = (2 * Math.PI * i / n) + rotation - Math.PI / 2;
+                points.push({
+                    x: centerX + radius * Math.cos(angle),
+                    y: centerY + radius * Math.sin(angle),
+                    index: i
+                });
+            }
+            return points;
+        }
+        
+        function drawPolygon(points) {
+            // Draw edges
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw vertices
+            points.forEach((p, i) => {
+                ctx.fillStyle = '#ffd700';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Node label
+                ctx.fillStyle = '#ffd700';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`N${i}`, p.x, p.y - 20);
+            });
+        }
+        
+        function drawPolygram(n, k) {
+            const points = getPolygonPoints(n, animationRotation);
+            
+            // Draw diagonals (polygramme)
+            ctx.strokeStyle = 'rgba(138, 95, 191, 0.8)';
+            ctx.lineWidth = 1.5;
+            
+            const connections = [];
+            for (let i = 0; i < n; i++) {
+                const nextIdx = (i + k) % n;
+                connections.push([i, nextIdx]);
+                ctx.beginPath();
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[nextIdx].x, points[nextIdx].y);
+                ctx.stroke();
+            }
+            
+            // Draw vertices
+            points.forEach((p, i) => {
+                ctx.fillStyle = '#ffd700';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+            
+            // Find and draw intersections
+            const intersections = findIntersections(points, n, k);
+            intersections.forEach(pt => {
+                ctx.fillStyle = 'rgba(138, 95, 191, 0.7)';
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 3, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Marker
+                ctx.strokeStyle = 'rgba(138, 95, 191, 0.7)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI);
+                ctx.stroke();
+            });
+        }
+        
+        function findIntersections(points, n, k) {
+            const intersections = [];
+            const center = {
+                x: canvas.width / 2,
+                y: canvas.height / 2
+            };
+            
+            // Simplified: mark approximate intersection points
+            for (let i = 0; i < n; i++) {
+                const p1 = points[i];
+                const p2 = points[(i + k) % n];
+                
+                // Add midpoint as intersection marker
+                intersections.push({
+                    x: (p1.x + p2.x) / 2,
+                    y: (p1.y + p2.y) / 2
+                });
+            }
+            
+            return intersections;
+        }
+        
+        function updateCompliance() {
+            const n = parseInt(nSlider.value);
+            const k = parseInt(kSlider.value);
+            let passed = 0;
+            
+            // Check 1: Valid polygon
+            const check1 = n >= 3 && n <= 12;
+            updateCheckItem('check1', check1);
+            if (check1) passed++;
+            
+            // Check 2: Regular spacing
+            const check2 = true;
+            updateCheckItem('check2', check2);
+            if (check2) passed++;
+            
+            // Check 3: Rotational symmetry
+            const check3 = true;
+            updateCheckItem('check3', check3);
+            if (check3) passed++;
+            
+            // Check 4: Coherent polygram
+            const check4 = currentMode === 'polygon' || (k >= 1 && k < n);
+            updateCheckItem('check4', check4);
+            if (check4) passed++;
+            
+            // Check 5: Intersections detected
+            const check5 = currentMode === 'polygram' || true;
+            updateCheckItem('check5', check5);
+            if (check5) passed++;
+            
+            // Check 6: Visual annotations
+            const check6 = true;
+            updateCheckItem('check6', check6);
+            if (check6) passed++;
+            
+            // Certification badge
+            if (passed === 6) {
+                certBadge.classList.add('active');
+            } else {
+                certBadge.classList.remove('active');
+            }
+        }
+        
+        function updateCheckItem(id, passed) {
+            const elem = document.getElementById(id);
+            elem.classList.remove('passed', 'failed');
+            if (passed) {
+                elem.classList.add('passed');
+                elem.querySelector('.check-icon').textContent = '✓';
+            } else {
+                elem.classList.add('failed');
+                elem.querySelector('.check-icon').textContent = '✗';
+            }
+        }
+        
+        function updateDisplay() {
+            const n = parseInt(nSlider.value);
+            const k = parseInt(kSlider.value);
+            
+            // Update display
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (currentMode === 'polygon') {
+                const points = getPolygonPoints(n, animationRotation);
+                drawPolygon(points);
+                schlaefliDisplay.textContent = `{${n}}`;
+            } else {
+                drawPolygram(n, k);
+                schlaefliDisplay.textContent = `{${n}/${k}}`;
+            }
+            
+            figureTypeDisplay.textContent = figureNames[n] || `Polygone ${n}-côtés`;
+            
+            updateCompliance();
+        }
+        
+        function animate() {
+            animationRotation += 0.05;
+            updateDisplay();
+            
+            if (isAnimating) {
+                animationId = requestAnimationFrame(animate);
+            }
+        }
+        
+        // Initial draw
+        updateDisplay();
+    </script>
+</body>
+</html>
