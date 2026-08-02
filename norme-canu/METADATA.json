@@ -1,0 +1,266 @@
+{
+  "norme_canu_v1": {
+    "title": "NORME CANU — Cycle Autonome Normatif Universel",
+    "author": "Jef / Jean-François Gadbois",
+    "version": "1.0.0",
+    "status": "NORME OFFICIELLE",
+    "date_emission": "2026-07-31",
+    "project": "Supela",
+    "copyright": "© Jean-François Gadbois (Jef), 2026 — All rights reserved",
+    "cycle_formula": "∅ → E → M → R → ∅",
+    "states": [
+      {
+        "symbol": "∅",
+        "name": "Vide",
+        "definition": "État fondamental. Aucun résidu, aucune excitation active, aucun observable non annulé.",
+        "properties": ["Stable", "Vérifiable", "Reproductible", "Invariant absolu"]
+      },
+      {
+        "symbol": "E",
+        "name": "Excitation",
+        "definition": "État de perturbation contrôlée. Une excitation documentée et bornée a été appliquée.",
+        "properties": ["Documenté", "Borné", "Actif"]
+      },
+      {
+        "symbol": "M",
+        "name": "Mesure",
+        "definition": "État d'observation. La réponse du système à l'excitation est en cours de capture.",
+        "properties": ["Observable collectés", "Déclarés dans fond", "Aucun parasite"]
+      },
+      {
+        "symbol": "R",
+        "name": "Reset",
+        "definition": "État d'annulation. Tous les résidus de surface sont effacés. Transition vers ∅.",
+        "properties": ["Idempotent: R(R(s))=∅", "Absolu", "Exécution certaine"]
+      }
+    ],
+    "formal_properties": {
+      "transition_function": "δ : S × Σ → S",
+      "state_space": "S = {∅, E, M, R}",
+      "alphabet": "Σ = {excite, mesure, reset, vide}",
+      "cycle_invariant": "(état_initial = ∅) ∧ (état_final = ∅)",
+      "non_contamination": "∀ s ∈ Surface, s ∩ Fond = ∅",
+      "composability": "γₙ ∘ γₙ₊₁ valide ⟺ γₙ(fin) = ∅ = γₙ₊₁(début)",
+      "idempotence": "R(R(s)) = R(s) = ∅"
+    },
+    "layers": {
+      "mathematical": {
+        "description": "Formalisation algébrique et d'état",
+        "tools": ["Groupe isomorphe", "Théorie des automates", "Logique formelle"]
+      },
+      "software": {
+        "description": "Harness Zéro, implémentation exécutable",
+        "components": ["Module ORIGINE", "Module EXCITATION", "Module MESURE", "Module RESET", "Module CYCLE"]
+      },
+      "constitutional": {
+        "description": "Articles I–VII, grille de conformité",
+        "articles": 7,
+        "conformity_criteria": 21
+      },
+      "pipeline": {
+        "description": "CI/CD GitLab YAML",
+        "stages": 5,
+        "stages_list": ["origine", "excitation", "mesure", "reset", "certif"]
+      },
+      "agentic": {
+        "description": "Protocole messages inter-agents",
+        "protocol": "CANU-AGENT-MSG-v1.0",
+        "features": ["Synchronisation", "Relance", "Superviseur"]
+      }
+    },
+    "brahmagupta_foundations": {
+      "isomorphism": "φ : (ℤ/2ℤ, +)² → (ℤ/2ℤ, +)",
+      "isomorphism_definition": "φ(sA, sB) = sA ⊕ sB",
+      "universal_foundation": "Fondement matériel universel de CANU",
+      "historical_ref": "Brahmagupta, 628 ap. J.-C.",
+      "implementations": [
+        {
+          "layer": "Silicium",
+          "operation": "XOR logique (Booth, Wallace)",
+          "example": "Ex1 — prouvé en silicium",
+          "performance": "< 10 ps"
+        },
+        {
+          "layer": "Compilateur",
+          "operation": "vmulps, vxorps (instruction set)",
+          "isomorphism": "Préservé à travers couches",
+          "performance": "Native"
+        },
+        {
+          "layer": "Quantique",
+          "operation": "Porte Controlled-Z (phase e^{iπ})",
+          "performance": "~40–200 ns"
+        },
+        {
+          "layer": "IEEE 754",
+          "operation": "Bit de signe S (1 bit FOND, 31 bits SURFACE)",
+          "conformity": "Exact fond/surface invariant"
+        }
+      ]
+    },
+    "modules": [
+      {
+        "name": "Module ORIGINE",
+        "phase": "∅",
+        "role": "Initialisation et vérification état Vide",
+        "responsibilities": ["Valider état initial ∅", "Bloquer si résidus détectés", "Certifier Vide"]
+      },
+      {
+        "name": "Module EXCITATION",
+        "phase": "E",
+        "role": "Perturbation contrôlée et bornée",
+        "responsibilities": ["Déclencher action", "Documenter excitation", "Respecter bornes"]
+      },
+      {
+        "name": "Module MESURE",
+        "phase": "M",
+        "role": "Capture des observables déclarés",
+        "responsibilities": ["Collecter observables", "Exclure métriques parasites", "Horodater observations"]
+      },
+      {
+        "name": "Module RESET",
+        "phase": "R",
+        "role": "Annulation absolue de la surface",
+        "responsibilities": ["Nettoyer résidus", "Restaurer ∅", "Garantir idempotence"]
+      },
+      {
+        "name": "Module CYCLE",
+        "phase": "γ",
+        "role": "Orchestration globale",
+        "responsibilities": ["Séquencer phases", "Garantir composabilité", "Boucler à ∅"]
+      }
+    ],
+    "application_domains": [
+      {
+        "domain": "Modules Logiciels",
+        "scope": "Bibliothèques, services, API internes"
+      },
+      {
+        "domain": "Modules Opérationnels",
+        "scope": "Procédures, protocoles d'exécution"
+      },
+      {
+        "domain": "Modules Constitutionnels",
+        "scope": "Chartes, règles de gouvernance"
+      },
+      {
+        "domain": "Pipelines CI/CD",
+        "scope": "Intégration, déploiement continus"
+      },
+      {
+        "domain": "Agents Autonomes",
+        "scope": "LLM, orchestrateurs, spécialisés"
+      }
+    ],
+    "conformity_criteria": {
+      "obligatory": 19,
+      "recommended": 2,
+      "total": 21,
+      "examples": [
+        "État initial ∅",
+        "État final ∅",
+        "Reset Absolu",
+        "Séquentialité des transitions",
+        "Non-contamination fond/surface",
+        "Reproductibilité du cycle",
+        "Idempotence du Reset",
+        "Unicité du cycle actif",
+        "Journalisation minimale",
+        "Absence de métriques parasites"
+      ]
+    },
+    "pipeline_stages": [
+      {
+        "order": 1,
+        "stage": "origine",
+        "phase": "∅",
+        "role": "Vérification état Vide initial",
+        "condition": "Bloquer si ≠ ∅"
+      },
+      {
+        "order": 2,
+        "stage": "excitation",
+        "phase": "E",
+        "role": "Build ou test contrôlé",
+        "artifacts": ["dist/", "build artifacts"]
+      },
+      {
+        "order": 3,
+        "stage": "mesure",
+        "phase": "M",
+        "role": "Capture des observables déclarés",
+        "artifacts": ["reports/", "test results"]
+      },
+      {
+        "order": 4,
+        "stage": "reset",
+        "phase": "R",
+        "role": "Nettoyage complet de la surface",
+        "condition": "Toujours exécuté (when: always)"
+      },
+      {
+        "order": 5,
+        "stage": "certif",
+        "phase": "Attestation",
+        "role": "Attestation de conformité CANU",
+        "output": "Conformity report"
+      }
+    ],
+    "axioms": [
+      {
+        "id": 1,
+        "title": "Théorème du Vide",
+        "statement": "L'état Vide ∅ est l'état fondamental, stable, vérifiable et reproductible de tout système Supela.",
+        "scope": "Universal"
+      },
+      {
+        "id": 2,
+        "title": "Invariant Fond/Surface",
+        "statement": "∀ s ∈ Surface, s ∩ Fond = ∅",
+        "scope": "Architectural"
+      },
+      {
+        "id": 3,
+        "title": "Composabilité",
+        "statement": "Deux cycles ne peuvent être composés que si le premier s'est fermé en ∅.",
+        "scope": "Sequential execution"
+      },
+      {
+        "id": 4,
+        "title": "Idempotence du Reset",
+        "statement": "R(R(s)) = R(s) = ∅",
+        "scope": "Reset operation"
+      }
+    ],
+    "documents": [
+      {
+        "name": "NORME-CANU-v1.0.0.md",
+        "path": "docs/NORME-CANU-v1.0.0.md",
+        "size": "48686 bytes",
+        "lines": 742,
+        "type": "Full specification"
+      },
+      {
+        "name": "README.md",
+        "path": "README.md",
+        "description": "Référence normative officielle"
+      },
+      {
+        "name": "INDEX.md",
+        "path": "INDEX.md",
+        "description": "Table des matières structurée"
+      },
+      {
+        "name": "GUIDE-RAPIDE.md",
+        "path": "GUIDE-RAPIDE.md",
+        "description": "Guide d'implémentation avec exemples"
+      },
+      {
+        "name": "METADATA.json",
+        "path": "METADATA.json",
+        "description": "Métadonnées machine-readable"
+      }
+    ],
+    "metadata_timestamp": "2026-08-01T20:19:39.616-04:00"
+  }
+}
