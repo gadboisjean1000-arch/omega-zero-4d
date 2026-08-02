@@ -18,7 +18,7 @@
 [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Open in browser
 
 ### Apps interactives
-- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome 5 onglets (Dashboard, CI/CD Proof, KPI Explorer, Export, TPDM)
+- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome **6 onglets** v1.2.0 : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)**
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) — Dashboard performance temps réel
 - [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Dashboard gouvernance SGG_v2
 
@@ -75,7 +75,7 @@ Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de parte
 ### Executive Decision-Maker (15 min)
 1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
 2. [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Gouvernance live
-3. [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Vue consolidée CI/KPI/TPDM
+3. [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Vue consolidée CI/KPI/TPDM/**Validation** (v1.2.0)
 4. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
 
 ### System Architect (45 min)
@@ -172,8 +172,32 @@ Validation:            50/50 PASS ✓ (ALL CATEGORIES)
 
 ---
 
-**Last Updated:** August 1, 2026  
-**Version:** v1.1.0  
+## SUPELA App v1.2.0 — Architecture 6 Onglets
+
+L'application `SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html` a été mise à niveau en **v1.2.0** avec l'ajout du **Tableau Opérationnel de Validation (TOV)** comme 6e onglet.
+
+| # | Onglet | Contenu |
+|---|--------|---------|
+| 1 | ⬡ Pierre Scellée | Scoreboard ASCII animé, métriques clés, tableau 15 KPIs filtrable |
+| 2 | 🔍 Rapport d'Audit | Terminal CI/CD stream Run #28 — 17/17 PASS |
+| 3 | 📊 KPIs Unifiés | KPI Explorer complet avec tri, recherche, drawer de détail |
+| 4 | 🔄 Changelog | Corpus TPDM — 7 Clés, géométrie interactive, isomorphismes SCDH |
+| 5 | 📤 Export | JSON, CSV UTF-8, PS1 vérification, rapport HTML autonome |
+| 6 | 📐 **Validation** | **TOV** : 2 paradigmes, 15 dimensions (pills), feuille de route 6 phases, bibliographie |
+
+### Onglet Validation — Détail
+
+- **2 paradigmes** : Discursif (violet/constructivisme) vs Preuve-Centrée (bleu/positivisme)
+- **15 dimensions** filtrables : Épistémologie · Méthodes · Risques · Livrables
+- **Feuille de route 6 phases** : Cadrage → Preuve Formelle → Pilotage → Grande Échelle → Audit Externe → Institutionnalisation
+- **Note méthodologique** : approche non-exclusive, complémentarité paradigmatique
+- **Bibliographie** : Kane 2006, Messick 1989, Chapelle et al. 2008, Bachman & Palmer 2010
+- **Positionnement SUPELA** : CI/KPI/Gates/SARIF = preuve-centrée · CVEA/post-mortems/jalons J1-J4 = discursif · Phases 3–4 préparent Rasch/CFA v1.3.0
+
+---
+
+**Last Updated:** August 2, 2026  
+**Version:** v1.1.0 (App v1.2.0)  
 **Status:** ✓ PRODUCTION-READY  
 **Author:** Jean Gadbois (gadboisjean1000@gmail.com)
 

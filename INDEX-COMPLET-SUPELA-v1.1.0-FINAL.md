@@ -30,7 +30,7 @@
 | 4 | RFC-K3-INTEGRATION-STRUCTURALE.md | Markdown | 7.9 kB | Architectural mapping RFC K3 → MASTER-FORMALIZATION | ⭐⭐ |
 | 5 | LCI-STOCHASTIQUE-v1.1.md | Markdown | 10.0 kB | EDS Itô, Foster-Lyapunov, Lemme d'Itô, Gronwall stochastique, B_k^S LogNormal | ⭐⭐⭐ |
 | 6a | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~30 kB | Document fondateur, théorie du passage et des deux mondes | ⭐⭐⭐ |
-| 6b | SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html | HTML | ~40 kB | Application autonome 5 onglets : Dashboard, CI/CD Proof, KPI Explorer, Export, TPDM | ⭐⭐⭐ |
+| 6b | SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html | HTML | ~55 kB | **Application autonome v1.2.0 — 6 onglets** : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)** — 15 dimensions épistémologiques, 2 paradigmes, feuille de route 6 phases | ⭐⭐⭐ |
 | 6 | ANNEXES-A-D-NORMES-OPERATIONNELLES.md | Markdown | 11.1 kB | Taxonomie N0–N4, Protocoles V1–V4, Registre Biais, Module IS | ⭐⭐⭐ |
 
 ---
@@ -225,6 +225,7 @@ Status:                 ✓ PRODUCTION-READY
 | "Operational norms" | ANNEXES-A-D-NORMES-OPERATIONNELLES.md | 30 min | [→](#) |
 | "Deployment plan" | DEPLOYMENT-ROADMAP.md | 15 min | [→](#) |
 | "Policy / stratégie réglementaire" | Viabilité à long terme des régulations — Cadre universel systémique | 25 min | [→](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md) |
+| "**Tableau Opérationnel de Validation (TOV)**" | SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html → onglet 📐 Validation | 10 min | [→ Open](#) |
 
 ---
 
@@ -255,14 +256,22 @@ Status:                 ✓ PRODUCTION-READY
 - [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md)
 - [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md)
 - [AUTHORS.md](AUTHORS.md)
+- **Tableau Opérationnel de Validation (TOV)** → onglet 📐 Validation de [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html)
 
 **Interactive (Live):**
 - [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) ← Open in browser
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) ← Open in browser
 - [VISUALISEUR-SUPELA-INTERACTIVE.html](VISUALISEUR-SUPELA-INTERACTIVE.html) ← Open in browser
+- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) ← **v1.2.0 — 6 onglets (incl. 📐 Validation TOV)** ← Open in browser
+
+**Validation Opérationnelle (v1.2.0):**
+- Onglet **📐 Validation** → 15 dimensions · 2 paradigmes · feuille de route 6 phases
+- Lien **Strategy** : paradigme preuve-centrée ↔ CI/KPI/Gates/SARIF (pilier opérationnel)
+- Lien **Policy** : paradigme discursif ↔ CVEA/post-mortems/jalons J1–J4 (conformité narrative)
+- Lien **Operations** : Phase 3–4 prépareront Rasch/CFA pour v1.3.0
 
 ---
 
-**Last Updated:** 2026-08-01T21:12:00Z  
-**Status:** ✓ INDEX-COMPLET | ✓ 23 DOCUMENTS | ✓ PRODUCTION-READY  
+**Last Updated:** 2026-08-02T00:00:00Z  
+**Status:** ✓ INDEX-COMPLET | ✓ 24 DOCUMENTS | ✓ APP v1.2.0 (6 onglets) | ✓ PRODUCTION-READY  
 **Point Fixe Atteint — Coherence = 100%**

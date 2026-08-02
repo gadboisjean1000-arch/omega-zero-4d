@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCDH SUPELA APP v1.1.0 Enrichie</title>
+    <title>SCDH SUPELA APP v1.2.0 — Tableau Opérationnel de Validation</title>
     <style>
         :root {
             --bg-1: #0a0e27;
@@ -700,6 +700,125 @@
             }
         }
 
+        /* ── Validation tab ──────────────────────────────── */
+        .validation-paradigm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .paradigm-card { border-width: 2px; }
+
+        .paradigm-discursif {
+            border-color: rgba(157, 78, 221, 0.50);
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.12) 0%, var(--panel) 100%);
+        }
+
+        .paradigm-preuve {
+            border-color: rgba(0, 150, 255, 0.50);
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.10) 0%, var(--panel) 100%);
+        }
+
+        .paradigm-subtitle {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin: 6px 0 14px;
+            font-style: italic;
+        }
+
+        .paradigm-body p { margin: 6px 0; font-size: 0.93rem; line-height: 1.55; }
+
+        .pill-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0 18px;
+        }
+
+        .pill-filter-btn {
+            padding: 7px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.87rem;
+            transition: 0.2s ease;
+        }
+
+        .pill-filter-btn:hover,
+        .pill-filter-btn.active {
+            background: linear-gradient(135deg, var(--violet), #c77dff);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(157, 78, 221, 0.35);
+        }
+
+        .validation-roadmap {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .roadmap-phase {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .roadmap-phase-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .roadmap-phase-num {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), #7cf8ff);
+            color: var(--bg-1);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.78rem; flex-shrink: 0;
+        }
+
+        .roadmap-phase-name { font-weight: 600; font-size: 0.88rem; color: var(--cyan); }
+
+        .roadmap-phase-period {
+            font-size: 0.76rem; color: var(--muted);
+            margin-bottom: 8px; padding-left: 34px;
+        }
+
+        .roadmap-phase dl {
+            display: grid; grid-template-columns: auto 1fr;
+            gap: 4px 8px; font-size: 0.80rem;
+        }
+
+        .roadmap-phase dt { color: var(--muted); font-weight: 600; }
+        .roadmap-phase dd { color: var(--text); }
+
+        .validation-note {
+            border-color: rgba(157, 78, 221, 0.35) !important;
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.07) 0%, var(--panel) 100%) !important;
+        }
+
+        .validation-biblio {
+            list-style: none; padding: 0;
+            margin: 12px 0 0;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+
+        .validation-biblio li {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            border-radius: 10px; padding: 12px 16px;
+            font-size: 0.87rem; line-height: 1.5;
+        }
+        /* ── End Validation ─────────────────────────────── */
+
         @media (max-width: 720px) {
             .shell,
             .header-inner {
@@ -726,6 +845,12 @@
                 right: 12px;
                 width: calc(100vw - 24px);
             }
+
+            .validation-paradigm-grid,
+            .validation-roadmap,
+            .validation-biblio {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -735,24 +860,26 @@
     <header class="header">
         <div class="header-inner">
             <div class="eyebrow">SCDH × SUPELA · Application autonome HTML inline</div>
-            <h1>SCDH-SUPELA-APP v1.1.0 enrichie</h1>
-            <p>Dashboard de preuve production, trace CI/CD, exploration détaillée des KPIs, exports autonomes et corpus TPDM dans une seule application HTML responsive.</p>
+            <h1>SCDH-SUPELA-APP v1.2.0 — Tableau Opérationnel de Validation</h1>
+            <p>Dashboard de preuve production, trace CI/CD, exploration détaillée des KPIs, exports autonomes, corpus TPDM et <strong>Tableau Opérationnel de Validation (TOV)</strong> — 6 onglets intégrés dans une seule application HTML responsive.</p>
             <div class="header-meta">
-                <span class="pill">Version v1.1.0</span>
+                <span class="pill">Version v1.2.0</span>
                 <span class="pill">Tag v1.1.0-PRODUCTION-READY</span>
                 <span class="pill">Date 2026-08-02</span>
                 <span class="pill">Score certifié 100/100</span>
+                <span class="pill">6 onglets</span>
             </div>
         </div>
     </header>
 
     <main class="shell">
         <nav class="tabs" aria-label="Navigation principale">
-            <button class="active" data-tab="dashboard">📊 Dashboard</button>
-            <button data-tab="cicd">🔬 CI/CD Proof</button>
-            <button data-tab="kpi">📋 KPI Explorer</button>
+            <button class="active" data-tab="dashboard">⬡ Pierre Scellée</button>
+            <button data-tab="cicd">🔍 Rapport d'Audit</button>
+            <button data-tab="kpi">📊 KPIs Unifiés</button>
+            <button data-tab="tpdm">🔄 Changelog</button>
             <button data-tab="export">📤 Export</button>
-            <button data-tab="tpdm">🌐 TPDM</button>
+            <button data-tab="validation">📐 Validation</button>
         </nav>
 
         <section class="tab-panel active" id="dashboard">
@@ -948,8 +1075,101 @@
             </article>
         </section>
 
+        <section class="tab-panel" id="validation">
+            <!-- Paradigm cards -->
+            <div class="validation-paradigm-grid">
+                <article class="card paradigm-card paradigm-discursif">
+                    <div class="card-title">🟣 Paradigme Discursif</div>
+                    <p class="paradigm-subtitle">Constructivisme · Approche interprétative &amp; co-construite</p>
+                    <div class="paradigm-body">
+                        <p><strong>Méthodes :</strong> focus groupes, révision par experts, analyse argumentative</p>
+                        <p><strong>SUPELA :</strong> CVEA · post-mortems · jalons J1–J4</p>
+                        <p><strong>Épistémologie :</strong> construit émergent, contextuel, négocié</p>
+                    </div>
+                    <div class="badge-stack" style="margin-top:14px">
+                        <span class="status-badge violet">Constructivisme</span>
+                        <span class="status-badge violet">CVEA / Post-mortems</span>
+                        <span class="status-badge violet">Jalons J1–J4</span>
+                    </div>
+                </article>
+                <article class="card paradigm-card paradigm-preuve">
+                    <div class="card-title">🔵 Paradigme Preuve-Centrée</div>
+                    <p class="paradigm-subtitle">Positivisme · Approche quantitative &amp; mesurable</p>
+                    <div class="paradigm-body">
+                        <p><strong>Méthodes :</strong> CFA (analyse factorielle), Rasch, Kappa inter-juges (κ ≥ 0.70)</p>
+                        <p><strong>SUPELA :</strong> CI/KPI · Gates · Coverage · SARIF</p>
+                        <p><strong>Épistémologie :</strong> construit latent, stable, paramétrable</p>
+                    </div>
+                    <div class="badge-stack" style="margin-top:14px">
+                        <span class="status-badge cyan">Positivisme</span>
+                        <span class="status-badge cyan">CI / KPI / Gates</span>
+                        <span class="status-badge cyan">Coverage / SARIF</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 15 dimensions filterable table -->
+            <article class="card">
+                <div class="card-title">
+                    <span>Tableau Opérationnel de Validation — 15 dimensions</span>
+                    <span class="counter" id="validationCounter">Affichage: 15/15 dimensions</span>
+                </div>
+                <div class="pill-filters" id="validationPillFilters">
+                    <button class="pill-filter-btn active" data-filter="Toutes">Toutes</button>
+                    <button class="pill-filter-btn" data-filter="Épistémologie">Épistémologie</button>
+                    <button class="pill-filter-btn" data-filter="Méthodes">Méthodes</button>
+                    <button class="pill-filter-btn" data-filter="Risques">Risques</button>
+                    <button class="pill-filter-btn" data-filter="Livrables">Livrables</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dimension</th>
+                                <th>Catégorie</th>
+                                <th>Preuve-Centrée</th>
+                                <th>Discursif</th>
+                                <th>Approche SUPELA v1.2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="validationTableBody"></tbody>
+                    </table>
+                </div>
+            </article>
+
+            <!-- 6 phases roadmap -->
+            <article class="card" style="margin-top:18px">
+                <div class="card-title">Feuille de Route Validation — 6 Phases</div>
+                <div class="validation-roadmap" id="validationRoadmap"></div>
+            </article>
+
+            <!-- Note méthodologique -->
+            <article class="card validation-note" style="margin-top:18px">
+                <div class="card-title">📝 Note Méthodologique — Approche Non-Exclusive</div>
+                <p class="card-subtitle">L'approche SUPELA est <strong>non-exclusive</strong> : la complémentarité paradigmatique est une force, non une incohérence. Les méthodes preuve-centrées (CI/KPI/Gates) et discursives (CVEA/post-mortems/jalons J1–J4) se renforcent mutuellement. Les phases 3 (pilotage) et 4 (grande échelle) prépareront l'intégration de modèles IRT avancés (Rasch, CFA) dans la version <strong>v1.3.0</strong>. Le présent onglet constitue le Tableau Opérationnel de Validation (TOV) de référence pour l'ensemble de l'écosystème SUPELA.</p>
+                <div class="badge-stack" style="margin-top:14px">
+                    <span class="status-badge violet">Non-exclusive</span>
+                    <span class="status-badge cyan">Complémentarité paradigmatique</span>
+                    <span class="status-badge orange">v1.3.0 → Rasch / CFA intégrés</span>
+                    <span class="status-badge violet">Phase 3–4 : Pilotage → Grande Échelle</span>
+                </div>
+            </article>
+
+            <!-- Bibliographie -->
+            <article class="card" style="margin-top:18px">
+                <div class="card-title">📚 Bibliographie de Référence</div>
+                <ul class="validation-biblio">
+                    <li><strong>Kane, M. T. (2006).</strong> Validation. In R. L. Brennan (Ed.), <em>Educational Measurement</em> (4th ed., pp. 17–64). ACE/Praeger. <em>Cadre d'argument interprétatif — référence canonique preuve-centrée.</em></li>
+                    <li><strong>Messick, S. (1989).</strong> Validity. In R. L. Linn (Ed.), <em>Educational Measurement</em> (3rd ed., pp. 13–103). ACE/Macmillan. <em>Validité unitaire — fondement épistémologique du construit.</em></li>
+                    <li><strong>Chapelle, C. A., Enright, M. K., &amp; Jamieson, J. (Eds.). (2008).</strong> <em>Building a Validity Argument for the Test of English as a Foreign Language.</em> Routledge. <em>Application de l'argument Kane à grande échelle.</em></li>
+                    <li><strong>Bachman, L. F., &amp; Palmer, A. S. (2010).</strong> <em>Language Assessment in Practice.</em> Oxford University Press. <em>Triangulation méthodes discursives &amp; quantitatives en évaluation langagière.</em></li>
+                </ul>
+            </article>
+        </section>
+
         <footer class="footer">
-            SCDH-SUPELA-APP v1.1.0 enrichie · HTML autonome inline · Production ready
+            SCDH-SUPELA-APP v1.2.0 · Tableau Opérationnel de Validation (TOV) · 6 onglets · HTML autonome inline · Production ready
         </footer>
     </main>
 
@@ -1480,6 +1700,15 @@ if ($score -eq 100) {
                 downloadBlob("tpdm-corpus-2026-08-02.json", buildTpdmJson(), "application/json;charset=utf-8");
             });
 
+            document.getElementById("validationPillFilters").addEventListener("click", (event) => {
+                const btn = event.target.closest(".pill-filter-btn");
+                if (!btn) { return; }
+                document.querySelectorAll(".pill-filter-btn").forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                validationFilter = btn.dataset.filter;
+                renderValidationTable();
+            });
+
             document.querySelectorAll(".zone-btn").forEach((button) => {
                 button.addEventListener("click", () => {
                     tpdmTooltip.textContent = button.dataset.tooltip;
@@ -1534,11 +1763,81 @@ if ($score -eq 100) {
             }, 7600);
         }
 
+        /* ── Validation data ──────────────────────────────── */
+        const validationDimensions = [
+            { id: "V01", dim: "Posture épistémique",       cat: "Épistémologie", preuve: "Positivisme — objectif, mesurable", discursif: "Constructivisme — co-construit, situé", supela: "Hybridation séquentielle" },
+            { id: "V02", dim: "Ontologie du construit",    cat: "Épistémologie", preuve: "Latent, stable, paramétrable (IRT)", discursif: "Émergent, contextuel, négocié", supela: "Définition formelle + consultation" },
+            { id: "V03", dim: "Théorie de la mesure",      cat: "Épistémologie", preuve: "CTT → IRT (Rasch / 2PL)", discursif: "Scoring holiste, inférence narrative", supela: "IRT + panels normatifs (v1.3.0)" },
+            { id: "V04", dim: "Cadre de validité",         cat: "Épistémologie", preuve: "Kane 2006 — argument interprétatif", discursif: "Messick 1989 — validité unitaire", supela: "Hybridation Kane + Messick" },
+            { id: "V05", dim: "Analyse factorielle (CFA)", cat: "Méthodes",      preuve: "CFI ≥ 0.95 · RMSEA ≤ 0.06", discursif: "N/A", supela: "Phase 3–4 si structure hypothétisée" },
+            { id: "V06", dim: "Modèle de Rasch",           cat: "Méthodes",      preuve: "Infit/outfit 0.70–1.30", discursif: "N/A", supela: "v1.3.0 — Grande Échelle" },
+            { id: "V07", dim: "Accord inter-juges (Kappa)",cat: "Méthodes",      preuve: "κ ≥ 0.70 requis", discursif: "Consensus délibératif", supela: "Kappa + panel normatif" },
+            { id: "V08", dim: "Focus groupes",             cat: "Méthodes",      preuve: "N/A", discursif: "Saturation thématique (n ≥ 6 groupes)", supela: "CVEA + triangulation" },
+            { id: "V09", dim: "Révision par experts",      cat: "Méthodes",      preuve: "N/A", discursif: "Indice pertinence ≥ 0.80 · Panel ≥ 5", supela: "Jalons J1–J4 + CVEA" },
+            { id: "V10", dim: "Biais de construit",        cat: "Risques",       preuve: "I_B < 0.10 (SUPELA CI)", discursif: "Audit narratif continu", supela: "Surveillance CI + post-mortems" },
+            { id: "V11", dim: "Généralisabilité",          cat: "Risques",       preuve: "G-study ρ² ≥ 0.80 · D-study", discursif: "Transfert contextuel documenté", supela: "G-study + interviews terrain" },
+            { id: "V12", dim: "Conséquences d'usage",      cat: "Risques",       preuve: "Impact mesurable (KPIs)", discursif: "Retour terrain qualitatif", supela: "Audit post-déploiement Phase 5" },
+            { id: "V13", dim: "Jalons CVEA (J1–J4)",       cat: "Livrables",     preuve: "N/A", discursif: "Post-mortems + CVEA documentés", supela: "Jalons J1–J4 — livraisons discursives" },
+            { id: "V14", dim: "Preuve CI/CD instrumentale",cat: "Livrables",     preuve: "CI/KPI/Gates/SARIF — 100/100", discursif: "N/A", supela: "Pipeline certifié Run #28" },
+            { id: "V15", dim: "Conformité externe",        cat: "Livrables",     preuve: "ISO 42001 §6.1-6.3 · IA Act Art. 6-9", discursif: "Accréditation narrative experte", supela: "Audit formel Phase 5" }
+        ];
+
+        const validationPhases = [
+            { num: 1, name: "Cadrage",         period: "Semaines 1–2",  approche: "Discursive",       outils: "Focus groupes · Révision experts", indicateur: "κ ≥ 0.70 entre experts" },
+            { num: 2, name: "Preuve Formelle", period: "Semaines 3–6",  approche: "Preuve-Centrée",   outils: "CI Pipeline · SARIF · KPI Gates", indicateur: "Score ≥ 100/100" },
+            { num: 3, name: "Pilotage",        period: "Semaines 7–12", approche: "Hybride",          outils: "R/lavaan · mirt · post-mortems", indicateur: "RMSEA < 0.06 · CFI ≥ 0.95" },
+            { num: 4, name: "Grande Échelle",  period: "Semaines 13–24",approche: "IRT/SEM (v1.3.0)", outils: "ConQuest · Mplus · Rasch/CFA",    indicateur: "Infit 0.70–1.30" },
+            { num: 5, name: "Audit Externe",   period: "Semaines 25–36",approche: "Compliance",       outils: "Panel ISO 42001 · IA Act",        indicateur: "100 % conformité" },
+            { num: 6, name: "Institutionnali.", period: "Semaines 37+",  approche: "Hybride Intégrée", outils: "CVEA + CI/KPI + SGG_v2",          indicateur: "SGG_v2 ≥ 95/100" }
+        ];
+
+        let validationFilter = "Toutes";
+
+        function renderValidationTable() {
+            const body = document.getElementById("validationTableBody");
+            const counter = document.getElementById("validationCounter");
+            const rows = validationFilter === "Toutes"
+                ? validationDimensions
+                : validationDimensions.filter((d) => d.cat === validationFilter);
+            body.innerHTML = rows.map((d) => `
+                <tr>
+                    <td>${d.id}</td>
+                    <td>${d.dim}</td>
+                    <td>${d.cat}</td>
+                    <td>${d.preuve}</td>
+                    <td>${d.discursif}</td>
+                    <td>${d.supela}</td>
+                </tr>
+            `).join("");
+            counter.textContent = `Affichage: ${rows.length}/15 dimensions`;
+        }
+
+        function renderValidationRoadmap() {
+            const container = document.getElementById("validationRoadmap");
+            container.innerHTML = validationPhases.map((p) => `
+                <div class="roadmap-phase">
+                    <div class="roadmap-phase-header">
+                        <div class="roadmap-phase-num">${p.num}</div>
+                        <div class="roadmap-phase-name">${p.name}</div>
+                    </div>
+                    <div class="roadmap-phase-period">${p.period}</div>
+                    <dl>
+                        <dt>Approche</dt><dd>${p.approche}</dd>
+                        <dt>Outils</dt><dd>${p.outils}</dd>
+                        <dt>Indicateur</dt><dd>${p.indicateur}</dd>
+                    </dl>
+                </div>
+            `).join("");
+        }
+        /* ── End Validation data ─────────────────────────── */
+
         populateCategories();
         renderMetricCards();
         filterDashboardKpis();
         renderKpiExplorer();
         renderTpdm();
+        renderValidationTable();
+        renderValidationRoadmap();
         bindEvents();
         runScoreboardTypewriter();
         streamCiLog();
