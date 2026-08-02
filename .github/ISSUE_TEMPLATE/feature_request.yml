@@ -1,0 +1,49 @@
+name: Feature Request
+description: Proposer une amélioration ou nouvelle fonctionnalité SUPELA
+labels: [enhancement]
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      placeholder: Quel problème cela résout-il ? Quelle lacune comble-t-il dans l'écosystème SUPELA ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution proposée
+      placeholder: Décrivez votre proposition en détail
+    validations:
+      required: true
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Phase de déploiement concernée
+      options:
+        - Phase 1 — Stakeholder Understanding
+        - Phase 2 — RFC K3 + RAIM Validation
+        - Phase 3 — Silicon Optimization
+        - Phase 4 — Quantum + Rad-Hard
+        - Transversal (toutes phases)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Contraintes respectées
+      options:
+        - label: IS ≤ 3 (Indice de Simplicité)
+          required: true
+        - label: Aucune violation des 5 invariants SUPELA
+          required: true
+        - label: Compatible avec les portes SCDH V1–V4
+          required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considérées

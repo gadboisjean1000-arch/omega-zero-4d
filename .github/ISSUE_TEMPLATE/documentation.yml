@@ -1,0 +1,24 @@
+name: Documentation
+description: Signaler une erreur ou lacune dans la documentation SUPELA
+labels: [documentation]
+body:
+  - type: input
+    id: file
+    attributes:
+      label: Fichier concerné
+      placeholder: "MASTER-FORMALIZATION.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Problème identifié
+      placeholder: Quelle information est incorrecte, manquante ou ambiguë ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Correction suggérée

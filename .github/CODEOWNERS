@@ -1,0 +1,30 @@
+# CODEOWNERS
+# Each line: pattern  owner(s)
+# Owners are automatically requested for review on matching PRs.
+
+# Global fallback — all files
+*                                       @groupnatupro
+
+# CI/CD pipelines — require explicit review
+/.github/workflows/                     @groupnatupro
+/.github/                               @groupnatupro
+
+# Core specification — highest protection
+/MASTER-FORMALIZATION.md                @groupnatupro
+/RFC-SUPELA-K3-ANNEXE-E-SCDH.md        @groupnatupro
+/SYNTHESE-FINALE-SUPELA-v1.1.0.md      @groupnatupro
+/NORMALISATION-COMPLETE.md             @groupnatupro
+
+# Governance modules — require review
+/governance/                            @groupnatupro
+
+# Archives — protected, no deletion
+/supela-corpus-v1.0.0/                  @groupnatupro
+/corpus-supela/                         @groupnatupro
+/norme-canu/                            @groupnatupro
+/document-maitre/                       @groupnatupro
+
+# Dashboard & KPIs
+/DASHBOARD-SGG-v2-INTERACTIVE.html      @groupnatupro
+/DASHBOARD-SGG-v2-KPI.csv              @groupnatupro
+/DASHBOARD-SGG-v2-KPI.json             @groupnatupro

@@ -1,0 +1,52 @@
+name: Validate Formalization
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  docs-check:
+    name: Phase 1 — Document integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check core specification files
+        run: |
+          for f in \
+            MASTER-FORMALIZATION.md \
+            SYNTHESE-FINALE-SUPELA-v1.1.0.md \
+            RFC-SUPELA-K3-ANNEXE-E-SCDH.md \
+            NORMALISATION-COMPLETE.md \
+            DEPLOYMENT-ROADMAP.md \
+            ANNEXES-A-D-NORMES-OPERATIONNELLES.md \
+            RAPPORT-DOCTORAL-SCDH-v1.0.md \
+            CVEA-CHARTE-MANDAT.md \
+            RAPPORT-QUALIFICATION-TECHNIQUE-RQT.md \
+            AUTHORS.md \
+            README.md; do
+            test -f "$f" && echo "✓ $f" || (echo "✗ MISSING: $f" && exit 1)
+          done
+
+      - name: Check archive directories
+        run: |
+          for d in supela-corpus-v1.0.0 corpus-supela norme-canu document-maitre governance; do
+            test -d "$d" && echo "✓ $d/" || (echo "✗ MISSING DIR: $d" && exit 1)
+          done
+
+      - name: Verify critical content markers
+        run: |
+          grep -q "Point Fixe Atteint"  NORMALISATION-COMPLETE.md  && echo "✓ Point Fixe Atteint"
+          grep -q "19/19 PASS"          RFC-SUPELA-K3-ANNEXE-E-SCDH.md && echo "✓ 19/19 PASS"
+          grep -q "50/50 PASS"          PERFORMANCE-VALIDATION-50-50.md && echo "✓ 50/50 PASS"
+          grep -q "SGG_v2"              DASHBOARD-SGG-v2-INTERACTIVE.html && echo "✓ SGG_v2 dashboard"
+          grep -q "SUPELA"              MASTER-FORMALIZATION.md && echo "✓ SUPELA spec present"
+
+      - name: Count total documentation
+        run: |
+          echo "Markdown files: $(find . -name '*.md' ! -path './.git/*' | wc -l)"
+          echo "Total lines: $(find . -name '*.md' ! -path './.git/*' -exec wc -l {} + | tail -1)"
+          echo "✓ Documentation audit complete"
