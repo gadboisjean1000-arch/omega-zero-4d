@@ -18,6 +18,7 @@
 | # | Document | Type | Taille | Focus | Essentialité |
 |---|----------|------|--------|-------|-----|
 | 1 | supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md | Markdown | 42 kB | Axiom, invariants, 5D space | ⭐⭐⭐ |
+| 1A | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~185 kB | Document fondateur TPDM (Fond/Surface/Seuil/Xero, axiomatique, MPS, PNS, unification SCDH+Brahmagupta) | ⭐⭐⭐ |
 
 ---
 
@@ -235,6 +236,7 @@ Status:                 ✓ PRODUCTION-READY
 
 **Theory (Academic):**
 - [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md)
+- [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md)
 - [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md)
 - [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md)
 

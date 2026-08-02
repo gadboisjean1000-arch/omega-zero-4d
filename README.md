@@ -30,6 +30,7 @@
 ```
 SUPELA v1.1.0 Production Ecosystem
 ├─ Layer 0: Meta-Architecture (SUPELA-CORPUS-v1.0.0)
+│  └─ TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md (Document fondateur)
 ├─ Layer 1: Frameworks (LCI + LCI Stochastique v1.1 + RFC K3)
 ├─ Layer 2: Integration (MASTER-FORMALIZATION + Navigation)
 ├─ Layer 3: Implementation (Silicon/Quantum/Rad-Hard)
@@ -60,6 +61,10 @@ Point Fixe: ✓ COHERENCE = 100%
 ---
 
 ## Key Documents by Role
+
+### Layer 0 — Corpus fondateur
+1. [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md) — Théorie du Passage et des Deux Mondes (TPDM), document fondateur bilingue
+2. [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md) — Axiomes et invariants meta-architecture
 
 ### Executive Decision-Maker (15 min)
 1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
