@@ -1,0 +1,143 @@
+{
+  "document_maitre_v1": {
+    "title": "DOCUMENT MAÎTRE — Cadre de Gouvernance et de Déploiement du Système Supela",
+    "author": "Jean-François Gadbois (Jef)",
+    "date": "2026-08-01",
+    "status": "Document Maître — Version Intégrale avec LCI",
+    "copyright": "© Jean-François Gadbois (Jef), 2026 — All rights reserved",
+    "version": "1.0.0",
+    "structure": {
+      "parts": 9,
+      "annexes": 4,
+      "total_sections": 13
+    },
+    "parts": [
+      {
+        "number": "I",
+        "title": "Définition du Système SCDH",
+        "dimensions": 6,
+        "content": ["État fondamental S₀", "Trajectoire exécution", "Invariant stable"]
+      },
+      {
+        "number": "II",
+        "title": "Les Cinq Invariants Fondamentaux",
+        "invariants": 5,
+        "content": ["I₁ Récursion Finie", "I₂ Non-Corruption Fond", "I₃ Consensus Multi-Agent", "I₄ Propagation Bornée", "I₅ Densité Épistémique"]
+      },
+      {
+        "number": "III",
+        "title": "Boot Report et Validations Initiales",
+        "duration_ms": 19,
+        "status": "CERTIFIÉ v1.0.0",
+        "tests": 5
+      },
+      {
+        "number": "IV",
+        "title": "Migration Plan — N0 → N4",
+        "levels": 5,
+        "progression": ["ZÉRO", "AUTONOMIE", "RÉSILIENCE", "INTELLIGENCE", "SOUVERAINETÉ"]
+      },
+      {
+        "number": "V",
+        "title": "Protocole Supela Zéro (PSZ)",
+        "stages": 6,
+        "max_duration_ms": 100,
+        "measured_ms": 21,
+        "property": "Idempotent"
+      },
+      {
+        "number": "VI",
+        "title": "Contrat API T-01 et Interfaces",
+        "methods": 5,
+        "contracts": ["ATOMICITÉ", "ISOLATION", "DURABILITÉ", "COHÉRENCE"]
+      },
+      {
+        "number": "VII",
+        "title": "Registre d'Audit T-03",
+        "events_tracked": 15234,
+        "psz_invoked": 47,
+        "violations_resolved": 12
+      },
+      {
+        "number": "VIII",
+        "title": "Méta-Orchestrateur RAIM",
+        "layers": 3,
+        "layer_names": ["Arbitrage Multi-Modèle", "Détermination d'État", "Régulation"]
+      },
+      {
+        "number": "IX",
+        "title": "Loi de la Contradiction Interne (LCI)",
+        "elements": {
+          "definitions": ["État contradictoire Γ", "Indice ξ(t)"],
+          "lemmas": 2,
+          "corollaries": 3,
+          "proof": "Fonction de Lyapunov",
+          "bonus_mechanics": 4,
+          "duality": "LCI ↔ Théorème du Vide"
+        },
+        "key_formula": "S(t) ∈ Γ ⟺ ∃ i ≠ j : ¬Iᵢ(t) ∧ ¬Iⱼ(t)",
+        "xi_severity": {
+          "zero": "Sain",
+          "partial": "(0, 0.4] — Rétrogradation suffisante",
+          "grave": "(0.4, 0.8] — PSZ obligatoire",
+          "total": "1.0 — État terminal"
+        }
+      }
+    ],
+    "annexes": [
+      {
+        "letter": "A",
+        "title": "Niveaux d'Automatisation N0–N4",
+        "items": 5
+      },
+      {
+        "letter": "B",
+        "title": "Portières V1–V4 et Transitions",
+        "gates": ["P (Ouvert)", "R (Réduit)", "T (Test)", "O (Fermé)"]
+      },
+      {
+        "letter": "C",
+        "title": "Registre des Biais I_B",
+        "categories": 47
+      },
+      {
+        "letter": "D",
+        "title": "Indice de Simplicité (IS)",
+        "levels": 6,
+        "range": "0–5"
+      }
+    ],
+    "axiomatique": {
+      "lyapunov_function": "V(S) = 4·I_B + 3·I_C + 2·(IS/5) + 5·(1−F) + rank(N)/4",
+      "v_initial": "V(S₀) = 0",
+      "convergence": "V(S_PSZ) = 0",
+      "stability": "Asymptotic stability of S₀ via PSZ"
+    },
+    "duality": {
+      "theorem_void": "Z(S₀) = ∅ → Condition d'ARRIVÉE",
+      "lci": "S(t) ∈ Γ → Instabilité → Condition de DÉPART",
+      "psz_morphism": "Γ → {S₀} (surjectif, T ≤ 100 ms, k ≤ 6)",
+      "unifying_statement": "Ce qui se contredit revient au Zéro. Ce qui revient au Zéro est complet."
+    },
+    "validations": {
+      "boot_report": {
+        "version": "v1.0.0",
+        "status": "CERTIFIED",
+        "duration_ms": 19,
+        "invariants_passed": 5
+      },
+      "psz": {
+        "invocations": 47,
+        "success_rate": "100%",
+        "average_duration_ms": 23,
+        "max_duration_ms": 100
+      },
+      "audit_trail": {
+        "events": 15234,
+        "violations": 12,
+        "all_resolved": true
+      }
+    },
+    "metadata_timestamp": "2026-08-01T20:22:48.880-04:00"
+  }
+}
