@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -41,3 +42,69 @@ jobs:
           echo "Commit count: $(git rev-list --count HEAD)"
           git tag -l v1.1.0-PRODUCTION-READY
           echo "Validation PASS"
+
+      - name: Build CI proof artifact
+        run: |
+          mkdir -p ci-proof
+          python3 - <<'PY'
+          import csv, json, pathlib, subprocess, datetime
+
+          repo = pathlib.Path(".")
+          files = [
+              "SYNTHESE-FINALE-SUPELA-v1.1.0.md",
+              "MASTER-FORMALIZATION.md",
+              "PERFORMANCE-VALIDATION-50-50.md",
+              "ANNEXES-A-D-NORMES-OPERATIONNELLES.md",
+              "DASHBOARD-SGG-v2-INTERACTIVE.html",
+              "AUTHORS.md",
+              "RFC-SUPELA-K3-ANNEXE-E-SCDH.md",
+              "NORMALISATION-COMPLETE.md",
+              "DEPLOYMENT-ROADMAP.md",
+          ]
+          markers = [
+              ("PERFORMANCE-VALIDATION-50-50.md", "50/50 PASS"),
+              ("RFC-SUPELA-K3-ANNEXE-E-SCDH.md", "19/19 PASS"),
+              ("NORMALISATION-COMPLETE.md", "Point Fixe Atteint"),
+              ("ANNEXES-A-D-NORMES-OPERATIONNELLES.md", "N0"),
+              ("ANNEXES-A-D-NORMES-OPERATIONNELLES.md", "V1"),
+              ("DASHBOARD-SGG-v2-INTERACTIVE.html", "SGG_v2"),
+          ]
+
+          file_results = {f: (repo / f).exists() for f in files}
+          marker_results = []
+          for f, p in markers:
+              text = (repo / f).read_text(encoding="utf-8", errors="ignore")
+              marker_results.append({"file": f, "pattern": p, "found": p in text})
+
+          data = {
+              "workflow": "SUPELA CI Validation",
+              "generated_at_utc": datetime.datetime.utcnow().isoformat() + "Z",
+              "commit_count": int(subprocess.check_output(["git", "rev-list", "--count", "HEAD"], text=True).strip()),
+              "tag_present": bool(subprocess.check_output(["git", "tag", "-l", "v1.1.0-PRODUCTION-READY"], text=True).strip()),
+              "clean_worktree": not bool(subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()),
+              "files": file_results,
+              "markers": marker_results,
+          }
+
+          proof_dir = repo / "ci-proof"
+          proof_dir.mkdir(exist_ok=True)
+          (proof_dir / "ci-proof.json").write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+          with (proof_dir / "ci-proof.csv").open("w", newline="", encoding="utf-8") as f:
+              writer = csv.writer(f)
+              writer.writerow(["type", "name", "value"])
+              writer.writerow(["workflow", "name", data["workflow"]])
+              writer.writerow(["meta", "generated_at_utc", data["generated_at_utc"]])
+              writer.writerow(["meta", "commit_count", data["commit_count"]])
+              writer.writerow(["meta", "tag_present", data["tag_present"]])
+              writer.writerow(["meta", "clean_worktree", data["clean_worktree"]])
+              for name, ok in file_results.items():
+                  writer.writerow(["file", name, ok])
+              for item in marker_results:
+                  writer.writerow(["marker", f'{item["file"]}::{item["pattern"]}', item["found"]])
+          PY
+
+      - name: Upload CI proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: supela-ci-proof
+          path: ci-proof/

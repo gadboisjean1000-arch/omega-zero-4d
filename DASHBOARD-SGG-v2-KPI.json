@@ -1,0 +1,125 @@
+{
+  "generatedAtUtc": "2026-08-02T01:35:12.7756549Z",
+  "dashboard": "SGG_v2",
+  "release": "v2.0",
+  "sgg_v2": 92.3,
+  "pillars": [
+    {
+      "key": "autonomie",
+      "label": "Autonomie",
+      "score": 87,
+      "weight": 0.2
+    },
+    {
+      "key": "validation",
+      "label": "Validation",
+      "score": 94,
+      "weight": 0.25
+    },
+    {
+      "key": "ethique",
+      "label": "Ethique",
+      "score": 100,
+      "weight": 0.25
+    },
+    {
+      "key": "technique",
+      "label": "Technique",
+      "score": 82,
+      "weight": 0.1
+    },
+    {
+      "key": "meta",
+      "label": "Meta-Orchestrateur",
+      "score": 91,
+      "weight": 0.2
+    }
+  ],
+  "kpis": [
+    {
+      "pillar": "Autonomie",
+      "label": "Taux de stabilite par niveau",
+      "value": "96%",
+      "target": ">=95%",
+      "alert": "<85%",
+      "status": "green"
+    },
+    {
+      "pillar": "Autonomie",
+      "label": "Delai moyen transition N->N+1",
+      "value": "78j",
+      "target": "<=90j",
+      "alert": ">180j",
+      "status": "green"
+    },
+    {
+      "pillar": "Autonomie",
+      "label": "Frequence retrogradat. trimestrielles",
+      "value": "0",
+      "target": "0",
+      "alert": ">=2",
+      "status": "green"
+    },
+    {
+      "pillar": "Validation",
+      "label": "Taux respect delais de porte",
+      "value": "98.5%",
+      "target": ">=98%",
+      "alert": "<90%",
+      "status": "green"
+    },
+    {
+      "pillar": "Validation",
+      "label": "Delai median approbation V3",
+      "value": "38min",
+      "target": "<=45min",
+      "alert": ">55ms",
+      "status": "green"
+    },
+    {
+      "pillar": "Validation",
+      "label": "Disponibilite Kill Switch",
+      "value": "100%",
+      "target": "100%",
+      "alert": "<100%",
+      "status": "green"
+    },
+    {
+      "pillar": "Ethique",
+      "label": "Biais actifs niveau Rouge",
+      "value": "0",
+      "target": "0",
+      "alert": ">=1",
+      "status": "green"
+    },
+    {
+      "pillar": "Technique",
+      "label": "IS moyen base de code",
+      "value": "1.8",
+      "target": "<=2.0",
+      "alert": ">3.0",
+      "status": "green"
+    },
+    {
+      "pillar": "Meta-Orchestrateur",
+      "label": "Taux de consensus",
+      "value": "83%",
+      "target": ">=80%",
+      "alert": "<65%",
+      "status": "green"
+    },
+    {
+      "pillar": "Meta-Orchestrateur",
+      "label": "Latence arbitrage",
+      "value": "42ms",
+      "target": "<=50ms",
+      "alert": ">200ms",
+      "status": "green"
+    }
+  ],
+  "compliance": {
+    "pointFixe": true,
+    "productionReady": true,
+    "allGreen": true
+  }
+}

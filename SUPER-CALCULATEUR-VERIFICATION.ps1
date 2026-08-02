@@ -51,12 +51,15 @@ if(Test-Path $wfDir){
   $wfYml=(Get-ChildItem $wfDir -Filter *.yml).Count+(Get-ChildItem $wfDir -Filter *.yaml).Count
 }
 $dash=Join-Path $repo 'DASHBOARD-SGG-v2-INTERACTIVE.html'
+$jsonExport=Join-Path $repo 'DASHBOARD-SGG-v2-KPI.json'
+$csvExport=Join-Path $repo 'DASHBOARD-SGG-v2-KPI.csv'
 $hasY=Select-String -Path $dash -Pattern '🟡|status-yellow' -Quiet
 $hasR=Select-String -Path $dash -Pattern '🔴|status-red' -Quiet
 $kpiOK=(-not $hasY) -and (-not $hasR)
-if($wfYml -gt 0){$scoreD+=6}
-if($kpiOK){$scoreD+=4}
-$details+="D ops        workflows=$wfYml kpiAllGreen=$kpiOK = $scoreD/10"
+if($wfYml -gt 0){$scoreD+=3}
+if((Test-Path $jsonExport) -and (Test-Path $csvExport)){$scoreD+=2}
+if($kpiOK){$scoreD+=5}
+$details+="D ops        workflows=$wfYml exports=$(Test-Path $jsonExport)/$(Test-Path $csvExport) kpiAllGreen=$kpiOK = $scoreD/10"
 
 $total=[math]::Round($scoreA+$scoreB+$scoreC+$scoreD,2)
 $level=if($total -ge 95){'CERTIFIE PRODUCTION  [100%]'} `

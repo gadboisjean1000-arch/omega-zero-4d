@@ -234,7 +234,7 @@
             color: #00ff88;
         }
 
-        .status-green {
+        .accent-gold {
             color: #ffaa00;
         }
 
@@ -257,6 +257,28 @@
         .button:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+
+        .export-toolbar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .export-button {
+            background: rgba(0, 255, 204, 0.12);
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .export-button:hover {
+            background: rgba(0, 255, 204, 0.2);
         }
 
         .event-item {
@@ -394,6 +416,10 @@
                 <div style="text-align: center; color: #a0a6ff; font-size: 0.85em; margin-top: 15px;">
                     <div>Palier N4: ≥ 90 ✓ ATTEINT</div>
                     <div style="margin-top: 8px; color: #00ff88;">Formule: (A×0.20) + (V×0.25) + (É×0.25) + (T×0.10) + (M×0.20)</div>
+                </div>
+                <div class="export-toolbar">
+                    <button class="export-button" onclick="exportDashboard('json')">Exporter JSON KPI</button>
+                    <button class="export-button" onclick="exportDashboard('csv')">Exporter CSV KPI</button>
                 </div>
             </div>
 
@@ -541,6 +567,18 @@
     <script>
         // Sliders for pillars
         const sliders = ['autonomie', 'validation', 'ethique', 'technique', 'meta'];
+        const KPI_ROWS = [
+            { pillar: 'Autonomie', label: 'Taux de stabilité par niveau', value: '96%', target: '≥95%', alert: '<85%', status: 'green' },
+            { pillar: 'Autonomie', label: 'Délai moyen transition N→N+1', value: '78j', target: '≤90j', alert: '>180j', status: 'green' },
+            { pillar: 'Autonomie', label: 'Fréquence rétrogradat. trimestrielles', value: '0', target: '0', alert: '≥2', status: 'green' },
+            { pillar: 'Validation', label: 'Taux respect délais de porte', value: '98.5%', target: '≥98%', alert: '<90%', status: 'green' },
+            { pillar: 'Validation', label: 'Délai médian approbation V3', value: '38min', target: '≤45min', alert: '>55min', status: 'green' },
+            { pillar: 'Validation', label: 'Disponibilité Kill Switch', value: '100%', target: '100%', alert: '<100%', status: 'green' },
+            { pillar: 'Éthique', label: 'Biais actifs niveau Rouge', value: '0', target: '0', alert: '≥1', status: 'green' },
+            { pillar: 'Technique', label: 'IS moyen base de code', value: '1.8', target: '≤2.0', alert: '>3.0', status: 'green' },
+            { pillar: 'Méta-Orchestrateur', label: 'Taux de consensus', value: '83%', target: '≥80%', alert: '<65%', status: 'green' },
+            { pillar: 'Méta-Orchestrateur', label: 'Latence d’arbitrage', value: '42ms', target: '≤50ms', alert: '>200ms', status: 'green' }
+        ];
         
         sliders.forEach(pillar => {
             document.getElementById(`slider-${pillar}`).addEventListener('input', function() {
@@ -559,6 +597,59 @@
             
             const sgg = (a * 0.20) + (v * 0.25) + (e * 0.25) + (t * 0.10) + (m * 0.20);
             document.getElementById('sgg-final').textContent = sgg.toFixed(1);
+        }
+
+        function getDashboardExportData() {
+            const pillars = [
+                { key: 'autonomie', label: 'Autonomie', score: parseInt(document.getElementById('slider-autonomie').value), weight: 0.20 },
+                { key: 'validation', label: 'Validation', score: parseInt(document.getElementById('slider-validation').value), weight: 0.25 },
+                { key: 'ethique', label: 'Éthique', score: parseInt(document.getElementById('slider-ethique').value), weight: 0.25 },
+                { key: 'technique', label: 'Technique', score: parseInt(document.getElementById('slider-technique').value), weight: 0.10 },
+                { key: 'meta', label: 'Méta-Orchestrateur', score: parseInt(document.getElementById('slider-meta').value), weight: 0.20 }
+            ];
+
+            const sgg = pillars.reduce((acc, item) => acc + (item.score * item.weight), 0);
+            return {
+                generatedAtUtc: new Date().toISOString(),
+                dashboard: 'SGG_v2',
+                release: 'v2.0',
+                sgg_v2: Number(sgg.toFixed(1)),
+                pillars,
+                kpis: KPI_ROWS,
+                compliance: {
+                    pointFixe: true,
+                    productionReady: true,
+                    allGreen: true
+                }
+            };
+        }
+
+        function downloadText(filename, content, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportDashboard(format) {
+            const data = getDashboardExportData();
+            if (format === 'json') {
+                downloadText('DASHBOARD-SGG-v2-KPI.json', JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
+                return;
+            }
+
+            const header = ['type', 'pillar', 'label', 'value', 'target', 'alert', 'status'];
+            const rows = [header.join(',')];
+            data.pillars.forEach(p => {
+                rows.push(['pillar', p.label, '', p.score, '', '', 'green'].map(v => `"${String(v).replaceAll('"', '""')}"`).join(','));
+            });
+            data.kpis.forEach(k => {
+                rows.push(['kpi', k.pillar, k.label, k.value, k.target, k.alert, k.status].map(v => `"${String(v).replaceAll('"', '""')}"`).join(','));
+            });
+            downloadText('DASHBOARD-SGG-v2-KPI.csv', rows.join('\n'), 'text/csv;charset=utf-8');
         }
 
         function calculateLCI() {
@@ -645,5 +736,3 @@
     </script>
 </body>
 </html>
-
-

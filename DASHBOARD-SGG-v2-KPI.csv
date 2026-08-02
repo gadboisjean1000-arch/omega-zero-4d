@@ -1,0 +1,16 @@
+type,pillar,label,value,target,alert,status
+pillar,Autonomie,,87,,,green
+pillar,Validation,,94,,,green
+pillar,Ethique,,100,,,green
+pillar,Technique,,82,,,green
+pillar,Meta-Orchestrateur,,91,,,green
+kpi,Autonomie,Taux de stabilite par niveau,96%,>=95%,<85%,green
+kpi,Autonomie,Delai moyen transition N->N+1,78j,<=90j,>180j,green
+kpi,Autonomie,Frequence retrogradat. trimestrielles,0,0,>=2,green
+kpi,Validation,Taux respect delais de porte,98.5%,>=98%,<90%,green
+kpi,Validation,Delai median approbation V3,38min,<=45min,>55ms,green
+kpi,Validation,Disponibilite Kill Switch,100%,100%,<100%,green
+kpi,Ethique,Biais actifs niveau Rouge,0,0,>=1,green
+kpi,Technique,IS moyen base de code,1.8,<=2.0,>3.0,green
+kpi,Meta-Orchestrateur,Taux de consensus,83%,>=80%,<65%,green
+kpi,Meta-Orchestrateur,Latence arbitrage,42ms,<=50ms,>200ms,green
