@@ -239,6 +239,7 @@ Status:                 ✓ PRODUCTION-READY
 **Theory (Academic):**
 - [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md)
 - [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md)
+- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) — Fondations Théorème du Vide + Théorème du Reset + Cycle Fusionné (continuité conceptuelle TPDM)
 - [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md)
 - [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md)
 
@@ -259,6 +260,7 @@ Status:                 ✓ PRODUCTION-READY
 - **Tableau Opérationnel de Validation (TOV)** → onglet 📐 Validation de [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html)
 
 **Interactive (Live):**
+- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) ← App théorie fondationnelle (4 vues, autonome)
 - [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) ← Open in browser
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) ← Open in browser
 - [VISUALISEUR-SUPELA-INTERACTIVE.html](VISUALISEUR-SUPELA-INTERACTIVE.html) ← Open in browser
