@@ -1,6 +1,6 @@
-# VIABILITÉ LONG TERME — RÉGULATIONS : CADRE UNIVERSEL SYSTÉMIQUE
+# Viabilité à long terme des régulations — Cadre universel systémique
 
-**Auteur:** Jean-Francois Gadbois (Jef)  
+**Auteur:** Jean-François Gadbois (Jef)  
 **Date:** 2026-08-02  
 **Statut:** Rapport stratégique - version initiale intégrée  
 **Portée:** Cadre institutionnel de régulation adaptative 2026-2035
@@ -106,6 +106,18 @@ Objectif: éviter les ruptures brutales et sécuriser l'acceptabilité politique
 
 <a id="integration-systemique-grille-4-axes--score-20"></a>
 ## Intégration systémique (grille 4 axes + score /20)
+
+### Score par pilier (/5)
+
+| Pilier | Score (/5) | Justification synthétique |
+|---|---:|---|
+| Pilier 1 - Régulation dynamique | 4 | Architecture d'ajustement claire, à consolider sur l'exécution intersectorielle. |
+| Pilier 2 - Traçabilité totale | 5 | Exigences d'audit robustes et chaîne de preuve complète. |
+| Pilier 3 - Incitations économiques | 3 | Instruments pertinents mais calibrage encore incomplet pour certaines externalités. |
+| Pilier 4 - Fonds de transition | 4 | Mécanisme crédible avec conditionnalité, dépendant d'un financement durable. |
+| **Total** | **16 / 20** | **Cadre viable avec priorité d'amélioration sur les incitations.** |
+
+### Grille 4 axes (/20)
 
 | Axe | Critère d'évaluation | Score (/5) |
 |---|---|---:|
