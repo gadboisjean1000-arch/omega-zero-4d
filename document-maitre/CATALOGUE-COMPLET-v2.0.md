@@ -171,12 +171,72 @@ SUPELA v1.0.0 — META-ARCHITECTURE FONDATRICE
             ├─ 50% latency speedup (2.11× benchmark)
             └─ Signe Brahmagupta : préservé
 
-DUALITÉ FONDATRICE
+└─ **RFC SUPELA K3 – ANNEXE E** (SAFETY OS & GOUVERNANCE)
+    │
+    ├─ Système de Contrôle Déterministe Humain (SCDH)
+    │   ├─ Méta-Orchestrateur agnostique multi-modèles
+    │   ├─ 6 couches architecturales (collecte → décision)
+    │   ├─ Agnosticisme total : N'accède jamais à poids/paramètres
+    │   └─ Format interface canonique JSON normalisé
+    │
+    ├─ MoteurRAIM v2.2.0 (Rule d'Arbitrage Inter-Modèles)
+    │   ├─ Variance inter-modèles Δ (mesure dissonance)
+    │   ├─ Niveaux : CONSENSUS (Δ<0.10) → DISSONANCE_CRIT (Δ≥0.50)
+    │   ├─ Portes V1–V4 escalade (exécution → arrêt complet)
+    │   ├─ Score composite Cᵢ sélection modèle dominant M*
+    │   ├─ 5 cas limites CL-1 à CL-5 avec priorités
+    │   ├─ Pseudocode normatif complet
+    │   └─ ✓ 19/19 tests PASS (validation complète)
+    │
+    ├─ Détection Dissonance (Δ inter-modèles)
+    │   ├─ Table 4 seuils : CONSENSUS → DISSONANCE_CRITIQUE
+    │   ├─ Rétrogradation autonomie N → N−1 si Δ ≥ 0,25
+    │   ├─ Arrêt forcé N0 si Δ ≥ 0,50 (kill switch < 100ms)
+    │   └─ Règle normative : Jamais arbitrage algo pour Δ ≥ 0,50
+    │
+    ├─ Contrôle Biais Agrégé (Iᵒ)
+    │   ├─ Indice biais agrégé = Σ (wᵢ / Σwᵢ) × bᵢ
+    │   ├─ Seuils : sain (Iᵒ<0.15) → critique (Iᵒ≥0.30)
+    │   ├─ Modèles bᵢ≥0.40 → suspension immédiate
+    │   ├─ Règle non-compensation : pas de compensation biais
+    │   └─ Référence Annexe C (biais individuels)
+    │
+    ├─ Contrainte de Simplicité IS ≤ 3
+    │   ├─ SCDH lui-même doit rester auditeable
+    │   ├─ Collecte IS≤2, Variance IS≤2, Routage IS≤1, Journal IS≤1
+    │   ├─ Audit Annexe D à chaque modification
+    │   └─ Non-dérogeable : IS(SCDH) ≤ 3 toujours
+    │
+    ├─ Positionnement Safety OS (contextes critiques)
+    │   ├─ Finance : traçabilité irréversibilité
+    │   ├─ Santé : détection biais/contradiction
+    │   ├─ Défense : kill switch déterministe < 100ms
+    │   ├─ Industrie : filtre simplicité + registre biais
+    │   └─ Service public : prévention discriminatoire
+    │
+    ├─ KPIs & Métriques
+    │   ├─ Taux consensus ≥ 80% (alerte < 70%)
+    │   ├─ Taux dissonance critique < 1% (alerte > 3%)
+    │   ├─ Délai détection CL-4 ≤ 100ms (alerte > 500ms)
+    │   ├─ IS moyen SCDH ≤ 2,5 (alerte > 3)
+    │   └─ Iᵒ moyen < 0,15 (alerte ≥ 0,25)
+    │
+    └─ Intégration Parties Existantes
+        ├─ Annexe B : Portes V1–V4 cascadées
+        ├─ Annexe C : Indices biais (bᵢ, Iᵒ)
+        ├─ Annexe D : Complexité IS composants
+        └─ Document Maître Partie X (Safety OS & Gouvernance)
+
+DUALITÉ FONDATRICE (ÉTENDUE RFC K3)
   SUPELA (Géométrie hyperdim) ←→ NORME CANU (Cycle autonome)
                               ↓
                         LCI (Théorème instabilité)
                               ↓
                     PSZ (Morphisme Γ → S₀)
+                              ↓
+                  RFC K3 / SCDH (Gouvernance déterministe)
+                              ↓
+                  RAIM v2.2.0 (Arbitrage dissonance)
 ```
 
 ---
