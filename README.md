@@ -53,6 +53,7 @@ Point Fixe: ✓ COHERENCE = 100%
 | **Safety OS** | ✓ | MoteurRAIM v2.2.0 (19/19 PASS) |
 | **Governance** | ✓ | Annexes A–D (N0–N4, V1–V4, Registre) |
 | **Performance** | ✓ | 50/50 Validations PASS |
+| **CI/CD institutionnelle** | ✓ | SUPELA-CERT-CICD-2026 (CERTIFIÉ PRODUCTION 100/100) |
 | **Production** | ✓ | Phase 1–2 GO |
 | **IP & Legal** | ✓ | AUTHORS.md + 17 Git commits |
 
@@ -78,7 +79,8 @@ Point Fixe: ✓ COHERENCE = 100%
 ### 🔍 **Auditeur Compliance** (45 min)
 1. [PERFORMANCE-VALIDATION-50-50.md](PERFORMANCE-VALIDATION-50-50.md) — Full validation matrix
 2. [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md) — 10-tier certification
-3. [AUTHORS.md](AUTHORS.md) — IP ownership
+3. [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md) — Certification CI/CD institutionnelle
+4. [AUTHORS.md](AUTHORS.md) — IP ownership
 
 ### 🏛️ **Policy / Régulation** (25 min)
 1. [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md) — Viabilité long terme (cadre universel systémique)

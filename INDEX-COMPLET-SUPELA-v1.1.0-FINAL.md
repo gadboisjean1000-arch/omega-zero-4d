@@ -1,5 +1,5 @@
 # 📑 **INDEX-COMPLET-SUPELA-v1.1.0 — ÉDITION FINALE**
-## *Navigation Universelle | 23 Documents | Tous Piliers | Production-Ready*
+## *Navigation Universelle | 24 Documents | Tous Piliers | Production-Ready*
 
 ---
 
@@ -11,7 +11,7 @@
 
 ---
 
-## **📊 STRUCTURE COMPLÈTE (23 Documents)**
+## **📊 STRUCTURE COMPLÈTE (24 Documents)**
 
 ### **LAYER 0 — META-ARCHITECTURE (50 kB)**
 
@@ -93,6 +93,7 @@
 | # | Document | Type | Taille | Focus | Essentialité |
 |---|----------|------|--------|-------|-----|
 | 27 | .github/CONFIGURATION-NORMALISEE.md | Markdown | 6.7 kB | Workflow templates, governance docs | ⭐⭐ |
+| 28 | SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md | Markdown | ~8 kB | Certification CI/CD institutionnelle, attestation formelle PROD 100/100 | ⭐⭐⭐ |
 
 ---
 
@@ -157,6 +158,7 @@
 ☐ RAIM v2.2.0 validation (19/19 PASS)
 ☐ RFC K3 integration verified
 ☐ CI/CD workflows active (.github/CONFIGURATION)
+☐ Certification institutionnelle validée (SUPELA-CERT-CICD-2026)
 ☐ Normalization (10 tiers) confirmed
 ```
 
@@ -197,7 +199,7 @@
 ## **📈 DOCUMENT STATISTICS**
 
 ```
-Total documents:        23 (+ supela-corpus-v1.0.0/ directory)
+Total documents:        24 (+ supela-corpus-v1.0.0/ directory)
 Total size:            ~366 kB (final)
 Markdown files:        16 (168 kB)
 HTML interactive:       3 (71 kB)
@@ -240,6 +242,7 @@ Status:                 ✓ PRODUCTION-READY
 - [ANNEXES-A-D-NORMES-OPERATIONNELLES.md](ANNEXES-A-D-NORMES-OPERATIONNELLES.md)
 - [DEPLOYMENT-ROADMAP.md](DEPLOYMENT-ROADMAP.md)
 - [.github/CONFIGURATION-NORMALISEE.md](.github/CONFIGURATION-NORMALISEE.md)
+- [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md)
 
 **Policy (Strategic):**
 - [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)
@@ -247,6 +250,7 @@ Status:                 ✓ PRODUCTION-READY
 **Validation (Compliance):**
 - [PERFORMANCE-VALIDATION-50-50.md](PERFORMANCE-VALIDATION-50-50.md)
 - [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md)
+- [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md)
 - [AUTHORS.md](AUTHORS.md)
 
 **Interactive (Live):**
