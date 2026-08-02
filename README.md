@@ -18,6 +18,7 @@
 [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Open in browser
 
 ### Apps interactives
+- [PORTAIL-SUPELA-MASTER.html](PORTAIL-SUPELA-MASTER.html) — **Point d'entrée principal** de l'écosystème SUPELA/SCDH/TPDM (galaxy map, timeline, statut global, clôture)
 - [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) — Théorème du Vide + Théorème du Reset + Cycle fusionné + mécanique finale (4 vues)
 - [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome **6 onglets** v1.2.0 : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)**
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) — Dashboard performance temps réel

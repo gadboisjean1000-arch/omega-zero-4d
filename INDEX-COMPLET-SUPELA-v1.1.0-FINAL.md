@@ -5,9 +5,10 @@
 
 ## **🚀 COMMENCER ICI (3 Documents Prioritaires)**
 
-1. **SYNTHESE-FINALE-SUPELA-v1.1.0.md** ← START (5 min, executive overview)
-2. **MASTER-FORMALIZATION.md** ← Architecture complète (20 min, 9 parties)
-3. **DASHBOARD-SGG-v2-INTERACTIVE.html** ← Tableau de bord temps réel (open in browser)
+1. **PORTAIL-SUPELA-MASTER.html** ← START GLOBAL (point d'entrée maître SUPELA/SCDH/TPDM)
+2. **SYNTHESE-FINALE-SUPELA-v1.1.0.md** ← START (5 min, executive overview)
+3. **MASTER-FORMALIZATION.md** ← Architecture complète (20 min, 9 parties)
+4. **DASHBOARD-SGG-v2-INTERACTIVE.html** ← Tableau de bord temps réel (open in browser)
 
 ---
 
@@ -17,6 +18,7 @@
 
 | # | Document | Type | Taille | Focus | Essentialité |
 |---|----------|------|--------|-------|-----|
+| 0 | PORTAIL-SUPELA-MASTER.html | HTML | ~40 kB | Point d'entrée global: galaxy map, timeline, statut intégral, citation de clôture | ⭐⭐⭐ |
 | 1 | supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md | Markdown | 42 kB | Axiom, invariants, 5D space | ⭐⭐⭐ |
 
 ---
@@ -260,6 +262,7 @@ Status:                 ✓ PRODUCTION-READY
 - **Tableau Opérationnel de Validation (TOV)** → onglet 📐 Validation de [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html)
 
 **Interactive (Live):**
+- [PORTAIL-SUPELA-MASTER.html](PORTAIL-SUPELA-MASTER.html) ← **Entrée globale principale** (SUPELA · SCDH · TPDM)
 - [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) ← App théorie fondationnelle (4 vues, autonome)
 - [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) ← Open in browser
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) ← Open in browser
