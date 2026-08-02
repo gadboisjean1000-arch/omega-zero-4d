@@ -52,7 +52,7 @@ jobs:
 
       - name: Upload benchmark results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: silicon-benchmark-results
           path: PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md
