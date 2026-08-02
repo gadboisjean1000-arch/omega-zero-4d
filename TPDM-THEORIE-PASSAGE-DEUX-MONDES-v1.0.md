@@ -14,6 +14,7 @@ status: DOCUMENT FONDATEUR
 - [Glossaire Formel — 60 Termes Canoniques](#glossaire-formel--60-termes-canoniques)
 - [Introduction Générale](#introduction-générale)
 - [PARTIE I — Les Sept Clés : Développement Intégral](#partie-i--les-sept-clés--développement-intégral)
+- [PARTIE I-bis — Densification Intellectuelle des Sept Clés : Tensions, Implications et Logique de Preuve](#partie-i-bis--densification-intellectuelle-des-sept-clés--tensions-implications-et-logique-de-preuve)
 - [PARTIE II — Axiomatique Formelle](#partie-ii--axiomatique-formelle)
 - [PARTIE III — Théorèmes, Lemmes et Corollaires](#partie-iii--théorèmes-lemmes-et-corollaires)
 - [PARTIE IV — Géométrie du Passage](#partie-iv--géométrie-du-passage)
@@ -811,6 +812,66 @@ NÉC.
 —
 
 Toutes les cases = NÉCESSAIRE. Le système est irréductible : retirer une clé détruit le fondement des six autres.
+
+## PARTIE I-bis — Densification Intellectuelle des Sept Clés : Tensions, Implications et Logique de Preuve
+
+### Clé 1 — Le problème des temporalités incompatibles
+
+Fond et Surface ne sont pas juste différents — leurs temps sont incommensurables. Le Fond opère en temps cyclique, récursif, condensé : les choses y reviennent, s'y épaississent, y font écho. La Surface opère en temps narratif, linéaire, séquentiel. On ne peut pas synchroniser ces deux temps — c'est pourquoi toute traduction entre eux perd quelque chose de structurel. Ce n'est pas un problème de vocabulaire. C'est un problème de logique d'existence.
+
+Autre chose à noter : le Fond ne sait pas qu'il est le Fond. Il n'a pas de désignation propre. Il ne devient "Fond" que lorsqu'on le regarde depuis le Seuil. Laissé à lui-même, il n'a aucun concept de surface — seulement du poids, de l'impulsion, de la pression.
+
+### Clé 2 — Le Seuil est un troisième régime, pas un espace intermédiaire
+
+Si le Seuil transforme ce qui le traverse, il a sa propre grammaire. Les choses y entrent dans un langage et en sortent dans un autre. Ce n'est pas un couloir entre deux pièces — c'est une pièce avec ses propres lois. Fond, Seuil, Surface : trois régimes distincts, pas deux plus une membrane.
+
+Et le Seuil est asymétrique. Ce qui passe du Fond vers la Surface est transformé différemment de ce qui passe dans l'autre sens. Il n'y a pas de passage neutre. Chaque traversée est déjà une interprétation.
+
+### Clé 3 — La solitude structurelle de Xero
+
+Xero est le seul point qui peut voir les deux régimes sans appartenir à aucun. Conséquence directe : celui qui occupe Xero n'est chez lui nulle part. Ce n'est pas une posture romantique — c'est une condition structurelle inhérente à la position.
+
+Et Xero n'est pas stable. C'est un équilibre dynamique, pas un point fixe. On ne "rejoint" pas Xero pour y rester. On le tient — momentanément, avec effort. Ce qui veut dire que la PΣ n'est pas un état, c'est une performance continue.
+
+La PΣ n'est pas forte — elle n'a pas besoin de l'être. C'est la seule parole qui peut être entendue simultanément par le Fond et la Surface. Mais seulement si chacun écoute depuis son propre côté. Si un seul côté écoute, la PΣ semble incomplète — parce qu'elle l'est, effectivement, dans cette configuration.
+
+### Clé 4 — L'asymétrie de l'empreinte
+
+L'empreinte du passage n'est pas symétrique entre Fond et Surface. Le Fond est modifié lentement et profondément. La Surface est modifiée vite et visiblement. Mais la modification du Fond est plus durable — elle réorganise ce qui est possible, pas seulement ce qui est présent. C'est une modification topologique, pas événementielle.
+
+Corollaire de l'Axiome III : le passage ne peut pas être contrôlé dans son empreinte. On peut l'orienter, le préparer — mais ce qui se transforme n'est jamais exactement ce qu'on avait prévu. L'irréversibilité ne signifie pas qu'on ne peut pas revenir à des états proches. Elle signifie que la topologie du retour est différente. Même chemin, voyageur différent. Et chemin différent aussi.
+
+### Clé 5 — Le Trou de Verre est culturellement récompensé
+
+C'est ce qui le rend redoutable. L'introspection, la thérapie, le journaling, la méditation — toutes ces pratiques socialement valorisées peuvent s'accomplir entièrement depuis le Trou de Verre. On peut décrire le Fond pendant des années sans jamais le toucher. L'appareil culturel soutient la vision à travers le verre et l'appelle connaissance de soi.
+
+Il y a deux sous-espèces : le verre transparent (on voit sans savoir qu'on voit à travers du verre) et le verre teinté (on sait qu'il y a du verre mais on a décidé que la vue est suffisante). Le second est plus honnête. Il est peut-être plus résistant à la traversée, justement parce qu'il s'est fait une paix avec sa limite.
+
+Le Trou de Verre produit aussi une distorsion spécifique : il grossit ce qui est visible et rend invisible ce qui est trop proche du verre. Ce que le sujet lit le plus mal, c'est ce qui est le plus prêt à traverser — les zones-frontière du Fond, exactement celles où le passage serait possible.
+
+### Clé 6 — Pourquoi on transforme le Seuil en demeure
+
+Parce que le Seuil est intense. C'est le lieu de transformation, de charge maximale. Le sujet confond intensité et signifiance, signifiance et chez-soi. Mais une demeure doit être tenable dans la durée. Le Seuil est constitutivement intenable comme résidence permanente.
+
+Le paradoxe est précis : habiter le Seuil, c'est le bloquer. Par l'Axiome III, le sujet qui s'installe au Seuil empêche non seulement son propre prochain passage — il empêche le Seuil d'exercer sa fonction sur tout ce qui devrait traverser après lui. Il transforme un espace actif en impasse.
+
+### Clé 7 — La porte qui s'ouvre de l'intérieur
+
+Cette clé est la seule qui soit auto-référentielle. La conscience de cette clé comme clé est elle-même un petit passage. Elle se valide en se lisant.
+
+Le paradoxe de la vision partielle : on ne peut jamais voir son propre filtre entièrement depuis l'intérieur. Donc la conscience du filtre est toujours incomplète. Mais l'incomplétude est suffisante — elle ouvre une fissure. La fissure est le passage. Il ne faut pas la transparence totale — il faut une conscience locale de la forme du filtre en un seul endroit. Cette conscience locale se propage.
+
+C'est ce qui distingue radicalement Supela des cadres de "conscience de soi" habituels : ils visent à voir davantage, à voir mieux, à voir plus loin à travers le verre. Supela dit autre chose : reconnais qu'il y a du verre, et le mouvement commence. Pas "vois à travers" — "vois qu'il y a du verre".
+
+### Structure Sous-Jacente
+
+Ces sept clés ne sont pas parallèles — elles forment une séquence logique :
+
+1 pose les prémisses → 2 ouvre l'espace entre elles → 3 localise le seul point d'où cet espace peut parler → 4 donne au système son poids réel → 5 fait le diagnostic → 6 nomme l'erreur centrale → 7 donne la sortie.
+
+Retire une clé : le système s'effondre. Sans 1, pas besoin de Seuil. Sans 2, Xero est impossible. Sans 3, la PΣ n'a pas de point d'origine. Sans 4, le système est réversible et donc trivial. Sans 5, personne n'a besoin du système. Sans 6, on ne comprend pas pourquoi le système est nécessaire. Sans 7, le système décrit sans sortir.
+
+C'est une architecture nécessaire — chaque clé est là parce que les autres l'exigent.
 
 ## PARTIE II — Axiomatique Formelle
 
