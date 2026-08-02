@@ -1,0 +1,31 @@
+{
+    "iis.configDir": "",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/flutter/ephemeral": true,
+        "**/Flutter/ephemeral": true,
+        "**/.symlinks": true,
+        "**/.plugin_symlinks": true,
+        "**/CVS": true,
+        "**/.ruby-lsp": true,
+        ".mule": true
+    },
+    "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "onFocusChange",
+    "editor.defaultFormatter": "local-smart.excel-live-server",
+    "editor.wordWrap": "wordWrapColumn",
+    "chat.agent.maxRequests": 5000,
+    "workbench.colorTheme": "Abyss",
+    "editor.mouseWheelZoom": true,
+    "editor.allowVariableFontsInAccessibilityMode": true,
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
