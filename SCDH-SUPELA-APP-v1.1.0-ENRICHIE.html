@@ -997,7 +997,7 @@
             <div class="export-grid">
                 <article class="export-card">
                     <div class="card-title">⬇ JSON complet</div>
-                    <p class="card-subtitle">Télécharge <code>supela-ci-proof-2026-08-02.json</code> avec les métadonnées, scores, tests, KPIs et invariants.</p>
+                    <p class="card-subtitle">Télécharge <code>supela-ci-proof-2026-08-02.json</code> avec les métadonnées, scores, tests, KPIs, invariants et données de validation TOV.</p>
                     <button class="action-btn primary" data-export="json">Télécharger le JSON complet</button>
                 </article>
                 <article class="export-card">
@@ -1012,8 +1012,13 @@
                 </article>
                 <article class="export-card">
                     <div class="card-title">⬇ Rapport HTML</div>
-                    <p class="card-subtitle">Télécharge <code>supela-rapport-scdh-2026-08-02.html</code>, un rapport HTML autonome statique avec récapitulatif complet.</p>
+                    <p class="card-subtitle">Télécharge <code>supela-rapport-scdh-2026-08-02.html</code>, un rapport HTML autonome statique avec récapitulatif complet incluant le volet Validation.</p>
                     <button class="action-btn primary" data-export="html">Télécharger le rapport HTML</button>
+                </article>
+                <article class="export-card">
+                    <div class="card-title">⬇ TOV JSON — Validation</div>
+                    <p class="card-subtitle">Télécharge <code>supela-tov-validation-2026-08-02.json</code> avec les 15 dimensions, 2 paradigmes, 6 phases et bibliographie du Tableau Opérationnel de Validation.</p>
+                    <button class="action-btn primary" data-export="validation">Télécharger le TOV JSON</button>
                 </article>
             </div>
         </section>
@@ -1188,9 +1193,9 @@
 
     <script>
         const scoreBoardTarget = `╔══════════════════════════════════════╗
-║  SUPELA v1.1.0  —  SCORE: 100/100   ║
+║  SUPELA v1.2.0  —  SCORE: 100/100   ║
 ║  STATUT: ✅ PRODUCTION READY         ║
-║  TAG: v1.1.0-PRODUCTION-READY        ║
+║  6 ONGLETS · TOV VALIDATION INTÉGRÉ  ║
 ╚══════════════════════════════════════╝`;
 
         const dashboardMetrics = [
@@ -1328,6 +1333,18 @@
                 I2: "Kill Switch opérationnel <100ms",
                 I3: "Biais I_B < seuil nominal",
                 I4: "Simplicité CC ≤ 9"
+            },
+            validation_tov: {
+                version: "1.2.0",
+                paradigmes: ["Discursif (constructivisme)", "Preuve-Centrée (positivisme)"],
+                positionnement_supela: {
+                    preuve_centree: ["CI", "KPI", "Gates", "Coverage", "SARIF"],
+                    discursif: ["CVEA", "post-mortems", "jalons J1-J4"]
+                },
+                nb_dimensions: 15,
+                categories: ["Épistémologie", "Méthodes", "Risques", "Livrables"],
+                nb_phases: 6,
+                prochaine_etape: "Rasch/CFA v1.3.0 (Phases 3-4)"
             }
         };
 
@@ -1563,39 +1580,70 @@ if ($score -eq 100) {
                     <td>PASS</td>
                 </tr>
             `).join("");
+            const tovRows = validationDimensions.map((d) => `
+                <tr>
+                    <td>${d.id}</td>
+                    <td>${d.dim}</td>
+                    <td>${d.cat}</td>
+                    <td>${d.preuve}</td>
+                    <td>${d.discursif}</td>
+                    <td>${d.supela}</td>
+                </tr>
+            `).join("");
+            const phaseRows = validationPhases.map((p) => `
+                <tr><td>${p.num}</td><td>${p.name}</td><td>${p.period}</td><td>${p.approche}</td><td>${p.outils}</td><td>${p.indicateur}</td></tr>
+            `).join("");
             return `<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport SCDH SUPELA 2026-08-02</title>
+    <title>Rapport SCDH SUPELA v1.2.0 — 2026-08-02</title>
     <style>
         body{font-family:"SF Pro Display","Segoe UI",sans-serif;background:linear-gradient(135deg,#0a0e27 0%,#1a0033 50%,#001a1a 100%);color:#ecf4ff;margin:0;padding:32px}
         .wrap{max-width:1100px;margin:0 auto}
         .card{background:rgba(15,20,45,.78);border:1px solid rgba(0,255,255,.2);border-radius:18px;padding:24px;margin-bottom:18px}
         h1,h2{color:#00ffff}
         table{width:100%;border-collapse:collapse}
-        th,td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+        th,td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:0.85rem}
         th{color:#00ffff}
     </style>
 </head>
 <body>
     <div class="wrap">
         <div class="card">
-            <h1>SCDH-SUPELA — Rapport HTML autonome</h1>
-            <p>Version 1.1.0 · Tag v1.1.0-PRODUCTION-READY · Score 100/100 · Run #28</p>
+            <h1>SCDH-SUPELA — Rapport HTML autonome v1.2.0</h1>
+            <p>Version 1.2.0 · Tag v1.1.0-PRODUCTION-READY · Score 100/100 · Run #28 · 6 onglets · TOV intégré</p>
         </div>
         <div class="card">
             <h2>Scores</h2>
             <p>Global: 100 · Gouvernance: 100 · Performance: 100 · Conformité: 100 · Sécurité: 100</p>
         </div>
         <div class="card">
-            <h2>KPIs</h2>
+            <h2>KPIs (15)</h2>
             <table>
                 <thead>
                     <tr><th>ID</th><th>Nom</th><th>Valeur</th><th>Catégorie</th><th>Statut</th></tr>
                 </thead>
                 <tbody>${kpiRows}</tbody>
+            </table>
+        </div>
+        <div class="card">
+            <h2>Tableau Opérationnel de Validation — TOV (15 dimensions)</h2>
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Dimension</th><th>Catégorie</th><th>Preuve-Centrée</th><th>Discursif</th><th>Approche SUPELA</th></tr>
+                </thead>
+                <tbody>${tovRows}</tbody>
+            </table>
+        </div>
+        <div class="card">
+            <h2>Feuille de Route Validation — 6 Phases</h2>
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Phase</th><th>Période</th><th>Approche</th><th>Outils</th><th>Indicateur</th></tr>
+                </thead>
+                <tbody>${phaseRows}</tbody>
             </table>
         </div>
     </div>
@@ -1619,6 +1667,37 @@ if ($score -eq 100) {
             }, null, 2);
         }
 
+        function buildValidationJson() {
+            return JSON.stringify({
+                metadata: {
+                    date: "2026-08-02",
+                    source: "SCDH-SUPELA-APP-v1.2.0",
+                    titre: "Tableau Opérationnel de Validation (TOV)"
+                },
+                paradigmes: [
+                    {
+                        id: "P1", nom: "Discursif", cadre: "Constructivisme",
+                        methodes: ["focus groupes", "révision par experts", "analyse argumentative"],
+                        supela: ["CVEA", "post-mortems", "jalons J1-J4"]
+                    },
+                    {
+                        id: "P2", nom: "Preuve-Centrée", cadre: "Positivisme",
+                        methodes: ["CFA", "Rasch", "Kappa inter-juges"],
+                        supela: ["CI", "KPI", "Gates", "Coverage", "SARIF"]
+                    }
+                ],
+                dimensions: validationDimensions,
+                phases: validationPhases,
+                bibliographie: [
+                    { auteur: "Kane, M. T.", annee: 2006, titre: "Validation", in: "Educational Measurement (4th ed.)" },
+                    { auteur: "Messick, S.", annee: 1989, titre: "Validity", in: "Educational Measurement (3rd ed.)" },
+                    { auteur: "Chapelle, C. A. et al.", annee: 2008, titre: "Building a Validity Argument for the TOEFL", editeur: "Routledge" },
+                    { auteur: "Bachman, L. F. & Palmer, A. S.", annee: 2010, titre: "Language Assessment in Practice", editeur: "Oxford University Press" }
+                ],
+                note_methodologique: "Approche non-exclusive — complémentarité paradigmatique. Phases 3-4 préparent Rasch/CFA v1.3.0."
+            }, null, 2);
+        }
+
         function handleExport(kind) {
             if (kind === "json") {
                 downloadBlob("supela-ci-proof-2026-08-02.json", JSON.stringify(exportJsonData, null, 2), "application/json;charset=utf-8");
@@ -1631,6 +1710,9 @@ if ($score -eq 100) {
             }
             if (kind === "html") {
                 downloadBlob("supela-rapport-scdh-2026-08-02.html", buildReportHtml(), "text/html;charset=utf-8");
+            }
+            if (kind === "validation") {
+                downloadBlob("supela-tov-validation-2026-08-02.json", buildValidationJson(), "application/json;charset=utf-8");
             }
         }
 
