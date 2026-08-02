@@ -1,11 +1,11 @@
 # AUTHORS & CERTIFICATION
 
-## 👤 Auteur Principal
+## Principal Author
 
-**Jean Gadbois**  
-📧 gadboisjean1000@gmail.com  
-🏢 Architecte SUPELA — Domaine Complet  
-📍 Recherche & Développement, 2024–2026  
+**Jean Gadbois**
+Email: gadboisjean1000@gmail.com
+Role: SUPELA Architect — Full Domain
+Period: Research and Development, 2024–2026
 
 ### Travaux Archivés sous SUPELA v1.0.0
 
@@ -38,7 +38,7 @@
 
 ---
 
-## 🔐 Certification Légale
+## Legal Certification
 
 ```
 CERTIFICAT DE PROPRIÉTÉ INTELLECTUELLE
@@ -68,7 +68,7 @@ Statut: VALIDE ET EXÉCUTOIRE
 
 ---
 
-## 🎯 Comment Citer Ce Travail
+## Citation
 
 ### Citation Académique
 ```bibtex
@@ -96,7 +96,7 @@ SUPELA Ecosystem v1.0.0 — Tous droits réservés
 
 ---
 
-## 📜 Droits et Conditions d'Utilisation
+## Rights and Terms of Use
 
 **Licence:** Documentation et code sous domaine public avec attribution obligatoire  
 **Condition:** Toute utilisation, citation ou dérivation doit mentionner "© Jean Gadbois"  
