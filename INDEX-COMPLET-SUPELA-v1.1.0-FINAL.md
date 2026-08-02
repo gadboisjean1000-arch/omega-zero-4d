@@ -29,6 +29,7 @@
 | 3 | RFC-SUPELA-K3-ANNEXE-E-SCDH.md | Markdown | 15.7 kB | Safety OS, MoteurRAIM v2.2.0 (19/19 tests PASS), PAI 4 gates | ⭐⭐⭐ |
 | 4 | RFC-K3-INTEGRATION-STRUCTURALE.md | Markdown | 7.9 kB | Architectural mapping RFC K3 → MASTER-FORMALIZATION | ⭐⭐ |
 | 5 | LCI-STOCHASTIQUE-v1.1.md | Markdown | 10.0 kB | EDS Itô, Foster-Lyapunov, Lemme d'Itô, Gronwall stochastique, B_k^S LogNormal | ⭐⭐⭐ |
+| 6a | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~30 kB | Document fondateur, théorie du passage et des deux mondes | ⭐⭐⭐ |
 | 6 | ANNEXES-A-D-NORMES-OPERATIONNELLES.md | Markdown | 11.1 kB | Taxonomie N0–N4, Protocoles V1–V4, Registre Biais, Module IS | ⭐⭐⭐ |
 
 ---
@@ -235,6 +236,7 @@ Status:                 ✓ PRODUCTION-READY
 
 **Theory (Academic):**
 - [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md)
+- [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md)
 - [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md)
 - [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md)
 
