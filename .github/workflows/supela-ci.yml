@@ -27,7 +27,13 @@ jobs:
             AUTHORS.md \
             RFC-SUPELA-K3-ANNEXE-E-SCDH.md \
             NORMALISATION-COMPLETE.md \
-            DEPLOYMENT-ROADMAP.md; do
+            DEPLOYMENT-ROADMAP.md \
+            RAPPORT-DOCTORAL-SCDH-v1.0.md \
+            CVEA-CHARTE-MANDAT.md \
+            RAPPORT-QUALIFICATION-TECHNIQUE-RQT.md \
+            governance/orchestrator.py \
+            governance/meta_orchestrator.py \
+            governance/test_governance_rules.py; do
             test -f "$f" || (echo "MISSING: $f" && exit 1)
             echo "OK: $f"
           done
@@ -39,6 +45,12 @@ jobs:
           grep -q "Point Fixe Atteint" NORMALISATION-COMPLETE.md
           grep -q "SGG_v2"            DASHBOARD-SGG-v2-INTERACTIVE.html
           echo "All content markers OK"
+
+      - name: Run governance invariant tests (17/17)
+        run: |
+          cd governance
+          python3 test_governance_rules.py -v
+          echo "Governance 17/17 PASS"
 
       - name: Repo stats
         run: |
@@ -63,6 +75,12 @@ jobs:
               "RFC-SUPELA-K3-ANNEXE-E-SCDH.md",
               "NORMALISATION-COMPLETE.md",
               "DEPLOYMENT-ROADMAP.md",
+              "RAPPORT-DOCTORAL-SCDH-v1.0.md",
+              "CVEA-CHARTE-MANDAT.md",
+              "RAPPORT-QUALIFICATION-TECHNIQUE-RQT.md",
+              "governance/orchestrator.py",
+              "governance/meta_orchestrator.py",
+              "governance/test_governance_rules.py",
           ]
           markers = [
               ("PERFORMANCE-VALIDATION-50-50.md", "50/50 PASS"),
