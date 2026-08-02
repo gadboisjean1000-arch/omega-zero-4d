@@ -1,12 +1,13 @@
-# DOCUMENT MAÎTRE — Archive Permanente
+# DOCUMENT MAÎTRE v1.0 — Archive Permanente
 
-## Référence Officielle — Cadre Complet
+## Référence Officielle — Cadre Complet et Intégral
 
-Ce répertoire archive le **DOCUMENT MAÎTRE v1.0** — Cadre de Gouvernance et de Déploiement du Système Supela, intégrant la **Loi de la Contradiction Interne (LCI)** et l'architecture formelle complète.
+Ce répertoire archive le **DOCUMENT MAÎTRE v1.0** — Cadre de Gouvernance et de Déploiement du Système Supela, intégrant la **Loi de la Contradiction Interne (LCI)** dans sa version académique intégrale et complète.
 
-### Structure
+### Structure Documentaire
 
-- **`docs/DOCUMENT-MAITRE-COMPLET-v1.0.md`** — Document intégral (9 Parties + 4 Annexes)
+- **`docs/DOCUMENT-MAITRE-COMPLET-v1.0.md`** — Document maître (9 Parties + 4 Annexes)
+- **`docs/LCI-VERSION-ACADEMIQUE-INTEGRALE-v1.0.md`** — **LCI Formalisée Complète** (10 sections, preuves Lyapunov, lemmes, corollaires, bonus mécaniques)
 
 ### Contenu Intégral
 
