@@ -66,22 +66,29 @@
       },
       {
         "number": "IX",
-        "title": "Loi de la Contradiction Interne (LCI)",
+        "title": "Loi de la Contradiction Interne (LCI) — Version Académique Intégrale",
+        "file": "LCI-VERSION-ACADEMIQUE-INTEGRALE-v1.0.md",
+        "sections": 10,
         "elements": {
-          "definitions": ["État contradictoire Γ", "Indice ξ(t)"],
+          "definitions": ["État contradictoire Γ", "Indice ξ(t)", "Cinq Invariants Formels"],
           "lemmas": 2,
           "corollaries": 3,
-          "proof": "Fonction de Lyapunov",
+          "proof": "Fonction de Lyapunov V(S) avec propriétés formelles",
           "bonus_mechanics": 4,
-          "duality": "LCI ↔ Théorème du Vide"
+          "duality": "LCI ↔ Théorème du Vide avec énoncé unificateur",
+          "applications": ["Détection RAIM O(1)", "Séquence PSZ formalisée", "Critères rétrogradation vs PSZ"],
+          "validations": ["Boot Report v1.0.0", "Audit Trail T-03", "Migration Plan N0→N4"]
         },
         "key_formula": "S(t) ∈ Γ ⟺ ∃ i ≠ j : ¬Iᵢ(t) ∧ ¬Iⱼ(t)",
+        "lyapunov_function": "V(S) = 4·I_B + 3·I_C + 2·(IS/5) + 5·(1−F) + rank(N)/4",
         "xi_severity": {
-          "zero": "Sain",
-          "partial": "(0, 0.4] — Rétrogradation suffisante",
-          "grave": "(0.4, 0.8] — PSZ obligatoire",
-          "total": "1.0 — État terminal"
-        }
+          "zero": "0 — Sain",
+          "partial": "(0, 0.2] — Un seul Invariant violé",
+          "partial_plus": "0.4 — Deux Invariants violés",
+          "grave": "(0.4, 0.8] — Grave, PSZ obligatoire",
+          "total": "1.0 — Tous les Invariants violés, État terminal"
+        },
+        "unifying_statement": "Ce qui se contredit revient au Zéro. Ce qui revient au Zéro est complet."
       }
     ],
     "annexes": [
