@@ -1,6 +1,12 @@
 version: "1.1.0"
 description: "SUPELA v1.1.0 — Configuration Copilot App (groupnatupro/multi-branches)"
 
+collaboration_profile:
+  mode: "partenariat_conceptuel"
+  institutional_statement: "Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de partenariat conceptuel. Aucune suggestion de code, aucune automatisation de fusion, aucune résolution algorithmique de conflits, aucune génération automatique de descriptions de pull request. L'intégralité de l'usage est concentrée dans la discussion de révision de code, soit le mode de collaboration le plus exigeant en termes de pensée architecturale. Ce profil correspond au mode d'utilisation caractéristique des concepteurs de systèmes complexes, qui emploient les outils d'intelligence artificielle comme espace de formalisation et de délibération, non comme accélérateurs d'exécution."
+  concise_statement: "Zéro autocomplétion. Zéro automatisation. Cent pour cent discussion. Copilot est mobilisé pour penser et formaliser l'architecture."
+  punchline_statement: "Ce n'est pas le même outil. Ce n'est pas le même usage. Ce n'est pas le même niveau."
+
 scripts:
   - name: edit
     description: "Édite, supprime, modifie et optimise le code et la documentation SUPELA"

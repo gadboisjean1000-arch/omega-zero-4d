@@ -59,6 +59,12 @@ Point Fixe: ✓ COHERENCE = 100%
 
 ---
 
+## Copilot Collaboration Profile
+
+Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de partenariat conceptuel. Aucune suggestion de code, aucune automatisation de fusion, aucune résolution algorithmique de conflits, aucune génération automatique de descriptions de pull request. L'intégralité de l'usage est concentrée dans la discussion de révision de code, soit le mode de collaboration le plus exigeant en termes de pensée architecturale. Ce profil correspond au mode d'utilisation caractéristique des concepteurs de systèmes complexes, qui emploient les outils d'intelligence artificielle comme espace de formalisation et de délibération, non comme accélérateurs d'exécution.
+
+---
+
 ## Key Documents by Role
 
 ### Executive Decision-Maker (15 min)
