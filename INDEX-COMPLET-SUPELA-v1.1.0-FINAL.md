@@ -102,6 +102,19 @@
 
 ---
 
+### **EVIDENCE — RANG SUPÉRIEUR (couche E2)**
+
+| # | Artefact | Type | Statut | Focus | Essentialité |
+|---|----------|------|--------|-------|-----|
+| E2-1 | evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json | JSON | TEMPLATE_UNSIGNED | Template d'attestation auditeur A — à signer par auditeur externe indépendant | ⭐⭐⭐ |
+| E2-2 | evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json | JSON | TEMPLATE_UNSIGNED | Template d'attestation auditeur B — organisation différente de A | ⭐⭐⭐ |
+| E2-3 | evidence/external-audit/rank-superior/EXTERNAL-REVIEW-REGISTRY.json | JSON | draft | Registre des revues (draft/signed/verified) | ⭐⭐ |
+| E2-4 | evidence/external-audit/rank-superior/HASH-CHAIN-MANIFEST.json | JSON | PROVISIONAL | Chaîne de hachage artefacts clés + attestations | ⭐⭐ |
+| E2-5 | VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1 | PS1 | — | Script vérification autonome — émet PROVISIONAL ou VERIFIED_TIER2 | ⭐⭐⭐ |
+| E2-6 | PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md | Markdown | — | Processus, critères d'acceptation, anti-patterns | ⭐⭐ |
+
+---
+
 ## **🎯 FLUX PAR RÔLE**
 
 ### **👨‍💼 Décideur Exécutif (15 min)**
@@ -178,16 +191,21 @@
 
 ---
 
-## **🧩 N4→N5 — Robustesse avancée (Blocs E/F)**
+## **🧩 N4→N5 — Robustesse avancée (Blocs E/E2/F)**
 
-| Bloc | Objet | Preuves attendues | Seuils |
+| Bloc | Objet | Preuves attendues | Seuils / Statuts |
 |---|---|---|---|
-| E | Preuve externe indépendante | `evidence/external-audit/external-proof-manifest.json` + artefact tiers signé | Hash SHA-256 attendu + run/timestamp/commit traçables |
+| E | Preuve externe indépendante (base) | `evidence/external-audit/external-proof-manifest.json` + artefact tiers signé | Hash SHA-256 attendu + run/timestamp/commit traçables |
+| E2 | **Preuve externe rang supérieur** | `evidence/external-audit/rank-superior/` — 2 attestations auditeurs + registry + hash chain | `PROVISIONAL` (4/10 pts, templates non signés) · `VERIFIED_TIER2` (10/10 pts, 2 signatures réelles + hash OK) |
 | F | Validation psychométrique outillée | `evidence/psychometrics/psychometric-results.json` + `.csv` + seuils config | κ ≥ 0.75, CFI ≥ 0.95, TLI ≥ 0.95, RMSEA ≤ 0.06, SRMR ≤ 0.08, Infit/Outfit 0.70–1.30 |
 
+> **Nota bene E2 :** Les templates d'attestation sont en statut `TEMPLATE_UNSIGNED`. Le statut `PROVISIONAL` est attribué. `VERIFIED_TIER2` ne sera activé qu'après réception et vérification de deux signatures cryptographiques réelles d'auditeurs indépendants. Voir `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`.
+
 Ressources opérationnelles :
-- `SUPER-CALCULATEUR-VERIFICATION.ps1` (blocs A/B/C/D/E/F + score global normalisé)
+- `SUPER-CALCULATEUR-VERIFICATION.ps1` (blocs A/B/C/D/E/E2/F + score global normalisé sur 130)
+- `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1` (vérification autonome couche E2)
 - `GENERATE-ADVANCED-PROOF.ps1` (rafraîchissement commit/hash/timestamps)
+- `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md` (processus, critères, anti-patterns)
 
 ---
 
