@@ -66,22 +66,29 @@ Point Fixe: ✓ COHERENCE = 100%
 
 ---
 
-## Robustesse avancée N4→N5 (Blocs E/F)
+## Robustesse avancée N4→N5 (Blocs E/E2/F)
 
-Le super-calculateur inclut désormais deux contrôles additionnels pour formaliser la montée N4→N5 :
+Le super-calculateur inclut trois contrôles additionnels pour formaliser la montée N4→N5 :
 
-1. **Bloc E — Preuve externe indépendante** : présence artefact tiers, intégrité SHA-256 via manifeste, et traçabilité minimale run/timestamp/commit.
-2. **Bloc F — Validation psychométrique outillée** : sorties Rasch/CFA/Kappa (JSON/CSV), seuils configurables (κ ≥ 0.75, CFI/TLI/RMSEA/SRMR, infit/outfit), et traçabilité paramètres/statistiques.
+1. **Bloc E — Preuve externe indépendante (base)** : présence artefact tiers, intégrité SHA-256 via manifeste, et traçabilité minimale run/timestamp/commit.
+2. **Bloc E2 — Preuve externe de rang supérieur** : deux attestations d'auditeurs indépendants cryptographiquement signées + chaîne de hachage cohérente. Statuts différenciés : `PROVISIONAL` (4/10 pts, templates présents non signés) ou `VERIFIED_TIER2` (10/10 pts, attestations signées + hash OK). Aucune revendication trompeuse : les templates non signés n'accordent jamais le statut VERIFIED_TIER2.
+3. **Bloc F — Validation psychométrique outillée** : sorties Rasch/CFA/Kappa (JSON/CSV), seuils configurables (κ ≥ 0.75, CFI/TLI/RMSEA/SRMR, infit/outfit), et traçabilité paramètres/statistiques.
 
 Artefacts versionnés associés :
 - `evidence/external-audit/external-proof-manifest.json`
 - `evidence/external-audit/third-party-audit-artifact.txt`
+- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json`
+- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json`
+- `evidence/external-audit/rank-superior/EXTERNAL-REVIEW-REGISTRY.json`
+- `evidence/external-audit/rank-superior/HASH-CHAIN-MANIFEST.json`
 - `evidence/psychometrics/psychometric-results.json`
 - `evidence/psychometrics/psychometric-results.csv`
 - `evidence/psychometrics/psychometric-thresholds.json`
 
-Script de rafraîchissement de preuve :
+Scripts associés :
 - `GENERATE-ADVANCED-PROOF.ps1`
+- `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1`
+- `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`
 
 ---
 

@@ -47,6 +47,7 @@ $scoreB = 0
 $scoreC = 0
 $scoreD = 0
 $scoreE = 0
+$scoreE2 = 0
 $scoreF = 0
 $details = @()
 
@@ -155,6 +156,81 @@ $externalReproScore = [math]::Round((($reproChecks | Where-Object { $_ }).Count 
 $scoreE = [math]::Round($externalPresenceScore + $externalIntegrityScore + $externalReproScore, 2)
 $details += "E preuve ext presence=$([math]::Round($externalPresenceScore,2))/3 hash=$hashMatches runRef=$hasRunReference ts=$hasTimestamp commit=$hasCommit reachable=$commitReachable = $scoreE/10"
 
+# BLOC E2: Rang supérieur — preuve externe auditeurs indépendants (10 pts)
+# PROVISIONAL  → 4 pts  (structure présente, templates non signés)
+# VERIFIED_TIER2 → 10 pts (2 attestations signées + hash chain cohérente)
+# Note: aucun point si la structure est absente ou corrompue.
+$rankDir     = Join-Path $repo 'evidence\external-audit\rank-superior'
+$attestAPath = Join-Path $rankDir 'ATTESTATION-AUDITEUR-A.template.json'
+$attestBPath = Join-Path $rankDir 'ATTESTATION-AUDITEUR-B.template.json'
+$registryPath = Join-Path $rankDir 'EXTERNAL-REVIEW-REGISTRY.json'
+$hashChainPath = Join-Path $rankDir 'HASH-CHAIN-MANIFEST.json'
+
+$e2RequiredFields = @('auditor_org', 'contact', 'scope', 'method', 'findings', 'signature_block')
+
+function Test-RankFieldFilled {
+    param($obj, [string]$field)
+    if ($null -eq $obj) { return $false }
+    $v = "$($obj.$field)"
+    return (-not [string]::IsNullOrWhiteSpace($v)) -and (-not $v.StartsWith('<PLACEHOLDER'))
+}
+
+function Test-RankSignatureBlock {
+    param($sb)
+    if ($null -eq $sb) { return $false }
+    foreach ($f in @('signed_by','signed_at_utc','algorithm','key_fingerprint','value')) {
+        $v = "$($sb.$f)"
+        if ([string]::IsNullOrWhiteSpace($v) -or $v.StartsWith('<PLACEHOLDER')) { return $false }
+    }
+    return $true
+}
+
+$e2StructurePresent = (Test-Path $attestAPath) -and (Test-Path $attestBPath) -and (Test-Path $registryPath) -and (Test-Path $hashChainPath)
+
+$e2AttestAOK = $false
+$e2AttestBOK = $false
+$e2HashChainOK = $false
+
+if ($e2StructurePresent) {
+    # Vérifier attestation A
+    try {
+        $e2JsonA = (Get-Content -Raw -Path $attestAPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2AFieldsOK = ($e2RequiredFields | Where-Object { -not (Test-RankFieldFilled -obj $e2JsonA -field $_) }).Count -eq 0
+        $e2ASignedOK = ($e2JsonA._status -ne 'TEMPLATE_UNSIGNED') -and (Test-RankSignatureBlock -sb $e2JsonA.signature_block)
+        $e2AttestAOK = $e2AFieldsOK -and $e2ASignedOK
+    } catch { $e2AttestAOK = $false }
+
+    # Vérifier attestation B
+    try {
+        $e2JsonB = (Get-Content -Raw -Path $attestBPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2BFieldsOK = ($e2RequiredFields | Where-Object { -not (Test-RankFieldFilled -obj $e2JsonB -field $_) }).Count -eq 0
+        $e2BSignedOK = ($e2JsonB._status -ne 'TEMPLATE_UNSIGNED') -and (Test-RankSignatureBlock -sb $e2JsonB.signature_block)
+        $e2AttestBOK = $e2BFieldsOK -and $e2BSignedOK
+    } catch { $e2AttestBOK = $false }
+
+    # Vérifier hash chain (signed_sha256 non-null pour les deux attestations)
+    try {
+        $e2Manifest = (Get-Content -Raw -Path $hashChainPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2RankLayer = $e2Manifest.artifacts.rank_superior_layer | Where-Object { $_.id -in @('ATTESTATION-A','ATTESTATION-B') }
+        $e2HashChainOK = ($e2RankLayer | Where-Object { $null -ne $_.signed_sha256 -and "$($_.signed_sha256)" -ne '' }).Count -eq 2
+    } catch { $e2HashChainOK = $false }
+}
+
+if (-not $e2StructurePresent) {
+    $scoreE2 = 0
+    $e2Status = 'ABSENT'
+    $e2Msg = 'Structure rang supérieur absente'
+} elseif ($e2AttestAOK -and $e2AttestBOK -and $e2HashChainOK) {
+    $scoreE2 = 10
+    $e2Status = 'VERIFIED_TIER2'
+    $e2Msg = 'Deux attestations signées + hash chain cohérente'
+} else {
+    $scoreE2 = 4
+    $e2Status = 'PROVISIONAL'
+    $e2Msg = 'Structure présente — templates non signés (auditeurs externes requis)'
+}
+$details += "E2 rang-sup  status=$e2Status attestA=$e2AttestAOK attestB=$e2AttestBOK hashChain=$e2HashChainOK = $scoreE2/10 | $e2Msg"
+
 # BLOC F: Validation psychométrique outillée (10 pts)
 $psyJsonPath = Join-Path $repo 'evidence\psychometrics\psychometric-results.json'
 $psyCsvPath = Join-Path $repo 'evidence\psychometrics\psychometric-results.csv'
@@ -233,8 +309,8 @@ $psyTraceScore = [math]::Round((($traceChecks | Where-Object { $_ }).Count / $tr
 $scoreF = [math]::Round($psyPresenceScore + $psyThresholdScore + $psyTraceScore, 2)
 $details += "F psycho     files=$psyJsonExists/$psyCsvExists kappa=$kappaValue cfi=$cfi rmsea=$rmsea tli=$tli srmr=$srmr trace=$($psyTraceScore)/3 = $scoreF/10"
 
-$rawTotal = [math]::Round($scoreA + $scoreB + $scoreC + $scoreD + $scoreE + $scoreF, 2)
-$maxRaw = 120
+$rawTotal = [math]::Round($scoreA + $scoreB + $scoreC + $scoreD + $scoreE + $scoreE2 + $scoreF, 2)
+$maxRaw = 130
 $total = [math]::Round(($rawTotal / $maxRaw) * 100, 2)
 
 $level = if ($total -ge 97) {
@@ -249,7 +325,7 @@ $level = if ($total -ge 97) {
 
 ""
 "╔════════════════════════════════════════════════════════════════╗"
-"║   ⬡  SUPELA v1.1.0 — SUPER CALCULATEUR (A→F)   ⬡             ║"
+"║   ⬡  SUPELA v1.1.0 — SUPER CALCULATEUR (A→F+E2)  ⬡            ║"
 "╠════════════════════════════════════════════════════════════════╣"
 foreach ($d in $details) { "║  $d" }
 "╠════════════════════════════════════════════════════════════════╣"

@@ -1,0 +1,67 @@
+{
+  "_schema": "rank-superior-attestation/v1.0",
+  "_status": "TEMPLATE_UNSIGNED",
+  "_instructions": [
+    "Ce fichier est un modèle de template. Il doit être complété et signé par un auditeur externe indépendant.",
+    "Remplacer toutes les valeurs '<PLACEHOLDER>' par les informations réelles de l'auditeur.",
+    "Le champ signature_block.value doit contenir une signature cryptographique réelle (GPG, ed25519, etc.).",
+    "Une fois signé, mettre à jour EXTERNAL-REVIEW-REGISTRY.json (status: 'signed') et HASH-CHAIN-MANIFEST.json.",
+    "Aucune revendication de vérification tier-2 ne sera acceptée tant que ce fichier reste à statut TEMPLATE_UNSIGNED."
+  ],
+  "attestation_id": "ATTEST-A-RANK-SUPERIOR-2026",
+  "schema_version": "1.0",
+  "auditor_id": "AUDITEUR-A",
+  "auditor_org": "<PLACEHOLDER: ex. 'Université de Montréal — Bureau de Vérification Externe'>",
+  "contact": {
+    "name": "<PLACEHOLDER: Nom complet de l'auditeur>",
+    "email": "<PLACEHOLDER: email@institution.ca>",
+    "institution": "<PLACEHOLDER: Institution affiliée>",
+    "orcid_or_id": "<PLACEHOLDER: ORCID ou identifiant institutionnel>"
+  },
+  "scope": {
+    "target_system": "SUPELA v1.1.0",
+    "target_repository": "groupnatupro/multi-branches",
+    "review_type": "<PLACEHOLDER: ex. 'Audit de cohérence architecturale' | 'Revue formelle des preuves mathématiques' | 'Vérification de conformité normes'>",
+    "artifacts_reviewed": [
+      "<PLACEHOLDER: liste des fichiers ou artefacts examinés>",
+      "ex: MASTER-FORMALIZATION.md",
+      "ex: RFC-SUPELA-K3-ANNEXE-E-SCDH.md",
+      "ex: PERFORMANCE-VALIDATION-50-50.md"
+    ],
+    "review_period": {
+      "start_date": "<PLACEHOLDER: ISO date ex. 2026-09-01>",
+      "end_date": "<PLACEHOLDER: ISO date ex. 2026-09-30>"
+    }
+  },
+  "method": {
+    "approach": "<PLACEHOLDER: Description de la méthodologie d'audit utilisée>",
+    "standards_applied": [
+      "<PLACEHOLDER: ex. ISO/IEC 25010 (qualité logicielle)>",
+      "<PLACEHOLDER: ex. IEEE Std 1012 (vérification et validation)>"
+    ],
+    "tools": [
+      "<PLACEHOLDER: Outils utilisés pour la revue>"
+    ],
+    "independence_declaration": "<PLACEHOLDER: Déclaration d'indépendance — aucun conflit d'intérêt avec l'auteur ou l'organisation>"
+  },
+  "findings": {
+    "summary": "<PLACEHOLDER: Résumé de l'audit en 2-5 phrases>",
+    "strengths": [
+      "<PLACEHOLDER: Point fort 1>",
+      "<PLACEHOLDER: Point fort 2>"
+    ],
+    "concerns": [
+      "<PLACEHOLDER: Préoccupation ou limitation identifiée (laisser vide si aucune)>"
+    ],
+    "overall_assessment": "<PLACEHOLDER: PASS | PASS_WITH_CONDITIONS | FAIL>",
+    "confidence_level": "<PLACEHOLDER: HIGH | MEDIUM | LOW>"
+  },
+  "signature_block": {
+    "signed_by": "<PLACEHOLDER: Nom complet>",
+    "signed_at_utc": "<PLACEHOLDER: ISO 8601 datetime ex. 2026-09-30T17:00:00Z>",
+    "algorithm": "<PLACEHOLDER: ex. GPG-RSA-4096 | ed25519>",
+    "key_fingerprint": "<PLACEHOLDER: Empreinte de la clé publique>",
+    "value": "<PLACEHOLDER: Valeur de la signature cryptographique en base64 ou hex>",
+    "verification_url": "<PLACEHOLDER: URL pour vérifier la signature ou la clé publique>"
+  }
+}
