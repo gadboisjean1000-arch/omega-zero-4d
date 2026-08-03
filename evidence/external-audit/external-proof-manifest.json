@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "source": "Independent Audit Board - SUPELA External Review",
-  "run_reference": "EXT-AUDIT-20260803-060459",
-  "generated_at_utc": "2026-08-03T10:04:59Z",
-  "commit": "7931964405f723fcd763f49624548a5ddf499695",
+  "run_reference": "EXT-AUDIT-20260803-060810",
+  "generated_at_utc": "2026-08-03T10:08:11Z",
+  "commit": "bd8bb9489f391f25cb50b24004d4fd9379e840b8",
   "artifact_path": "evidence/external-audit/third-party-audit-artifact.txt",
   "expected_sha256": "889c1ae3435a66feb6e2610d0c5cff6120625ccc3cd0c717cc4230bcaad84967",
   "auditor_org": "Independent Audit Board",

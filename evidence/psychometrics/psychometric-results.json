@@ -1,9 +1,9 @@
 {
   "metadata": {
     "source_system": "SUPELA/SCDH",
-    "run_reference": "PSY-20260803-060459",
-    "generated_at_utc": "2026-08-03T10:04:59Z",
-    "commit": "7931964405f723fcd763f49624548a5ddf499695",
+    "run_reference": "PSY-20260803-060810",
+    "generated_at_utc": "2026-08-03T10:08:11Z",
+    "commit": "bd8bb9489f391f25cb50b24004d4fd9379e840b8",
     "dataset_id": "supela-validation-panel-v1",
     "toolchain": [
       "R-lavaan 0.6-17",
