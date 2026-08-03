@@ -22,6 +22,21 @@
 | 0 | PORTAIL-SUPELA-MASTER.html | HTML | ~40 kB | Point d'entrée global: galaxy map, timeline, statut intégral, citation de clôture | ⭐⭐⭐ |
 | 1 | supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md | Markdown | 42 kB | Axiom, invariants, 5D space | ⭐⭐⭐ |
 
+### **LAYER 0 — INSTITUTIONNEL N5 (NOUVEAU)**
+
+| # | Document | Type | Statut | Focus | Essentialité |
+|---|---|---|---|---|---|
+| I0-1 | institutional/RFP-AUDITEURS-EXTERNES.md | Markdown | draft | RFP ciblé auditeurs externes + critères indépendance/ML/SSO/gouvernance/signature | ⭐⭐⭐ |
+| I0-2 | institutional/MANDAT-AUDIT-EXTERNE-v1.0.md | Markdown | draft | Scope 8 domaines, format signé, SLA, plan B, confidentialité/redaction | ⭐⭐⭐ |
+| I0-3 | institutional/CHARTE-COMITE-EXTERNE.md | Markdown | draft | Charte comité 5-7 membres, quorum, cadence semestrielle, journalisation | ⭐⭐⭐ |
+| I0-4 | institutional/PV-TEMPLATE.md | Markdown | draft | Template PV horodaté + signatures + registre décisionnel | ⭐⭐ |
+| I0-5 | institutional/CHARTE-RED-TEAM.md | Markdown | draft | Cadence trimestrielle, playbooks d'attaque, rapport public redaction | ⭐⭐⭐ |
+| I0-6 | institutional/BENCHMARK-PROTOCOL.md | Markdown | draft | Benchmark officiel ISO 42001 / NIST AI RMF / EU AI Act | ⭐⭐⭐ |
+| I0-7 | institutional/CALENDRIER-EXECUTION-8-12-SEMAINES.md | Markdown | draft | Plan d'exécution semaine par semaine + risques/mitigations | ⭐⭐⭐ |
+| I0-8 | institutional/REPRODUCE-1CMD.md | Markdown | draft | Guide reproductibilité "1 commande" | ⭐⭐ |
+| I0-9 | institutional/REPRODUCE.ps1 | PS1 | draft | Orchestration hash/signature/lock deps | ⭐⭐⭐ |
+| I0-10 | institutional/REGISTRE-CHAINE-CONFIANCE.json | JSON | provisional | Hash-chain institutionnelle + statuts DRAFT/SIGNED/VERIFIED | ⭐⭐⭐ |
+
 ---
 
 ### **LAYER 1 — FRAMEWORKS & GOVERNANCE (80 kB)**

@@ -1,0 +1,114 @@
+﻿{
+    "generated_at_utc":  "2026-08-03T10:45:59.2412074Z",
+    "policy":  {
+                   "draft":  "Aucune signature detectee",
+                   "signed":  "Signature detectee",
+                   "verified":  "Signature verifiee cryptographiquement"
+               },
+    "overall_status":  "PROVISIONAL",
+    "chain_sha256":  "8f2639c701c134daf57a15c71f9f07d4a3d822f54a1036260b8b49d2e4f66ca1",
+    "dependency_locks":  [
+
+                         ],
+    "artifacts":  [
+                      {
+                          "artifact":  "BENCHMARK-PROTOCOL.md",
+                          "sha256":  "ddca4825e6fc5489bba979ab683e66efb8e8eff010092fe60ea25f132ceb91d5",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "CALENDRIER-EXECUTION-8-12-SEMAINES.md",
+                          "sha256":  "7d95b25eef7585f47c3c23a8fa1d5b401cddb277f27ff3359df15be54596fbfa",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "CHARTE-COMITE-EXTERNE.md",
+                          "sha256":  "86368789c7ff4ecefcbf0d8cfbef8df1339bdcad0ebd72e7dcba7f22496c6d5f",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "CHARTE-RED-TEAM.md",
+                          "sha256":  "8969ab1ec30ec7ec54b1014191a1736b7cb3629805b3703c4eed2b6a018b0cf3",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "MANDAT-AUDIT-EXTERNE-v1.0.md",
+                          "sha256":  "1a825d0e6ca7c4466c9a40cf8fc4f73e7b544a0f0751ece4434594b7e2bc10a6",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "PV-TEMPLATE.md",
+                          "sha256":  "cc5bdc9cdaebe24d8df084c6e336ba83ce2266869fa6d824502170027060a440",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "REPRODUCE.ps1",
+                          "sha256":  "36ee86fe4f058e17464a5766740354f62bff046f82353358c4bbb0f8be7b4dc0",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "REPRODUCE-1CMD.md",
+                          "sha256":  "833fa277fd39c3c711fc778262f116d10aaff5bf5bdb51a3fcc0ff30754d898e",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      },
+                      {
+                          "artifact":  "RFP-AUDITEURS-EXTERNES.md",
+                          "sha256":  "bf8141bee096c6d16d82b4d39b55f927314fdf60196e414e29a0f1de5a3f8e2d",
+                          "status":  "DRAFT",
+                          "signature":  {
+                                            "verified":  false,
+                                            "note":  "Aucune signature associee detectee",
+                                            "file":  null,
+                                            "state":  "DRAFT"
+                                        }
+                      }
+                  ]
+}

@@ -90,6 +90,19 @@ Scripts associés :
 - `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1`
 - `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`
 
+## Couche institutionnelle N5
+
+Le dossier `institutional/` regroupe les artefacts institutionnels destinés à la montée **PROVISIONAL → VERIFIED_TIER2**:
+
+- `RFP-AUDITEURS-EXTERNES.md` (appel ciblé auditeurs externes)
+- `MANDAT-AUDIT-EXTERNE-v1.0.md` (scope 8 domaines + SLA + confidentialité)
+- `CHARTE-COMITE-EXTERNE.md` et `PV-TEMPLATE.md` (gouvernance comité et procès-verbaux)
+- `CHARTE-RED-TEAM.md` (tests trimestriels sécurité/gouvernance/biais)
+- `BENCHMARK-PROTOCOL.md` (comparatif ISO 42001 / NIST AI RMF / EU AI Act)
+- `CALENDRIER-EXECUTION-8-12-SEMAINES.md` (jalons, dépendances, mitigations)
+- `REPRODUCE-1CMD.md` + `REPRODUCE.ps1` (reproductibilité et vérification cryptographique)
+- `REGISTRE-CHAINE-CONFIANCE.json` (hash-chain et statuts DRAFT/SIGNED/VERIFIED)
+
 ---
 
 ## Copilot Collaboration Profile
