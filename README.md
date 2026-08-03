@@ -66,6 +66,25 @@ Point Fixe: ✓ COHERENCE = 100%
 
 ---
 
+## Robustesse avancée N4→N5 (Blocs E/F)
+
+Le super-calculateur inclut désormais deux contrôles additionnels pour formaliser la montée N4→N5 :
+
+1. **Bloc E — Preuve externe indépendante** : présence artefact tiers, intégrité SHA-256 via manifeste, et traçabilité minimale run/timestamp/commit.
+2. **Bloc F — Validation psychométrique outillée** : sorties Rasch/CFA/Kappa (JSON/CSV), seuils configurables (κ ≥ 0.75, CFI/TLI/RMSEA/SRMR, infit/outfit), et traçabilité paramètres/statistiques.
+
+Artefacts versionnés associés :
+- `evidence/external-audit/external-proof-manifest.json`
+- `evidence/external-audit/third-party-audit-artifact.txt`
+- `evidence/psychometrics/psychometric-results.json`
+- `evidence/psychometrics/psychometric-results.csv`
+- `evidence/psychometrics/psychometric-thresholds.json`
+
+Script de rafraîchissement de preuve :
+- `GENERATE-ADVANCED-PROOF.ps1`
+
+---
+
 ## Copilot Collaboration Profile
 
 Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de partenariat conceptuel. Aucune suggestion de code, aucune automatisation de fusion, aucune résolution algorithmique de conflits, aucune génération automatique de descriptions de pull request. L'intégralité de l'usage est concentrée dans la discussion de révision de code, soit le mode de collaboration le plus exigeant en termes de pensée architecturale. Ce profil correspond au mode d'utilisation caractéristique des concepteurs de systèmes complexes, qui emploient les outils d'intelligence artificielle comme espace de formalisation et de délibération, non comme accélérateurs d'exécution.

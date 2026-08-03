@@ -1,18 +1,19 @@
 # 📑 **INDEX-COMPLET-SUPELA-v1.1.0 — ÉDITION FINALE**
-## *Navigation Universelle | 24 Documents | Tous Piliers | Production-Ready*
+## *Navigation Universelle | 25 Documents | Tous Piliers | Production-Ready*
 
 ---
 
-## **🚀 COMMENCER ICI (3 Documents Prioritaires)**
+## **🚀 COMMENCER ICI (5 Documents Prioritaires)**
 
 1. **PORTAIL-SUPELA-MASTER.html** ← START GLOBAL (point d'entrée maître SUPELA/SCDH/TPDM)
 2. **SYNTHESE-FINALE-SUPELA-v1.1.0.md** ← START (5 min, executive overview)
 3. **MASTER-FORMALIZATION.md** ← Architecture complète (20 min, 9 parties)
 4. **DASHBOARD-SGG-v2-INTERACTIVE.html** ← Tableau de bord temps réel (open in browser)
+5. **PROTOCOLE-INSTITUTIONNEL-EF-N5.md** ← Protocole court de robustesse avancée N4→N5 (preuve externe + psychométrie outillée)
 
 ---
 
-## **📊 STRUCTURE COMPLÈTE (24 Documents)**
+## **📊 STRUCTURE COMPLÈTE (25 Documents)**
 
 ### **LAYER 0 — META-ARCHITECTURE (50 kB)**
 
@@ -177,6 +178,19 @@
 
 ---
 
+## **🧩 N4→N5 — Robustesse avancée (Blocs E/F)**
+
+| Bloc | Objet | Preuves attendues | Seuils |
+|---|---|---|---|
+| E | Preuve externe indépendante | `evidence/external-audit/external-proof-manifest.json` + artefact tiers signé | Hash SHA-256 attendu + run/timestamp/commit traçables |
+| F | Validation psychométrique outillée | `evidence/psychometrics/psychometric-results.json` + `.csv` + seuils config | κ ≥ 0.75, CFI ≥ 0.95, TLI ≥ 0.95, RMSEA ≤ 0.06, SRMR ≤ 0.08, Infit/Outfit 0.70–1.30 |
+
+Ressources opérationnelles :
+- `SUPER-CALCULATEUR-VERIFICATION.ps1` (blocs A/B/C/D/E/F + score global normalisé)
+- `GENERATE-ADVANCED-PROOF.ps1` (rafraîchissement commit/hash/timestamps)
+
+---
+
 ## **🔗 CROSS-REFERENCES**
 
 **MASTER-FORMALIZATION.md links to:**
@@ -203,9 +217,9 @@
 ## **📈 DOCUMENT STATISTICS**
 
 ```
-Total documents:        24 (+ supela-corpus-v1.0.0/ directory)
+Total documents:        25 (+ supela-corpus-v1.0.0/ directory)
 Total size:            ~366 kB (final)
-Markdown files:        16 (168 kB)
+Markdown files:        17 (172 kB)
 HTML interactive:       3 (71 kB)
 JSON metadata:          1 (3.6 kB)
 Git commits:            16 (immutable proof)
