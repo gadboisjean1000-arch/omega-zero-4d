@@ -1,5 +1,5 @@
 # 📑 **INDEX-COMPLET-SUPELA-v1.1.0 — ÉDITION FINALE**
-## *Navigation Universelle | 24 Documents | Tous Piliers | Production-Ready*
+## *Navigation Universelle | 28 Documents | Tous Piliers | Production-Ready*
 
 ---
 
@@ -11,7 +11,7 @@
 
 ---
 
-## **📊 STRUCTURE COMPLÈTE (24 Documents)**
+## **📊 STRUCTURE COMPLÈTE (28 Documents)**
 
 ### **LAYER 0 — META-ARCHITECTURE (50 kB)**
 
@@ -168,7 +168,7 @@
 ☐ Production deployment approved
 ☐ All 50 validations PASS
 ☐ Point Fixe Atteint (Coherence 100%)
-☐ Antecedence proof (15 git commits)
+☐ Antecedence proof (42 git commits)
 ☐ Legal/IP review complete
 ```
 
@@ -200,12 +200,12 @@
 ## **📈 DOCUMENT STATISTICS**
 
 ```
-Total documents:        24 (+ supela-corpus-v1.0.0/ directory)
-Total size:            ~366 kB (final)
-Markdown files:        16 (168 kB)
+Total documents:        28 (+ supela-corpus-v1.0.0/ directory)
+Total size:            ~551 kB (final)
+Markdown files:        17 (~353 kB)
 HTML interactive:       3 (71 kB)
 JSON metadata:          1 (3.6 kB)
-Git commits:            16 (immutable proof)
+Git commits:            42 (immutable proof)
 Status:                 ✓ PRODUCTION-READY
 ```
 
@@ -263,5 +263,5 @@ Status:                 ✓ PRODUCTION-READY
 ---
 
 **Last Updated:** 2026-08-01T21:12:00Z  
-**Status:** ✓ INDEX-COMPLET | ✓ 23 DOCUMENTS | ✓ PRODUCTION-READY  
+**Status:** ✓ INDEX-COMPLET | ✓ 28 DOCUMENTS | ✓ PRODUCTION-READY  
 **Point Fixe Atteint — Coherence = 100%**

@@ -36,9 +36,9 @@ SUPELA v1.1.0 Production Ecosystem
 ├─ Layer 3: Implementation (Silicon/Quantum/Rad-Hard)
 └─ Operations: Governance (Annexes A–D), Performance (50/50), Deployment (Phase 1–4)
 
-Size: 366 kB
-Documents: 27
-Git Commits: 17 (immuable antecedence)
+Size: ~551 kB
+Documents: 28
+Git Commits: 42 (immuable antecedence)
 Status: ✓ PRODUCTION-READY
 Point Fixe: ✓ COHERENCE = 100%
 ```
@@ -151,8 +151,8 @@ Validation:            50/50 PASS ✓ (ALL CATEGORIES)
 ╔════════════════════════════════════════════════════════════╗
 ║            SUPELA v1.1.0 PRODUCTION ECOSYSTEM              ║
 ║                                                            ║
-║  ✓ 27 Documents (366 kB)                                   ║
-║  ✓ 17 Git Commits (Immuable)                               ║
+║  ✓ 28 Documents (~551 kB)                                  ║
+║  ✓ 42 Git Commits (Immuable)                               ║
 ║  ✓ 50/50 Validations (All PASS)                            ║
 ║  ✓ MoteurRAIM (19/19 PASS)                                 ║
 ║  ✓ SGG_v2 = 92.3 (N4 ATTEINT)                              ║
