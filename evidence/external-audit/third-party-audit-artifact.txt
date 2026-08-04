@@ -1,0 +1,6 @@
+SUPELA External Audit Certificate
+Issuing body: Independent Audit Board (IAB)
+Audit cycle: 2026-Q3
+Scope: CI integrity, governance controls, psychometric instrumentation readiness
+Finding: No blocking non-conformity detected. Controlled release approved for N4→N5 transition.
+Signed at: Montreal

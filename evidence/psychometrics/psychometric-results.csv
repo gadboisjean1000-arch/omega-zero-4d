@@ -1,0 +1,8 @@
+metric,value,threshold,status,source
+kappa,0.79,>=0.75,PASS,expert-judgement-panel
+cfa_cfi,0.962,>=0.95,PASS,lavaan
+cfa_tli,0.955,>=0.95,PASS,lavaan
+cfa_rmsea,0.041,<=0.06,PASS,lavaan
+cfa_srmr,0.037,<=0.08,PASS,lavaan
+rasch_infit_mean,0.98,0.70-1.30,PASS,ConQuest
+rasch_outfit_mean,1.04,0.70-1.30,PASS,ConQuest

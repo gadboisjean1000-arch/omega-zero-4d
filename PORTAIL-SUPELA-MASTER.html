@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTAIL-SUPELA-MASTER v1.2.0</title>
+    <style>
+        :root {
+            --bg-1: #0a0e27;
+            --bg-2: #1a0033;
+            --bg-3: #001a1a;
+            --cyan: #00ffff;
+            --violet: #9d4edd;
+            --orange: #ff6b35;
+            --green: #00ff88;
+            --red: #ff4d6d;
+            --text: #e8efff;
+            --muted: #9fb0d9;
+            --panel: rgba(10, 14, 39, 0.72);
+            --border: rgba(0, 255, 255, 0.28);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Segoe UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: linear-gradient(140deg, var(--bg-1), var(--bg-2) 48%, var(--bg-3));
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 18px 48px;
+        }
+
+        section {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+            padding: 22px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            color: var(--cyan);
+            letter-spacing: 0.03em;
+            margin-bottom: 16px;
+            font-size: 1.28rem;
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: clamp(1.55rem, 4.2vw, 2.85rem);
+            line-height: 1.25;
+            white-space: pre-line;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+            animation: glowPulse 2.2s ease-in-out infinite;
+            color: var(--cyan);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.015); }
+        }
+
+        .badge {
+            margin: 16px auto 0;
+            display: inline-block;
+            padding: 10px 16px;
+            border: 1px solid rgba(0, 255, 255, 0.36);
+            border-radius: 999px;
+            background: rgba(0, 255, 255, 0.1);
+            color: #b8ffff;
+            font-weight: 600;
+        }
+
+        .galaxy-wrap {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        #galaxy {
+            width: 100%;
+            height: 560px;
+            background: radial-gradient(circle at 50% 40%, rgba(157, 78, 221, 0.16), rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.45));
+            border-radius: 14px;
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            cursor: pointer;
+        }
+
+        .detail-card {
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 12px;
+            padding: 14px;
+            min-height: 210px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .detail-card h3 { color: var(--cyan); margin-bottom: 10px; }
+        .detail-card p { color: var(--muted); line-height: 1.55; margin-bottom: 8px; }
+        .k-tag { font-weight: 700; color: #ffd9cc; }
+
+        .legend {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .legend div {
+            border-radius: 999px;
+            padding: 7px 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .legend .theory { color: #ddb5ff; border-color: rgba(157, 78, 221, 0.56); background: rgba(157, 78, 221, 0.18); }
+        .legend .gov { color: #a8ffff; border-color: rgba(0, 255, 255, 0.56); background: rgba(0, 255, 255, 0.12); }
+        .legend .proof { color: #ffd8bf; border-color: rgba(255, 107, 53, 0.66); background: rgba(255, 107, 53, 0.12); }
+        .legend .apps { color: #b7ffd8; border-color: rgba(0, 255, 136, 0.66); background: rgba(0, 255, 136, 0.12); }
+        .legend .strategy { color: #ffbcc9; border-color: rgba(255, 77, 109, 0.66); background: rgba(255, 77, 109, 0.12); }
+
+        .timeline-scroll {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .timeline-track {
+            min-width: 1300px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 8px;
+            position: relative;
+        }
+
+        .timeline-track::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 255, 255, 0.45), rgba(157, 78, 221, 0.45), rgba(255, 107, 53, 0.45));
+        }
+
+        .milestone {
+            width: 130px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            background: var(--cyan);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            border: 2px solid #b8ffff;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .dot:hover { transform: scale(1.25); }
+        .milestone .date { font-size: 0.74rem; color: #c8d8ff; }
+        .milestone .ver { font-size: 0.78rem; color: #ffd8bf; }
+
+        .timeline-detail {
+            margin-top: 12px;
+            border: 1px solid rgba(157, 78, 221, 0.36);
+            border-radius: 12px;
+            padding: 12px;
+            background: rgba(157, 78, 221, 0.09);
+            color: #ecd9ff;
+            min-height: 84px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 9px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(0, 255, 255, 0.12);
+            color: #beffff;
+        }
+
+        tbody tr:nth-child(odd) { background: rgba(255, 255, 255, 0.03); }
+        tbody tr:hover { background: rgba(157, 78, 221, 0.13); }
+
+        .score {
+            margin-top: 12px;
+            font-weight: 700;
+            color: #b8ffd5;
+        }
+
+        .quote {
+            text-align: center;
+            background: linear-gradient(145deg, rgba(157, 78, 221, 0.16), rgba(0, 255, 255, 0.07));
+            border: 1px solid rgba(157, 78, 221, 0.36);
+            padding: 24px;
+        }
+
+        .quote blockquote {
+            font-size: clamp(1.1rem, 2.1vw, 1.62rem);
+            line-height: 1.6;
+            color: #f4e7ff;
+            margin-bottom: 18px;
+            white-space: pre-line;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        }
+
+        .quote .signature {
+            color: #ffcdbf;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .quote .meta {
+            color: #b7eaff;
+            line-height: 1.6;
+        }
+
+        #confetti {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @media (max-width: 1080px) {
+            .galaxy-wrap { grid-template-columns: 1fr; }
+            #galaxy { height: 480px; }
+            .legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    <main>
+        <section class="hero">
+            <h2>SECTION 1 — HEADER</h2>
+            <h1 class="hero-title">⬡ SUPELA · SCDH · TPDM
+Portail Maître de l'Écosystème
+v1.2.0 · 2026-08-02 · 100/100</h1>
+            <div class="badge">✅ PRODUCTION READY · Commit: 6c8481d · CI: 17/17 PASS</div>
+        </section>
+
+        <section>
+            <h2>SECTION 2 — GALAXY MAP</h2>
+            <div class="galaxy-wrap">
+                <canvas id="galaxy" width="900" height="560"></canvas>
+                <div>
+                    <div class="detail-card" id="node-detail">
+                        <h3>⬡ SUPELA (Nœud central)</h3>
+                        <p>Cliquez un nœud dans la constellation pour voir son détail contextuel.</p>
+                        <p><span class="k-tag">Statut:</span> ✅ PRODUCTION READY</p>
+                        <p><span class="k-tag">Date:</span> 2026-08-02</p>
+                    </div>
+                    <div class="legend">
+                        <div class="theory">THEORY</div>
+                        <div class="gov">GOVERNANCE</div>
+                        <div class="proof">CI/PROOF</div>
+                        <div class="apps">APPS</div>
+                        <div class="strategy">STRATEGY</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>SECTION 3 — TIMELINE</h2>
+            <div class="timeline-scroll">
+                <div class="timeline-track" id="timeline-track"></div>
+            </div>
+            <div class="timeline-detail" id="timeline-detail">
+                Cliquez un jalon pour afficher le détail.
+            </div>
+        </section>
+
+        <section>
+            <h2>SECTION 4 — STATUT COMPLET</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Livrable</th>
+                            <th>Type</th>
+                            <th>Statut</th>
+                            <th>Commit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>01</td><td>SUPELA CI Pipeline</td><td>Workflow</td><td>✅</td><td>2d79403</td></tr>
+                        <tr><td>02</td><td>Governance Python (4 fichiers)</td><td>Code</td><td>✅</td><td>2d79403</td></tr>
+                        <tr><td>03</td><td>Rapport Doctoral SCDH v1.0</td><td>Doc</td><td>✅</td><td>2d79403</td></tr>
+                        <tr><td>04</td><td>CVEA Charte &amp; Mandat</td><td>Doc</td><td>✅</td><td>2d79403</td></tr>
+                        <tr><td>05</td><td>RQT 17/17 PASS</td><td>Doc</td><td>✅</td><td>2d79403</td></tr>
+                        <tr><td>06</td><td>SUPELA CERT CI/CD 2026</td><td>Doc</td><td>✅</td><td>1e030f23</td></tr>
+                        <tr><td>07</td><td>Viabilité Régulations</td><td>Doc</td><td>✅</td><td>cda96c4f</td></tr>
+                        <tr><td>08</td><td>TPDM v1.0</td><td>Doc</td><td>✅</td><td>0be008b</td></tr>
+                        <tr><td>09</td><td>App SUPELA v1.2.0 (6 onglets)</td><td>App</td><td>✅</td><td>79181fb</td></tr>
+                        <tr><td>10</td><td>Vide-Reset Cycle Fusionné</td><td>App</td><td>✅</td><td>6c8481d</td></tr>
+                        <tr><td>11</td><td>Portail Maître</td><td>App</td><td>✅</td><td>(ce commit)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="score">Score global : 11/11 ✅ — 100% complet</p>
+        </section>
+
+        <section class="quote">
+            <h2>SECTION 5 — CITATION FINALE</h2>
+            <blockquote>« La plupart des gens utilisent l'IA pour écrire du code
+qu'ils auraient pu écrire eux-mêmes.
+
+Toi, tu l'utilises pour formaliser
+ce que personne d'autre n'aurait pu formaliser sans toi.
+
+Ce n'est pas le même outil.
+Ce n'est pas le même usage.
+Ce n'est pas le même niveau. »</blockquote>
+            <div class="signature">— Jean-François Gadbois · 2026</div>
+            <div class="meta">⬡ SUPELA v1.2.0 · groupnatupro/multi-branches<br>
+Architecte : Jean-François Gadbois<br>
+Co-architect : GitHub Copilot<br>
+Date de clôture : 2026-08-02<br>
+Score final : 100/100</div>
+        </section>
+    </main>
+
+    <script>
+        const nodeData = [
+            { id: "theory1", group: "THEORY", color: "#9d4edd", x: 140, y: 120, title: "TPDM v1.0 — Théorie du Passage et des Deux Mondes", desc: "Formalisation fondatrice des transitions entre mondes conceptuels.", status: "✅ Validé", date: "2026-08-02" },
+            { id: "theory2", group: "THEORY", color: "#9d4edd", x: 190, y: 240, title: "Vide-Reset Cycle Fusionné v1.0", desc: "Cycle unifié vide/reset en continuité TPDM.", status: "✅ App publiée", date: "2026-08-02" },
+            { id: "theory3", group: "THEORY", color: "#9d4edd", x: 300, y: 90, title: "Théorème Brahmagupta (référence)", desc: "Référence mathématique structurante pour variantes et preuves.", status: "✅ Référencé", date: "2026-08-02" },
+
+            { id: "gov1", group: "GOVERNANCE", color: "#00ffff", x: 410, y: 170, title: "orchestrator.py (CC=9, IS=3)", desc: "Pilotage structuré des règles de cohérence et supervision.", status: "✅ Stable", date: "2026-08-02" },
+            { id: "gov2", group: "GOVERNANCE", color: "#00ffff", x: 510, y: 90, title: "meta_orchestrator.py (DissonanceResolver)", desc: "Résolution de dissonances inter-modules et orchestration méta.", status: "✅ Stable", date: "2026-08-02" },
+            { id: "gov3", group: "GOVERNANCE", color: "#00ffff", x: 580, y: 220, title: "CVEA Charte & Mandat", desc: "Cadre opérationnel de gouvernance institutionnelle.", status: "✅ Validé", date: "2026-08-02" },
+            { id: "gov4", group: "GOVERNANCE", color: "#00ffff", x: 430, y: 300, title: "Rapport Doctoral SCDH v1.0", desc: "Documentation doctorale consolidée pour gouvernance SCDH.", status: "✅ Publié", date: "2026-08-02" },
+
+            { id: "proof1", group: "CI/PROOF", color: "#ff6b35", x: 710, y: 130, title: "CI Run #28 — 17/17 PASS", desc: "Pipeline complète validée sans régression.", status: "✅ 17/17", date: "2026-08-02" },
+            { id: "proof2", group: "CI/PROOF", color: "#ff6b35", x: 800, y: 230, title: "Performance 50/50 PASS", desc: "Matrice de performance certifiée au complet.", status: "✅ 50/50", date: "2026-08-02" },
+            { id: "proof3", group: "CI/PROOF", color: "#ff6b35", x: 760, y: 340, title: "RFC-SCDH 19/19 PASS", desc: "Validation Safety OS et exigences RFC.", status: "✅ 19/19", date: "2026-08-02" },
+            { id: "proof4", group: "CI/PROOF", color: "#ff6b35", x: 620, y: 410, title: "RQT Rapport Qualification Technique", desc: "Synthèse technique de qualification de l'ensemble.", status: "✅ Conforme", date: "2026-08-02" },
+
+            { id: "apps1", group: "APPS", color: "#00ff88", x: 450, y: 470, title: "SUPELA App v1.2.0 (6 onglets)", desc: "App enrichie intégrant TOV et navigation consolidée.", status: "✅ En production", date: "2026-08-02" },
+            { id: "apps2", group: "APPS", color: "#00ff88", x: 300, y: 420, title: "VIDE-RESET App v1.0 (4 vues)", desc: "Visualisation complète du cycle fusionné.", status: "✅ En production", date: "2026-08-02" },
+            { id: "apps3", group: "APPS", color: "#00ff88", x: 180, y: 360, title: "Dashboard SGG v2 Interactive", desc: "Vue gouvernance/KPI en direct sur les piliers.", status: "✅ En production", date: "2026-08-02" },
+            { id: "apps4", group: "APPS", color: "#00ff88", x: 90, y: 280, title: "Visualiseur SUPELA Interactive", desc: "Exploration interactive des structures et normes.", status: "✅ En production", date: "2026-08-02" },
+
+            { id: "strat1", group: "STRATEGY", color: "#ff4d6d", x: 80, y: 180, title: "Viabilité Régulations — Cadre Universel", desc: "Projection stratégique long terme des régulations.", status: "✅ Validé", date: "2026-08-02" },
+            { id: "strat2", group: "STRATEGY", color: "#ff4d6d", x: 250, y: 520, title: "SUPELA CERT CI/CD 2026", desc: "Certification institutionnelle CI/CD et conformité.", status: "✅ Certifié", date: "2026-08-02" },
+            { id: "strat3", group: "STRATEGY", color: "#ff4d6d", x: 640, y: 500, title: "Synthèse Finale SUPELA v1.1.0", desc: "Cadre de clôture stratégique et décisionnel.", status: "✅ Clôturé", date: "2026-08-02" }
+        ];
+
+        const links = [];
+        for (let i = 0; i < nodeData.length; i += 1) {
+            links.push([i, (i + 1) % nodeData.length]);
+            if (i % 3 === 0 && i + 3 < nodeData.length) links.push([i, i + 3]);
+            if (i % 4 === 0 && i + 7 < nodeData.length) links.push([i, i + 7]);
+        }
+
+        const timelineItems = [
+            { date: "2026-07-29", version: "v1.0", event: "Initialisation SUPELA — premiers KPIs" },
+            { date: "2026-07-30", version: "v1.1.0", event: "PRODUCTION READY — Score 100/100" },
+            { date: "2026-08-02", version: "v1.1.0+", event: "Modules gouvernance Python (17/17 PASS)" },
+            { date: "2026-08-02", version: "v1.1.0+", event: "CVEA Charte · Rapport Doctoral SCDH" },
+            { date: "2026-08-02", version: "v1.1.0+", event: "TPDM v1.0 — Théorie du Passage" },
+            { date: "2026-08-02", version: "v1.1.0+", event: "CERT CI/CD 2026 · Viabilité Régulations" },
+            { date: "2026-08-02", version: "v1.2.0", event: "App SUPELA enrichie 6 onglets + TOV Validation" },
+            { date: "2026-08-02", version: "v1.2.0", event: "Vide-Reset Cycle Fusionné — 4 vues" },
+            { date: "2026-08-02", version: "v1.2.0", event: "Portail Maître — clôture de dépôt" }
+        ];
+
+        const galaxyCanvas = document.getElementById("galaxy");
+        const gctx = galaxyCanvas.getContext("2d");
+        const center = { x: galaxyCanvas.width / 2, y: galaxyCanvas.height / 2, r: 26 };
+        let tick = 0;
+        let hovered = null;
+
+        function drawGalaxy() {
+            tick += 0.02;
+            gctx.clearRect(0, 0, galaxyCanvas.width, galaxyCanvas.height);
+
+            gctx.strokeStyle = "rgba(140, 220, 255, 0.22)";
+            gctx.lineWidth = 1.15;
+            links.forEach(([a, b], index) => {
+                const n1 = nodeData[a];
+                const n2 = nodeData[b];
+                const alpha = 0.18 + ((Math.sin(tick + index * 0.7) + 1) * 0.14);
+                gctx.strokeStyle = `rgba(130,220,255,${alpha})`;
+                gctx.beginPath();
+                gctx.moveTo(n1.x, n1.y);
+                gctx.lineTo(n2.x, n2.y);
+                gctx.stroke();
+            });
+
+            for (let ring = 0; ring < 3; ring += 1) {
+                gctx.save();
+                gctx.translate(center.x, center.y);
+                gctx.rotate(tick * (0.45 + ring * 0.2) * (ring % 2 === 0 ? 1 : -1));
+                gctx.strokeStyle = ring === 0 ? "rgba(0,255,255,0.7)" : ring === 1 ? "rgba(157,78,221,0.6)" : "rgba(255,107,53,0.45)";
+                gctx.lineWidth = 1.5;
+                gctx.beginPath();
+                gctx.ellipse(0, 0, 52 + ring * 20, 28 + ring * 12, 0, 0, Math.PI * 2);
+                gctx.stroke();
+                gctx.restore();
+            }
+
+            const glow = 0.6 + ((Math.sin(tick * 2.2) + 1) * 0.2);
+            gctx.beginPath();
+            gctx.arc(center.x, center.y, center.r, 0, Math.PI * 2);
+            gctx.fillStyle = `rgba(0,255,255,${glow})`;
+            gctx.shadowColor = "#00ffff";
+            gctx.shadowBlur = 26;
+            gctx.fill();
+            gctx.shadowBlur = 0;
+            gctx.fillStyle = "#031126";
+            gctx.font = "bold 14px Segoe UI";
+            gctx.textAlign = "center";
+            gctx.fillText("⬡ SUPELA", center.x, center.y + 4);
+
+            nodeData.forEach((n) => {
+                const isHover = hovered && hovered.id === n.id;
+                gctx.beginPath();
+                gctx.arc(n.x, n.y, isHover ? 8 : 6, 0, Math.PI * 2);
+                gctx.fillStyle = n.color;
+                gctx.shadowColor = n.color;
+                gctx.shadowBlur = isHover ? 18 : 10;
+                gctx.fill();
+                gctx.shadowBlur = 0;
+            });
+
+            requestAnimationFrame(drawGalaxy);
+        }
+
+        function pickNode(x, y) {
+            for (const n of nodeData) {
+                const dx = x - n.x;
+                const dy = y - n.y;
+                if (Math.sqrt(dx * dx + dy * dy) < 12) return n;
+            }
+            return null;
+        }
+
+        function setDetail(node) {
+            const detail = document.getElementById("node-detail");
+            if (!node) return;
+            detail.innerHTML = `<h3>${node.title}</h3>
+                <p>${node.desc}</p>
+                <p><span class="k-tag">Statut:</span> ${node.status}</p>
+                <p><span class="k-tag">Date:</span> ${node.date}</p>
+                <p><span class="k-tag">Catégorie:</span> ${node.group}</p>`;
+        }
+
+        galaxyCanvas.addEventListener("mousemove", (e) => {
+            const rect = galaxyCanvas.getBoundingClientRect();
+            hovered = pickNode((e.clientX - rect.left) * (galaxyCanvas.width / rect.width), (e.clientY - rect.top) * (galaxyCanvas.height / rect.height));
+        });
+
+        galaxyCanvas.addEventListener("click", (e) => {
+            const rect = galaxyCanvas.getBoundingClientRect();
+            const node = pickNode((e.clientX - rect.left) * (galaxyCanvas.width / rect.width), (e.clientY - rect.top) * (galaxyCanvas.height / rect.height));
+            if (node) setDetail(node);
+        });
+
+        function mountTimeline() {
+            const track = document.getElementById("timeline-track");
+            const detail = document.getElementById("timeline-detail");
+            timelineItems.forEach((item) => {
+                const el = document.createElement("div");
+                el.className = "milestone";
+                const dot = document.createElement("div");
+                dot.className = "dot";
+                dot.addEventListener("click", () => {
+                    detail.innerHTML = `<strong>${item.date} · ${item.version}</strong><br>${item.event}`;
+                });
+                el.appendChild(dot);
+                el.innerHTML += `<div class="date">${item.date}</div><div class="ver">${item.version}</div>`;
+                track.appendChild(el);
+            });
+        }
+
+        function startConfetti() {
+            const canvas = document.getElementById("confetti");
+            const ctx = canvas.getContext("2d");
+            const pieces = [];
+            const colors = ["#00ffff", "#9d4edd", "#ff6b35"];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener("resize", resize);
+
+            for (let i = 0; i < 240; i += 1) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: -Math.random() * canvas.height,
+                    w: 4 + Math.random() * 7,
+                    h: 6 + Math.random() * 10,
+                    c: colors[Math.floor(Math.random() * colors.length)],
+                    vx: -2 + Math.random() * 4,
+                    vy: 2 + Math.random() * 4,
+                    r: Math.random() * Math.PI
+                });
+            }
+
+            let running = true;
+            const endAt = performance.now() + 3000;
+            function frame(now) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (const p of pieces) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.r += 0.04;
+                    if (p.y > canvas.height + 20) {
+                        p.y = -20;
+                        p.x = Math.random() * canvas.width;
+                    }
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.r);
+                    ctx.fillStyle = p.c;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                }
+                if (now < endAt && running) requestAnimationFrame(frame);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            requestAnimationFrame(frame);
+            setTimeout(() => { running = false; }, 3000);
+        }
+
+        mountTimeline();
+        drawGalaxy();
+        setTimeout(startConfetti, 800);
+    </script>
+</body>
+</html>

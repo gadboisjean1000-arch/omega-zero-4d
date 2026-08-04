@@ -1,0 +1,58 @@
+name: Bug Report
+description: Signaler un bug dans les modules SUPELA ou la CI/CD
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "**Merci de remplir toutes les sections ci-dessous.**"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description du bug
+      placeholder: Qu'est-ce qui s'est passé ? Qu'attendiez-vous ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Exécuter `python3 governance/test_governance_rules.py`
+        2. Observer l'erreur...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Composant affecté
+      options:
+        - governance (orchestrator.py / meta_orchestrator.py)
+        - test_governance_rules.py
+        - CI/CD workflow
+        - Dashboard SGG v2
+        - Documentation
+        - Autre
+    validations:
+      required: true
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Version Python
+      placeholder: "3.12.0"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      render: shell

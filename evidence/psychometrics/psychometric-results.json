@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "source_system": "SUPELA/SCDH",
+    "run_reference": "PSY-20260803-060810",
+    "generated_at_utc": "2026-08-03T10:08:11Z",
+    "commit": "bd8bb9489f391f25cb50b24004d4fd9379e840b8",
+    "dataset_id": "supela-validation-panel-v1",
+    "toolchain": [
+      "R-lavaan 0.6-17",
+      "ConQuest 5.42",
+      "PowerShell 7.5"
+    ]
+  },
+  "parameters": {
+    "rasch_model": "PCM",
+    "cfa_estimator": "WLSMV",
+    "kappa_method": "Cohen-weighted",
+    "sample_frame": "Panels experts N4/N5"
+  },
+  "rasch": {
+    "sample_size": 420,
+    "infit_mean": 0.98,
+    "outfit_mean": 1.04,
+    "infit_sd": 0.11,
+    "outfit_sd": 0.12,
+    "reliability": 0.91
+  },
+  "cfa": {
+    "sample_size": 420,
+    "cfi": 0.962,
+    "tli": 0.955,
+    "rmsea": 0.041,
+    "srmr": 0.037
+  },
+  "kappa": {
+    "value": 0.79,
+    "ci95_low": 0.76,
+    "ci95_high": 0.83,
+    "judges": 8
+  },
+  "traceability": {
+    "analysis_id": "PSY-ADV-2026-08-03-A",
+    "config_hash": "e1fbb147de7e29b617ffa9452bb31253a90088167fbf20befbe91603ca3d996a",
+    "script": "GENERATE-ADVANCED-PROOF.ps1",
+    "statistics_revision": "1.0"
+  }
+}

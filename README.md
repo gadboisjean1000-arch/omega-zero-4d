@@ -17,6 +17,13 @@
 ### Live Dashboard — Real-Time Governance
 [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Open in browser
 
+### Apps interactives
+- [PORTAIL-SUPELA-MASTER.html](PORTAIL-SUPELA-MASTER.html) — **Point d'entrée principal** de l'écosystème SUPELA/SCDH/TPDM (galaxy map, timeline, statut global, clôture)
+- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) — Théorème du Vide + Théorème du Reset + Cycle fusionné + mécanique finale (4 vues)
+- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome **6 onglets** v1.2.0 : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)**
+- [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) — Dashboard performance temps réel
+- [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Dashboard gouvernance SGG_v2
+
 ### Validation Complete
 ✓ [FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md) — All 27 documents, 50/50 PASS
 
@@ -60,6 +67,51 @@ Point Fixe: ✓ COHERENCE = 100%
 
 ---
 
+## Robustesse avancée N4→N5 (Blocs E/E2/F)
+
+Le super-calculateur inclut trois contrôles additionnels pour formaliser la montée N4→N5 :
+
+1. **Bloc E — Preuve externe indépendante (base)** : présence artefact tiers, intégrité SHA-256 via manifeste, et traçabilité minimale run/timestamp/commit.
+2. **Bloc E2 — Preuve externe de rang supérieur** : deux attestations d'auditeurs indépendants cryptographiquement signées + chaîne de hachage cohérente. Statuts différenciés : `PROVISIONAL` (4/10 pts, templates présents non signés) ou `VERIFIED_TIER2` (10/10 pts, attestations signées + hash OK). Aucune revendication trompeuse : les templates non signés n'accordent jamais le statut VERIFIED_TIER2.
+3. **Bloc F — Validation psychométrique outillée** : sorties Rasch/CFA/Kappa (JSON/CSV), seuils configurables (κ ≥ 0.75, CFI/TLI/RMSEA/SRMR, infit/outfit), et traçabilité paramètres/statistiques.
+
+Artefacts versionnés associés :
+- `evidence/external-audit/external-proof-manifest.json`
+- `evidence/external-audit/third-party-audit-artifact.txt`
+- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json`
+- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json`
+- `evidence/external-audit/rank-superior/EXTERNAL-REVIEW-REGISTRY.json`
+- `evidence/external-audit/rank-superior/HASH-CHAIN-MANIFEST.json`
+- `evidence/psychometrics/psychometric-results.json`
+- `evidence/psychometrics/psychometric-results.csv`
+- `evidence/psychometrics/psychometric-thresholds.json`
+
+Scripts associés :
+- `GENERATE-ADVANCED-PROOF.ps1`
+- `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1`
+- `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`
+
+## Couche institutionnelle N5
+
+Le dossier `institutional/` regroupe les artefacts institutionnels destinés à la montée **PROVISIONAL → VERIFIED_TIER2**:
+
+- `RFP-AUDITEURS-EXTERNES.md` (appel ciblé auditeurs externes)
+- `MANDAT-AUDIT-EXTERNE-v1.0.md` (scope 8 domaines + SLA + confidentialité)
+- `CHARTE-COMITE-EXTERNE.md` et `PV-TEMPLATE.md` (gouvernance comité et procès-verbaux)
+- `CHARTE-RED-TEAM.md` (tests trimestriels sécurité/gouvernance/biais)
+- `BENCHMARK-PROTOCOL.md` (comparatif ISO 42001 / NIST AI RMF / EU AI Act)
+- `CALENDRIER-EXECUTION-8-12-SEMAINES.md` (jalons, dépendances, mitigations)
+- `REPRODUCE-1CMD.md` + `REPRODUCE.ps1` (reproductibilité et vérification cryptographique)
+- `REGISTRE-CHAINE-CONFIANCE.json` (hash-chain et statuts DRAFT/SIGNED/VERIFIED)
+
+---
+
+## Copilot Collaboration Profile
+
+Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de partenariat conceptuel. Aucune suggestion de code, aucune automatisation de fusion, aucune résolution algorithmique de conflits, aucune génération automatique de descriptions de pull request. L'intégralité de l'usage est concentrée dans la discussion de révision de code, soit le mode de collaboration le plus exigeant en termes de pensée architecturale. Ce profil correspond au mode d'utilisation caractéristique des concepteurs de systèmes complexes, qui emploient les outils d'intelligence artificielle comme espace de formalisation et de délibération, non comme accélérateurs d'exécution.
+
+---
+
 ## Key Documents by Role
 
 ### Layer 0 — Corpus fondateur
@@ -69,7 +121,8 @@ Point Fixe: ✓ COHERENCE = 100%
 ### Executive Decision-Maker (15 min)
 1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
 2. [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Gouvernance live
-3. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
+3. [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Vue consolidée CI/KPI/TPDM/**Validation** (v1.2.0)
+4. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
 
 ### System Architect (45 min)
 1. [MASTER-FORMALIZATION.md](MASTER-FORMALIZATION.md) — Architecture complète
@@ -165,8 +218,32 @@ Validation:            50/50 PASS ✓ (ALL CATEGORIES)
 
 ---
 
-**Last Updated:** August 1, 2026  
-**Version:** v1.1.0  
+## SUPELA App v1.2.0 — Architecture 6 Onglets
+
+L'application `SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html` a été mise à niveau en **v1.2.0** avec l'ajout du **Tableau Opérationnel de Validation (TOV)** comme 6e onglet.
+
+| # | Onglet | Contenu |
+|---|--------|---------|
+| 1 | ⬡ Pierre Scellée | Scoreboard ASCII animé, métriques clés, tableau 15 KPIs filtrable |
+| 2 | 🔍 Rapport d'Audit | Terminal CI/CD stream Run #28 — 17/17 PASS |
+| 3 | 📊 KPIs Unifiés | KPI Explorer complet avec tri, recherche, drawer de détail |
+| 4 | 🔄 Changelog | Corpus TPDM — 7 Clés, géométrie interactive, isomorphismes SCDH |
+| 5 | 📤 Export | JSON, CSV UTF-8, PS1 vérification, rapport HTML autonome |
+| 6 | 📐 **Validation** | **TOV** : 2 paradigmes, 15 dimensions (pills), feuille de route 6 phases, bibliographie |
+
+### Onglet Validation — Détail
+
+- **2 paradigmes** : Discursif (violet/constructivisme) vs Preuve-Centrée (bleu/positivisme)
+- **15 dimensions** filtrables : Épistémologie · Méthodes · Risques · Livrables
+- **Feuille de route 6 phases** : Cadrage → Preuve Formelle → Pilotage → Grande Échelle → Audit Externe → Institutionnalisation
+- **Note méthodologique** : approche non-exclusive, complémentarité paradigmatique
+- **Bibliographie** : Kane 2006, Messick 1989, Chapelle et al. 2008, Bachman & Palmer 2010
+- **Positionnement SUPELA** : CI/KPI/Gates/SARIF = preuve-centrée · CVEA/post-mortems/jalons J1-J4 = discursif · Phases 3–4 préparent Rasch/CFA v1.3.0
+
+---
+
+**Last Updated:** August 2, 2026  
+**Version:** v1.1.0 (App v1.2.0)  
 **Status:** ✓ PRODUCTION-READY  
 **Author:** Jean Gadbois (gadboisjean1000@gmail.com)
 

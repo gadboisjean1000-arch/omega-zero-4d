@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation SUPELA
+    url: https://github.com/groupnatupro/multi-branches/blob/main/MASTER-FORMALIZATION.md
+    about: Référence technique complète — SUPELA v1.1.0
+  - name: RFC K3 — SCDH Safety OS
+    url: https://github.com/groupnatupro/multi-branches/blob/main/RFC-SUPELA-K3-ANNEXE-E-SCDH.md
+    about: Protocole de gouvernance et portes V1–V4

@@ -209,6 +209,9 @@ DÉCISION FINALE & JOURNALISATION COMPLÈTE
 - `document-maitre/docs/LCI-IMPLEMENTATION-SILICIUM.md` (O(1) kernel)
 - `document-maitre/docs/BRAHMAGUPTA-QUANTUM-RAD-HARD.md` (architectures hybrides)
 
+**Application Interactive (v1.2.0) :**
+- `SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html` (ouvrir dans navigateur) — **v1.2.0 · 6 onglets** incluant le **Tableau Opérationnel de Validation (TOV)** : 2 paradigmes épistémiques, 15 dimensions filtrables, feuille de route 6 phases (Rasch/CFA → v1.3.0)
+
 ---
 
 ## 📈 ÉTAT DU PROJET

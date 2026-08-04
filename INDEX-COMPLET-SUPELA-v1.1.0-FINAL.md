@@ -3,11 +3,13 @@
 
 ---
 
-## **🚀 COMMENCER ICI (3 Documents Prioritaires)**
+## **🚀 COMMENCER ICI (5 Documents Prioritaires)**
 
-1. **SYNTHESE-FINALE-SUPELA-v1.1.0.md** ← START (5 min, executive overview)
-2. **MASTER-FORMALIZATION.md** ← Architecture complète (20 min, 9 parties)
-3. **DASHBOARD-SGG-v2-INTERACTIVE.html** ← Tableau de bord temps réel (open in browser)
+1. **PORTAIL-SUPELA-MASTER.html** ← START GLOBAL (point d'entrée maître SUPELA/SCDH/TPDM)
+2. **SYNTHESE-FINALE-SUPELA-v1.1.0.md** ← START (5 min, executive overview)
+3. **MASTER-FORMALIZATION.md** ← Architecture complète (20 min, 9 parties)
+4. **DASHBOARD-SGG-v2-INTERACTIVE.html** ← Tableau de bord temps réel (open in browser)
+5. **PROTOCOLE-INSTITUTIONNEL-EF-N5.md** ← Protocole court de robustesse avancée N4→N5 (preuve externe + psychométrie outillée)
 
 ---
 
@@ -17,8 +19,24 @@
 
 | # | Document | Type | Taille | Focus | Essentialité |
 |---|----------|------|--------|-------|-----|
+| 0 | PORTAIL-SUPELA-MASTER.html | HTML | ~40 kB | Point d'entrée global: galaxy map, timeline, statut intégral, citation de clôture | ⭐⭐⭐ |
 | 1 | supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md | Markdown | 42 kB | Axiom, invariants, 5D space | ⭐⭐⭐ |
 | 1A | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~185 kB | Document fondateur TPDM (Fond/Surface/Seuil/Xero, axiomatique, MPS, PNS, unification SCDH+Brahmagupta) | ⭐⭐⭐ |
+
+### **LAYER 0 — INSTITUTIONNEL N5 (NOUVEAU)**
+
+| # | Document | Type | Statut | Focus | Essentialité |
+|---|---|---|---|---|---|
+| I0-1 | institutional/RFP-AUDITEURS-EXTERNES.md | Markdown | draft | RFP ciblé auditeurs externes + critères indépendance/ML/SSO/gouvernance/signature | ⭐⭐⭐ |
+| I0-2 | institutional/MANDAT-AUDIT-EXTERNE-v1.0.md | Markdown | draft | Scope 8 domaines, format signé, SLA, plan B, confidentialité/redaction | ⭐⭐⭐ |
+| I0-3 | institutional/CHARTE-COMITE-EXTERNE.md | Markdown | draft | Charte comité 5-7 membres, quorum, cadence semestrielle, journalisation | ⭐⭐⭐ |
+| I0-4 | institutional/PV-TEMPLATE.md | Markdown | draft | Template PV horodaté + signatures + registre décisionnel | ⭐⭐ |
+| I0-5 | institutional/CHARTE-RED-TEAM.md | Markdown | draft | Cadence trimestrielle, playbooks d'attaque, rapport public redaction | ⭐⭐⭐ |
+| I0-6 | institutional/BENCHMARK-PROTOCOL.md | Markdown | draft | Benchmark officiel ISO 42001 / NIST AI RMF / EU AI Act | ⭐⭐⭐ |
+| I0-7 | institutional/CALENDRIER-EXECUTION-8-12-SEMAINES.md | Markdown | draft | Plan d'exécution semaine par semaine + risques/mitigations | ⭐⭐⭐ |
+| I0-8 | institutional/REPRODUCE-1CMD.md | Markdown | draft | Guide reproductibilité "1 commande" | ⭐⭐ |
+| I0-9 | institutional/REPRODUCE.ps1 | PS1 | draft | Orchestration hash/signature/lock deps | ⭐⭐⭐ |
+| I0-10 | institutional/REGISTRE-CHAINE-CONFIANCE.json | JSON | provisional | Hash-chain institutionnelle + statuts DRAFT/SIGNED/VERIFIED | ⭐⭐⭐ |
 
 ---
 
@@ -30,6 +48,8 @@
 | 3 | RFC-SUPELA-K3-ANNEXE-E-SCDH.md | Markdown | 15.7 kB | Safety OS, MoteurRAIM v2.2.0 (19/19 tests PASS), PAI 4 gates | ⭐⭐⭐ |
 | 4 | RFC-K3-INTEGRATION-STRUCTURALE.md | Markdown | 7.9 kB | Architectural mapping RFC K3 → MASTER-FORMALIZATION | ⭐⭐ |
 | 5 | LCI-STOCHASTIQUE-v1.1.md | Markdown | 10.0 kB | EDS Itô, Foster-Lyapunov, Lemme d'Itô, Gronwall stochastique, B_k^S LogNormal | ⭐⭐⭐ |
+| 6a | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~30 kB | Document fondateur, théorie du passage et des deux mondes | ⭐⭐⭐ |
+| 6b | SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html | HTML | ~55 kB | **Application autonome v1.2.0 — 6 onglets** : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)** — 15 dimensions épistémologiques, 2 paradigmes, feuille de route 6 phases | ⭐⭐⭐ |
 | 6 | ANNEXES-A-D-NORMES-OPERATIONNELLES.md | Markdown | 11.1 kB | Taxonomie N0–N4, Protocoles V1–V4, Registre Biais, Module IS | ⭐⭐⭐ |
 
 ---
@@ -95,6 +115,19 @@
 |---|----------|------|--------|-------|-----|
 | 27 | .github/CONFIGURATION-NORMALISEE.md | Markdown | 6.7 kB | Workflow templates, governance docs | ⭐⭐ |
 | 28 | SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md | Markdown | ~8 kB | Certification CI/CD institutionnelle, attestation formelle PROD 100/100 | ⭐⭐⭐ |
+
+---
+
+### **EVIDENCE — RANG SUPÉRIEUR (couche E2)**
+
+| # | Artefact | Type | Statut | Focus | Essentialité |
+|---|----------|------|--------|-------|-----|
+| E2-1 | evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json | JSON | TEMPLATE_UNSIGNED | Template d'attestation auditeur A — à signer par auditeur externe indépendant | ⭐⭐⭐ |
+| E2-2 | evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json | JSON | TEMPLATE_UNSIGNED | Template d'attestation auditeur B — organisation différente de A | ⭐⭐⭐ |
+| E2-3 | evidence/external-audit/rank-superior/EXTERNAL-REVIEW-REGISTRY.json | JSON | draft | Registre des revues (draft/signed/verified) | ⭐⭐ |
+| E2-4 | evidence/external-audit/rank-superior/HASH-CHAIN-MANIFEST.json | JSON | PROVISIONAL | Chaîne de hachage artefacts clés + attestations | ⭐⭐ |
+| E2-5 | VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1 | PS1 | — | Script vérification autonome — émet PROVISIONAL ou VERIFIED_TIER2 | ⭐⭐⭐ |
+| E2-6 | PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md | Markdown | — | Processus, critères d'acceptation, anti-patterns | ⭐⭐ |
 
 ---
 
@@ -174,6 +207,24 @@
 
 ---
 
+## **🧩 N4→N5 — Robustesse avancée (Blocs E/E2/F)**
+
+| Bloc | Objet | Preuves attendues | Seuils / Statuts |
+|---|---|---|---|
+| E | Preuve externe indépendante (base) | `evidence/external-audit/external-proof-manifest.json` + artefact tiers signé | Hash SHA-256 attendu + run/timestamp/commit traçables |
+| E2 | **Preuve externe rang supérieur** | `evidence/external-audit/rank-superior/` — 2 attestations auditeurs + registry + hash chain | `PROVISIONAL` (4/10 pts, templates non signés) · `VERIFIED_TIER2` (10/10 pts, 2 signatures réelles + hash OK) |
+| F | Validation psychométrique outillée | `evidence/psychometrics/psychometric-results.json` + `.csv` + seuils config | κ ≥ 0.75, CFI ≥ 0.95, TLI ≥ 0.95, RMSEA ≤ 0.06, SRMR ≤ 0.08, Infit/Outfit 0.70–1.30 |
+
+> **Nota bene E2 :** Les templates d'attestation sont en statut `TEMPLATE_UNSIGNED`. Le statut `PROVISIONAL` est attribué. `VERIFIED_TIER2` ne sera activé qu'après réception et vérification de deux signatures cryptographiques réelles d'auditeurs indépendants. Voir `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`.
+
+Ressources opérationnelles :
+- `SUPER-CALCULATEUR-VERIFICATION.ps1` (blocs A/B/C/D/E/E2/F + score global normalisé sur 130)
+- `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1` (vérification autonome couche E2)
+- `GENERATE-ADVANCED-PROOF.ps1` (rafraîchissement commit/hash/timestamps)
+- `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md` (processus, critères, anti-patterns)
+
+---
+
 ## **🔗 CROSS-REFERENCES**
 
 **MASTER-FORMALIZATION.md links to:**
@@ -224,6 +275,7 @@ Status:                 ✓ PRODUCTION-READY
 | "Operational norms" | ANNEXES-A-D-NORMES-OPERATIONNELLES.md | 30 min | [→](#) |
 | "Deployment plan" | DEPLOYMENT-ROADMAP.md | 15 min | [→](#) |
 | "Policy / stratégie réglementaire" | Viabilité à long terme des régulations — Cadre universel systémique | 25 min | [→](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md) |
+| "**Tableau Opérationnel de Validation (TOV)**" | SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html → onglet 📐 Validation | 10 min | [→ Open](#) |
 
 ---
 
@@ -237,6 +289,7 @@ Status:                 ✓ PRODUCTION-READY
 **Theory (Academic):**
 - [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md)
 - [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md)
+- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) — Fondations Théorème du Vide + Théorème du Reset + Cycle Fusionné (continuité conceptuelle TPDM)
 - [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md)
 - [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md)
 
@@ -254,14 +307,29 @@ Status:                 ✓ PRODUCTION-READY
 - [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md)
 - [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md)
 - [AUTHORS.md](AUTHORS.md)
+- **Tableau Opérationnel de Validation (TOV)** → onglet 📐 Validation de [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html)
 
 **Interactive (Live):**
+- [PORTAIL-SUPELA-MASTER.html](PORTAIL-SUPELA-MASTER.html) ← **Entrée globale principale** (SUPELA · SCDH · TPDM)
+- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) ← App théorie fondationnelle (4 vues, autonome)
 - [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) ← Open in browser
 - [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) ← Open in browser
 - [VISUALISEUR-SUPELA-INTERACTIVE.html](VISUALISEUR-SUPELA-INTERACTIVE.html) ← Open in browser
+- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) ← **v1.2.0 — 6 onglets (incl. 📐 Validation TOV)** ← Open in browser
+
+**Validation Opérationnelle (v1.2.0):**
+- Onglet **📐 Validation** → 15 dimensions · 2 paradigmes · feuille de route 6 phases
+- Lien **Strategy** : paradigme preuve-centrée ↔ CI/KPI/Gates/SARIF (pilier opérationnel)
+- Lien **Policy** : paradigme discursif ↔ CVEA/post-mortems/jalons J1–J4 (conformité narrative)
+- Lien **Operations** : Phase 3–4 prépareront Rasch/CFA pour v1.3.0
 
 ---
 
+<<<<<<< HEAD
 **Last Updated:** 2026-08-01T21:12:00Z  
 **Status:** ✓ INDEX-COMPLET | ✓ 28 DOCUMENTS | ✓ PRODUCTION-READY  
+=======
+**Last Updated:** 2026-08-02T00:00:00Z  
+**Status:** ✓ INDEX-COMPLET | ✓ 24 DOCUMENTS | ✓ APP v1.2.0 (6 onglets) | ✓ PRODUCTION-READY  
+>>>>>>> origin/main
 **Point Fixe Atteint — Coherence = 100%**

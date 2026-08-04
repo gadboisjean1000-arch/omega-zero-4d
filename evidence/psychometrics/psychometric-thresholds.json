@@ -1,0 +1,11 @@
+{
+  "kappa_min": 0.75,
+  "cfi_min": 0.95,
+  "rmsea_max": 0.06,
+  "tli_min": 0.95,
+  "srmr_max": 0.08,
+  "rasch_infit_min": 0.7,
+  "rasch_infit_max": 1.3,
+  "rasch_outfit_min": 0.7,
+  "rasch_outfit_max": 1.3
+}

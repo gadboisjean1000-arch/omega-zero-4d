@@ -2,77 +2,336 @@
 # Usage: .\SUPER-CALCULATEUR-VERIFICATION.ps1 [-repo <path>]
 param([string]$repo = $PSScriptRoot)
 
-$scoreA=0;$scoreB=0;$scoreC=0;$scoreD=0;$details=@()
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+function Read-JsonFile {
+    param([string]$Path)
+    if (-not (Test-Path $Path)) {
+        throw "Fichier JSON introuvable: $Path"
+    }
+
+    $raw = Get-Content -Raw -Path $Path -Encoding UTF8
+    try {
+        return $raw | ConvertFrom-Json -Depth 20
+    } catch {
+        throw "JSON invalide dans $Path :: $($_.Exception.Message)"
+    }
+}
+
+function Invoke-Git {
+    param(
+        [string]$Repository,
+        [string[]]$Arguments
+    )
+
+    return & git -C $Repository @Arguments 2>$null
+}
+
+function Test-IsoTimestamp {
+    param([string]$Value)
+    if ([string]::IsNullOrWhiteSpace($Value)) {
+        return $false
+    }
+
+    try {
+        [void][datetimeoffset]::Parse($Value)
+        return $true
+    } catch {
+        return $false
+    }
+}
+
+$scoreA = 0
+$scoreB = 0
+$scoreC = 0
+$scoreD = 0
+$scoreE = 0
+$scoreE2 = 0
+$scoreF = 0
+$details = @()
 
 # BLOC A: Fichiers requis (40 pts)
-$files=@(
- 'SYNTHESE-FINALE-SUPELA-v1.1.0.md','MASTER-FORMALIZATION.md',
- 'PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md','PERFORMANCE-VALIDATION-50-50.md',
- 'ANNEXES-A-D-NORMES-OPERATIONNELLES.md','DASHBOARD-SGG-v2-INTERACTIVE.html',
- 'AUTHORS.md','RFC-SUPELA-K3-ANNEXE-E-SCDH.md',
- 'NORMALISATION-COMPLETE.md','DEPLOYMENT-ROADMAP.md'
+$files = @(
+    'SYNTHESE-FINALE-SUPELA-v1.1.0.md', 'MASTER-FORMALIZATION.md',
+    'PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md', 'PERFORMANCE-VALIDATION-50-50.md',
+    'ANNEXES-A-D-NORMES-OPERATIONNELLES.md', 'DASHBOARD-SGG-v2-INTERACTIVE.html',
+    'AUTHORS.md', 'RFC-SUPELA-K3-ANNEXE-E-SCDH.md',
+    'NORMALISATION-COMPLETE.md', 'DEPLOYMENT-ROADMAP.md'
 )
-$present=0; foreach($f in $files){if(Test-Path (Join-Path $repo $f)){$present++}}
-$scoreA=[math]::Round(($present/$files.Count)*40,2)
-$details+="A fichiers   $present/$($files.Count) = $scoreA/40"
+$present = 0
+foreach ($f in $files) {
+    if (Test-Path (Join-Path $repo $f)) {
+        $present++
+    }
+}
+$scoreA = [math]::Round(($present / $files.Count) * 40, 2)
+$details += "A fichiers   $present/$($files.Count) = $scoreA/40"
 
 # BLOC B: Marqueurs de contenu (30 pts)
-$markers=@(
- @{file='PERFORMANCE-VALIDATION-50-50.md';p='50/50 PASS'},
- @{file='RFC-SUPELA-K3-ANNEXE-E-SCDH.md';p='19/19 PASS'},
- @{file='NORMALISATION-COMPLETE.md';p='Point Fixe Atteint'},
- @{file='ANNEXES-A-D-NORMES-OPERATIONNELLES.md';p='N0'},
- @{file='ANNEXES-A-D-NORMES-OPERATIONNELLES.md';p='V1'},
- @{file='DASHBOARD-SGG-v2-INTERACTIVE.html';p='SGG_v2'}
+$markers = @(
+    @{ file = 'PERFORMANCE-VALIDATION-50-50.md'; p = '50/50 PASS' },
+    @{ file = 'RFC-SUPELA-K3-ANNEXE-E-SCDH.md'; p = '19/19 PASS' },
+    @{ file = 'NORMALISATION-COMPLETE.md'; p = 'Point Fixe Atteint' },
+    @{ file = 'ANNEXES-A-D-NORMES-OPERATIONNELLES.md'; p = 'N0' },
+    @{ file = 'ANNEXES-A-D-NORMES-OPERATIONNELLES.md'; p = 'V1' },
+    @{ file = 'DASHBOARD-SGG-v2-INTERACTIVE.html'; p = 'SGG_v2' }
 )
-$hits=0
-foreach($m in $markers){
-  $f2=Join-Path $repo $m.file
-  if((Test-Path $f2) -and (Select-String -Path $f2 -Pattern $m.p -Quiet)){$hits++}
+$hits = 0
+foreach ($m in $markers) {
+    $f2 = Join-Path $repo $m.file
+    if ((Test-Path $f2) -and (Select-String -Path $f2 -Pattern $m.p -Quiet)) {
+        $hits++
+    }
 }
-$scoreB=[math]::Round(($hits/$markers.Count)*30,2)
-$details+="B marqueurs  $hits/$($markers.Count) = $scoreB/30"
+$scoreB = [math]::Round(($hits / $markers.Count) * 30, 2)
+$details += "B marqueurs  $hits/$($markers.Count) = $scoreB/30"
 
 # BLOC C: Preuves Git immuables (20 pts)
-$cc=[int](git -C $repo rev-list --count HEAD 2>$null)
-$hasTag=[bool](git -C $repo tag -l v1.1.0-PRODUCTION-READY 2>$null)
-$clean=-not [bool](git -C $repo status --porcelain 2>$null)
-$cpts=0
-if($cc -ge 15){$cpts+=10}
-if($hasTag){$cpts+=6}
-if($clean){$cpts+=4}
-$scoreC=$cpts
-$details+="C git        commits=$cc tag=$hasTag clean=$clean = $scoreC/20"
+$cc = [int](Invoke-Git -Repository $repo -Arguments @('rev-list', '--count', 'HEAD'))
+$hasTag = [bool](Invoke-Git -Repository $repo -Arguments @('tag', '-l', 'v1.1.0-PRODUCTION-READY'))
+$clean = -not [bool](Invoke-Git -Repository $repo -Arguments @('status', '--porcelain'))
+$cpts = 0
+if ($cc -ge 15) { $cpts += 10 }
+if ($hasTag) { $cpts += 6 }
+if ($clean) { $cpts += 4 }
+$scoreC = $cpts
+$details += "C git        commits=$cc tag=$hasTag clean=$clean = $scoreC/20"
 
 # BLOC D: Opérations (10 pts)
-$wfDir=Join-Path $repo '.github\workflows'
-$wfYml=0
-if(Test-Path $wfDir){
-  $wfYml=(Get-ChildItem $wfDir -Filter *.yml).Count+(Get-ChildItem $wfDir -Filter *.yaml).Count
+$wfDir = Join-Path $repo '.github\workflows'
+$wfYml = 0
+if (Test-Path $wfDir) {
+    $wfYml = @(Get-ChildItem $wfDir -Filter *.yml).Count + @(Get-ChildItem $wfDir -Filter *.yaml).Count
 }
-$dash=Join-Path $repo 'DASHBOARD-SGG-v2-INTERACTIVE.html'
-$jsonExport=Join-Path $repo 'DASHBOARD-SGG-v2-KPI.json'
-$csvExport=Join-Path $repo 'DASHBOARD-SGG-v2-KPI.csv'
-$hasY=Select-String -Path $dash -Pattern '🟡|status-yellow' -Quiet
-$hasR=Select-String -Path $dash -Pattern '🔴|status-red' -Quiet
-$kpiOK=(-not $hasY) -and (-not $hasR)
-if($wfYml -gt 0){$scoreD+=3}
-if((Test-Path $jsonExport) -and (Test-Path $csvExport)){$scoreD+=2}
-if($kpiOK){$scoreD+=5}
-$details+="D ops        workflows=$wfYml exports=$(Test-Path $jsonExport)/$(Test-Path $csvExport) kpiAllGreen=$kpiOK = $scoreD/10"
+$dash = Join-Path $repo 'DASHBOARD-SGG-v2-INTERACTIVE.html'
+$jsonExport = Join-Path $repo 'DASHBOARD-SGG-v2-KPI.json'
+$csvExport = Join-Path $repo 'DASHBOARD-SGG-v2-KPI.csv'
+$hasY = Select-String -Path $dash -Pattern '🟡|status-yellow' -Quiet
+$hasR = Select-String -Path $dash -Pattern '🔴|status-red' -Quiet
+$kpiOK = (-not $hasY) -and (-not $hasR)
+if ($wfYml -gt 0) { $scoreD += 3 }
+if ((Test-Path $jsonExport) -and (Test-Path $csvExport)) { $scoreD += 2 }
+if ($kpiOK) { $scoreD += 5 }
+$details += "D ops        workflows=$wfYml exports=$(Test-Path $jsonExport)/$(Test-Path $csvExport) kpiAllGreen=$kpiOK = $scoreD/10"
 
-$total=[math]::Round($scoreA+$scoreB+$scoreC+$scoreD,2)
-$level=if($total -ge 95){'CERTIFIE PRODUCTION  [100%]'} `
-       elseif($total -ge 85){'PRET AVEC RESERVES   [85-94]'} `
-       else {'NON CONFORME         [<85]'}
+# BLOC E: Preuve externe (10 pts)
+$externalArtifact = Join-Path $repo 'evidence\external-audit\third-party-audit-artifact.txt'
+$externalManifestPath = Join-Path $repo 'evidence\external-audit\external-proof-manifest.json'
+$externalPresenceScore = 0
+$externalIntegrityScore = 0
+$externalReproScore = 0
+
+$artifactExists = Test-Path $externalArtifact
+$manifestExists = Test-Path $externalManifestPath
+if ($artifactExists) { $externalPresenceScore += 1.5 }
+if ($manifestExists) { $externalPresenceScore += 1.5 }
+
+$manifest = $null
+if ($manifestExists) {
+    $manifest = Read-JsonFile -Path $externalManifestPath
+}
+
+$hashMatches = $false
+if ($artifactExists -and $manifestExists -and -not [string]::IsNullOrWhiteSpace($manifest.expected_sha256)) {
+    $artifactHash = (Get-FileHash -Algorithm SHA256 -Path $externalArtifact).Hash.ToLowerInvariant()
+    $hashMatches = $artifactHash -eq $manifest.expected_sha256.ToLowerInvariant()
+    if ($hashMatches) {
+        $externalIntegrityScore = 4
+    }
+}
+
+$hasRunReference = $manifestExists -and -not [string]::IsNullOrWhiteSpace($manifest.run_reference)
+$hasTimestamp = $manifestExists -and (Test-IsoTimestamp -Value $manifest.generated_at_utc)
+$hasCommit = $manifestExists -and ($manifest.commit -match '^[0-9a-f]{7,40}$')
+$hasSource = $manifestExists -and -not [string]::IsNullOrWhiteSpace($manifest.source)
+$commitReachable = $false
+if ($hasCommit) {
+    & git -C $repo cat-file -e "$($manifest.commit)^{commit}" 2>$null
+    $commitReachable = $LASTEXITCODE -eq 0
+}
+$reproChecks = @($hasRunReference, $hasTimestamp, $hasCommit, $hasSource, $commitReachable)
+$externalReproScore = [math]::Round((($reproChecks | Where-Object { $_ }).Count / $reproChecks.Count) * 3, 2)
+
+$scoreE = [math]::Round($externalPresenceScore + $externalIntegrityScore + $externalReproScore, 2)
+$details += "E preuve ext presence=$([math]::Round($externalPresenceScore,2))/3 hash=$hashMatches runRef=$hasRunReference ts=$hasTimestamp commit=$hasCommit reachable=$commitReachable = $scoreE/10"
+
+# BLOC E2: Rang supérieur — preuve externe auditeurs indépendants (10 pts)
+# PROVISIONAL  → 4 pts  (structure présente, templates non signés)
+# VERIFIED_TIER2 → 10 pts (2 attestations signées + hash chain cohérente)
+# Note: aucun point si la structure est absente ou corrompue.
+$rankDir     = Join-Path $repo 'evidence\external-audit\rank-superior'
+$attestAPath = Join-Path $rankDir 'ATTESTATION-AUDITEUR-A.template.json'
+$attestBPath = Join-Path $rankDir 'ATTESTATION-AUDITEUR-B.template.json'
+$registryPath = Join-Path $rankDir 'EXTERNAL-REVIEW-REGISTRY.json'
+$hashChainPath = Join-Path $rankDir 'HASH-CHAIN-MANIFEST.json'
+
+$e2RequiredFields = @('auditor_org', 'contact', 'scope', 'method', 'findings', 'signature_block')
+
+function Test-RankFieldFilled {
+    param($obj, [string]$field)
+    if ($null -eq $obj) { return $false }
+    $v = "$($obj.$field)"
+    return (-not [string]::IsNullOrWhiteSpace($v)) -and (-not $v.StartsWith('<PLACEHOLDER'))
+}
+
+function Test-RankSignatureBlock {
+    param($sb)
+    if ($null -eq $sb) { return $false }
+    foreach ($f in @('signed_by','signed_at_utc','algorithm','key_fingerprint','value')) {
+        $v = "$($sb.$f)"
+        if ([string]::IsNullOrWhiteSpace($v) -or $v.StartsWith('<PLACEHOLDER')) { return $false }
+    }
+    return $true
+}
+
+$e2StructurePresent = (Test-Path $attestAPath) -and (Test-Path $attestBPath) -and (Test-Path $registryPath) -and (Test-Path $hashChainPath)
+
+$e2AttestAOK = $false
+$e2AttestBOK = $false
+$e2HashChainOK = $false
+
+if ($e2StructurePresent) {
+    # Vérifier attestation A
+    try {
+        $e2JsonA = (Get-Content -Raw -Path $attestAPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2AFieldsOK = ($e2RequiredFields | Where-Object { -not (Test-RankFieldFilled -obj $e2JsonA -field $_) }).Count -eq 0
+        $e2ASignedOK = ($e2JsonA._status -ne 'TEMPLATE_UNSIGNED') -and (Test-RankSignatureBlock -sb $e2JsonA.signature_block)
+        $e2AttestAOK = $e2AFieldsOK -and $e2ASignedOK
+    } catch { $e2AttestAOK = $false }
+
+    # Vérifier attestation B
+    try {
+        $e2JsonB = (Get-Content -Raw -Path $attestBPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2BFieldsOK = ($e2RequiredFields | Where-Object { -not (Test-RankFieldFilled -obj $e2JsonB -field $_) }).Count -eq 0
+        $e2BSignedOK = ($e2JsonB._status -ne 'TEMPLATE_UNSIGNED') -and (Test-RankSignatureBlock -sb $e2JsonB.signature_block)
+        $e2AttestBOK = $e2BFieldsOK -and $e2BSignedOK
+    } catch { $e2AttestBOK = $false }
+
+    # Vérifier hash chain (signed_sha256 non-null pour les deux attestations)
+    try {
+        $e2Manifest = (Get-Content -Raw -Path $hashChainPath -Encoding UTF8) | ConvertFrom-Json -Depth 20
+        $e2RankLayer = $e2Manifest.artifacts.rank_superior_layer | Where-Object { $_.id -in @('ATTESTATION-A','ATTESTATION-B') }
+        $e2HashChainOK = ($e2RankLayer | Where-Object { $null -ne $_.signed_sha256 -and "$($_.signed_sha256)" -ne '' }).Count -eq 2
+    } catch { $e2HashChainOK = $false }
+}
+
+if (-not $e2StructurePresent) {
+    $scoreE2 = 0
+    $e2Status = 'ABSENT'
+    $e2Msg = 'Structure rang supérieur absente'
+} elseif ($e2AttestAOK -and $e2AttestBOK -and $e2HashChainOK) {
+    $scoreE2 = 10
+    $e2Status = 'VERIFIED_TIER2'
+    $e2Msg = 'Deux attestations signées + hash chain cohérente'
+} else {
+    $scoreE2 = 4
+    $e2Status = 'PROVISIONAL'
+    $e2Msg = 'Structure présente — templates non signés (auditeurs externes requis)'
+}
+$details += "E2 rang-sup  status=$e2Status attestA=$e2AttestAOK attestB=$e2AttestBOK hashChain=$e2HashChainOK = $scoreE2/10 | $e2Msg"
+
+# BLOC F: Validation psychométrique outillée (10 pts)
+$psyJsonPath = Join-Path $repo 'evidence\psychometrics\psychometric-results.json'
+$psyCsvPath = Join-Path $repo 'evidence\psychometrics\psychometric-results.csv'
+$thresholdsPath = Join-Path $repo 'evidence\psychometrics\psychometric-thresholds.json'
+
+$psyPresenceScore = 0
+$psyThresholdScore = 0
+$psyTraceScore = 0
+$psyJsonExists = Test-Path $psyJsonPath
+$psyCsvExists = Test-Path $psyCsvPath
+if ($psyJsonExists) { $psyPresenceScore += 1.5 }
+if ($psyCsvExists) { $psyPresenceScore += 1.5 }
+
+$thresholds = @{
+    kappa_min = 0.75
+    cfi_min = 0.95
+    rmsea_max = 0.06
+    tli_min = 0.95
+    srmr_max = 0.08
+    rasch_infit_min = 0.70
+    rasch_infit_max = 1.30
+    rasch_outfit_min = 0.70
+    rasch_outfit_max = 1.30
+}
+
+if (Test-Path $thresholdsPath) {
+    $thresholdOverrides = Read-JsonFile -Path $thresholdsPath
+    foreach ($k in @($thresholds.Keys)) {
+        if ($null -ne $thresholdOverrides.$k) {
+            $thresholds[$k] = [double]$thresholdOverrides.$k
+        }
+    }
+}
+
+$psy = $null
+if ($psyJsonExists) {
+    $psy = Read-JsonFile -Path $psyJsonPath
+}
+
+$csvRows = @()
+if ($psyCsvExists) {
+    $csvRows = Import-Csv -Path $psyCsvPath
+}
+
+$kappaValue = if ($psy) { [double]$psy.kappa.value } else { 0 }
+$cfi = if ($psy) { [double]$psy.cfa.cfi } else { 0 }
+$rmsea = if ($psy) { [double]$psy.cfa.rmsea } else { 99 }
+$tli = if ($psy) { [double]$psy.cfa.tli } else { 0 }
+$srmr = if ($psy) { [double]$psy.cfa.srmr } else { 99 }
+$infit = if ($psy) { [double]$psy.rasch.infit_mean } else { 0 }
+$outfit = if ($psy) { [double]$psy.rasch.outfit_mean } else { 0 }
+
+$kappaPass = $kappaValue -ge $thresholds['kappa_min']
+$cfiPass = $cfi -ge $thresholds['cfi_min']
+$rmseaPass = $rmsea -le $thresholds['rmsea_max']
+$tliPass = $tli -ge $thresholds['tli_min']
+$srmrPass = $srmr -le $thresholds['srmr_max']
+$infitPass = ($infit -ge $thresholds['rasch_infit_min']) -and ($infit -le $thresholds['rasch_infit_max'])
+$outfitPass = ($outfit -ge $thresholds['rasch_outfit_min']) -and ($outfit -le $thresholds['rasch_outfit_max'])
+
+$thresholdChecks = @($kappaPass, $cfiPass, $rmseaPass, $tliPass, $srmrPass, $infitPass, $outfitPass)
+$psyThresholdScore = [math]::Round((($thresholdChecks | Where-Object { $_ }).Count / $thresholdChecks.Count) * 4, 2)
+
+$psyRunRef = $psy -and -not [string]::IsNullOrWhiteSpace($psy.metadata.run_reference)
+$psyTimestamp = $psy -and (Test-IsoTimestamp -Value $psy.metadata.generated_at_utc)
+$psyCommit = $psy -and ($psy.metadata.commit -match '^[0-9a-f]{7,40}$')
+$psyDataset = $psy -and -not [string]::IsNullOrWhiteSpace($psy.metadata.dataset_id)
+$psyTools = $psy -and $psy.metadata.toolchain.Count -ge 2
+$psyParams = $psy -and $null -ne $psy.parameters.rasch_model -and $null -ne $psy.parameters.cfa_estimator
+$psyStats = $psy -and $null -ne $psy.rasch.sample_size -and $null -ne $psy.cfa.sample_size -and $null -ne $psy.kappa.ci95_low
+$psyCsvTrace = $csvRows.Count -ge 6
+
+$traceChecks = @($psyRunRef, $psyTimestamp, $psyCommit, $psyDataset, $psyTools, $psyParams, $psyStats, $psyCsvTrace)
+$psyTraceScore = [math]::Round((($traceChecks | Where-Object { $_ }).Count / $traceChecks.Count) * 3, 2)
+
+$scoreF = [math]::Round($psyPresenceScore + $psyThresholdScore + $psyTraceScore, 2)
+$details += "F psycho     files=$psyJsonExists/$psyCsvExists kappa=$kappaValue cfi=$cfi rmsea=$rmsea tli=$tli srmr=$srmr trace=$($psyTraceScore)/3 = $scoreF/10"
+
+$rawTotal = [math]::Round($scoreA + $scoreB + $scoreC + $scoreD + $scoreE + $scoreE2 + $scoreF, 2)
+$maxRaw = 130
+$total = [math]::Round(($rawTotal / $maxRaw) * 100, 2)
+
+$level = if ($total -ge 97) {
+    'N5 ROBUSTESSE AVANCÉE [97-100]'
+} elseif ($total -ge 95) {
+    'N4+ RENFORCÉ          [95-96.99]'
+} elseif ($total -ge 85) {
+    'PRET AVEC RESERVES    [85-94.99]'
+} else {
+    'NON CONFORME          [<85]'
+}
 
 ""
-"╔══════════════════════════════════════════════════╗"
-"║   ⬡  SUPELA v1.1.0 — SUPER CALCULATEUR  ⬡      ║"
-"╠══════════════════════════════════════════════════╣"
-foreach($d in $details){"║  $d"}
-"╠══════════════════════════════════════════════════╣"
-"║  SCORE TOTAL  ->  $total / 100"
+"╔════════════════════════════════════════════════════════════════╗"
+"║   ⬡  SUPELA v1.1.0 — SUPER CALCULATEUR (A→F+E2)  ⬡            ║"
+"╠════════════════════════════════════════════════════════════════╣"
+foreach ($d in $details) { "║  $d" }
+"╠════════════════════════════════════════════════════════════════╣"
+"║  SCORE BRUT   ->  $rawTotal / $maxRaw"
+"║  SCORE GLOBAL ->  $total / 100"
 "║  NIVEAU       ->  $level"
-"╚══════════════════════════════════════════════════╝"
-""; "Run: .\SUPER-CALCULATEUR-VERIFICATION.ps1"
+"╚════════════════════════════════════════════════════════════════╝"
+""
+"Run: .\SUPER-CALCULATEUR-VERIFICATION.ps1"

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "registry_id": "SUPELA-EXTERNAL-REVIEW-REGISTRY-RANK-SUPERIOR",
+  "target_system": "SUPELA v1.1.0",
+  "target_repository": "groupnatupro/multi-branches",
+  "created_at_utc": "2026-08-03T10:11:39Z",
+  "description": "Registre officiel des revues externes de rang supérieur pour SUPELA v1.1.0. Chaque entrée correspond à une attestation d'auditeur indépendant. Le statut 'draft' indique un template non signé; 'signed' indique une signature cryptographique déposée; 'verified' indique une vérification croisée par un tiers.",
+  "required_for_tier2": 2,
+  "global_status": "PROVISIONAL",
+  "global_status_reason": "Les deux attestations (A et B) sont à l'état TEMPLATE_UNSIGNED. Aucune signature cryptographique réelle n'a été fournie. Le statut VERIFIED_TIER2 sera activé uniquement lorsque les deux attestations auront été complétées, signées, et que le HASH-CHAIN-MANIFEST aura été mis à jour avec leurs hachés.",
+  "reviews": [
+    {
+      "id": "ATTEST-A-RANK-SUPERIOR-2026",
+      "auditor_id": "AUDITEUR-A",
+      "auditor_org": null,
+      "file": "evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json",
+      "status": "draft",
+      "status_note": "Template non signé — en attente d'un auditeur externe indépendant",
+      "submitted_at_utc": null,
+      "signed_at_utc": null,
+      "verified_at_utc": null,
+      "overall_assessment": null
+    },
+    {
+      "id": "ATTEST-B-RANK-SUPERIOR-2026",
+      "auditor_id": "AUDITEUR-B",
+      "auditor_org": null,
+      "file": "evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json",
+      "status": "draft",
+      "status_note": "Template non signé — en attente d'un second auditeur externe indépendant",
+      "submitted_at_utc": null,
+      "signed_at_utc": null,
+      "verified_at_utc": null,
+      "overall_assessment": null
+    }
+  ],
+  "tier2_activation_criteria": {
+    "minimum_signed_attestations": 2,
+    "auditors_must_be_independent": true,
+    "hash_chain_must_be_coherent": true,
+    "all_required_fields_must_be_present": true,
+    "signature_algorithm_accepted": ["GPG-RSA-4096", "GPG-RSA-2048", "ed25519", "ECDSA-P256"]
+  }
+}
