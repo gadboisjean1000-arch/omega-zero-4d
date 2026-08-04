@@ -6,3 +6,16 @@
 {"type":"snippet_selected","path":"extension-output-sarthikbhat.json-server-#1-json-server","lines":[1,1],"ts":"2026-08-04T23:14:52.105Z"}
 {"type":"snippet_selected","path":"extension-output-sarthikbhat.json-server-#1-json-server","lines":[1,1],"ts":"2026-08-04T23:14:52.110Z"}
 {"type":"snippet_selected","path":"extension-output-sarthikbhat.json-server-#1-json-server","lines":[1,1],"ts":"2026-08-04T23:14:52.110Z"}
+{"type":"commit_made","sha":"b1204a850ecd8d743b1cf9f61e0f07801ed3dec6","message_first_line":"Save uncommitted changes","files":0,"ts":"2026-08-04T23:15:33.572997500Z"}
+{"type":"commit_made","sha":"6b793fdc63658988df251ff233ee9c2867cc039b","message_first_line":"Save uncommitted changes","files":0,"ts":"2026-08-04T23:15:33.572999800Z"}
+{"type":"commit_made","sha":"940da711e6f36a1e6f57c2b05826c58e4745aa10","message_first_line":"chore: add engineering baseline (pyproject.toml, Makefile, pre-commit, docs)","files":0,"ts":"2026-08-04T23:15:33.573001400Z"}
+{"type":"commit_made","sha":"3c7aa8ddf3dea1e89769f3181287311e202d173b","message_first_line":"Merge pull request #6 from groupnatupro/gadboisjean1000-arch-install-tpdm-docume","files":0,"ts":"2026-08-04T23:15:33.573002700Z"}
+{"type":"commit_made","sha":"141a750c1de7b99a5d9ed30dfaaa868ae225c37e","message_first_line":"Merge origin/main into gadboisjean1000-arch-install-tpdm-document","files":0,"ts":"2026-08-04T23:15:33.573003800Z"}
+{"type":"commit_made","sha":"6291cf51cdb966dce91b0a845e6dc987c6500f18","message_first_line":"fix: align docs and CI with TPDM state","files":0,"ts":"2026-08-04T23:15:33.573006100Z"}
+{"type":"commit_made","sha":"db745cda2dc1270da63b92ca794834b9edc5cf2a","message_first_line":"Ajouter la couche institutionnelle N5","files":0,"ts":"2026-08-04T23:15:33.573006600Z"}
+{"type":"commit_made","sha":"5b9b2d584f9e6a65567a8b48622e7dacd17c00ad","message_first_line":"Merge pull request #12 from groupnatupro/gadboisjean1000-arch-preuve-externe-ran","files":0,"ts":"2026-08-04T23:15:33.573008Z"}
+{"type":"commit_made","sha":"fec3943cb015437e63e599bac3f9031904c0ce47","message_first_line":"feat(evidence): add rank-superior external proof layer (E2)","files":0,"ts":"2026-08-04T23:15:33.573008700Z"}
+{"type":"commit_made","sha":"fc43a6dd8998b4b406cf4853984c47b1835395b3","message_first_line":"chore: refresh external and psychometric proof snapshots","files":0,"ts":"2026-08-04T23:15:33.573010600Z"}
+{"type":"commit_made","sha":"c0f07670dde597b8bf16b8ec75c9596d1de28fac","message_first_line":"Save uncommitted changes","files":0,"ts":"2026-08-04T23:20:33.603987200Z"}
+{"type":"commit_made","sha":"f5c8e59050fa1337db554b15a32f35c72b8bfd01","message_first_line":"Save uncommitted changes","files":0,"ts":"2026-08-04T23:20:33.603989900Z"}
+{"type":"snippet_selected","path":"extension-output-sarthikbhat.json-server-#1-json-server","lines":[1,1],"ts":"2026-08-04T23:23:57.804Z"}
