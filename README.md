@@ -27,8 +27,13 @@
 ### Validation Complete
 ✓ [FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md) — All 27 documents, 50/50 PASS
 
-### Governance Layer
-- `governance/supela.py` — couche Supela EIR (Energie, Information, Relation), Vide intact et Zero absolu
+### Governance Layer — Supela EIR Architecture
+- `governance/supela.py` — module d'exposition Supela
+- `governance/supela_core.py` — orchestrateur Énergie / Information / Relation
+- `governance/orchestrator.py` — intégration Supela au SCDH
+- **Triade EIR** : co-organisation simultanée des 3 dimensions
+- **Vide intact** : baseline neutre de cohérence
+- **Zéro absolu** : circuit-breaker et reset du système
 
 ### **Policy & Viabilité Long Terme**
 🏛️ **[VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** — *Viabilité à long terme des régulations — Cadre universel systémique* (2026-2035)

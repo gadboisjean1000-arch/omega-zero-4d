@@ -105,10 +105,18 @@ Hiérarchie en 5 couches de l'écosystème SUPELA.
 ```
 governance/
 ├── orchestrator.py          # Orchestrateur principal SCDH
-├── supela.py                # Couche de gouvernance EIR / Vide intact / Zero absolu
+├── supela.py                # Module d'exposition Supela EIR
+├── supela_core.py           # Orchestration EIR : SupelaCore, VideIntact, ZeroAbsolu, EIRMonitor
 ├── meta_orchestrator.py     # Meta-orchestration multi-modèle
 └── test_governance_rules.py # Suite de tests 17/17
 ```
+
+### Supela EIR Architecture
+- **Triade EIR** : Énergie (compute), Information (RAG/AI), Relation (routing)
+- **VideIntact** : État de référence neutre — baseline de cohérence
+- **ZeroAbsolu** : Limite asymptotique — circuit-breaker et reset
+- **EIRMonitor** : Surveillance temps réel des 3 dimensions
+- **SupelaCore** : Gouverneur central — orchestre le cycle EIR
 
 ---
 
