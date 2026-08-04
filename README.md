@@ -37,14 +37,15 @@
 ```
 SUPELA v1.1.0 Production Ecosystem
 ├─ Layer 0: Meta-Architecture (SUPELA-CORPUS-v1.0.0)
+│  └─ TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md (Document fondateur)
 ├─ Layer 1: Frameworks (LCI + LCI Stochastique v1.1 + RFC K3)
 ├─ Layer 2: Integration (MASTER-FORMALIZATION + Navigation)
 ├─ Layer 3: Implementation (Silicon/Quantum/Rad-Hard)
 └─ Operations: Governance (Annexes A–D), Performance (50/50), Deployment (Phase 1–4)
 
-Size: 366 kB
-Documents: 27
-Git Commits: 17 (immuable antecedence)
+Size: ~551 kB
+Documents: 28
+Git Commits: 42 (immuable antecedence)
 Status: ✓ PRODUCTION-READY
 Point Fixe: ✓ COHERENCE = 100%
 ```
@@ -112,6 +113,10 @@ Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de parte
 ---
 
 ## Key Documents by Role
+
+### Layer 0 — Corpus fondateur
+1. [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md) — Théorie du Passage et des Deux Mondes (TPDM), document fondateur bilingue
+2. [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md) — Axiomes et invariants meta-architecture
 
 ### Executive Decision-Maker (15 min)
 1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
@@ -199,8 +204,8 @@ Validation:            50/50 PASS ✓ (ALL CATEGORIES)
 ╔════════════════════════════════════════════════════════════╗
 ║            SUPELA v1.1.0 PRODUCTION ECOSYSTEM              ║
 ║                                                            ║
-║  ✓ 27 Documents (366 kB)                                   ║
-║  ✓ 17 Git Commits (Immuable)                               ║
+║  ✓ 28 Documents (~551 kB)                                  ║
+║  ✓ 42 Git Commits (Immuable)                               ║
 ║  ✓ 50/50 Validations (All PASS)                            ║
 ║  ✓ MoteurRAIM (19/19 PASS)                                 ║
 ║  ✓ SGG_v2 = 92.3 (N4 ATTEINT)                              ║

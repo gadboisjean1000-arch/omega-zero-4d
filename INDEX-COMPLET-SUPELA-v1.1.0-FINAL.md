@@ -1,5 +1,5 @@
 # 📑 **INDEX-COMPLET-SUPELA-v1.1.0 — ÉDITION FINALE**
-## *Navigation Universelle | 25 Documents | Tous Piliers | Production-Ready*
+## *Navigation Universelle | 28 Documents | Tous Piliers | Production-Ready*
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## **📊 STRUCTURE COMPLÈTE (25 Documents)**
+## **📊 STRUCTURE COMPLÈTE (28 Documents)**
 
 ### **LAYER 0 — META-ARCHITECTURE (50 kB)**
 
@@ -21,6 +21,7 @@
 |---|----------|------|--------|-------|-----|
 | 0 | PORTAIL-SUPELA-MASTER.html | HTML | ~40 kB | Point d'entrée global: galaxy map, timeline, statut intégral, citation de clôture | ⭐⭐⭐ |
 | 1 | supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md | Markdown | 42 kB | Axiom, invariants, 5D space | ⭐⭐⭐ |
+| 1A | TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md | Markdown | ~185 kB | Document fondateur TPDM (Fond/Surface/Seuil/Xero, axiomatique, MPS, PNS, unification SCDH+Brahmagupta) | ⭐⭐⭐ |
 
 ### **LAYER 0 — INSTITUTIONNEL N5 (NOUVEAU)**
 
@@ -200,7 +201,7 @@
 ☐ Production deployment approved
 ☐ All 50 validations PASS
 ☐ Point Fixe Atteint (Coherence 100%)
-☐ Antecedence proof (15 git commits)
+☐ Antecedence proof (42 git commits)
 ☐ Legal/IP review complete
 ```
 
@@ -250,12 +251,12 @@ Ressources opérationnelles :
 ## **📈 DOCUMENT STATISTICS**
 
 ```
-Total documents:        25 (+ supela-corpus-v1.0.0/ directory)
-Total size:            ~366 kB (final)
-Markdown files:        17 (172 kB)
+Total documents:        28 (+ supela-corpus-v1.0.0/ directory)
+Total size:            ~551 kB (final)
+Markdown files:        17 (~353 kB)
 HTML interactive:       3 (71 kB)
 JSON metadata:          1 (3.6 kB)
-Git commits:            16 (immutable proof)
+Git commits:            42 (immutable proof)
 Status:                 ✓ PRODUCTION-READY
 ```
 
@@ -324,6 +325,11 @@ Status:                 ✓ PRODUCTION-READY
 
 ---
 
+<<<<<<< HEAD
+**Last Updated:** 2026-08-01T21:12:00Z  
+**Status:** ✓ INDEX-COMPLET | ✓ 28 DOCUMENTS | ✓ PRODUCTION-READY  
+=======
 **Last Updated:** 2026-08-02T00:00:00Z  
 **Status:** ✓ INDEX-COMPLET | ✓ 24 DOCUMENTS | ✓ APP v1.2.0 (6 onglets) | ✓ PRODUCTION-READY  
+>>>>>>> origin/main
 **Point Fixe Atteint — Coherence = 100%**
