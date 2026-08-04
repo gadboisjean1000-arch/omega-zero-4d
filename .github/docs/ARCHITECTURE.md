@@ -105,6 +105,7 @@ Hiérarchie en 5 couches de l'écosystème SUPELA.
 ```
 governance/
 ├── orchestrator.py          # Orchestrateur principal SCDH
+├── supela.py                # Couche de gouvernance EIR / Vide intact / Zero absolu
 ├── meta_orchestrator.py     # Meta-orchestration multi-modèle
 └── test_governance_rules.py # Suite de tests 17/17
 ```

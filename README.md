@@ -27,6 +27,9 @@
 ### Validation Complete
 ✓ [FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md) — All 27 documents, 50/50 PASS
 
+### Governance Layer
+- `governance/supela.py` — couche Supela EIR (Energie, Information, Relation), Vide intact et Zero absolu
+
 ### **Policy & Viabilité Long Terme**
 🏛️ **[VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** — *Viabilité à long terme des régulations — Cadre universel systémique* (2026-2035)
 

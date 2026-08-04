@@ -11,6 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
+from governance.supela import SupelaCore
+
 
 class AutoLevel(str, Enum):
     N0_MANUAL     = "N0_MANUAL"
@@ -49,9 +51,11 @@ class GovernanceOrchestrator:
     def __init__(self, initial_level: AutoLevel = AutoLevel.N3_HIGH) -> None:
         self.current_level = initial_level
         self.kill_switch_active = False
+        self.supela = SupelaCore()
 
     def evaluate(self, decision: Decision) -> AutoLevel:
         """Évalue une décision et retourne le niveau d'automatisation résultant."""
+        self.supela.cycle()
         if decision.kill_switch_active or decision.gate is Gate.EMERGENCY:
             return self.trigger_v4_kill_switch()
         target = self._resolve_target_level(decision)
