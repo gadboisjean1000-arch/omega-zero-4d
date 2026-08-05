@@ -1,3 +1,37 @@
 __pycache__/
 *.pyc
 *.pyo
+
+# IDE & Editor Cache (Article 3.6 — Active Silence: non-corpus files excluded)
+.refact/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build & Dist
+dist/
+build/
+*.bak
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE state files
+.LSP/
+*.jsonl
+
+# IMPORTANT: Corpus files (SUPELA-*.md, INDEX-*.md, etc.) are ALL tracked per Article 3
+# Nothing is excluded from the corpus — only IDE/build artifacts are ignored
