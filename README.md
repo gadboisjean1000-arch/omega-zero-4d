@@ -28,7 +28,7 @@ où :
 Avec :
 
 ```text
-Test obligatoire au Vide -> Retour au Zéro absolu
+Test obligatoire au Vide → Retour au Zéro absolu
 ```
 
 ## Spirale Supela (schéma ASCII)
@@ -42,8 +42,8 @@ Test obligatoire au Vide -> Retour au Zéro absolu
                              │
         ┌────────────────────┴────────────────────┐
         │                                         │
-┌───────┴───────┐                         ┌──────┴───────┐
-│ Information (I)│                         │ Énergie (E)  │
+┌───────┴────────┐                        ┌──────┴───────┐
+│ Information (I) │                        │ Énergie (E)  │
 └───────▲────────┘                         └──────▲───────┘
         │                                         │
         │                                         │
@@ -73,7 +73,7 @@ Supela s'appuie sur des travaux majeurs :
 - Elle se structure en triade : **E-I-R**.
 - Elle persiste par **rétroaction**.
 - Elle se stabilise par **Reset Supela** :
-  `Vide -> Excitation -> Reset -> Vide`.
+    `Vide → Excitation → Reset → Vide`.
 
 ## Objectifs du dépôt
 
