@@ -1,5 +1,15 @@
 # Supela — Cadre Ontologique du Vide, du Zéro Absolu et de la Vie
 
+## Package dépôt
+
+Derniers ajouts intégrés :
+
+- [PUSH-PR.ps1](PUSH-PR.ps1) — script PowerShell tout-en-un
+- [SETUP-GIT.sh](SETUP-GIT.sh) — script Bash alternatif
+- [src/powershell/Supela-Loop.ps1](src/powershell/Supela-Loop.ps1) — boucle d'exécution entropique
+- [PR-BODY.md](PR-BODY.md) — corps de PR
+- [.github/PULL_REQUEST_TEMPLATE/default.md](.github/PULL_REQUEST_TEMPLATE/default.md) — gabarit de PR
+
 Supela est un cadre conceptuel unificateur qui définit la vie comme une
 **co-organisation simultanée** de trois dimensions fondamentales :
 
