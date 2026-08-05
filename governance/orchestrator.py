@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
-from governance.supela import SupelaCore
+from supela import SupelaCore
 
 
 class AutoLevel(str, Enum):
