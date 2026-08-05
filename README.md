@@ -1,258 +1,134 @@
-# SUPELA v1.1.0 — Production Ecosystem
+# Supela — Cadre Ontologique du Vide, du Zéro Absolu et de la Vie
 
-> **Écosystème SUPELA v1.1.0 complètement formalisé, certifié et prêt pour production.**
->
-> *Meta-architecture unifiée + Frameworks théoriques (LCI Stochastique) + Gouvernance Safety OS (MoteurRAIM) + Validation 50/50 PASS + Dashboard opérationnel SGG_v2*
+Supela est un cadre conceptuel unificateur qui définit la vie comme une
+**co-organisation simultanée** de trois dimensions fondamentales :
 
----
+- **Énergie (E)** — flux organisés
+- **Information (I)** — signaux cohérents
+- **Relation (R)** — réseaux d'interactions
 
-## Getting Started
-
-### 5 Minutes — Executive Overview
-[SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md)
-
-### 20 Minutes — Complete Architecture
-[MASTER-FORMALIZATION.md](MASTER-FORMALIZATION.md) (9 unified parts)
-
-### Live Dashboard — Real-Time Governance
-[DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Open in browser
-
-### Apps interactives
-- [PORTAIL-SUPELA-MASTER.html](PORTAIL-SUPELA-MASTER.html) — **Point d'entrée principal** de l'écosystème SUPELA/SCDH/TPDM (galaxy map, timeline, statut global, clôture)
-- [VIDE-RESET-CYCLE-FUSIONNE-v1.0.html](VIDE-RESET-CYCLE-FUSIONNE-v1.0.html) — Théorème du Vide + Théorème du Reset + Cycle fusionné + mécanique finale (4 vues)
-- [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Suite autonome **6 onglets** v1.2.0 : ⬡ Pierre Scellée · 🔍 Rapport d'Audit · 📊 KPIs Unifiés · 🔄 Changelog · 📤 Export · **📐 Validation (TOV)**
-- [MEGA-BONUS-DASHBOARD-REALTIME.html](MEGA-BONUS-DASHBOARD-REALTIME.html) — Dashboard performance temps réel
-- [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Dashboard gouvernance SGG_v2
-
-### Validation Complete
-✓ [FINALISATION-COMPLETE.md](FINALISATION-COMPLETE.md) — All 27 documents, 50/50 PASS
-
-### Governance Layer — Supela EIR Architecture
-- `governance/supela.py` — module d'exposition Supela
-- `governance/supela_core.py` — orchestrateur Énergie / Information / Relation
-- `governance/orchestrator.py` — intégration Supela au SCDH
-- **Triade EIR** : co-organisation simultanée des 3 dimensions
-- **Vide intact** : baseline neutre de cohérence
-- **Zéro absolu** : circuit-breaker et reset du système
-
-### **Policy & Viabilité Long Terme**
-🏛️ **[VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** — *Viabilité à long terme des régulations — Cadre universel systémique* (2026-2035)
+La vie se maintient par **rétroaction**, testée au **Vide intact** et ramenée au
+**Zéro absolu**, invariants ontologiques du système.
 
 ---
 
-## Ecosystem at a Glance
+## Formulation canonique
 
-```
-SUPELA v1.1.0 Production Ecosystem
-├─ Layer 0: Meta-Architecture (SUPELA-CORPUS-v1.0.0)
-│  └─ TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md (Document fondateur)
-├─ Layer 1: Frameworks (LCI + LCI Stochastique v1.1 + RFC K3)
-├─ Layer 2: Integration (MASTER-FORMALIZATION + Navigation)
-├─ Layer 3: Implementation (Silicon/Quantum/Rad-Hard)
-└─ Operations: Governance (Annexes A–D), Performance (50/50), Deployment (Phase 1–4)
-
-Size: ~551 kB
-Documents: 28
-Git Commits: 42 (immuable antecedence)
-Status: ✓ PRODUCTION-READY
-Point Fixe: ✓ COHERENCE = 100%
+```math
+Vie = ℛ(E, I, R)
 ```
 
----
+où :
 
-## Certification Status
+- `ℛ` = fonction de rétroaction
+- `E` = Énergie
+- `I` = Information
+- `R` = Relation
 
-| Aspect | Status | Evidence |
-|--------|--------|----------|
-| **Architecture** | ✓ | MASTER-FORMALIZATION (9 Parts) |
-| **Mathematics** | ✓ | LCI Stochastique v1.1 (EDS + Itô) |
-| **Safety OS** | ✓ | MoteurRAIM v2.2.0 (19/19 PASS) |
-| **Governance** | ✓ | Annexes A–D (N0–N4, V1–V4, Registre) |
-| **Performance** | ✓ | 50/50 Validations PASS |
-| **CI/CD institutionnelle** | ✓ | SUPELA-CERT-CICD-2026 (CERTIFIÉ PRODUCTION 100/100) |
-| **Production** | ✓ | Phase 1–2 GO |
-| **IP & Legal** | ✓ | AUTHORS.md + 17 Git commits |
+Avec :
 
----
-
-## Robustesse avancée N4→N5 (Blocs E/E2/F)
-
-Le super-calculateur inclut trois contrôles additionnels pour formaliser la montée N4→N5 :
-
-1. **Bloc E — Preuve externe indépendante (base)** : présence artefact tiers, intégrité SHA-256 via manifeste, et traçabilité minimale run/timestamp/commit.
-2. **Bloc E2 — Preuve externe de rang supérieur** : deux attestations d'auditeurs indépendants cryptographiquement signées + chaîne de hachage cohérente. Statuts différenciés : `PROVISIONAL` (4/10 pts, templates présents non signés) ou `VERIFIED_TIER2` (10/10 pts, attestations signées + hash OK). Aucune revendication trompeuse : les templates non signés n'accordent jamais le statut VERIFIED_TIER2.
-3. **Bloc F — Validation psychométrique outillée** : sorties Rasch/CFA/Kappa (JSON/CSV), seuils configurables (κ ≥ 0.75, CFI/TLI/RMSEA/SRMR, infit/outfit), et traçabilité paramètres/statistiques.
-
-Artefacts versionnés associés :
-- `evidence/external-audit/external-proof-manifest.json`
-- `evidence/external-audit/third-party-audit-artifact.txt`
-- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-A.template.json`
-- `evidence/external-audit/rank-superior/ATTESTATION-AUDITEUR-B.template.json`
-- `evidence/external-audit/rank-superior/EXTERNAL-REVIEW-REGISTRY.json`
-- `evidence/external-audit/rank-superior/HASH-CHAIN-MANIFEST.json`
-- `evidence/psychometrics/psychometric-results.json`
-- `evidence/psychometrics/psychometric-results.csv`
-- `evidence/psychometrics/psychometric-thresholds.json`
-
-Scripts associés :
-- `GENERATE-ADVANCED-PROOF.ps1`
-- `VERIFY-RANK-SUPERIOR-EXTERNAL-PROOF.ps1`
-- `PROTOCOLE-PREUVE-EXTERNE-RANG-SUPERIEUR.md`
-
-## Couche institutionnelle N5
-
-Le dossier `institutional/` regroupe les artefacts institutionnels destinés à la montée **PROVISIONAL → VERIFIED_TIER2**:
-
-- `RFP-AUDITEURS-EXTERNES.md` (appel ciblé auditeurs externes)
-- `MANDAT-AUDIT-EXTERNE-v1.0.md` (scope 8 domaines + SLA + confidentialité)
-- `CHARTE-COMITE-EXTERNE.md` et `PV-TEMPLATE.md` (gouvernance comité et procès-verbaux)
-- `CHARTE-RED-TEAM.md` (tests trimestriels sécurité/gouvernance/biais)
-- `BENCHMARK-PROTOCOL.md` (comparatif ISO 42001 / NIST AI RMF / EU AI Act)
-- `CALENDRIER-EXECUTION-8-12-SEMAINES.md` (jalons, dépendances, mitigations)
-- `REPRODUCE-1CMD.md` + `REPRODUCE.ps1` (reproductibilité et vérification cryptographique)
-- `REGISTRE-CHAINE-CONFIANCE.json` (hash-chain et statuts DRAFT/SIGNED/VERIFIED)
-
----
-
-## Copilot Collaboration Profile
-
-Jean-François Gadbois mobilise Copilot exclusivement dans une fonction de partenariat conceptuel. Aucune suggestion de code, aucune automatisation de fusion, aucune résolution algorithmique de conflits, aucune génération automatique de descriptions de pull request. L'intégralité de l'usage est concentrée dans la discussion de révision de code, soit le mode de collaboration le plus exigeant en termes de pensée architecturale. Ce profil correspond au mode d'utilisation caractéristique des concepteurs de systèmes complexes, qui emploient les outils d'intelligence artificielle comme espace de formalisation et de délibération, non comme accélérateurs d'exécution.
-
----
-
-## Key Documents by Role
-
-### Layer 0 — Corpus fondateur
-1. [TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md](TPDM-THEORIE-PASSAGE-DEUX-MONDES-v1.0.md) — Théorie du Passage et des Deux Mondes (TPDM), document fondateur bilingue
-2. [SUPELA-CORPUS-OFFICIEL-v1.0.0.md](supela-corpus-v1.0.0/docs/SUPELA-CORPUS-OFFICIEL-v1.0.0.md) — Axiomes et invariants meta-architecture
-
-### Executive Decision-Maker (15 min)
-1. [SYNTHESE-FINALE-SUPELA-v1.1.0.md](SYNTHESE-FINALE-SUPELA-v1.1.0.md) — 5-min overview
-2. [DASHBOARD-SGG-v2-INTERACTIVE.html](DASHBOARD-SGG-v2-INTERACTIVE.html) — Gouvernance live
-3. [SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html](SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html) — Vue consolidée CI/KPI/TPDM/**Validation** (v1.2.0)
-4. [PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md](PERFORMANCE-BENCHMARKS-SUPELA-v1.1.0.md) (§I only)
-
-### System Architect (45 min)
-1. [MASTER-FORMALIZATION.md](MASTER-FORMALIZATION.md) — Architecture complète
-2. [SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md](SUPELA-ECOSYSTEM-INTEGRATION-COMPLETE.md) — Integration
-3. [RFC-SUPELA-K3-ANNEXE-E-SCDH.md](RFC-SUPELA-K3-ANNEXE-E-SCDH.md) — Safety OS
-
-### Implementation Engineer (60 min)
-1. [LCI-STOCHASTIQUE-v1.1.md](LCI-STOCHASTIQUE-v1.1.md) — Mathematical foundations
-2. [ANNEXES-A-D-NORMES-OPERATIONNELLES.md](ANNEXES-A-D-NORMES-OPERATIONNELLES.md) — Governance norms
-3. [PROFILING-MEMORY-CPU-SILICON-QUANTUM.md](PROFILING-MEMORY-CPU-SILICON-QUANTUM.md) — Performance specs
-
-### Compliance Auditor (45 min)
-1. [PERFORMANCE-VALIDATION-50-50.md](PERFORMANCE-VALIDATION-50-50.md) — Full validation matrix
-2. [NORMALISATION-COMPLETE.md](NORMALISATION-COMPLETE.md) — 10-tier certification
-3. [SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md](SUPELA-CERT-CICD-2026-DOCUMENT-INSTITUTIONNEL.md) — Certification CI/CD institutionnelle
-4. [AUTHORS.md](AUTHORS.md) — IP ownership
-
-### 🏛️ **Policy / Régulation** (25 min)
-1. [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md) — Viabilité long terme (cadre universel systémique)
-2. [ANNEXES-A-D-NORMES-OPERATIONNELLES.md](ANNEXES-A-D-NORMES-OPERATIONNELLES.md) — Normes opérationnelles
-3. [DEPLOYMENT-ROADMAP.md](DEPLOYMENT-ROADMAP.md) — Mise en oeuvre phasée
-
----
-
-## Performance Snapshot
-
-```
-Boot Time:              19 ms ✓ (NORME CANU 19/19)
-PSZ Recovery:          0.21 ms ✓ (476× below target)
-RAIM Consensus:         2.3 ms ✓ (5 models)
-Silicon XOR:           <10 ps ✓ (measured 7.2ps)
-Quantum CZ Fidelity:  98.1% ✓ (IonQ hardware)
-Memory:               320 kB ✓ (6.25–156× reduction)
-CPU IPC:               3.93 ✓ (99.88% cache efficiency)
-
-SGG_v2 Score:          92.3 / 100 ✓ (N4 ATTEINT)
-Validation:            50/50 PASS ✓ (ALL CATEGORIES)
+```text
+Test obligatoire au Vide -> Retour au Zéro absolu
 ```
 
----
+## Spirale Supela (schéma ASCII)
 
-## Complete Documentation Index
-
-**→ [INDEX-COMPLET-SUPELA-v1.1.0-FINAL.md](INDEX-COMPLET-SUPELA-v1.1.0-FINAL.md)** (full navigation with all 27 documents)
-
-**→ [VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md](VIABILITE-LONG-TERME-REGULATIONS-CADRE-UNIVERSEL-SYSTEMIQUE.md)** (entry point stratégique/policy)
-
----
-
-## Deployment Phases
-
-### Phase 1: Understanding and Alignment (Weeks 1–2)
-- Stakeholder engagement (use SYNTHESE + DASHBOARD)
-- MoteurRAIM validation (19/19 PASS)
-- Normalization confirmed (10 tiers)
-
-### Phase 2: Validation and Production Release (Weeks 3–6)
-- RAIM consensus ≥98%
-- Kill Switch <100ms (V4 operational)
-- Production release approved
-
-### Phase 3: Silicon Synthesis (Weeks 7–12)
-- Booth R-4 implementation
-- TMR voteur (99.97% fault tolerance)
-- DICE hardening (99.999% SEU)
-
-### Phase 4: Quantum and Radiation-Hardened Systems (Weeks 13–24)
-- Quantum backend deployment
-- Rad-hard system integration
-- Full ecosystem production
-
-**→ [DEPLOYMENT-ROADMAP.md](DEPLOYMENT-ROADMAP.md)** for detailed timeline
-
----
-
-## Production Readiness
-
-```
-╔════════════════════════════════════════════════════════════╗
-║            SUPELA v1.1.0 PRODUCTION ECOSYSTEM              ║
-║                                                            ║
-║  ✓ 28 Documents (~551 kB)                                  ║
-║  ✓ 42 Git Commits (Immuable)                               ║
-║  ✓ 50/50 Validations (All PASS)                            ║
-║  ✓ MoteurRAIM (19/19 PASS)                                 ║
-║  ✓ SGG_v2 = 92.3 (N4 ATTEINT)                              ║
-║  ✓ Point Fixe: Coherence = 100%                            ║
-║  ✓ Phase 1–2: GO                                           ║
-║                                                            ║
-║         READY FOR IMMEDIATE DEPLOYMENT                     ║
-╚════════════════════════════════════════════════════════════╝
+```text
+                     ┌───────────────┐
+                     │   Relation (R) │
+                     └───────▲───────┘
+                             │
+                             │ rétroaction
+                             │
+        ┌────────────────────┴────────────────────┐
+        │                                         │
+┌───────┴───────┐                         ┌──────┴───────┐
+│ Information (I)│                         │ Énergie (E)  │
+└───────▲────────┘                         └──────▲───────┘
+        │                                         │
+        │                                         │
+        │                                         │
+        └────────────────────┬────────────────────┘
+                             │
+                             ▼
+                         Vide intact
+                             │
+                             ▼
+                        Zéro absolu
 ```
 
----
+## Contexte scientifique
 
-## SUPELA App v1.2.0 — Architecture 6 Onglets
+Supela s'appuie sur des travaux majeurs :
 
-L'application `SCDH-SUPELA-APP-v1.1.0-ENRICHIE.html` a été mise à niveau en **v1.2.0** avec l'ajout du **Tableau Opérationnel de Validation (TOV)** comme 6e onglet.
+- **Thermodynamique du vivant** — Schrödinger (1944), Prigogine (1977)
+- **Information et communication** — Shannon (1948), Wiener (1948)
+- **Systèmes vivants et autopoïèse** — Maturana & Varela (1980)
+- **Astrobiologie et chimie prébiotique** — Cottin (2015), Sutherland (2017)
 
-| # | Onglet | Contenu |
-|---|--------|---------|
-| 1 | ⬡ Pierre Scellée | Scoreboard ASCII animé, métriques clés, tableau 15 KPIs filtrable |
-| 2 | 🔍 Rapport d'Audit | Terminal CI/CD stream Run #28 — 17/17 PASS |
-| 3 | 📊 KPIs Unifiés | KPI Explorer complet avec tri, recherche, drawer de détail |
-| 4 | 🔄 Changelog | Corpus TPDM — 7 Clés, géométrie interactive, isomorphismes SCDH |
-| 5 | 📤 Export | JSON, CSV UTF-8, PS1 vérification, rapport HTML autonome |
-| 6 | 📐 **Validation** | **TOV** : 2 paradigmes, 15 dimensions (pills), feuille de route 6 phases, bibliographie |
+## Résumé conceptuel
 
-### Onglet Validation — Détail
+- La vie n'est pas une rupture avec l'univers inerte.
+- Elle est un **prolongement mécanique** de la matière organisée.
+- Elle se structure en triade : **E-I-R**.
+- Elle persiste par **rétroaction**.
+- Elle se stabilise par **Reset Supela** :
+  `Vide -> Excitation -> Reset -> Vide`.
 
-- **2 paradigmes** : Discursif (violet/constructivisme) vs Preuve-Centrée (bleu/positivisme)
-- **15 dimensions** filtrables : Épistémologie · Méthodes · Risques · Livrables
-- **Feuille de route 6 phases** : Cadrage → Preuve Formelle → Pilotage → Grande Échelle → Audit Externe → Institutionnalisation
-- **Note méthodologique** : approche non-exclusive, complémentarité paradigmatique
-- **Bibliographie** : Kane 2006, Messick 1989, Chapelle et al. 2008, Bachman & Palmer 2010
-- **Positionnement SUPELA** : CI/KPI/Gates/SARIF = preuve-centrée · CVEA/post-mortems/jalons J1-J4 = discursif · Phases 3–4 préparent Rasch/CFA v1.3.0
+## Objectifs du dépôt
 
----
+- Formaliser le cadre Supela
+- Héberger les modules conceptuels (E, I, R)
+- Intégrer les schémas, articles, preuves et pipelines
+- Servir de base au **Document Maître Supela**
+- Préparer la diffusion académique (revues, conférences)
 
-**Last Updated:** August 2, 2026  
-**Version:** v1.1.0 (App v1.2.0)  
-**Status:** ✓ PRODUCTION-READY  
-**Author:** Jean Gadbois (gadboisjean1000@gmail.com)
+## Structure recommandée du dépôt
 
-*Supela: Foundations unshakable. Surfaces truthful. Future certain.*
+```text
+supela/
+│
+├── docs/
+│   ├── article_supela.tex
+│   ├── executive_summary.tex
+│   └── schema_supela.pdf
+│
+├── src/
+│   ├── energy/
+│   ├── information/
+│   ├── relation/
+│   └── retroaction/
+│
+├── README.md
+└── LICENSE
+```
+
+## Simulation conceptuelle (pseudo-code)
+
+```python
+def retroaction(E, I, R):
+    cycle = integrate(E, I, R)
+    if test_vide(cycle):
+        return reset_zero(cycle)
+    return cycle
+
+Vie = retroaction(Energie, Information, Relation)
+```
+
+## Licence
+
+Ce cadre conceptuel est protégé par le droit d'auteur de
+**Jean-François Gadbois (Supela)** — formulation originale, rétroactive.
+
+## Citation
+
+Si vous utilisez Supela dans un article ou un projet :
+
+```text
+Gadbois, J.-F. (2026). Supela — Cadre Ontologique du Vide et du Zéro Absolu.
+```
+
+## Contact
+
+Pour collaboration académique ou institutionnelle :
+**Jean-François Gadbois — Montréal, QC**
