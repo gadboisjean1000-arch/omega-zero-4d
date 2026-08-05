@@ -6,6 +6,7 @@
 - Utiliser [SETUP-GIT.sh](SETUP-GIT.sh) pour l'équivalent Linux/Mac.
 - Renseigner la PR avec [PR-BODY.md](PR-BODY.md).
 - S'appuyer sur [.github/PULL_REQUEST_TEMPLATE/default.md](.github/PULL_REQUEST_TEMPLATE/default.md) pour uniformiser les soumissions.
+- Déposer le DOCX académique dans [docs/academic/](docs/academic/) avant la création de la branche de publication.
 
 1. Run `make install-dev`.
 2. Create a branch from `main`.

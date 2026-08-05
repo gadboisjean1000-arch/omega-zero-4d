@@ -9,6 +9,8 @@ Derniers ajouts intégrés :
 - [src/powershell/Supela-Loop.ps1](src/powershell/Supela-Loop.ps1) — boucle d'exécution entropique
 - [PR-BODY.md](PR-BODY.md) — corps de PR
 - [.github/PULL_REQUEST_TEMPLATE/default.md](.github/PULL_REQUEST_TEMPLATE/default.md) — gabarit de PR
+- [docs/academic/README.md](docs/academic/README.md) — point d’entrée académique
+- [docs/academic/Document-Maitre-Supela-Academique.docx](docs/academic/Document-Maitre-Supela-Academique.docx) — livrable DOCX exportable
 
 Supela est un cadre conceptuel unificateur qui définit la vie comme une
 **co-organisation simultanée** de trois dimensions fondamentales :
