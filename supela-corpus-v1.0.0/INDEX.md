@@ -3,7 +3,7 @@
 ## Structure du Corpus
 
 ### Introduction (Section 1)
-- Positionnement du système
+- Positionnement du systèmeac
 - Axiome fondateur : "Le fond ne se fissure pas. La surface ne ment pas."
 - Invariant principal : 90% fond / 10% surface = 0 friction
 - Objectifs du corpus
@@ -87,7 +87,7 @@
 ## 🔗 Liens vers Autres Documents
 
 | Document | Relation |
-|----------|----------|
+| --- | --- |
 | Document Maître v2.0 | Implémentation concrète de SUPELA |
 | LCI-VERSION-ACADÉMIQUE | Formalisation théorème instabilité |
 | NORME CANU v1.0.0 | Cycle opérationnel normatif |
