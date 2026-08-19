@@ -27,3 +27,6 @@ target-version = "py311"
 testpaths = ["governance"]
 addopts = ["-q"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["governance"]
+

@@ -1,6 +1,10 @@
 PYTHON ?= python
 VENV_DIR ?= .venv
-VENV_PYTHON := $(VENV_DIR)\Scripts\python.exe
+ifeq ($(OS),Windows_NT)
+    VENV_PYTHON := $(VENV_DIR)\Scripts\python.exe
+else
+    VENV_PYTHON := $(VENV_DIR)/bin/python
+endif
 
 .DEFAULT_GOAL := help
 
