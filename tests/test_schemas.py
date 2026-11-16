@@ -23,6 +23,7 @@ def _load(path: Path) -> dict:
         ("exemple_cycle_p0.schema.json", "TEST_P0_EXEMPLE.json"),
         ("exemple_cycle_p0.schema.json", "TEST_P0_EXEMPLE_SEC_DOMAINE.json"),
         ("plan_4d_omega_zero_esc_01.schema.json", "PLAN-4D-ΩZERO-ESC-01.json"),
+        ("supela_article_registry_1.schema.json", "supela-article-registry-1.json"),
     ],
 )
 def test_all_constitutional_documents_validate_draft_2020_12(

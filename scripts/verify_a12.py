@@ -37,7 +37,8 @@ EXCLUDED_ROOT_FILES = {
 
 
 def verify_a12(root: Path = ROOT_DIR) -> tuple[bool, dict[str, list[str]]]:
-    index_text = INDEX_PATH.read_text(encoding="utf-8")
+    index_path = root / "docs" / "constitution" / "INDEX_CONSTITUTION.md"
+    index_text = index_path.read_text(encoding="utf-8")
 
     # 1. Extraire tous les chemins référencés dans INDEX_CONSTITUTION.md
     referenced: set[str] = set()
@@ -46,7 +47,7 @@ def verify_a12(root: Path = ROOT_DIR) -> tuple[bool, dict[str, list[str]]]:
         target = m.group(1).replace("%CE%A9", "Ω")
         if target.startswith("http"):
             continue
-        rel = (INDEX_PATH.parent / target).resolve().relative_to(root.resolve())
+        rel = (index_path.parent / target).resolve().relative_to(root.resolve())
         referenced.add(rel.as_posix())
 
     # Chemins explicites en backticks depuis la racine du projet

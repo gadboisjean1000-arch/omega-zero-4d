@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/supela_article_registry_1.schema.json",
+  "title": "Registre Supela des 6 Articles IA · Branches Indépendantes (supela-article-registry/1)",
+  "description": "Schéma JSON Draft 2020-12 validant le registre des ressources documentaires candidates en 5 branches (A–E), interdisant toute clé déviante (' mecanisme', 'mécanisme', 'NON_ESTABLIE'), imposant l'unicité de E0..E6 et verrouillant Hook=AnalysisCandidate + verdict_final=OUVERT tant que reproduction_exp='NON_EXECUTEE' ou validation_dep='NON_ACQUISE'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "date",
+    "statut",
+    "couverture",
+    "etat",
+    "validation_dep",
+    "reproduction_exp",
+    "verdict_final",
+    "hook",
+    "tronc_commun",
+    "branches",
+    "articles",
+    "protocole_validation_exp",
+    "metadonnees_supela",
+    "statut_supela_recommande",
+    "conclusion"
+  ],
+  "properties": {
+    "schema": { "const": "supela-article-registry/1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "statut": {
+      "type": "string",
+      "enum": ["CANDIDATE_OUVERTE", "CANDIDATE_A_CORRIGER", "VALIDEE_SOUS_PREUVES"]
+    },
+    "couverture": { "const": "6_ARTICLES_REPERES" },
+    "etat": {
+      "type": "string",
+      "enum": ["ANALYSE_INITIALE_PRODUITE", "EN_VERIFICATION_EXPERIMENTALE", "VERIFIEE"]
+    },
+    "validation_dep": { "type": "string", "enum": ["NON_ACQUISE", "PARTIELLE", "ACQUISE"] },
+    "reproduction_exp": { "type": "string", "enum": ["NON_EXECUTEE", "PARTIELLE", "EXECUTEE"] },
+    "verdict_final": { "type": "string", "enum": ["OUVERT", "CLOTURE_SOUS_PREUVE"] },
+    "hook": { "type": "string", "enum": ["AnalysisCandidate", "ValidatedCandidate"] },
+    "tronc_commun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probabilites",
+        "algebre_lineaire",
+        "reseaux_neuronaux",
+        "transformers",
+        "methodes_evaluation"
+      ],
+      "properties": {
+        "probabilites": { "type": "string", "minLength": 5 },
+        "algebre_lineaire": { "type": "string", "minLength": 5 },
+        "reseaux_neuronaux": { "type": "string", "minLength": 5 },
+        "transformers": { "type": "string", "minLength": 5 },
+        "methodes_evaluation": { "type": "string", "minLength": 5 }
+      }
+    },
+    "branches": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["A", "B", "C", "D", "E"],
+      "properties": {
+        "A": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "sous_articles", "relation", "dependance_directe", "mecanisme"],
+          "properties": {
+            "nom": { "const": "CALCUL_DE_L_ATTENTION" },
+            "sous_articles": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": { "type": "string", "minLength": 3 }
+            },
+            "relation": { "type": "string", "minLength": 3 },
+            "dependance_directe": {
+              "type": "string",
+              "enum": ["NON_ETABLIE", "REFUTEE", "PROUVEE"]
+            },
+            "mecanisme": { "type": "string", "minLength": 5 }
+          }
+        },
+        "B": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "sous_articles", "mecanisme"],
+          "properties": {
+            "nom": { "const": "INFERENCE" },
+            "sous_articles": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "mecanisme": { "type": "string", "minLength": 5 }
+          }
+        },
+        "C": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "sous_articles", "mecanisme"],
+          "properties": {
+            "nom": { "const": "APPRENTISSAGE" },
+            "sous_articles": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "mecanisme": { "type": "string", "minLength": 5 }
+          }
+        },
+        "D": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "sous_articles", "mecanisme"],
+          "properties": {
+            "nom": { "const": "INTERPRETABILITE" },
+            "sous_articles": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "mecanisme": { "type": "string", "minLength": 5 }
+          }
+        },
+        "E": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "sous_articles", "mecanisme"],
+          "properties": {
+            "nom": { "const": "EVALUATION_CONNAISSANCES" },
+            "sous_articles": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "mecanisme": { "type": "string", "minLength": 5 }
+          }
+        }
+      }
+    },
+    "articles": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "titre",
+          "branche",
+          "source",
+          "contexte",
+          "mecanisme_extraits",
+          "dependances_formelles",
+          "statut_dependances",
+          "reproduction",
+          "preuves",
+          "code_associe",
+          "resultats_reproductibles",
+          "entree_normative",
+          "commentaires"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["ART-01", "ART-02", "ART-03", "ART-04", "ART-05", "ART-06"]
+          },
+          "titre": { "type": "string", "minLength": 3 },
+          "branche": { "type": "string", "enum": ["A", "B", "C", "D", "E"] },
+          "source": { "type": "string", "minLength": 3 },
+          "contexte": { "type": "string", "minLength": 5 },
+          "mecanisme_extraits": { "type": "string", "minLength": 5 },
+          "dependances_formelles": { "type": "string", "minLength": 5 },
+          "statut_dependances": {
+            "type": "string",
+            "enum": [
+              "NON_ACQUISE",
+              "AUCUNE",
+              "NON_ACQUISE_VIA_NIVEAUX",
+              "EVALUATION_EMPIRIQUE",
+              "ETABLIE_SOUS_PREUVES"
+            ]
+          },
+          "reproduction": { "type": "string", "enum": ["NON", "PARTIELLE", "OUI"] },
+          "preuves": { "type": ["string", "object", "null"] },
+          "code_associe": { "type": "string", "minLength": 3 },
+          "resultats_reproductibles": { "type": "string", "enum": ["NON", "OUI"] },
+          "entree_normative": { "type": "string", "enum": ["NON", "OUI"] },
+          "commentaires": { "type": "string", "minLength": 5 },
+          "gain_etabli": {
+            "type": "string",
+            "enum": ["NON_ETABLI_GLOBALEMENT", "CONDITIONAL_BENCHMARK"]
+          },
+          "gain_unite": { "type": "string" },
+          "gain_preuves": { "type": "string" },
+          "variables_gain": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "preference_vs_verite": { "const": "NON_EQUIVALENT" },
+          "alignement_vs_verite": { "const": "NON_EQUIVALENT" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "id": { "const": "ART-03" } } },
+            "then": { "required": ["gain_etabli", "gain_unite", "gain_preuves", "variables_gain"] }
+          },
+          {
+            "if": { "properties": { "id": { "const": "ART-04" } } },
+            "then": { "required": ["preference_vs_verite", "alignement_vs_verite"] }
+          },
+          {
+            "if": { "properties": { "reproduction": { "const": "NON" } } },
+            "then": {
+              "properties": {
+                "entree_normative": { "const": "NON" },
+                "resultats_reproductibles": { "const": "NON" }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "protocole_validation_exp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "version", "statut", "objectif", "etapes", "resultats_reels"],
+      "properties": {
+        "schema": { "const": "protocole-validation-exp/1" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "statut": { "type": "string", "enum": ["CANDIDATE", "EN_COURS", "VALIDE"] },
+        "objectif": { "type": "string", "minLength": 5 },
+        "etapes": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["etape", "nom", "description", "conditions_reussite", "outils"],
+            "properties": {
+              "etape": {
+                "type": "string",
+                "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6"]
+              },
+              "nom": { "type": "string", "minLength": 3 },
+              "description": { "type": "string", "minLength": 5 },
+              "conditions_reussite": { "type": "string", "minLength": 5 },
+              "outils": { "type": "string", "minLength": 3 },
+              "specificites": { "type": "string" }
+            }
+          }
+        },
+        "resultats_reels": { "type": "string", "minLength": 3 }
+      }
+    },
+    "metadonnees_supela": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "SOURCE_REPEREE",
+        "CONTENU_ANALYSE",
+        "SOURCE_PRIMAIRE",
+        "CODE_ASSOCIE",
+        "CODE_EXECUTE",
+        "RESULTATS_REPRODUITS",
+        "DEPENDANCES_VALIDEES",
+        "ENTREE_NORMATIVE"
+      ],
+      "properties": {
+        "SOURCE_REPEREE": { "const": "OUI" },
+        "CONTENU_ANALYSE": { "type": "string", "enum": ["PARTIELLEMENT", "COMPLET"] },
+        "SOURCE_PRIMAIRE": { "type": "string", "minLength": 3 },
+        "CODE_ASSOCIE": { "type": "string", "minLength": 3 },
+        "CODE_EXECUTE": { "type": "string", "enum": ["NON", "OUI"] },
+        "RESULTATS_REPRODUITS": { "type": "string", "enum": ["NON", "OUI"] },
+        "DEPENDANCES_VALIDEES": { "type": "string", "enum": ["NON", "OUI"] },
+        "ENTREE_NORMATIVE": { "type": "string", "enum": ["NON", "OUI"] }
+      }
+    },
+    "statut_supela_recommande": { "type": "string", "minLength": 10 },
+    "conclusion": { "type": "string", "minLength": 10 }
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          { "properties": { "reproduction_exp": { "const": "NON_EXECUTEE" } } },
+          { "properties": { "validation_dep": { "const": "NON_ACQUISE" } } }
+        ]
+      },
+      "then": {
+        "properties": {
+          "verdict_final": { "const": "OUVERT" },
+          "hook": { "const": "AnalysisCandidate" },
+          "metadonnees_supela": {
+            "properties": {
+              "ENTREE_NORMATIVE": { "const": "NON" },
+              "DEPENDANCES_VALIDEES": { "const": "NON" },
+              "RESULTATS_REPRODUITS": { "const": "NON" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

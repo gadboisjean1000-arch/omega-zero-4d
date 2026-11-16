@@ -9,6 +9,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [TEST_P0_EXEMPLE.json](TEST_P0_EXEMPLE.json) — Exemple 1 corrigé (Psychologie × Droit du travail × Gestion).
 - [TEST_P0_EXEMPLE_SEC_DOMAINE.json](TEST_P0_EXEMPLE_SEC_DOMAINE.json) — Exemple 2 inter-domaines (Hydrologie × Droit administratif × Secours × Éthique territoriale).
 - [PLAN-4D-ΩZERO-ESC-01.json](PLAN-4D-%CE%A9ZERO-ESC-01.json) — Manifeste JSON exécutable du protocole d'escalade 4D.
+- [supela-article-registry-1.json](supela-article-registry-1.json) — Registre candidat des 6 articles IA en 5 branches indépendantes (`Hook: AnalysisCandidate`, `verdict_final: OUVERT`).
 - [SCHEMA_GRPO_SUPELA.md](SCHEMA_GRPO_SUPELA.md) — Pont méthodologique GRPO → Supela (`Score ≠ Preuve ≠ Vérité` et démonstration `L=0, ∇L≠0`).
 - [HARNAIS_TEST_ESCALADE_4D.py](HARNAIS_TEST_ESCALADE_4D.py) — Point d'entrée CLI du harnais exécutable.
 
@@ -18,6 +19,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `schemas/exemple_cycle_p0.schema.json`
 - `schemas/plan_4d_omega_zero_esc_01.schema.json`
 - `schemas/execution_report.schema.json`
+- `schemas/supela_article_registry_1.schema.json`
 
 ## 3. Moteur Python & Verrous (`src/omega_zero/`)
 - `src/omega_zero/__init__.py` — Exports publics du package `omega_zero`.
@@ -32,6 +34,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 
 ## 4. Suite de tests (`tests/`) & Rapports (`reports/`)
 - `tests/test_schemas.py` — Validation Draft 2020-12 positive et négative.
+- `tests/test_supela_article_registry.py` — Chaîne `JSON → Schema 2020-12 → Validation → A12 → pytest → Trace` pour le registre 6 articles (`Hook: AnalysisCandidate`, `verdict_final: OUVERT`).
 - `tests/test_pi0_and_manque.py` — Idempotence $\Pi_0$, bornage d'autorité, transitions autorisées/interdites des 7 statuts.
 - `tests/test_escalation_4d.py` — Exécution positive de `TEST-4D-ESC-01` + 10 tests négatifs (échecs critiques `C01`..`C10`).
 - `tests/test_second_domain_example.py` — Exécution end-to-end du second exemple inter-domaines et de l'architecture Supela-GRPO.

@@ -1,0 +1,223 @@
+{
+  "schema": "supela-article-registry/1",
+  "version": "1.0.0",
+  "date": "2026-11-15",
+  "statut": "CANDIDATE_OUVERTE",
+  "couverture": "6_ARTICLES_REPERES",
+  "etat": "ANALYSE_INITIALE_PRODUITE",
+  "validation_dep": "NON_ACQUISE",
+  "reproduction_exp": "NON_EXECUTEE",
+  "verdict_final": "OUVERT",
+  "hook": "AnalysisCandidate",
+  "tronc_commun": {
+    "probabilites": "Calcul numérique, normalisation, bases ML",
+    "algebre_lineaire": "Algèbre linéaire, espaces vectoriels, orthogonalité",
+    "reseaux_neuronaux": "Réseaux de neurones, architectures profondes",
+    "transformers": "Transformers, génération autorégressive, attention",
+    "methodes_evaluation": "Mesures de correspondance, jeux de données, modèles juges"
+  },
+  "branches": {
+    "A": {
+      "nom": "CALCUL_DE_L_ATTENTION",
+      "sous_articles": ["Online Softmax", "Gated Delta Net"],
+      "relation": "attention_efficace",
+      "dependance_directe": "NON_ETABLIE",
+      "mecanisme": "calcul_softmax_par_blocs_vs_attention_lineaire_sans_dependance_directe_prouvee"
+    },
+    "B": {
+      "nom": "INFERENCE",
+      "sous_articles": ["Speculative Decoding"],
+      "mecanisme": "generation_autoregressive + modele_brouillon + modele_cible + verification_jetons"
+    },
+    "C": {
+      "nom": "APPRENTISSAGE",
+      "sous_articles": ["GRPO"],
+      "mecanisme": "optimisation_politique_relative_avantages"
+    },
+    "D": {
+      "nom": "INTERPRETABILITE",
+      "sous_articles": ["Superposition"],
+      "mecanisme": "algebre_lineaire + representations_vectorielles + reseau_neuronal + parcimonie"
+    },
+    "E": {
+      "nom": "EVALUATION_CONNAISSANCES",
+      "sous_articles": ["LLM_et_definitions_medicales"],
+      "mecanisme": "retrieval_definitions_medicales + mesures_correspondance + modele_juge"
+    }
+  },
+  "articles": [
+    {
+      "id": "ART-01",
+      "titre": "Online Softmax",
+      "branche": "A",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Optimisation de calcul du softmax par blocs dans le contexte FlashAttention",
+      "mecanisme_extraits": "Calcul softmax par blocs, normalisation incrémentale efficace, contexte FlashAttention",
+      "dependances_formelles": "Aucune dépendance directe vers Gated Delta Net",
+      "statut_dependances": "NON_ACQUISE",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "Point d'entrée mathématique utile sur la normalisation numérique, présenté dans un contexte FlashAttention."
+    },
+    {
+      "id": "ART-02",
+      "titre": "Gated Delta Net / Qwen3.5",
+      "branche": "A",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Architecture et mécanisme d'attention avec reformulation en attention linéaire",
+      "mecanisme_extraits": "Retrait du softmax et du facteur d'échelle, matrice d'état, facteur d'oubli, règle delta",
+      "dependances_formelles": "Aucune dépendance directe d'Online Softmax",
+      "statut_dependances": "NON_ACQUISE",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "Traite l'attention linéaire avant tout, sans passer par le softmax classique."
+    },
+    {
+      "id": "ART-03",
+      "titre": "Speculative Decoding",
+      "branche": "B",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Optimisation de l'inférence par proposition et vérification contrôlée de jetons",
+      "mecanisme_extraits": "Proposition autorégressive de jetons par modèle brouillon, évaluation parallèle par modèle cible, acceptation ou rejet contrôlé",
+      "dependances_formelles": "Aucune dépendance conceptuelle vers GRPO ou Gated Delta Net",
+      "statut_dependances": "AUCUNE",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "Gain de latence ou débit dépendant de la configuration matérielle et du taux d'acceptation.",
+      "gain_etabli": "NON_ETABLI_GLOBALEMENT",
+      "gain_unite": "latence_ou_debit",
+      "gain_preuves": "benchmark_reproductible_requis",
+      "variables_gain": ["materiel", "modeles", "sequence", "lot", "precision", "taux_acceptation"]
+    },
+    {
+      "id": "ART-04",
+      "titre": "GRPO (Group Relative Policy Optimization)",
+      "branche": "C",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Apprentissage par optimisation relative de politique",
+      "mecanisme_extraits": "Réponses échantillonnées, récompenses relatives, politique active, ancienne politique, modèle de référence, pénalité KL",
+      "dependances_formelles": "Aucune dépendance conceptuelle vers Speculative Decoding",
+      "statut_dependances": "AUCUNE",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "GRPO optimise une politique à partir d'avantages relatifs sur un groupe de réponses ; score/préférence ≠ preuve ≠ vérité.",
+      "preference_vs_verite": "NON_EQUIVALENT",
+      "alignement_vs_verite": "NON_EQUIVALENT"
+    },
+    {
+      "id": "ART-05",
+      "titre": "Superposition / Interprétabilité mécanistique",
+      "branche": "D",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Représentations vectorielles internes et interprétabilité des réseaux neuronaux",
+      "mecanisme_extraits": "Algèbre linéaire, représentations vectorielles, réseaux neuronaux, fonctions d'activation, parcimonie, entraînement",
+      "dependances_formelles": "Ne nécessite pas les articles ART-01 à ART-04",
+      "statut_dependances": "NON_ACQUISE_VIA_NIVEAUX",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "Branche autonome fondée sur l'algèbre linéaire, la parcimonie et les activations."
+    },
+    {
+      "id": "ART-06",
+      "titre": "LLM et définitions médicales",
+      "branche": "E",
+      "source": "Page blogue IA (6 articles)",
+      "contexte": "Évaluation de la capacité de modèles à retrouver des termes médicaux à partir de définitions",
+      "mecanisme_extraits": "Construction de jeu de données, mesures de correspondance, modèle juge, évaluation empirique",
+      "dependances_formelles": "Branche d'évaluation empirique indépendante, non synthèse des autres articles",
+      "statut_dependances": "EVALUATION_EMPIRIQUE",
+      "reproduction": "NON",
+      "preuves": null,
+      "code_associe": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+      "resultats_reproductibles": "NON",
+      "entree_normative": "NON",
+      "commentaires": "Évalue empiriquement la restitution de définitions médicales sans constituer un palier terminal obligatoire des autres branches."
+    }
+  ],
+  "protocole_validation_exp": {
+    "schema": "protocole-validation-exp/1",
+    "version": "1.0.0",
+    "statut": "CANDIDATE",
+    "objectif": "Valider expérimentalement les dépendances formelles et mécanismes des 6 articles sans présomption normative",
+    "etapes": [
+      {
+        "etape": "E0",
+        "nom": "Initialisation isolée",
+        "description": "Créer des environnements isolés pour chaque article sans présupposer de dépendances.",
+        "conditions_reussite": "Environnements isolés créés ; liste des dépendances non établies confirmée.",
+        "outils": "Environnements virtuels Python, isolation reproductible"
+      },
+      {
+        "etape": "E1",
+        "nom": "Validation des dépendances formelles",
+        "description": "Tester formellement pour chaque paire d'articles l'existence ou l'absence de dépendance mathématique.",
+        "conditions_reussite": "Aucune dépendance non étayée n'est retenue.",
+        "outils": "Vérification logique, analyse de références primaires",
+        "specificites": "Contrôler explicitement : Online Softmax vs Gated Delta Net, Speculative Decoding vs GRPO."
+      },
+      {
+        "etape": "E2",
+        "nom": "Reproduction partielle des mécanismes",
+        "description": "Tenter la reproduction isolée de chaque mécanisme extrait.",
+        "conditions_reussite": "Mécanisme reproduit ou échec tracé avec cause documentée.",
+        "outils": "Implémentations minimales isolées, jeux de tests unitaires"
+      },
+      {
+        "etape": "E3",
+        "nom": "Benchmark de gain vitesse (Speculative Decoding)",
+        "description": "Évaluer le gain latence/débit sur configurations matérielles explicitement déclarées.",
+        "conditions_reussite": "Mesure attachée au matériel et au taux d'acceptation ; aucun gain global infondé.",
+        "outils": "Scripts benchmark reproductibles"
+      },
+      {
+        "etape": "E4",
+        "nom": "Distinction récompense vs vérité (GRPO)",
+        "description": "Tester expérimentalement que l'optimisation relative ne garantit ni alignement ni vérité.",
+        "conditions_reussite": "Contre-exemples démontrant Score ≠ Preuve ≠ Vérité.",
+        "outils": "Tâches vérifiables (mathématiques/code) et barrière Supela"
+      },
+      {
+        "etape": "E5",
+        "nom": "Cartographie des mécanismes de superposition",
+        "description": "Vérifier les prérequis d'algèbre linéaire, vecteurs, réseaux et parcimonie sans dépendre des branches A–C.",
+        "conditions_reussite": "Mécanismes de superposition caractérisés indépendamment.",
+        "outils": "Analyse d'activations, sondes vectorielles"
+      },
+      {
+        "etape": "E6",
+        "nom": "Évaluation empirique médicale",
+        "description": "Tester le pipeline de retrieval de définitions médicales comme branche empirique indépendante.",
+        "conditions_reussite": "Pipeline reproduit ou écarté avec raisons documentées.",
+        "outils": "Jeu de données médicales, mesures de correspondance, modèle juge"
+      }
+    ],
+    "resultats_reels": "NON_ENREGISTRES_ENCORE"
+  },
+  "metadonnees_supela": {
+    "SOURCE_REPEREE": "OUI",
+    "CONTENU_ANALYSE": "PARTIELLEMENT",
+    "SOURCE_PRIMAIRE": "A_RETROUVER_POUR_CHAQUE_MECANISME",
+    "CODE_ASSOCIE": "SIGNALE_PAR_PLUSIEURS_ARTICLES",
+    "CODE_EXECUTE": "NON",
+    "RESULTATS_REPRODUITS": "NON",
+    "DEPENDANCES_VALIDEES": "NON",
+    "ENTREE_NORMATIVE": "NON"
+  },
+  "statut_supela_recommande": "Les six entrées sont enregistrées comme ressources documentaires candidates ; le verdict reste OUVERT tant qu'aucune reproduction et validation expérimentale n'est fournie.",
+  "conclusion": "La carte révisée en 5 branches constitue une hypothèse pédagogique corrigée ; pierre posée, non scellée."
+}
