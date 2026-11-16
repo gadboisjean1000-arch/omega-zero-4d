@@ -1,7 +1,27 @@
 """Supela Ω-ZERO · Local–Cloud–4D executable engine and test harness."""
 
 from .attestation import AttestationSigner, SignedAttestation
-from .grpo_bridge import CandidateExploration, SupelaGRPOBridge
+from .grpo_bridge import (
+    CandidateExploration,
+    GRPOGuardrailReport,
+    GRPOGuardrailTrace,
+    GRPOStepAnalysis,
+    SupelaGRPOBridge,
+)
+from .guard_kernel import (
+    AccessibilityMode,
+    CompressionFailureError,
+    CompressionLevel,
+    G5Decision,
+    GenerationStage,
+    GenerationTransitionRecord,
+    GuardKernelError,
+    KernelObject,
+    KernelObjectStatus,
+    SemanticLossTestResult,
+    SemanticResidue,
+    SupelaGuardKernel,
+)
 from .models import (
     AuthorityLevel,
     CloudOmega,
@@ -20,23 +40,37 @@ from .models import (
     RevidageStage,
     ZeroState,
 )
+from .network_bus import run_integrated_network_pipeline, run_network_doctor
 from .projection import ManqueStateMachine, Pi0Projector, TransitionError
 from .protocol import (
     OmegaZeroEngine,
     RevidageFailure,
     SaturationWithoutDeclarationError,
 )
+from .vr_compliance import VRRuleResult, verify_vr_compliance
 from .worm_ledger import VaultRunResult, WormTamperError, WormVault
 
 __all__ = [
+    "AccessibilityMode",
     "AttestationSigner",
     "AuthorityLevel",
     "CandidateExploration",
     "CloudOmega",
+    "CompressionFailureError",
+    "CompressionLevel",
     "Conflict4D",
     "Container",
     "Delta4D",
     "DisciplineAssessment",
+    "G5Decision",
+    "GRPOGuardrailReport",
+    "GRPOGuardrailTrace",
+    "GRPOStepAnalysis",
+    "GenerationStage",
+    "GenerationTransitionRecord",
+    "GuardKernelError",
+    "KernelObject",
+    "KernelObjectStatus",
     "LoadMetricDeclaration",
     "LocalMinimalState",
     "LocalNode",
@@ -51,11 +85,19 @@ __all__ = [
     "RevidageFailure",
     "RevidageStage",
     "SaturationWithoutDeclarationError",
+    "SemanticLossTestResult",
+    "SemanticResidue",
     "SignedAttestation",
     "SupelaGRPOBridge",
+    "SupelaGuardKernel",
     "TransitionError",
+    "VRRuleResult",
     "VaultRunResult",
     "WormTamperError",
     "WormVault",
     "ZeroState",
+    "run_integrated_network_pipeline",
+    "run_network_doctor",
+    "verify_vr_compliance",
 ]
+
