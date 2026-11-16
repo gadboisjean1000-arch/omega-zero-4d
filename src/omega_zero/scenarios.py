@@ -7,7 +7,6 @@ from .models import (
     DisciplineAssessment,
     Manque,
     ManqueStatus,
-    MergeOutcome,
     Raccord,
     RaccordStatus,
 )

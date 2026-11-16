@@ -4,7 +4,7 @@ import hashlib
 import json
 import random
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -59,7 +59,7 @@ def evaluate_escalation_protocol(
         },
         unit="bytes / count / count / ms",
         measurement_method="Mesure directe UTF-8 JSON, comptage d'objets/arêtes et latence simulée déterministe",
-        timestamp=datetime.now(timezone.utc).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
         tested_environment="Linux Python 3.11 OmegaZeroEngine",
     )
 
@@ -594,7 +594,7 @@ def evaluate_escalation_protocol(
         "schema": "execution-report-4d/1",
         "protocol_id": "TEST-4D-ESC-01",
         "protocol_sha256": protocol_sha256,
-        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "timestamp_utc": datetime.now(UTC).isoformat(),
         "load_metrics_declared": metric_decl.to_dict(),
         "palier_results": palier_results,
         "condition_results": condition_results,

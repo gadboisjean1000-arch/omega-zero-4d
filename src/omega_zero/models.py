@@ -130,8 +130,7 @@ class Raccord:
     active: bool = True
 
     def enforce_authority_bound(self) -> None:
-        if self.authority_level > self.evidence_level:
-            self.authority_level = self.evidence_level
+        self.authority_level = min(self.authority_level, self.evidence_level)
 
     def to_dict(self) -> dict[str, Any]:
         return {

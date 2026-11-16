@@ -20,7 +20,6 @@ from .models import (
     RaccordStatus,
     RevidageStage,
     ZeroState,
-    canonical_sha256,
 )
 from .projection import ManqueStateMachine
 
@@ -394,9 +393,8 @@ class OmegaZeroEngine:
         # Reconstruire le cône de dépendance sans détruire Ω
         cone = [target_raccord_id]
         for rid, r in self.cloud.raccords.items():
-            if target_raccord_id in r.composed_from or r.id == target_raccord_id:
-                if rid not in cone:
-                    cone.append(rid)
+            if (target_raccord_id in r.composed_from or r.id == target_raccord_id) and rid not in cone:
+                cone.append(rid)
 
         if target_raccord_id in self.cloud.raccords:
             target = self.cloud.raccords[target_raccord_id]

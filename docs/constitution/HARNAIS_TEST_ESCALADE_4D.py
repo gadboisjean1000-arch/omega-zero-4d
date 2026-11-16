@@ -13,8 +13,8 @@ SRC_DIR = ROOT_DIR / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from omega_zero.harness import evaluate_escalation_protocol  # noqa: E402
-from omega_zero.scenarios import run_second_domain_hydrology_example  # noqa: E402
+from omega_zero.harness import evaluate_escalation_protocol
+from omega_zero.scenarios import run_second_domain_hydrology_example
 
 
 def main() -> int:

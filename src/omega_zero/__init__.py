@@ -1,5 +1,7 @@
 """Supela Ω-ZERO · Local–Cloud–4D executable engine and test harness."""
 
+from .attestation import AttestationSigner, SignedAttestation
+from .grpo_bridge import CandidateExploration, SupelaGRPOBridge
 from .models import (
     AuthorityLevel,
     CloudOmega,
@@ -24,9 +26,10 @@ from .protocol import (
     RevidageFailure,
     SaturationWithoutDeclarationError,
 )
-from .grpo_bridge import SupelaGRPOBridge, CandidateExploration
+from .worm_ledger import VaultRunResult, WormTamperError, WormVault
 
 __all__ = [
+    "AttestationSigner",
     "AuthorityLevel",
     "CandidateExploration",
     "CloudOmega",
@@ -48,7 +51,11 @@ __all__ = [
     "RevidageFailure",
     "RevidageStage",
     "SaturationWithoutDeclarationError",
+    "SignedAttestation",
     "SupelaGRPOBridge",
     "TransitionError",
+    "VaultRunResult",
+    "WormTamperError",
+    "WormVault",
     "ZeroState",
 ]

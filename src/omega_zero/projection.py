@@ -144,17 +144,7 @@ class Pi0Projector:
             elif (
                 raccord.status == RaccordStatus.SUPPORTE_SOUS_CONDITIONS
                 and raccord.evidence_level > AuthorityLevel.AUCUNE
-            ):
-                bounded_auth = min(raccord.authority_level, raccord.evidence_level)
-                proofs[rid] = {
-                    "id": rid,
-                    "label": raccord.label,
-                    "authority": bounded_auth.name,
-                    "evidence": raccord.evidence_level.name,
-                    "conditions": list(raccord.conditions),
-                    "scope": raccord.scope,
-                }
-            elif (
+            ) or (
                 raccord.status == RaccordStatus.ETABLI
                 and raccord.evidence_level >= AuthorityLevel.INTERDISCIPLINAIRE_QUALIFIEE
             ):

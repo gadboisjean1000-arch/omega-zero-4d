@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -50,7 +50,7 @@ def test_opa_evaluates_live_harness_report_to_allow_human_review(tmp_path: Path)
         ROOT_DIR / "docs" / "constitution" / "PLAN-4D-ΩZERO-ESC-01.json",
         ROOT_DIR / "schemas",
     )
-    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    now_iso = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
     opa_input = {
         "protocol": {"sha256": report["protocol_sha256"]},
         "attestation": {
