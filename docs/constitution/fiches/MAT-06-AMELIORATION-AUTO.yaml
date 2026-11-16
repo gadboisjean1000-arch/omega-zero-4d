@@ -1,0 +1,49 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-06-AMELIORATION-AUTO
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-06-AMELIORATION-AUTO"
+nom: "Séparation Amélioration ≠ Autorisation"
+type: "Règle"
+discipline: "Gouvernance humaine & Souveraineté décisionnelle"
+formulation_brute: "amélioration ≠ autorisation ; ADMISSIBLE_A_REVUE_HUMAINE"
+formulation_normalisee: "Une amélioration technique, de score ou de couverture n'emporte jamais l'autorisation de déploiement ou de fusion autonome sans validation humaine."
+notation_mathématique: "\\text{Amélioration} \\not\\Rightarrow \\text{Autorisation}"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Lien Copilot M365 ↔ Condition C10 & Politique PR #1 / Pages"
+origine: "Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2), policies/omega_zero_invariants.rego (C10)"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Pipeline C10, promotion GitHub PR #1 → main, activation GitHub Pages"
+conditions:
+  - "Décision finale humaine obligatoire (review_human / allow_human_review)"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+implique: "Séparation entre préparation vérifiée (HTML exporté + workflows prêts) et acte d'autorisation (fusion/publication)."
+n_implique_pas: "Ne freine pas l'outillage d'inspection et de test automatisés."
+preuves:
+  - "Rego rule allow_human_review (16 tests)"
+  - "Discipline appliquée à PR #1 et Pages workflow_dispatch"
+tests:
+  - "tests/test_opa_rego.py"
+  - "tests/test_escalation_4d.py"
+resultats:
+  - "Aucune auto-promotion vers main autorisée par le moteur ou OPA"
+contre_exemples:
+  - "auto_merge=True sans humain rejeté par C10 et OPA"
+contradictions: []
+implementations:
+  - "policies/omega_zero_invariants.rego"
+  - "src/omega_zero/protocol.py"
+artefacts:
+  - "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json"
+  - ".github/workflows/pages-encyclopedie.yml"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Verrouillé en C10 et Rego"
+conditions_reouverture: "Validation humaine explicite enregistrée pour une opération précise."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+  - "policies/omega_zero_invariants.rego"
+notes: "Matérialisée directement dans le workflow GitHub Pages strictement manuel (workflow_dispatch)."

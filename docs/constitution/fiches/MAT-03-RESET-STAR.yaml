@@ -1,0 +1,44 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-03-RESET-STAR
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-03-RESET-STAR"
+nom: "Famille RESET*, R* et VR-22 (Manque ouvert M365)"
+type: "Opérateur"
+discipline: "Revidage & Protocoles complémentaires non extraits"
+formulation_brute: "RESET* ; R* ; VR-22 [spécifications détaillées non extraites]"
+formulation_normalisee: "Marqueurs méthodologiques identifiés dans l'historique Copilot M365 sans contenu intégral récupéré ; maintenus LATENT / INCONNU."
+notation_mathématique: "\\{\\text{RESET}^*,\\; R^*,\\; \\text{VR-22}\\} \\subseteq \\text{Périmètre non extrait} [\\text{INCONNU}]"
+auteur_source: "Jean-François Gadbois (corpus M365)"
+contribution_ia: "Préservation de l'espace exploratoire sans invention (Antigravity)"
+origine: "Fils Copilot M365 https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2 et https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+date_source: "2026-11-16"
+statut_epistemique: "INCONNU"
+portee: "Articulation future avec E6 / C09 (PREPARE→VERIFY→COMMIT→CLEAN) et C → ∅"
+conditions:
+  - "Accès direct aux fils complets ou documents Drive/C:/D: définissant RESET*, R* et VR-22"
+dependances:
+  - "MAT-03-REVIDAGE-LOAD"
+  - "MAT-00-MONOTONIE-K"
+implique: "Ouverture explicite d'une piste à ne pas oublier lors de l'exploration du corpus Supela."
+n_implique_pas: "Ne doit pas être confondu avec VR-24 (Canon de Continuité, lui documenté) ni avec Load(C)."
+preuves: []
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Fiche placée en état LATENT et statut INCONNU"
+contre_exemples: []
+contradictions:
+  - "CONTR-ZERO-INT-MANQUANT"
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-03-RESET-STAR.yaml"
+etat_4d: "LATENT"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "INCONNU"
+    etat_4d: "LATENT"
+    motif: "Mentionné sans corps récupéré"
+conditions_reouverture: "Extraction textuelle directe de RESET*, R* et VR-22 dans un artefact vérifiable."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2"
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+notes: "Ne pas inventer la sémantique de VR-22 par simple analogie avec VR-24."

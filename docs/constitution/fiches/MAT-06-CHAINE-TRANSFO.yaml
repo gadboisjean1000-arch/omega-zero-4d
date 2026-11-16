@@ -1,0 +1,45 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-06-CHAINE-TRANSFO
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-06-CHAINE-TRANSFO"
+nom: "Chaîne de Transformation H (Source brute undefined)"
+type: "Formule"
+discipline: "Transformation & Responsabilité (Section H)"
+formulation_brute: "undefined"
+formulation_normalisee: "Proposition dérivée non sourcée : Demande → Interprétation → Transformation → Résultat (formule brute absente : undefined)"
+notation_mathématique: "\\text{Brut} = \\text{undefined} \\;\\mid\\; \\text{Proposition normalisée} : \\text{Demande} \\to \\text{Interprétation} \\to \\text{Transformation} \\to \\text{Résultat}"
+auteur_source: "Inconnu dans l'extrait source (chaîne brute retournée 'undefined')"
+contribution_ia: "Copilot/Antigravity proposent une normalisation explicite sans l'attribuer à l'archive"
+origine: "Extrait Copilot M365 Section H (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) retournant littéralement 'undefined'"
+date_source: "2026-11-16"
+statut_epistemique: "INCONNU"
+portee: "Traçabilité de la responsabilité entre demande, interprétation et résultat"
+conditions:
+  - "Ne jamais masquer le caractère undefined de l'expression d'origine"
+dependances:
+  - "MAT-04-HLP"
+  - "MAT-02-MANQUE-M"
+implique: "Exemple exemplaire d'honnêteté M3 : la proposition normalisée est clairement séparée du texte brut manquant."
+n_implique_pas: "La chaîne proposée N'EST PAS certifiée comme étant la formule exacte originelle."
+preuves: []
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Conservée en état RÉOUVERT et statut INCONNU jusqu'à vérification du fil originel"
+contre_exemples:
+  - "Effacer 'undefined' et prétendre que la chaîne normalisée vient d'un document source"
+contradictions:
+  - "CONTR-TRANSFO-UNDEF"
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-06-CHAINE-TRANSFO.yaml"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "RÉOUVERT"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "INCONNU"
+    etat_4d: "RÉOUVERT"
+    motif: "Extraction brute retournée comme 'undefined'"
+conditions_reouverture: "Relecture complète de la conversation originale 19:b__mSUKb... ou des archives locales pour rétablir la formulation brute."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+notes: "Conformité stricte M3 & H ≠ L ≠ P : on garde 'undefined' intact en formulation_brute et on qualifie la normalisation de proposition non sourcée."

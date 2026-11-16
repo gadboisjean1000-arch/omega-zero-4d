@@ -16,6 +16,10 @@
     "statistiques",
     "dictionnaire",
     "encyclopedie",
+    "taxonomie_math",
+    "architecture_xiii_sections",
+    "registre_formules",
+    "registre_contradictions_ref",
     "collecteur_local",
     "conclusion"
   ],
@@ -99,7 +103,10 @@
         "notebooks_colab",
         "documents_drive_indexes",
         "disques_locaux_suivis",
-        "entrees_locales_c_d"
+        "entrees_locales_c_d",
+        "formules_normalisees",
+        "fiches_yaml_initiales",
+        "contradictions_conservees"
       ],
       "properties": {
         "termes_dictionnaire": { "type": "integer", "minimum": 1 },
@@ -112,7 +119,10 @@
         "notebooks_colab": { "type": "integer", "minimum": 0 },
         "documents_drive_indexes": { "type": "integer", "minimum": 1 },
         "disques_locaux_suivis": { "type": "integer", "minimum": 2 },
-        "entrees_locales_c_d": { "type": "integer", "minimum": 0 }
+        "entrees_locales_c_d": { "type": "integer", "minimum": 0 },
+        "formules_normalisees": { "type": "integer", "minimum": 0 },
+        "fiches_yaml_initiales": { "type": "integer", "minimum": 0 },
+        "contradictions_conservees": { "type": "integer", "minimum": 0 }
       }
     },
     "dictionnaire": {
@@ -314,7 +324,8 @@
               "elements_locaux_detectes": {
                 "type": "array",
                 "items": { "type": "string" }
-              }
+              },
+              "total_traces_locaux": { "type": "integer", "minimum": 0 }
             }
           }
         },
@@ -412,6 +423,137 @@
         }
       }
     },
+    "taxonomie_math": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["famille", "titre", "sous_modules"],
+        "properties": {
+          "famille": { "type": "string", "pattern": "^MATH/0[0-8]_" },
+          "titre": { "type": "string", "minLength": 2 },
+          "sous_modules": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 2 }
+          }
+        }
+      }
+    },
+    "architecture_xiii_sections": {
+      "type": "array",
+      "minItems": 13,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["roman", "titre", "description", "statut_couverture"],
+        "properties": {
+          "roman": { "type": "string", "minLength": 1 },
+          "titre": { "type": "string", "minLength": 2 },
+          "description": { "type": "string", "minLength": 5 },
+          "statut_couverture": {
+            "type": "string",
+            "enum": [
+              "ACCESSIBLE_VERIFIE",
+              "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
+              "OUVERT_EXPLORATOIRE",
+              "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+            ]
+          }
+        }
+      }
+    },
+    "registre_formules": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "nom",
+          "famille_math",
+          "objet",
+          "discipline",
+          "formulation_brute",
+          "formulation_normalisee",
+          "notation_mathematique",
+          "statut_probatoire",
+          "etat_4d",
+          "source_type",
+          "origine",
+          "implique",
+          "n_implique_pas",
+          "tests",
+          "fiche_yaml"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^MAT-[0-9]{2}-[A-Z0-9_-]+$" },
+          "nom": { "type": "string", "minLength": 2 },
+          "famille_math": { "type": "string", "pattern": "^MATH/0[0-8]_" },
+          "objet": {
+            "type": "string",
+            "enum": [
+              "Théorème",
+              "Axiome",
+              "Invariant",
+              "Formule",
+              "Opérateur",
+              "Règle",
+              "Distinction",
+              "Métrique",
+              "Test",
+              "Contre-exemple"
+            ]
+          },
+          "discipline": { "type": "string", "minLength": 2 },
+          "formulation_brute": { "type": "string", "minLength": 1 },
+          "formulation_normalisee": { "type": "string", "minLength": 1 },
+          "notation_mathematique": { "type": "string", "minLength": 1 },
+          "statut_probatoire": {
+            "type": "string",
+            "enum": [
+              "PROUVÉ",
+              "SUPPORTÉ",
+              "INFÉRÉ",
+              "HYPOTHÉTIQUE",
+              "INCONNU",
+              "CONTRADICTOIRE",
+              "RÉFUTÉ"
+            ]
+          },
+          "etat_4d": {
+            "type": "string",
+            "enum": ["ACTIF", "LATENT", "RÉOUVERT"]
+          },
+          "source_type": {
+            "type": "string",
+            "enum": ["Conversation", "Fichier", "Code", "Test", "Rapport", "Source externe"]
+          },
+          "origine": { "type": "string", "minLength": 3 },
+          "url_source": { "type": "string" },
+          "implique": { "type": "string", "minLength": 2 },
+          "n_implique_pas": { "type": "string", "minLength": 2 },
+          "tests": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "fiche_yaml": { "type": "string", "pattern": "^docs/constitution/fiches/.*\\.yaml$" }
+        }
+      }
+    },
+    "registre_contradictions_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fichier_json", "fichier_md", "nombre_contradictions", "effacement_interdit"],
+      "properties": {
+        "fichier_json": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.json" },
+        "fichier_md": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.md" },
+        "nombre_contradictions": { "type": "integer", "minimum": 1 },
+        "effacement_interdit": { "const": true }
+      }
+    },
     "collecteur_local": {
       "type": "object",
       "additionalProperties": false,
@@ -453,6 +595,74 @@
           "perimetre": {
             "properties": {
               "statut_global": { "const": "PARTIEL_VERIFIE_DISTANT" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "local_pc_scan": { "const": "PARTIELLE" }
+        }
+      },
+      "then": {
+        "properties": {
+          "verdict_couverture": {
+            "enum": [
+              "OUVERT_INCOMPLET_C_D_IA_LOCALES",
+              "PARTIELLE_AVEC_EXPORT_LOCAL"
+            ]
+          },
+          "perimetre": {
+            "properties": {
+              "statut_global": {
+                "enum": [
+                  "PARTIEL_VERIFIE_DISTANT",
+                  "HYBRIDE_LOCAL_DISTANT"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict_couverture": { "const": "COMPLETE_SOUS_PREUVE" }
+        }
+      },
+      "then": {
+        "properties": {
+          "local_pc_scan": { "const": "EXECUTEE" },
+          "perimetre": {
+            "properties": {
+              "statut_global": { "const": "COMPLET_SOUS_PREUVE" },
+              "sources_statuts": {
+                "items": {
+                  "properties": {
+                    "statut": {
+                      "enum": [
+                        "ACCESSIBLE_VERIFIE",
+                        "PARTIELLEMENT_SYNCHRONISE",
+                        "INDEXE_LOCAL"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "encyclopedie": {
+            "properties": {
+              "disques_locaux_windows": {
+                "items": {
+                  "properties": {
+                    "perimetre_statut": { "const": "INDEXE_LOCAL" }
+                  }
+                }
+              }
             }
           }
         }

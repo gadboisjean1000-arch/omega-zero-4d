@@ -1,0 +1,47 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-00-PI0
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-00-PI0"
+nom: "Opérateur de Projection Zéro Π₀ et Idempotence"
+type: "Opérateur"
+discipline: "Projection Π₀ & Reprise sans amnésie"
+formulation_brute: "Π₀(S_t) = {I, P, M, A, H} ; Π₀(Π₀(S_t)) = Π₀(S_t)"
+formulation_normalisee: "Projette S_t sur le quintuplet minimal honnête {Invariants, Preuves, Manques, Autorités, Histoire} de manière strictement idempotente."
+notation_mathématique: "\\Pi_0(S_t) = \\{I, P, M, A, H\\}, \\quad \\Pi_0(\\Pi_0(S_t)) = \\Pi_0(S_t)"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO)"
+contribution_ia: "Spécification Draft 2020-12 & tests Hypothesis"
+origine: "DEFINITION_P0_PROJECTION.json & src/omega_zero/projection.py"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Noyau central de projection locale/cloud sans perte ni fabrication"
+conditions:
+  - "Conservation obligatoire des 5 composantes I, P, M, A, H"
+dependances:
+  - "MAT-00-MONOTONIE-K"
+  - "MAT-02-MANQUE-M"
+implique: "Préservation exacte des manques ouverts et invariants après compaction ou transfert."
+n_implique_pas: "Ne résout pas les manques M en attente de preuve."
+preuves:
+  - "Preuve exécutable par tests unitaires et Hypothesis"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_properties_hypothesis.py"
+resultats:
+  - "Idempotence et non-amnésie Lᵢ⁰ vérifiées"
+contre_exemples: []
+contradictions: []
+implementations:
+  - "src/omega_zero/projection.py"
+  - "src/omega_zero/protocol.py"
+artefacts:
+  - "docs/constitution/DEFINITION_P0_PROJECTION.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Vérifié par pytest"
+conditions_reouverture: "Changement des invariants I1..I5 ou I_M."
+sources:
+  - "docs/constitution/DEFINITION_P0_PROJECTION.json"
+  - "src/omega_zero/projection.py"
+notes: "Étend Π_I(Ω_t) = 0_I."

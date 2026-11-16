@@ -1,0 +1,44 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-01-TREILLIS
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-01-TREILLIS"
+nom: "Treillis probatoire G₀ ≺ G₁ ≺ G₂ ≺ G₃ ≺ G₄"
+type: "Opérateur"
+discipline: "Épistémologie formelle & Hiérarchie de preuve"
+formulation_brute: "G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4"
+formulation_normalisee: "Ordre strict partiel classant cinq degrés croissants de garantie probatoire avant toute élévation d'autorité."
+notation_mathématique: "G_0 \\prec G_1 \\prec G_2 \\prec G_3 \\prec G_4"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Extraction Copilot M365 + création fiche encyclopédique dédiée"
+origine: "Corpus conversationnel Copilot M365 (exigence de fiche dédiée)"
+date_source: "2026-11-16"
+statut_epistemique: "SUPPORTÉ"
+portee: "Évaluation des garanties et raccordements candidats dans Supela Ω-ZERO"
+conditions:
+  - "Chaque niveau G_k requiert ses critères vérifiés sans saut arbitraire"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+implique: "Hiérarchisation explicite empêchant d'assimiler une intuition (G_0) à une preuve établie (G_4)."
+n_implique_pas: "Ne définit pas à lui seul les seuils numériques de chaque G_k tant que non figés en code."
+preuves:
+  - "Formulation explicite dans Copilot M365 + correspondance EvidenceLevel dans models.py"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Fiche dédiée créée et reliée à Authority(G) ≤ Proof(G)"
+contre_exemples: []
+contradictions: []
+implementations:
+  - "src/omega_zero/models.py"
+artefacts:
+  - "docs/constitution/fiches/MAT-01-TREILLIS.yaml"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Fiche dédiée demandée par l'utilisateur"
+conditions_reouverture: "Publication de la définition formelle exhaustive de chacun des 5 échelons G_0..G_4."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+notes: "Conformément à la consigne utilisateur, le treillis probatoire possède sa propre fiche plutôt que d'être fondu dans une page générale."

@@ -33,6 +33,7 @@ EXCLUDED_ROOT_FILES = {
     "omega.ps1",
     "cosign.key",
     "cosign.pub",
+    "docs/constitution/local_pc_inventory.json",
 }
 
 

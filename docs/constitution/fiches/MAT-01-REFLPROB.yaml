@@ -1,0 +1,44 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-01-REFLPROB
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-01-REFLPROB"
+nom: "Principe de Réflexivité Probatoire (Hypothétique)"
+type: "Formule"
+discipline: "Métalogique des tests & Auto-vérification"
+formulation_brute: "∀R : (∀x, R(x) ⇒ Proof(R(x))) ⇒ (R ⇒ SelfTest(R))"
+formulation_normalisee: "Toute règle R exigeant une preuve pour chacune de ses assertions x devrait elle-même être soumise à un auto-test explicite SelfTest(R)."
+notation_mathématique: "\\forall R:\\; (\\forall x,\\; R(x) \\Rightarrow \\operatorname{Proof}(R(x))) \\Rightarrow (R \\Rightarrow \\operatorname{SelfTest}(R))"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Maintien exprès au statut HYPOTHÉTIQUE (historiquement présent ≠ théorème démontré)"
+origine: "Corpus conversationnel Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2)"
+date_source: "2026-11-16"
+statut_epistemique: "HYPOTHÉTIQUE"
+portee: "Méta-règles de validation et suite d'auto-tests"
+conditions:
+  - "Définir formellement le prédicat SelfTest(R) sans cercle vicieux d'auto-certification"
+dependances:
+  - "MAT-01-RECURSIVITE-G"
+  - "MAT-01-AUTORITE-BORNEE"
+implique: "Orientation normative vers la testabilité de chaque règle R."
+n_implique_pas: "NE CONSTITUE PAS un théorème mathématique démontré (mise en garde explicite M3)."
+preuves:
+  - "Formule historiquement présente dans le fil Copilot M365 uniquement"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Classée HYPOTHÉTIQUE sans surenchère d'autorité"
+contre_exemples:
+  - "Un auto-test tautologique SelfTest(R) trivial ne prouve pas la validité de R"
+contradictions: []
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-01-REFLPROB.yaml"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "HYPOTHÉTIQUE"
+    etat_4d: "ACTIF"
+    motif: "Présence historique conversationnelle ≠ théorème prouvé"
+conditions_reouverture: "Démonstration formelle externe définissant domaine de R, modèle de SelfTest et borne de non-circularité."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+notes: "Garde-fou explicite demandé : formule historiquement présente dans Supela ≠ théorème démontré."

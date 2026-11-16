@@ -1,0 +1,51 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-01-AUTORITE-BORNEE
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-01-AUTORITE-BORNEE"
+nom: "Loi d'Autorité Bornée par la Preuve"
+type: "Axiome"
+discipline: "Gouvernance & Sûreté épistémique"
+formulation_brute: "Authority(G) ≤ Proof(G)"
+formulation_normalisee: "L'autorité revendiquée ou accordée à une garantie G est strictement bornée supérieurement par son niveau de preuve vérifié."
+notation_mathématique: "\\operatorname{Authority}(G) \\le \\operatorname{Proof}(G)"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Cross-référencement Copilot M365 ↔ OPA Rego v1 ↔ protocol.py"
+origine: "Copilot M365 + policies/omega_zero_invariants.rego + src/omega_zero/projection.py"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Totalité de l'écosystème Supela Ω-ZERO (C01..C10, Rego, HTML, Collecteur)"
+conditions:
+  - "Comparaison ordinale authority_level ≤ evidence_level appliquée avant toute promotion"
+dependances:
+  - "MAT-01-TREILLIS"
+implique: "Rejet systématique de toute élévation d'autorité non étayée (Rego deny / ValidationError)."
+n_implique_pas: "Ne borne pas l'exploration d'hypothèses à autorité nulle (explorable ≠ actif)."
+preuves:
+  - "Vérification statique Draft 2020-12 sur local_pc_scan"
+  - "Tests négatifs OPA Rego v1 (16/16)"
+  - "Verification authority_level ≤ evidence_level dans projection.py"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_opa_rego.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Invariant exécuté et validé en Python, Rego et JSON Schema"
+contre_exemples:
+  - "Toute tentative COMPLETE_SOUS_PREUVE avec local_pc_scan != EXECUTEE échoue"
+contradictions:
+  - "CONTR-PR1-PS1-AUDIT"
+implementations:
+  - "src/omega_zero/projection.py"
+  - "policies/omega_zero_invariants.rego"
+artefacts:
+  - "schemas/supela_encyclopedie_1.schema.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Exécuté dans Ω-ZERO et Rego"
+conditions_reouverture: "Contournement détecté dans un composant d'export, schéma ou agent."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+  - "policies/omega_zero_invariants.rego"
+notes: "Pierre angulaire : la preuve borne l'autorité, mais elle ne borne pas l'exploration."

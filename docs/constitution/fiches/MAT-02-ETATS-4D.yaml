@@ -1,0 +1,48 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-02-ETATS-4D
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-02-ETATS-4D"
+nom: "Cycle temporel 4D : ACTIF → LATENT → RÉOUVERT → ACTIF"
+type: "Règle"
+discipline: "Dynamique temporelle 4D & Traçabilité"
+formulation_brute: "ACTIF → LATENT → RÉOUVERT → ACTIF ; explorable ≠ actif"
+formulation_normalisee: "Un objet mis en veille passe à l'état LATENT sans perte et reste réouvrable vers RÉOUVERT puis ACTIF ; être explorable ne donne jamais le statut actif."
+notation_mathématique: "\\text{ACTIF} \\to \\text{LATENT} \\to \\text{RÉOUVERT} \\to \\text{ACTIF} \\quad \\land \\quad (\\text{explorable} \\neq \\text{actif})"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Alignement avec TR-14..TR-16 de STATUT_MANQUE.json et cone reopening de protocol.py"
+origine: "Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) & docs/constitution/STATUT_MANQUE.json"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Cycle de vie de toute fiche, contradiction, manque ou raccord dans Ω-ZERO"
+conditions:
+  - "Traçabilité temporelle M5 conservant la cause de mise en latence et de réouverture"
+dependances:
+  - "MAT-00-MONOTONIE-K"
+  - "MAT-02-MANQUE-M"
+implique: "Distinction stricte entre explorabilité (champ libre) et activation probatoire (sous preuve)."
+n_implique_pas: "Un élément LATENT ou RÉOUVERT n'est pas effacé ni validé automatiquement."
+preuves:
+  - "Machine à états exécutée dans src/omega_zero/projection.py & protocol.py (C07)"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_escalation_4d.py"
+resultats:
+  - "Réouverture de cône et TR-14/15/16 vérifiées avec rejet des sauts illicites"
+contre_exemples:
+  - "Saut direct OUVERT → RÉSOLU sans preuve bloqué par ManqueStateMachine"
+contradictions: []
+implementations:
+  - "src/omega_zero/projection.py"
+  - "src/omega_zero/protocol.py"
+artefacts:
+  - "docs/constitution/STATUT_MANQUE.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Vérifié par C07 & TR-14..16"
+conditions_reouverture: "Ajout d'un nouvel état 4D ou d'une transition non répertoriée dans TR-01..TR-16."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+  - "docs/constitution/STATUT_MANQUE.json"
+notes: "Fondement des champs etat_4d et conditions_reouverture présents sur chaque fiche YAML."

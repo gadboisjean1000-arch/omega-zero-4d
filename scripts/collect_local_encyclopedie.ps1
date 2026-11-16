@@ -14,6 +14,8 @@ param(
     [string]$OutJson = (Join-Path $PSScriptRoot "..\docs\constitution\local_pc_inventory.json"),
     [int]$MaxTopLevelPerDrive = 500,
     [int]$MaxNotableFilesPerDrive = 1500,
+    [int]$MaxDepth = 16,
+    [int]$MaxDirsPerDrive = 50000,
     [switch]$SkipBrowserHistory
 )
 
@@ -26,7 +28,7 @@ $ExcludedDirNames = @(
 )
 
 $SensitiveFilePattern = '(?i)(cookies|login data|local state|web data|\.env|\.ssh|\.kdbx|\.pfx|\.p12|\.pem|\.key|id_rsa|id_ed25519|netrc|gitcookies)'
-$AiDomainRegex = '(?i)(gemini\.google\.com|aistudio\.google\.com|copilot\.microsoft\.com|edgeservices\.bing\.com|bing\.com/chat|chatgpt\.com|chat\.openai\.com|claude\.ai|perplexity\.ai|poe\.com|arc\.net|github\.com|huggingface\.co|mistral\.ai|deepseek\.com)'
+$AiDomainRegex = '(?i)(gemini\.google\.com|aistudio\.google\.com|copilot\.microsoft\.com|edgeservices\.bing\.com|bing\.com/chat|chatgpt\.com|chat\.openai\.com|claude\.ai|perplexity\.ai|poe\.com|arc\.net|github\.com/(?:copilot|features/copilot|marketplace/models)|copilot\.github\.com|huggingface\.co|mistral\.ai|deepseek\.com)'
 $NotableFilePattern = '(?i)(supela|omega|encycloped|dictionnaire|conversations\.json|claude|chatgpt|copilot|gemini|cursor|kilo|cline|antigravity)'
 
 function Test-SafePath([string]$FullName) {
@@ -35,17 +37,65 @@ function Test-SafePath([string]$FullName) {
     return $true
 }
 
+function Redact-SafeUrl([string]$RawUrl) {
+    if ([string]::IsNullOrWhiteSpace($RawUrl)) { return "" }
+    $uri = $null
+    if (-not [System.Uri]::TryCreate($RawUrl.Trim(), [System.UriKind]::Absolute, [ref]$uri)) {
+        return ""
+    }
+    if ($uri.Scheme -notin @("http", "https")) { return "" }
+    $builder = New-Object System.UriBuilder($uri)
+    $builder.UserName = ""
+    $builder.Password = ""
+    $builder.Query = ""
+    $builder.Fragment = ""
+    $clean = $builder.Uri.AbsoluteUri
+    if ($clean.Length -gt 240) { return $clean.Substring(0, 240) }
+    return $clean
+}
+
+function Redact-GitRemote([string]$RemoteUrl) {
+    if ([string]::IsNullOrWhiteSpace($RemoteUrl)) { return "" }
+    $trimmed = $RemoteUrl.Trim()
+    $uri = $null
+    if ([System.Uri]::TryCreate($trimmed, [System.UriKind]::Absolute, [ref]$uri)) {
+        if ($uri.Scheme -in @("http", "https", "ssh", "git")) {
+            $builder = New-Object System.UriBuilder($uri)
+            $builder.UserName = ""
+            $builder.Password = ""
+            $builder.Query = ""
+            $builder.Fragment = ""
+            return $builder.Uri.AbsoluteUri
+        }
+        return ""
+    }
+    # Redact scp-style userinfo before '@' while keeping host:path if safe
+    if ($trimmed -match '^[^@/\s]+@([^:\s]+:.+)$') {
+        return ("ssh://" + $Matches[1])
+    }
+    return ""
+}
+
 function Walk-BookmarkNode($node, [string]$SourceLabel, [System.Collections.Generic.List[object]]$Acc) {
     if ($null -eq $node) { return }
-    if ($node.type -eq "url" -and $node.url -match $AiDomainRegex) {
-        $Acc.Add([ordered]@{
-            source = $SourceLabel
-            titre  = [string]$node.name
-            url    = [string]$node.url
-            type   = "BOOKMARK_IA"
-        })
+    $hasType = $null -ne $node.PSObject.Properties["type"]
+    $hasUrl = $null -ne $node.PSObject.Properties["url"]
+    if ($hasType -and $hasUrl -and [string]$node.type -eq "url") {
+        $rawUrl = [string]$node.url
+        if ($rawUrl -match $AiDomainRegex) {
+            $safeUrl = Redact-SafeUrl $rawUrl
+            if ($safeUrl) {
+                $title = if ($null -ne $node.PSObject.Properties["name"]) { [string]$node.name } else { "" }
+                $Acc.Add([ordered]@{
+                    source = $SourceLabel
+                    titre  = $title
+                    url    = $safeUrl
+                    type   = "BOOKMARK_IA"
+                })
+            }
+        }
     }
-    if ($null -ne $node.children) {
+    if ($null -ne $node.PSObject.Properties["children"] -and $null -ne $node.children) {
         foreach ($child in $node.children) { Walk-BookmarkNode $child $SourceLabel $Acc }
     }
 }
@@ -55,7 +105,7 @@ function Get-BookmarksFromFile([string]$BookmarkPath, [string]$SourceLabel) {
     if (-not (Test-Path -LiteralPath $BookmarkPath)) { return @() }
     try {
         $raw = Get-Content -LiteralPath $BookmarkPath -Raw -Encoding UTF8 | ConvertFrom-Json
-        if ($null -ne $raw.roots) {
+        if ($null -ne $raw.PSObject.Properties["roots"] -and $null -ne $raw.roots) {
             foreach ($prop in $raw.roots.PSObject.Properties) {
                 Walk-BookmarkNode $prop.Value $SourceLabel $acc
             }
@@ -72,20 +122,35 @@ function Get-SqliteHistoryAiUrls([string]$HistoryPath, [string]$SourceLabel) {
     if ($null -eq $py) { return $results }
 
     $tmpDb = Join-Path ([System.IO.Path]::GetTempPath()) ("omega_hist_" + [guid]::NewGuid().ToString("N") + ".sqlite")
+    $tmpWal = "$tmpDb-wal"
+    $tmpShm = "$tmpDb-shm"
     try {
         Copy-Item -LiteralPath $HistoryPath -Destination $tmpDb -Force
+        if (Test-Path -LiteralPath "$HistoryPath-wal") {
+            Copy-Item -LiteralPath "$HistoryPath-wal" -Destination $tmpWal -Force
+        }
+        if (Test-Path -LiteralPath "$HistoryPath-shm") {
+            Copy-Item -LiteralPath "$HistoryPath-shm" -Destination $tmpShm -Force
+        }
         $pyScript = @"
 import json, re, sqlite3, sys
+from urllib.parse import urlsplit, urlunsplit
 conn = sqlite3.connect(sys.argv[1])
 cur = conn.cursor()
-pat = re.compile(r'gemini\.google\.com|aistudio\.google\.com|copilot\.microsoft\.com|edgeservices\.bing\.com|bing\.com/chat|chatgpt\.com|chat\.openai\.com|claude\.ai|perplexity\.ai|poe\.com|github\.com', re.I)
+pat = re.compile(r'gemini\.google\.com|aistudio\.google\.com|copilot\.microsoft\.com|edgeservices\.bing\.com|bing\.com/chat|chatgpt\.com|chat\.openai\.com|claude\.ai|perplexity\.ai|poe\.com|github\.com/(?:copilot|features/copilot|marketplace/models)|copilot\.github\.com|huggingface\.co|mistral\.ai|deepseek\.com', re.I)
 rows = []
 try:
-    for url, title, visits, last_ts in cur.execute("SELECT url, title, visit_count, last_visit_time FROM urls ORDER BY last_visit_time DESC LIMIT 5000"):
-        if url and pat.search(url):
-            rows.append({"source": sys.argv[2], "url": url[:240], "titre": (title or "")[:160], "visits": int(visits or 0), "type": "HISTORIQUE_URL_IA"})
-            if len(rows) >= 250:
-                break
+    for url, title, visits, last_ts in cur.execute("SELECT url, title, visit_count, last_visit_time FROM urls ORDER BY last_visit_time DESC"):
+        if not url or not pat.search(url):
+            continue
+        p = urlsplit(url)
+        if p.scheme not in ('http', 'https') or not p.hostname:
+            continue
+        netloc = f"{p.hostname}:{p.port}" if p.port else p.hostname
+        clean_url = urlunsplit((p.scheme, netloc, p.path or '/', '', ''))[:240]
+        rows.append({"source": sys.argv[2], "url": clean_url, "titre": (title or "")[:160], "visits": int(visits or 0), "type": "HISTORIQUE_URL_IA"})
+        if len(rows) >= 250:
+            break
 except Exception:
     pass
 print(json.dumps(rows, ensure_ascii=False))
@@ -97,7 +162,9 @@ print(json.dumps(rows, ensure_ascii=False))
         }
     } catch { }
     finally {
-        if (Test-Path -LiteralPath $tmpDb) { Remove-Item -LiteralPath $tmpDb -Force -ErrorAction SilentlyContinue }
+        foreach ($tf in @($tmpDb, $tmpWal, $tmpShm)) {
+            if (Test-Path -LiteralPath $tf) { Remove-Item -LiteralPath $tf -Force -ErrorAction SilentlyContinue }
+        }
     }
     return $results
 }
@@ -105,80 +172,122 @@ print(json.dumps(rows, ensure_ascii=False))
 $driveReports = @()
 $gitRepos = @()
 $notableFiles = @()
+$hasGitCmd = ($null -ne (Get-Command git -ErrorAction SilentlyContinue))
 
 foreach ($d in $Drives) {
-    $normDrive = $d.TrimEnd('\') + '\'
+    $driveLetters = $d.Trim().TrimEnd('\', '/').TrimEnd(':').ToUpperInvariant()
+    if ([string]::IsNullOrWhiteSpace($driveLetters)) { continue }
+    $normDrive = "${driveLetters}:\"
+
     if (-not (Test-Path -LiteralPath $normDrive)) {
         $driveReports += [ordered]@{
-            lecteur         = $normDrive
-            statut          = "ABSENT_SUR_CE_POSTE"
-            dossiers_racine = @()
-            total_depots_git = 0
+            lecteur                 = $normDrive
+            statut                  = "ABSENT_SUR_CE_POSTE"
+            dossiers_racine         = @()
+            total_depots_git        = 0
             total_fichiers_notables = 0
+            scan_tronque            = $false
+            dossiers_inaccessibles  = 0
         }
         continue
     }
 
     $topDirs = @(Get-ChildItem -LiteralPath $normDrive -Directory -Force -ErrorAction SilentlyContinue |
+        Where-Object { ($_.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0 } |
         Select-Object -First $MaxTopLevelPerDrive | ForEach-Object {
             [ordered]@{ nom = $_.Name; chemin = $_.FullName; modifie_utc = $_.LastWriteTimeUtc.ToString("o") }
         })
 
     $driveGitCount = 0
     $driveNotableCount = 0
-    $stack = New-Object System.Collections.Generic.Stack[string]
-    $stack.Push($normDrive)
+    $visitedDirs = 0
+    $inaccessibleCount = 0
+    $scanTruncated = $false
+
+    $visitedPaths = New-Object 'System.Collections.Generic.HashSet[string]' ([System.StringComparer]::OrdinalIgnoreCase)
+    $stack = New-Object 'System.Collections.Generic.Stack[object]'
+    $stack.Push(@{ Path = $normDrive; Depth = 0 })
 
     while ($stack.Count -gt 0) {
-        $curr = $stack.Pop()
-        $leaf = Split-Path -Path $curr -Leaf
-        if ($ExcludedDirNames -contains $leaf) { continue }
+        if ($visitedDirs -ge $MaxDirsPerDrive) {
+            $scanTruncated = $true
+            break
+        }
+        $frame = $stack.Pop()
+        $curr = [string]$frame.Path
+        $depth = [int]$frame.Depth
+        if (-not $visitedPaths.Add($curr)) { continue }
+        $visitedDirs++
 
-        $subdirs = Get-ChildItem -LiteralPath $curr -Directory -Force -ErrorAction SilentlyContinue
-        foreach ($sd in $subdirs) {
-            if ($sd.Name -eq ".git") {
-                $remote = ""
-                if (Get-Command git -ErrorAction SilentlyContinue) {
-                    $remote = (& git -C $curr config --get remote.origin.url 2>$null)
-                }
-                $gitRepos += [ordered]@{
-                    chemin = $curr
-                    lecteur = $normDrive
-                    remote_origin = [string]$remote
-                }
-                $driveGitCount++
-                continue
-            }
-            if (-not ($ExcludedDirNames -contains $sd.Name)) {
-                $stack.Push($sd.FullName)
-            }
+        $leaf = Split-Path -Path $curr -Leaf
+        if ($leaf -and ($ExcludedDirNames -contains $leaf)) { continue }
+
+        $entries = @()
+        try {
+            $entries = @(Get-ChildItem -LiteralPath $curr -Force -ErrorAction Stop)
+        } catch {
+            $inaccessibleCount++
+            continue
         }
 
-        if ($driveNotableCount -lt $MaxNotableFilesPerDrive) {
-            $files = Get-ChildItem -LiteralPath $curr -File -Force -ErrorAction SilentlyContinue
-            foreach ($f in $files) {
-                if (-not (Test-SafePath $f.FullName)) { continue }
-                if ($f.Name -match $NotableFilePattern -or $f.Extension -in @(".ipynb", ".rego")) {
+        $gitMarkerFound = $false
+        foreach ($ent in $entries) {
+            if ($ent.Name -eq ".git") {
+                $gitMarkerFound = $true
+                break
+            }
+        }
+        if ($gitMarkerFound) {
+            $remote = ""
+            if ($hasGitCmd) {
+                $rawRemote = (& git -C $curr config --get remote.origin.url 2>$null)
+                $remote = Redact-GitRemote ([string]$rawRemote)
+            }
+            $gitRepos += [ordered]@{
+                chemin        = $curr
+                lecteur       = $normDrive
+                remote_origin = $remote
+            }
+            $driveGitCount++
+        }
+
+        foreach ($ent in $entries) {
+            if ($ent.PSIsContainer) {
+                if ($ent.Name -eq ".git" -or ($ExcludedDirNames -contains $ent.Name)) { continue }
+                if (($ent.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { continue }
+                if ($depth -lt $MaxDepth) {
+                    $stack.Push(@{ Path = $ent.FullName; Depth = ($depth + 1) })
+                } else {
+                    $scanTruncated = $true
+                }
+            } elseif ($driveNotableCount -lt $MaxNotableFilesPerDrive) {
+                if (-not (Test-SafePath $ent.FullName)) { continue }
+                if ($ent.Name -match $NotableFilePattern -or $ent.Extension -in @(".ipynb", ".rego")) {
                     $notableFiles += [ordered]@{
-                        chemin       = $f.FullName
-                        lecteur      = $normDrive
-                        extension    = $f.Extension
-                        taille_octets = [long]$f.Length
-                        modifie_utc  = $f.LastWriteTimeUtc.ToString("o")
+                        chemin        = $ent.FullName
+                        lecteur       = $normDrive
+                        extension     = $ent.Extension
+                        taille_octets = [long]$ent.Length
+                        modifie_utc   = $ent.LastWriteTimeUtc.ToString("o")
                     }
                     $driveNotableCount++
-                    if ($driveNotableCount -ge $MaxNotableFilesPerDrive) { break }
+                    if ($driveNotableCount -ge $MaxNotableFilesPerDrive) {
+                        $scanTruncated = $true
+                    }
                 }
             }
         }
     }
 
+    $driveStatus = if ($scanTruncated -or $inaccessibleCount -gt 0) { "PARTIELLEMENT_INDEXE" } else { "INDEXE_LOCAL" }
     $driveReports += [ordered]@{
         lecteur                 = $normDrive
-        statut                  = "INDEXE_LOCAL"
+        statut                  = $driveStatus
         dossiers_racine         = $topDirs
         total_depots_git        = $driveGitCount
         total_fichiers_notables = $driveNotableCount
+        scan_tronque            = $scanTruncated
+        dossiers_inaccessibles  = $inaccessibleCount
     }
 }
 
@@ -260,14 +369,15 @@ foreach ($it in $ideTargets) {
 }
 
 $inventory = [ordered]@{
-    schema          = "supela-local-pc-inventory/1"
-    generated_utc   = (Get-Date).ToUniversalTime().ToString("o")
-    machine_name    = $env:COMPUTERNAME
-    drives          = $driveReports
-    git_repos       = $gitRepos
-    notable_files   = $notableFiles
-    ai_platforms    = $aiPlatformsFound
-    safety_note     = "Lecture seule sans collecte de cookies, mots de passe, tokens ou cles privees."
+    schema               = "supela-local-pc-inventory/1"
+    generated_utc        = (Get-Date).ToUniversalTime().ToString("o")
+    machine_name         = $env:COMPUTERNAME
+    skip_browser_history = [bool]$SkipBrowserHistory
+    drives               = $driveReports
+    git_repos            = $gitRepos
+    notable_files        = $notableFiles
+    ai_platforms         = $aiPlatformsFound
+    safety_note          = "Lecture seule sans collecte de cookies, mots de passe, tokens ou cles privees."
 }
 
 $outDir = Split-Path -Path $OutJson -Parent

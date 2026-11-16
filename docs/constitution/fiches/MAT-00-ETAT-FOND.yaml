@@ -1,0 +1,47 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-00-ETAT-FOND
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-00-ETAT-FOND"
+nom: "État fondamental Supela Sᵢ"
+type: "Formule"
+discipline: "Fondements formels & Architecture 4D"
+formulation_brute: "S_i = ⟨P_i, E_i, C_i, K_i⟩"
+formulation_normalisee: "Un état structuré i associe invariants P_i, règles d'inférence E_i, espace d'exécution C_i et registre monotone K_i."
+notation_mathématique: "S_i = \\langle P_i, E_i, C_i, K_i \\rangle"
+auteur_source: "Jean-François Gadbois (corpus Supela)"
+contribution_ia: "Extraction Copilot M365 + normalisation squelette Antigravity (Source ≠ Autorité)"
+origine: "Corpus conversationnel Copilot M365 & formalisme Ω-ZERO"
+date_source: "2026-11-16"
+statut_epistemique: "SUPPORTÉ"
+portee: "Modélisation des états de travail locaux/cloud avant projection Π₀"
+conditions:
+  - "Séparation explicite entre invariants P_i et contexte volatil C_i"
+dependances:
+  - "MAT-00-MONOTONIE-K"
+  - "MAT-00-PI0"
+implique: "Distinction claire entre mémoire monotone K_i et contexte volatile C_i."
+n_implique_pas: "Ne prouve pas à lui seul la complétude de C_i sans vérification externe."
+preuves:
+  - "Extrait conversationnel explicite Copilot M365 fourni par l'utilisateur"
+  - "Correspondance structurelle avec ZeroState dans src/omega_zero/models.py"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Correspondance structurelle vérifiée sur ZeroState {I, P, M, A, H}"
+contre_exemples: []
+contradictions: []
+implementations:
+  - "src/omega_zero/models.py"
+artefacts:
+  - "docs/constitution/DEFINITION_P0_PROJECTION.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Indexation initiale M365"
+conditions_reouverture: "Ajout ou scission d'une cinquième composante formelle dans S_i."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+  - "docs/constitution/DEFINITION_P0_PROJECTION.json"
+notes: "Une conversation atteste l'apparition de la notation, non sa démonstration mathématique complète."

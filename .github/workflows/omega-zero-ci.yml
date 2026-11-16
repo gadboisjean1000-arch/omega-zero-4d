@@ -21,7 +21,7 @@ jobs:
       - name: Static checks (ruff + mypy + Rule A12 anti-orphans)
         run: |
           ruff check src/ tests/ scripts/
-          mypy src/ scripts/verify_a12.py
+          mypy src/ scripts/verify_a12.py scripts/build_encyclopedie.py
           python scripts/verify_a12.py
       - name: Run harness twice to verify deterministic SHA-256 and WORM idempotence
         run: |
