@@ -46,4 +46,4 @@ Lorsque `num_iterations = 1` ($\mu = 1$) et `beta = 0.0` (aucun terme KL) :
   $$\left.\nabla_\theta L(\theta)\right|_{\theta=\theta_{\text{old}}} = -\frac{1}{G} \sum_{i=1}^G \hat{A}_i \nabla_\theta \log \pi_\theta(o_i \mid q) \neq 0$$
   dès lors que $\sigma_r > 0$ et que les $\nabla_\theta \log \pi_\theta(o_i \mid q)$ diffèrent entre réponses.
 
-Implémentation vérifiée numériquement (analytique + différences finies) dans [`grpo_bridge.py`](../../src/omega_zero/grpo_bridge.py).
+Implémentation vérifiée numériquement (analytique + différences finies) et garde-fous `GF1`–`GF5` (`explore_with_guardrails`) dans [`grpo_bridge.py`](../../src/omega_zero/grpo_bridge.py) ; formalisation complète dans [`COMPARAISON_GRPO_OMEGA_ZERO.md`](COMPARAISON_GRPO_OMEGA_ZERO.md).

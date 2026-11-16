@@ -234,3 +234,92 @@ test_deny_tampered_ledger if {
 	bad := object.union(valid_input, {"ledger": {"mode": "append-only", "tamper_detected": true}})
 	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
 }
+
+# === TESTS SUP-ICI-01 & GRPO GF1..GF5 ======================================
+valid_guard_kernel_transitions := [
+	{
+		"object_id": "OBJ-001",
+		"from_generation": "G0",
+		"to_generation": "G1",
+		"compression_level": "C1",
+		"preserved_fields": ["identity", "provenance", "status", "scope", "dependencies", "reopening_conditions"],
+		"reversible": true,
+		"authority": "PENDING_HUMAN_RATIFICATION",
+		"semantic_loss_passed": true,
+	},
+	{
+		"object_id": "OBJ-001",
+		"from_generation": "G2",
+		"to_generation": "G4",
+		"compression_level": "C2",
+		"preserved_fields": ["identity", "provenance", "status", "scope", "dependencies", "reopening_conditions"],
+		"reversible": false,
+		"authority": "PENDING_HUMAN_RATIFICATION",
+		"semantic_loss_passed": true,
+	},
+]
+
+valid_grpo_explorations := [
+	{
+		"candidate_id": "H-OUTLIER",
+		"gf1_outlier_blocked": true,
+		"gf2_admitted": false,
+		"final_status": "REJETE_GF1_ABERRANT",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+	{
+		"candidate_id": "H-LOW",
+		"gf1_outlier_blocked": false,
+		"gf2_admitted": false,
+		"final_status": "FILTRE_GF2_SOUS_SEUIL",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+	{
+		"candidate_id": "H-CAND",
+		"gf1_outlier_blocked": false,
+		"gf2_admitted": true,
+		"final_status": "CANDIDAT",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+]
+
+test_allow_valid_guard_kernel_and_grpo_traces if {
+	good := object.union(valid_input, {
+		"guard_kernel_transitions": valid_guard_kernel_transitions,
+		"grpo_explorations": valid_grpo_explorations,
+	})
+	allow_human_review with input as good with time.now_ns as fresh_ok_ns
+}
+
+test_deny_c2_reversible_claim if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[1], {"reversible": true})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_guard_kernel_semantic_loss_failed if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[0], {"semantic_loss_passed": false})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_guard_kernel_missing_preserved_field if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[0], {"preserved_fields": ["identity", "status"]})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_grpo_trace_auto_authority if {
+	bad_grpo := [object.union(valid_grpo_explorations[2], {"authority_level": "RATIFIEE"})]
+	bad := object.union(valid_input, {"grpo_explorations": bad_grpo})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_grpo_trace_auto_established if {
+	bad_grpo := [object.union(valid_grpo_explorations[2], {"final_status": "ETABLI"})]
+	bad := object.union(valid_input, {"grpo_explorations": bad_grpo})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}

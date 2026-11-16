@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 80,
+    "fichiers_omega_zero_4d": 110,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -891,9 +891,89 @@
     ],
     "omega_zero_4d_arborescence": [
       {
+        "chemin": ".agents/environment.json",
+        "categorie": ".agents",
+        "taille_octets": 750
+      },
+      {
+        "chemin": ".agents/mcp_config.json",
+        "categorie": ".agents",
+        "taille_octets": 218
+      },
+      {
+        "chemin": ".agents/rules/code-quality.md",
+        "categorie": ".agents",
+        "taille_octets": 1644
+      },
+      {
+        "chemin": ".agents/rules/git-workflow.md",
+        "categorie": ".agents",
+        "taille_octets": 2248
+      },
+      {
+        "chemin": ".agents/rules/project-context.md",
+        "categorie": ".agents",
+        "taille_octets": 1376
+      },
+      {
+        "chemin": ".agents/skills/ai-ml-engineering/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 1090
+      },
+      {
+        "chemin": ".agents/skills/automation-scripting/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 704
+      },
+      {
+        "chemin": ".agents/skills/backend-api/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 755
+      },
+      {
+        "chemin": ".agents/skills/blockchain-web3/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 801
+      },
+      {
+        "chemin": ".agents/skills/database-management/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 764
+      },
+      {
+        "chemin": ".agents/skills/design-uiux/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 812
+      },
+      {
+        "chemin": ".agents/skills/devops-cicd/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 716
+      },
+      {
+        "chemin": ".agents/skills/mobile-development/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 756
+      },
+      {
+        "chemin": ".agents/skills/security-audit/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 879
+      },
+      {
+        "chemin": ".agents/skills/vr-structura-supela/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 1621
+      },
+      {
+        "chemin": ".agents/skills/web-fullstack/SKILL.md",
+        "categorie": ".agents",
+        "taille_octets": 800
+      },
+      {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
-        "taille_octets": 3635
+        "taille_octets": 3799
       },
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
@@ -901,19 +981,34 @@
         "taille_octets": 2483
       },
       {
+        "chemin": ".github/workflows/vr-governance-triage.yml",
+        "categorie": ".github",
+        "taille_octets": 2376
+      },
+      {
         "chemin": ".gitignore",
         "categorie": "root",
         "taille_octets": 199
       },
       {
+        "chemin": "GEMINI.md",
+        "categorie": "root",
+        "taille_octets": 4071
+      },
+      {
         "chemin": "Makefile",
         "categorie": "root",
-        "taille_octets": 2534
+        "taille_octets": 2723
       },
       {
         "chemin": "README.md",
         "categorie": "root",
         "taille_octets": 1964
+      },
+      {
+        "chemin": "docs/constitution/COMPARAISON_GRPO_OMEGA_ZERO.md",
+        "categorie": "docs",
+        "taille_octets": 4374
       },
       {
         "chemin": "docs/constitution/DEFINITION_P0_PROJECTION.json",
@@ -923,12 +1018,12 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 219547
+        "taille_octets": 222422
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
         "categorie": "docs",
-        "taille_octets": 50696
+        "taille_octets": 50697
       },
       {
         "chemin": "docs/constitution/HARNAIS_TEST_ESCALADE_4D.py",
@@ -938,7 +1033,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 11085
+        "taille_octets": 15481
       },
       {
         "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
@@ -968,12 +1063,17 @@
       {
         "chemin": "docs/constitution/SCHEMA_GRPO_SUPELA.md",
         "categorie": "docs",
-        "taille_octets": 3046
+        "taille_octets": 3200
       },
       {
         "chemin": "docs/constitution/STATUT_MANQUE.json",
         "categorie": "docs",
         "taille_octets": 10426
+      },
+      {
+        "chemin": "docs/constitution/SUPELA_GUARD_KERNEL.md",
+        "categorie": "docs",
+        "taille_octets": 3182
       },
       {
         "chemin": "docs/constitution/TEST_P0_EXEMPLE.json",
@@ -984,6 +1084,11 @@
         "chemin": "docs/constitution/TEST_P0_EXEMPLE_SEC_DOMAINE.json",
         "categorie": "docs",
         "taille_octets": 7489
+      },
+      {
+        "chemin": "docs/constitution/VR_STRUCTURA_OFFICIAL_SEALED.md",
+        "categorie": "docs",
+        "taille_octets": 4926
       },
       {
         "chemin": "docs/constitution/fiches/INDEX_FICHES.md",
@@ -1098,7 +1203,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 138024
+        "taille_octets": 142039
       },
       {
         "chemin": "omega.ps1",
@@ -1108,12 +1213,12 @@
       {
         "chemin": "policies/omega_zero_invariants.rego",
         "categorie": "policies",
-        "taille_octets": 5071
+        "taille_octets": 6439
       },
       {
         "chemin": "pyproject.toml",
         "categorie": "root",
-        "taille_octets": 832
+        "taille_octets": 944
       },
       {
         "chemin": "reports/TEST-4D-ESC-01.report.json",
@@ -1166,6 +1271,16 @@
         "taille_octets": 22255
       },
       {
+        "chemin": "schemas/supela_guard_kernel_1.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 2345
+      },
+      {
+        "chemin": "scripts/__init__.py",
+        "categorie": "scripts",
+        "taille_octets": 65
+      },
+      {
         "chemin": "scripts/build_encyclopedie.py",
         "categorie": "scripts",
         "taille_octets": 226008
@@ -1191,9 +1306,14 @@
         "taille_octets": 3681
       },
       {
+        "chemin": "scripts/vr_compliance_check.py",
+        "categorie": "scripts",
+        "taille_octets": 736
+      },
+      {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 1416
+        "taille_octets": 2442
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1203,7 +1323,12 @@
       {
         "chemin": "src/omega_zero/grpo_bridge.py",
         "categorie": "src",
-        "taille_octets": 5894
+        "taille_octets": 15833
+      },
+      {
+        "chemin": "src/omega_zero/guard_kernel.py",
+        "categorie": "src",
+        "taille_octets": 25085
       },
       {
         "chemin": "src/omega_zero/harness.py",
@@ -1211,9 +1336,19 @@
         "taille_octets": 23650
       },
       {
+        "chemin": "src/omega_zero/mcp_server.py",
+        "categorie": "src",
+        "taille_octets": 15696
+      },
+      {
         "chemin": "src/omega_zero/models.py",
         "categorie": "src",
         "taille_octets": 15089
+      },
+      {
+        "chemin": "src/omega_zero/network_bus.py",
+        "categorie": "src",
+        "taille_octets": 16793
       },
       {
         "chemin": "src/omega_zero/projection.py",
@@ -1231,6 +1366,11 @@
         "taille_octets": 9935
       },
       {
+        "chemin": "src/omega_zero/vr_compliance.py",
+        "categorie": "src",
+        "taille_octets": 8947
+      },
+      {
         "chemin": "src/omega_zero/worm_ledger.py",
         "categorie": "src",
         "taille_octets": 6008
@@ -1243,7 +1383,7 @@
       {
         "chemin": "tests/rego/omega_zero_invariants_test.rego",
         "categorie": "tests",
-        "taille_octets": 8100
+        "taille_octets": 11169
       },
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
@@ -1256,9 +1396,19 @@
         "taille_octets": 4016
       },
       {
+        "chemin": "tests/test_guard_kernel.py",
+        "categorie": "tests",
+        "taille_octets": 10549
+      },
+      {
+        "chemin": "tests/test_network_bus_and_mcp.py",
+        "categorie": "tests",
+        "taille_octets": 7251
+      },
+      {
         "chemin": "tests/test_opa_rego.py",
         "categorie": "tests",
-        "taille_octets": 3979
+        "taille_octets": 4965
       },
       {
         "chemin": "tests/test_pi0_and_manque.py",

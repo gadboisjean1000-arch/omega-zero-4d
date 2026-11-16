@@ -1,5 +1,5 @@
 .POSIX:
-.PHONY: test lint typecheck a12 vault sign verify attest clean all
+.PHONY: test lint typecheck a12 vr doctor vault sign verify attest clean all
 
 PYTHON := $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
 PYTEST := $(shell if [ -x .venv/bin/pytest ]; then echo .venv/bin/pytest; else echo pytest; fi)
@@ -27,10 +27,16 @@ lint:
 	$(RUFF) check src/ tests/ scripts/
 
 typecheck:
-	$(MYPY) src/ scripts/verify_a12.py
+	$(MYPY) src/ scripts/verify_a12.py scripts/build_encyclopedie.py scripts/vr_compliance_check.py
 
 a12:
 	$(PYTHON) scripts/verify_a12.py
+
+vr:
+	$(PYTHON) scripts/vr_compliance_check.py
+
+doctor:
+	PYTHONPATH=src $(PYTHON) -m omega_zero.network_bus doctor
 
 vault:
 	PYTHONPATH=src $(PYTHON) -c "import hashlib, pathlib; from omega_zero import WormVault; p=pathlib.Path('docs/constitution/PLAN-4D-ΩZERO-ESC-01.json'); h=hashlib.sha256(p.read_bytes()).hexdigest(); v=WormVault(pathlib.Path('$(VAULT)')); r1=v.init_idempotent(h); r2=v.init_idempotent(h); assert r1.manifest_sha256==r2.manifest_sha256; assert r2.ledger_lines==r1.ledger_lines+1; assert r2.chain_valid; print('VAULT_IDEMPOTENT_OK', r2.manifest_sha256, r2.ledger_lines)"
@@ -51,4 +57,4 @@ clean:
 	rm -f $(REPORT).bundle quote.msg quote.sig pcr.bin
 	rm -rf $(VAULT)
 
-all: lint typecheck a12 test vault
+all: lint typecheck a12 vr test vault

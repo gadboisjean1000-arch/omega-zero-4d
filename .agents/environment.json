@@ -1,0 +1,3 @@
+{
+  "install": "python3 -m venv .venv && .venv/bin/pip install --no-input -e '.[dev]' && mkdir -p .venv/bin && if [ ! -x .venv/bin/opa ]; then curl -fsSL -o /tmp/opa_dl https://github.com/open-policy-agent/opa/releases/download/v1.22.4/opa_linux_amd64_static && echo '35e3b352e715e80624ead6c89930d8585f6f7d94cdc409eb2a9fe36620dcccba  /tmp/opa_dl' | sha256sum -c - && chmod +x /tmp/opa_dl && mv /tmp/opa_dl .venv/bin/opa; fi && if [ ! -x .venv/bin/cosign ]; then curl -fsSL -o /tmp/cosign_dl https://github.com/sigstore/cosign/releases/download/v3.1.4/cosign-linux-amd64 && echo '424e2c97d0b45fd7a6b608a87f090f35633f4c23ece5f092d48bba11aaf4bbfa  /tmp/cosign_dl' | sha256sum -c - && chmod +x /tmp/cosign_dl && mv /tmp/cosign_dl .venv/bin/cosign; fi"
+}

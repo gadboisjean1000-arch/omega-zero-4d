@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/supela_guard_kernel_1.schema.json",
+  "title": "Supela-Guard-Kernel · Registre de génération & Invariant SUP-ICI-01 (supela-guard-kernel/1)",
+  "description": "Schéma Draft 2020-12 validant les transitions G0..G5, la compression sémantique C0/C1/C2 et le maintien du noyau de continuité SUP-ICI-01.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "object_id",
+    "from_generation",
+    "to_generation",
+    "previous_hash",
+    "residue_hash",
+    "compression_level",
+    "preserved_fields",
+    "removed_content",
+    "reason",
+    "reversible",
+    "authority",
+    "accessibility_mode",
+    "semantic_loss_passed"
+  ],
+  "properties": {
+    "object_id": { "type": "string", "minLength": 3 },
+    "from_generation": {
+      "type": "string",
+      "enum": ["G0", "G1", "G2", "G3", "G4", "G5"]
+    },
+    "to_generation": {
+      "type": "string",
+      "enum": ["G0", "G1", "G2", "G3", "G4", "G5"]
+    },
+    "previous_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "residue_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "compression_level": { "type": "string", "enum": ["C0", "C1", "C2"] },
+    "preserved_fields": {
+      "type": "array",
+      "minItems": 6,
+      "allOf": [
+        { "contains": { "const": "identity" } },
+        { "contains": { "const": "provenance" } },
+        { "contains": { "const": "status" } },
+        { "contains": { "const": "scope" } },
+        { "contains": { "const": "dependencies" } },
+        { "contains": { "const": "reopening_conditions" } }
+      ],
+      "items": { "type": "string" }
+    },
+    "removed_content": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string", "minLength": 3 },
+    "reversible": { "type": "boolean" },
+    "authority": {
+      "type": "string",
+      "enum": ["PENDING_HUMAN_RATIFICATION", "BOUNDED_LOCAL", "RATIFIED_HUMAN"]
+    },
+    "accessibility_mode": {
+      "type": "string",
+      "enum": ["DIRECT", "REFERENTIAL", "RECONSTRUCTIBLE"]
+    },
+    "semantic_loss_passed": { "const": true }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "compression_level": { "const": "C2" } } },
+      "then": { "properties": { "reversible": { "const": false } } }
+    }
+  ]
+}

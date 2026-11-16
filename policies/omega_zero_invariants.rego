@@ -161,6 +161,64 @@ revidage_transactional if {
 	}
 }
 
+# --- 7b. Supela-Guard-Kernel (SUP-ICI-01, C0/C1/C2, G0..G5) -----------------
+required_guard_kernel_fields := {
+	"identity",
+	"provenance",
+	"status",
+	"scope",
+	"dependencies",
+	"reopening_conditions",
+}
+
+sup_ici_01_satisfied if {
+	transitions := object.get(input, "guard_kernel_transitions", [])
+	every tx in transitions {
+		tx.semantic_loss_passed == true
+		tx.authority != "AUTO_ESTABLISHED"
+		guard_kernel_c2_honest(tx)
+		every field in required_guard_kernel_fields {
+			field in tx.preserved_fields
+		}
+	}
+}
+
+guard_kernel_c2_honest(tx) if {
+	tx.compression_level != "C2"
+}
+
+guard_kernel_c2_honest(tx) if {
+	tx.compression_level == "C2"
+	tx.reversible == false
+}
+
+# --- 7c. Pont GRPO GF1..GF5 -------------------------------------------------
+grpo_guardrails_satisfied if {
+	traces := object.get(input, "grpo_explorations", [])
+	every t in traces {
+		t.authority_level == "AUCUNE"
+		t.human_review_required == true
+		grpo_trace_status_valid(t)
+	}
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == true
+	t.final_status == "REJETE_GF1_ABERRANT"
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == false
+	t.gf2_admitted == false
+	t.final_status == "FILTRE_GF2_SOUS_SEUIL"
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == false
+	t.gf2_admitted == true
+	t.final_status == "CANDIDAT"
+}
+
 # --- 8. Synthèse de cohérence Ω-ZERO ---------------------------------------
 coherence_satisfied if {
 	attestation_complete
@@ -174,6 +232,8 @@ coherence_satisfied if {
 	grpo_barrier_respected
 	manques_valid
 	revidage_transactional
+	sup_ici_01_satisfied
+	grpo_guardrails_satisfied
 }
 
 # --- 9. Barrière de promotion (jamais automatique !) -----------------------
