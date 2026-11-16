@@ -1,0 +1,160 @@
+{
+  "schema": "exemple-cycle-p0/1",
+  "version": "1.0.0",
+  "example_id": "EX-P0-01",
+  "title": "Raccord entre psychologie cognitive, droit du travail et gestion sur la mesure de charge cognitive",
+  "domain": "Psychologie / Droit du travail / Gestion des ressources humaines",
+  "status": "EXECUTE_ET_VALIDE",
+  "disciplines": [
+    {
+      "id": "O_P",
+      "name": "Psychologie",
+      "authority_scope": "Validité psychométrique et limites scientifiques de la mesure de charge cognitive",
+      "contribution": "Méthode de mesure et intervalle de validité scientifique"
+    },
+    {
+      "id": "O_D",
+      "name": "Droit du travail",
+      "authority_scope": "Légalité, consentement, proportionnalité et voies de contestation",
+      "contribution": "Encadrement normatif des décisions individuelles et collectives"
+    },
+    {
+      "id": "O_G",
+      "name": "Gestion",
+      "authority_scope": "Objectifs opérationnels et impacts organisationnels",
+      "contribution": "Description de l'usage organisationnel attendu"
+    }
+  ],
+  "initial_state_S0": {
+    "goal": "Établir si une mesure algorithmique de charge cognitive peut fonder une décision de gestion concernant un salarié.",
+    "available": [
+      "Protocole de mesure psychométrique O_P",
+      "Cadre général du droit du travail O_D",
+      "Objectif opérationnel de gestion O_G"
+    ],
+    "required_for_goal": [
+      "Protocole de mesure psychométrique O_P",
+      "Cadre général du droit du travail O_D",
+      "Objectif opérationnel de gestion O_G",
+      "Justification admissible de transfert O_P -> O_G sous contrainte O_D"
+    ],
+    "missing_elements": [
+      "Justification admissible de transfert O_P -> O_G sous contrainte O_D"
+    ],
+    "conclusion_initiale": "NON_ETABLIE"
+  },
+  "initial_manque": {
+    "id": "M1",
+    "question": "Validité du transfert mesure psychologique de charge cognitive → décision individuelle de gestion",
+    "contexte": "Décision RH automatisée ou assistée concernant un salarié",
+    "origine": "Détection d'écart Required(G) \\ Available(S_0) entre O_P et O_G sous O_D",
+    "dépendances": ["O_P", "O_D", "O_G"],
+    "autorité": "AUCUNE décision individuelle autorisée sans preuve admissible",
+    "tentatives": [],
+    "temps": "t0",
+    "statut": "OUVERT"
+  },
+  "candidates": [
+    {
+      "id": "R1",
+      "label": "Utilisation directe et automatique du score individuel",
+      "origin_node": "L_local_gestion",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    },
+    {
+      "id": "R2",
+      "label": "Utilisation agrégée et anonymisée pour prévention collective",
+      "origin_node": "L_local_sante_travail",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    },
+    {
+      "id": "R3",
+      "label": "Utilisation individuelle avec revue humaine et droit de contestation",
+      "origin_node": "L_local_rh_droit",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    }
+  ],
+  "epreuve_results": [
+    {
+      "raccord_id": "R1",
+      "disciplines_tested": ["O_P", "O_D", "O_G"],
+      "verdict": "REFUTE_DANS_PERIMETRE",
+      "authority_granted": "AUCUNE",
+      "conditions": ["Non admissible légalement ni scientifiquement en décision individuelle directe"],
+      "trace_retained": true
+    },
+    {
+      "raccord_id": "R2",
+      "disciplines_tested": ["O_P", "O_D", "O_G"],
+      "verdict": "SUPPORTE_SOUS_CONDITIONS",
+      "authority_granted": "PREVENTIVE_COLLECTIVE_ANONYMISEE",
+      "conditions": ["Agrégation minimale respectant l'anonymat", "Usage limité à la prévention collective"],
+      "trace_retained": true
+    },
+    {
+      "raccord_id": "R3",
+      "disciplines_tested": ["O_P", "O_D", "O_G"],
+      "verdict": "INCONNU_DONNEES_INSUFFISANTES",
+      "authority_granted": "AUCUNE",
+      "conditions": ["Données empiriques de contestabilité et biais encore manquantes"],
+      "trace_retained": true
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "C-EX1-01",
+      "type": "CONFLIT_INTERDISCIPLINAIRE",
+      "disciplines": ["O_D", "O_G"],
+      "status": "CONSERVE",
+      "resolution": "NON_ACQUISE_POUR_USAGE_INDIVIDUEL"
+    }
+  ],
+  "manque_transitions": [
+    {
+      "manque_id": "M1",
+      "from_status": "OUVERT",
+      "to_status": "SOUS_EXPLORATION",
+      "guard_id": "TR-01",
+      "reason": "Enregistrement des trois raccords candidats R1, R2, R3"
+    },
+    {
+      "manque_id": "M1",
+      "from_status": "SOUS_EXPLORATION",
+      "to_status": "PARTIELLEMENT_RÉDUIT",
+      "guard_id": "TR-05",
+      "reason": "R2 soutenu sous conditions collectives tandis que R3 reste inconnu et R1 réfuté"
+    },
+    {
+      "manque_id": "M1",
+      "from_status": "PARTIELLEMENT_RÉDUIT",
+      "to_status": "REQUALIFIÉ",
+      "guard_id": "TR-13",
+      "reason": "Scission M1 → {M1a (résolu partiellement par R2), M1b (ouvert pour R3)}"
+    }
+  ],
+  "omega_integration": {
+    "qualified_conclusion": "L'usage agrégé pour la prévention collective (R2) est soutenu dans le périmètre testé et sous conditions ; l'usage individuel (R3) demeure ouvert ; l'usage direct (R1) est réfuté sans autorité concluante.",
+    "authority_bounded_by_proof": true,
+    "retained_refutations": ["R1"],
+    "open_manques": ["M1b"]
+  },
+  "projection_pi0_result": {
+    "I": ["I1", "I2", "I3", "I4", "I5", "I_M", "Autorité(C) ≤ Preuve(C)"],
+    "P": ["Preuve_conditionnelle(R2)", "Refutation(R1)"],
+    "M": ["M1b (OUVERT pour R3)"],
+    "A": ["Limites_O_P", "Limites_O_D", "Limites_O_G"],
+    "H": ["M1 -> {R1, R2, R3} -> Épreuve -> Scission M1a/M1b"],
+    "dropped_provisional": ["Formulations provisoires redondantes", "Autorité concluante de R1"],
+    "idempotence_checked": true,
+    "non_empty_checked": true
+  },
+  "next_cycle_reentry": {
+    "resume_from_manque": "M1b",
+    "trigger_event": "Collecte de nouvelles données de contestation et revue humaine sur R3",
+    "reopened_cone": ["M1b", "R3"],
+    "omega_destroyed": false
+  }
+}

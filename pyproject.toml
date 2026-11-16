@@ -1,0 +1,19 @@
+[project]
+name = "omega-zero-4d"
+version = "1.0.0"
+description = "Protocole formel, schémas JSON Draft 2020-12 et moteur exécutable Supela Ω-ZERO · Local–Cloud–4D (Π₀, Manque, TEST-4D-ESC-01)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema>=4.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v"

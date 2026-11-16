@@ -1,0 +1,176 @@
+{
+  "schema": "exemple-cycle-p0/1",
+  "version": "1.0.0",
+  "example_id": "EX-P0-02",
+  "title": "Aide algorithmique à l'alerte de crues urbaines et décision d'évacuation municipale (Hydrologie × Droit administratif × Secours × Éthique)",
+  "domain": "Hydrologie urbaine / Droit administratif / Gestion des secours / Éthique territoriale",
+  "status": "EXECUTE_ET_VALIDE",
+  "disciplines": [
+    {
+      "id": "O_H",
+      "name": "Hydrologie & Génie civil",
+      "authority_scope": "Modélisation des débits, marges d'incertitude des capteurs locaux déconnectés",
+      "contribution": "Indice de risque crue et intervalle d'incertitude hydrométrique"
+    },
+    {
+      "id": "O_DA",
+      "name": "Droit administratif municipal",
+      "authority_scope": "Compétence légale d'ordre d'évacuation, responsabilité publique, proportionnalité",
+      "contribution": "Conditions juridiques de légalité et compétence exclusive du maire/préfet"
+    },
+    {
+      "id": "O_S",
+      "name": "Gestion des secours",
+      "authority_scope": "Logistique de pré-positionnement des équipes et capacité des abris",
+      "contribution": "Plan de mobilisation préventive graduée"
+    },
+    {
+      "id": "O_E",
+      "name": "Éthique territoriale",
+      "authority_scope": "Équité d'accès aux alertes pour zones vulnérables et personnes à mobilité réduite",
+      "contribution": "Contrôle de biais géographiques et accessibilité des alertes"
+    }
+  ],
+  "initial_state_S0": {
+    "goal": "Déterminer si un score prédictif issu de nœuds locaux hydrométriques peut déclencher automatiquement un ordre d'évacuation obligatoire par quartier.",
+    "available": [
+      "Flux hydrométriques locaux L_Amont et L_Bassin en mode hors-ligne temporaire",
+      "Modèle de prévision de crue O_H",
+      "Code municipal de sécurité civile O_DA",
+      "Protocole de déploiement des secours O_S"
+    ],
+    "required_for_goal": [
+      "Validation hydrologique en régime de crue extrême",
+      "Base légale de délégation ou validation humaine de l'autorité civile O_DA",
+      "Garantie d'équité territoriale O_E pour les zones sous-instrumentées",
+      "Synchronisation traçable Local→Cloud sans élévation silencieuse d'autorité"
+    ],
+    "missing_elements": [
+      "Base légale autorisant une décision automatique sans acte de l'autorité municipale",
+      "Preuve de calibration des capteurs sur les secteurs sous-instrumentés"
+    ],
+    "conclusion_initiale": "NON_ETABLIE"
+  },
+  "initial_manque": {
+    "id": "M-HYDRO-01",
+    "question": "Validité du raccord score prédictif hydrométrique local → ordre obligatoire d'évacuation municipale",
+    "contexte": "Crue rapide avec perte partielle de connectivité Cloud entre stations locales de bassin versant",
+    "origine": "Required(Évacuation_Automatique) \\ Available(S_0) ≠ ∅",
+    "dépendances": ["O_H", "O_DA", "O_S", "O_E", "L_Amont", "L_Bassin"],
+    "autorité": "COMPETENCE_MUNICIPALE_EXCLUSIVE (aucune évacuation contraignante automatique)",
+    "tentatives": [],
+    "temps": "2026-11-15T20:00:00Z",
+    "statut": "OUVERT"
+  },
+  "candidates": [
+    {
+      "id": "RH-01",
+      "label": "Déclenchement automatique de l'ordre d'évacuation dès dépassement du seuil IA local",
+      "origin_node": "L_Amont",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    },
+    {
+      "id": "RH-02",
+      "label": "Pré-alerte logistique interne et pré-positionnement des secours sans contrainte juridique aux habitants",
+      "origin_node": "L_Bassin",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    },
+    {
+      "id": "RH-03",
+      "label": "Recommandation d'évacuation ciblée avec validation explicite de l'autorité municipale et vérification des zones vulnérables",
+      "origin_node": "Cloud_Coordination",
+      "authority_initial": "AUCUNE",
+      "status_initial": "CANDIDAT"
+    }
+  ],
+  "epreuve_results": [
+    {
+      "raccord_id": "RH-01",
+      "disciplines_tested": ["O_H", "O_DA", "O_E"],
+      "verdict": "REFUTE_DANS_PERIMETRE",
+      "authority_granted": "AUCUNE",
+      "conditions": [
+        "Illégal sans acte de l'autorité administrative compétente (O_DA)",
+        "Risque élevé de faux positifs sur capteurs non calibrés en zone basse (O_H, O_E)"
+      ],
+      "trace_retained": true
+    },
+    {
+      "raccord_id": "RH-02",
+      "disciplines_tested": ["O_H", "O_DA", "O_S"],
+      "verdict": "SUPPORTE_SOUS_CONDITIONS",
+      "authority_granted": "PRE_POSITIONNEMENT_INTERNE_SECOURS",
+      "conditions": [
+        "Portée strictement interne aux services de secours",
+        "Aucune valeur d'ordre d'évacuation publique sans acte municipal"
+      ],
+      "trace_retained": true
+    },
+    {
+      "raccord_id": "RH-03",
+      "disciplines_tested": ["O_H", "O_DA", "O_S", "O_E"],
+      "verdict": "INCONNU_DONNEES_INSUFFISANTES",
+      "authority_granted": "AUCUNE",
+      "conditions": [
+        "Couverture des secteurs sous-instrumentés (O_E) non encore vérifiée hors-ligne"
+      ],
+      "trace_retained": true
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "C-HYDRO-01",
+      "type": "CONFLIT_INTERDISCIPLINAIRE",
+      "disciplines": ["O_S", "O_DA", "O_E"],
+      "status": "CONSERVE",
+      "resolution": "NON_ACQUISE_MAINTIEN_VALIDATION_CIVILE"
+    }
+  ],
+  "manque_transitions": [
+    {
+      "manque_id": "M-HYDRO-01",
+      "from_status": "OUVERT",
+      "to_status": "SOUS_EXPLORATION",
+      "guard_id": "TR-01",
+      "reason": "Enregistrement des candidats RH-01, RH-02, RH-03"
+    },
+    {
+      "manque_id": "M-HYDRO-01",
+      "from_status": "SOUS_EXPLORATION",
+      "to_status": "PARTIELLEMENT_RÉDUIT",
+      "guard_id": "TR-05",
+      "reason": "RH-02 soutenu pour pré-positionnement interne ; RH-01 réfuté ; RH-03 encore ouvert"
+    },
+    {
+      "manque_id": "M-HYDRO-01",
+      "from_status": "PARTIELLEMENT_RÉDUIT",
+      "to_status": "REQUALIFIÉ",
+      "guard_id": "TR-13",
+      "reason": "Scission M-HYDRO-01 → {M-HYDRO-01a (résolu partiellement via RH-02), M-HYDRO-01b (ouvert pour validation humaine et équité RH-03)}"
+    }
+  ],
+  "omega_integration": {
+    "qualified_conclusion": "Le pré-positionnement interne des secours (RH-02) est soutenu sous conditions ; l'automatisation sans acte municipal (RH-01) est réfutée ; l'évacuation ciblée avec validation humaine (RH-03) reste ouverte jusqu'à preuve d'équité territoriale.",
+    "authority_bounded_by_proof": true,
+    "retained_refutations": ["RH-01"],
+    "open_manques": ["M-HYDRO-01b"]
+  },
+  "projection_pi0_result": {
+    "I": ["I1", "I2", "I3", "I4", "I5", "I_M", "Autorité(C) ≤ Preuve(C)"],
+    "P": ["Preuve_conditionnelle(RH-02)", "Refutation(RH-01)"],
+    "M": ["M-HYDRO-01b (OUVERT pour RH-03)"],
+    "A": ["Autorité_O_H", "Autorité_O_DA", "Autorité_O_S", "Autorité_O_E"],
+    "H": ["M-HYDRO-01 -> {RH-01, RH-02, RH-03} -> C-HYDRO-01 conservé -> Scission M-HYDRO-01a/01b"],
+    "dropped_provisional": ["Brouillons de seuils non calibrés", "Demande d'escalade locale RH-01"],
+    "idempotence_checked": true,
+    "non_empty_checked": true
+  },
+  "next_cycle_reentry": {
+    "resume_from_manque": "M-HYDRO-01b",
+    "trigger_event": "Réception des relevés de terrain des zones vulnérables après rétablissement partiel du réseau",
+    "reopened_cone": ["M-HYDRO-01b", "RH-02", "RH-03"],
+    "omega_destroyed": false
+  }
+}

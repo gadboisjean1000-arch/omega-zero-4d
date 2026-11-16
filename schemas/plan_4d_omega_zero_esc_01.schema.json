@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/plan_4d_omega_zero_esc_01.schema.json",
+  "title": "Protocole d'Escalade 4D Ω-ZERO (PLAN-4D-ΩZERO-ESC-01)",
+  "description": "Schéma exécutable Draft 2020-12 imposant l'alignement strict des 8 paliers (E0..E7, dont E7-A et E7-B) et des 10 conditions distinctes (C01..C10), la formule métrique Load(C), le revidage transactionnel et la règle de verdict humain.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "protocol_id",
+    "title",
+    "version",
+    "status",
+    "palier_count",
+    "condition_count",
+    "invariants_tested",
+    "paliers",
+    "matrix_normative",
+    "load_saturation_spec",
+    "revidage_protocol",
+    "verdict_rules",
+    "execution_readiness"
+  ],
+  "properties": {
+    "schema": { "const": "PLAN-4D-ΩZERO-ESC-01/1" },
+    "protocol_id": { "const": "TEST-4D-ESC-01" },
+    "title": { "type": "string", "minLength": 5 },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": {
+      "type": "string",
+      "enum": ["PROTOCOLE_CORRIGE_READY", "HARNAIS_DISPONIBLE_PRE_EXECUTION", "EXECUTE"]
+    },
+    "palier_count": { "const": 8 },
+    "condition_count": { "const": 10 },
+    "invariants_tested": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^I[1-8]$" },
+          "statement": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "paliers": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "load_criteria", "condition_ids"],
+        "properties": {
+          "id": { "type": "string", "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"] },
+          "name": { "type": "string", "minLength": 3 },
+          "description": { "type": "string", "minLength": 5 },
+          "load_criteria": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "quantity", "unit"],
+            "properties": {
+              "summary": { "type": "string", "minLength": 3 },
+              "quantity": { "type": "integer", "minimum": 1 },
+              "unit": { "type": "string", "minLength": 1 }
+            }
+          },
+          "condition_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"]
+            }
+          },
+          "sub_tests": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "name", "pass_criteria"],
+              "properties": {
+                "id": { "type": "string", "enum": ["E7-A", "E7-B"] },
+                "name": { "type": "string" },
+                "pass_criteria": { "type": "string" }
+              }
+            }
+          }
+        },
+        "if": { "properties": { "id": { "const": "E7" } } },
+        "then": { "required": ["sub_tests"] }
+      }
+    },
+    "matrix_normative": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "palier", "invariant_ref", "label", "mandatory_condition", "critical_failure"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"]
+          },
+          "palier": {
+            "type": "string",
+            "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"]
+          },
+          "invariant_ref": { "type": "string", "minLength": 2 },
+          "label": { "type": "string", "minLength": 3 },
+          "mandatory_condition": { "type": "string", "minLength": 5 },
+          "critical_failure": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "load_saturation_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formula",
+        "threshold",
+        "action_on_threshold",
+        "pre_execution_declarations_required",
+        "preserved_on_migration"
+      ],
+      "properties": {
+        "formula": {
+          "const": "Load(C) = max(UsedBytes/BytesLimit, UsedObjects/ObjectsLimit, UsedEdges/EdgesLimit, ObservedLatency/LatencyLimit)"
+        },
+        "threshold": { "type": "number", "const": 0.8 },
+        "action_on_threshold": { "const": "MigrationRequired(C1, C2)" },
+        "pre_execution_declarations_required": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "metric",
+              "capacity_limit",
+              "unit",
+              "measurement_method",
+              "timestamp",
+              "tested_environment"
+            ]
+          }
+        },
+        "preserved_on_migration": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "stable_ids",
+              "provenance",
+              "relations",
+              "statuses",
+              "authorities",
+              "history",
+              "integrity_hashes",
+              "reconstruction_capability"
+            ]
+          }
+        }
+      }
+    },
+    "revidage_protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "clean_forbidden_before_commit",
+        "required_verify_predicates",
+        "on_failure",
+        "retained_minimal_state_L0"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "PREPARE" },
+            { "const": "VERIFY" },
+            { "const": "COMMIT" },
+            { "const": "CLEAN" }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "clean_forbidden_before_commit": { "const": true },
+        "required_verify_predicates": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["ACK", "HashMatch", "ProvenanceOK", "AuthorityOK", "ReconstructionPASS"]
+          }
+        },
+        "on_failure": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ROLLBACK_LOCAL",
+              "DONNEES_CONSERVEES",
+              "REVIDAGE_ANNULE",
+              "TRACE_ECHEC_AJOUTEE"
+            ]
+          }
+        },
+        "retained_minimal_state_L0": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "identite",
+              "invariants",
+              "index_minimal",
+              "preuve_transfert",
+              "pointeur_recuperation",
+              "manques_locaux"
+            ]
+          }
+        }
+      }
+    },
+    "verdict_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pass_formula", "on_all_pass", "on_any_fail", "epistemic_note"],
+      "properties": {
+        "pass_formula": { "type": "string", "minLength": 5 },
+        "on_all_pass": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["verdict", "promotion", "automatic_promotion"],
+          "properties": {
+            "verdict": { "const": "PASS" },
+            "promotion": { "const": "ADMISSIBLE_A_REVUE_HUMAINE" },
+            "automatic_promotion": { "const": false }
+          }
+        },
+        "on_any_fail": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["verdict", "promotion_omega", "trace", "cone_touche"],
+          "properties": {
+            "verdict": { "const": "FAIL" },
+            "promotion_omega": { "const": "BLOQUEE" },
+            "trace": { "const": "CONSERVEE" },
+            "cone_touche": { "const": "A_RECALCULER" }
+          }
+        },
+        "epistemic_note": { "type": "string", "minLength": 10 }
+      }
+    },
+    "execution_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["harness_path", "schema_path", "results_embedded_in_spec"],
+      "properties": {
+        "harness_path": { "type": "string" },
+        "schema_path": { "type": "string" },
+        "results_embedded_in_spec": { "const": false }
+      }
+    }
+  }
+}

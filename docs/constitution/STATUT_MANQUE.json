@@ -1,0 +1,264 @@
+{
+  "schema": "manque-statut/1",
+  "version": "1.0.0",
+  "status": "VALIDE_SCHEMA",
+  "title": "Machine à états et statuts canoniques du Manque · Supela Ω-ZERO",
+  "definition": "M(S_t, G) ⟺ Required(G) \\ Available(S_t) ≠ ∅. Un manque établit que l'état actuel ne suffit pas pour établir G, sans prouver ni l'existence ni l'impossibilité d'une réponse.",
+  "invariant_IM": {
+    "formal": "M détecté ⇒ M doit rester représenté jusqu'à résolution, réfutation ou requalification",
+    "normative_statement": "Tout manque détecté doit être conservé comme objet ouvert avec son origine, son contexte, ses dépendances, son historique et son statut. Il ne peut être silencieusement supprimé, rempli par invention ou transformé en conclusion."
+  },
+  "object_structure": [
+    "id",
+    "question",
+    "contexte",
+    "origine",
+    "dépendances",
+    "autorité",
+    "tentatives",
+    "temps",
+    "statut"
+  ],
+  "statuts": [
+    {
+      "code": "OUVERT",
+      "category": "ACTIF",
+      "description": "Manque détecté et non résolu ; aucune exploration active en cours ou exploration conclue sans réduction suffisante.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    },
+    {
+      "code": "SOUS_EXPLORATION",
+      "category": "ACTIF",
+      "description": "Exploration ouverte avec un ou plusieurs raccords candidats enregistrés mais non encore éprouvés.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    },
+    {
+      "code": "PARTIELLEMENT_RÉDUIT",
+      "category": "ACTIF",
+      "description": "Un sous-périmètre est soutenu sous conditions par au moins un raccord, tandis qu'un autre sous-périmètre reste ouvert.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    },
+    {
+      "code": "RÉSOLU",
+      "category": "REOUVRABLE",
+      "description": "Un raccord candidat a résisté à l'épreuve pour l'ensemble du périmètre visé avec Preuve ≥ Autorité ; reste réouvrable face à une nouvelle preuve.",
+      "preserves_history": true,
+      "preserves_in_Pi0": false
+    },
+    {
+      "code": "RÉFUTÉ_COMME_PROBLÈME",
+      "category": "REOUVRABLE",
+      "description": "La question initiale reposait sur une fausse prémisse ou une impossibilité démontrée (A ↛ C) ; la trace historique reste conservée.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    },
+    {
+      "code": "REQUALIFIÉ",
+      "category": "CLOTURE_CONDITIONNELLE",
+      "description": "Le manque initial a été précisé, divisé ou relié à de nouveaux manques dérivés (M₁ → {M₁ₐ, M₁ᵦ}) avec lignée explicite.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    },
+    {
+      "code": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+      "category": "REOUVRABLE",
+      "description": "Les éléments requis dépassent les limites épistémiques, juridiques ou d'autorité du périmètre courant ; conservé pour reprise hors-périmètre.",
+      "preserves_history": true,
+      "preserves_in_Pi0": true
+    }
+  ],
+  "deontological_rules": [
+    {
+      "id": "M1",
+      "label": "Manque ≠ faux",
+      "formal": "M(P) ⇏ ¬P",
+      "description": "L'absence de preuve de P ne constitue jamais une preuve de ¬P.",
+      "violation_effect": "ECHEC_CRITIQUE_C01"
+    },
+    {
+      "id": "M2",
+      "label": "Manque ≠ vrai caché",
+      "formal": "M(P) ⇏ P",
+      "description": "Un trou observé ne garantit pas qu'une solution existe.",
+      "violation_effect": "ECHEC_CRITIQUE_C01"
+    },
+    {
+      "id": "M3",
+      "label": "Manque ≠ permission d'inventer",
+      "formal": "M(P) ⇒ OPEN(P) ∧ ¬FABRICATE(P)",
+      "description": "Tout manque détecté ouvre l'exploration et interdit le remplissage arbitraire.",
+      "violation_effect": "ECHEC_CRITIQUE_C02"
+    },
+    {
+      "id": "M4",
+      "label": "Tout remplissage garde son raccord",
+      "formal": "Q → M ⇒ Trace(pertinence, autorité, preuves)",
+      "description": "Toute proposition candidate visant à combler M conserve sa justification, son autorité et ses preuves.",
+      "violation_effect": "ECHEC_CRITIQUE_C03"
+    },
+    {
+      "id": "M5",
+      "label": "Un manque peut évoluer",
+      "formal": "M_t → M_{t+1}",
+      "description": "Un manque peut être précisé, divisé, relié à un autre manque ou requalifié au fil du temps.",
+      "violation_effect": "PERTE_LIGNEE_HISTORIQUE"
+    }
+  ],
+  "state_machine": {
+    "initial_status": "OUVERT",
+    "reopenable_statuses": [
+      "RÉSOLU",
+      "RÉFUTÉ_COMME_PROBLÈME",
+      "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    ],
+    "allowed_transitions": [
+      {
+        "from": "OUVERT",
+        "to": "SOUS_EXPLORATION",
+        "guard_id": "TR-01",
+        "preconditions": "Au moins un raccord candidat ou protocole d'exploration enregistré avec origine et autorité initiale AUCUNE.",
+        "trace_required": true
+      },
+      {
+        "from": "OUVERT",
+        "to": "REQUALIFIÉ",
+        "guard_id": "TR-02",
+        "preconditions": "Décomposition explicite en sous-manques ou reformulation documentée avec conservation du lien parent→enfant.",
+        "trace_required": true
+      },
+      {
+        "from": "OUVERT",
+        "to": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "guard_id": "TR-03",
+        "preconditions": "Preuve d'une barrière d'autorité, juridique ou technique empêchant l'accès aux éléments requis dans le périmètre courant.",
+        "trace_required": true
+      },
+      {
+        "from": "OUVERT",
+        "to": "RÉFUTÉ_COMME_PROBLÈME",
+        "guard_id": "TR-04",
+        "preconditions": "Preuve vérifiable qu'une prémisse constitutive de la question est fausse.",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "PARTIELLEMENT_RÉDUIT",
+        "guard_id": "TR-05",
+        "preconditions": "Au moins un candidat obtient SUPPORTÉ_SOUS_CONDITIONS pour un sous-périmètre, tandis qu'au moins un aspect reste INCONNU/OUVERT.",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "RÉSOLU",
+        "guard_id": "TR-06",
+        "preconditions": "Au moins un candidat satisfait l'ensemble de Required(G) avec Preuve ≥ Autorité et sans conflit interdisciplinaire bloquant non qualifié.",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "OUVERT",
+        "guard_id": "TR-07",
+        "preconditions": "Les candidats testés sont réfutés ou insuffisants ; retour à OUVERT avec conservation des tentatives réfutées.",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "RÉFUTÉ_COMME_PROBLÈME",
+        "guard_id": "TR-08",
+        "preconditions": "L'épreuve établit A ↛ C ou invalide la prémisse du problème dans tout le périmètre.",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "REQUALIFIÉ",
+        "guard_id": "TR-09",
+        "preconditions": "L'épreuve divise le manque en sous-problèmes distincts (M₁ → {M₁ₐ, M₁ᵦ}).",
+        "trace_required": true
+      },
+      {
+        "from": "SOUS_EXPLORATION",
+        "to": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "guard_id": "TR-10",
+        "preconditions": "L'exploration établit que les données ou autorisations requises sont hors du périmètre admissible.",
+        "trace_required": true
+      },
+      {
+        "from": "PARTIELLEMENT_RÉDUIT",
+        "to": "SOUS_EXPLORATION",
+        "guard_id": "TR-11",
+        "preconditions": "Nouveaux candidats ou nouvelles données enregistrés pour les aspects demeurés ouverts.",
+        "trace_required": true
+      },
+      {
+        "from": "PARTIELLEMENT_RÉDUIT",
+        "to": "RÉSOLU",
+        "guard_id": "TR-12",
+        "preconditions": "Tous les sous-manques ouverts résiduels ont reçu une preuve admissible vérifiée.",
+        "trace_required": true
+      },
+      {
+        "from": "PARTIELLEMENT_RÉDUIT",
+        "to": "REQUALIFIÉ",
+        "guard_id": "TR-13",
+        "preconditions": "Scission formelle en sous-manques autonomes (un résolu partiellement, un autre ouvert).",
+        "trace_required": true
+      },
+      {
+        "from": "RÉSOLU",
+        "to": "SOUS_EXPLORATION",
+        "guard_id": "TR-14",
+        "preconditions": "NouvellePreuve remet en cause un raccord de soutien ⇒ Réouverture(Cone(R)) sans destruction de Ω.",
+        "trace_required": true
+      },
+      {
+        "from": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "to": "OUVERT",
+        "guard_id": "TR-15",
+        "preconditions": "Extension explicite et prouvée du périmètre d'autorité ou d'accès aux données.",
+        "trace_required": true
+      },
+      {
+        "from": "RÉFUTÉ_COMME_PROBLÈME",
+        "to": "OUVERT",
+        "guard_id": "TR-16",
+        "preconditions": "NouvellePreuve réfutant l'argument qui avait falsifié la prémisse initiale.",
+        "trace_required": true
+      }
+    ],
+    "forbidden_transitions": [
+      {
+        "from": "OUVERT",
+        "to": "RÉSOLU",
+        "violated_rule": "M3",
+        "reason": "Impossible de résoudre directement un manque ouvert sans phase d'exploration, raccord candidat et épreuve probante."
+      },
+      {
+        "from": "*",
+        "to": "SUPPRIMÉ",
+        "violated_rule": "I_M",
+        "reason": "Tout manque détecté conserve son objet et sa trace historique ; la suppression silencieuse est interdite."
+      },
+      {
+        "from": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "to": "RÉSOLU",
+        "violated_rule": "M3 / Autorité ≤ Preuve",
+        "reason": "Un manque hors-périmètre ne peut devenir résolu sans réouverture préalable dans un périmètre élargi et éprouvé."
+      },
+      {
+        "from": "RÉFUTÉ_COMME_PROBLÈME",
+        "to": "RÉSOLU",
+        "violated_rule": "I2 / I3",
+        "reason": "Une réfutation ne peut basculer en résolution sans réouverture explicite et nouvelle épreuve."
+      },
+      {
+        "from": "PARTIELLEMENT_RÉDUIT",
+        "to": "RÉFUTÉ_COMME_PROBLÈME",
+        "violated_rule": "I4",
+        "reason": "Si une partie est déjà soutenue sous conditions, le problème global ne peut être effacé comme fausse prémisse sans requalification séparée."
+      }
+    ]
+  }
+}

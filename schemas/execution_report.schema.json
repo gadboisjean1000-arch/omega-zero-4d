@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/execution_report.schema.json",
+  "title": "Rapport d'exécution du harnais TEST-4D-ESC-01",
+  "description": "Schéma Draft 2020-12 validant la sortie structurée produite par l'exécution réelle du harnais Python HARNAIS_TEST_ESCALADE_4D.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "protocol_id",
+    "protocol_sha256",
+    "timestamp_utc",
+    "load_metrics_declared",
+    "palier_results",
+    "condition_results",
+    "verdict",
+    "promotion",
+    "trace_preserved",
+    "cone_to_recalculate"
+  ],
+  "properties": {
+    "schema": { "const": "execution-report-4d/1" },
+    "protocol_id": { "const": "TEST-4D-ESC-01" },
+    "protocol_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "timestamp_utc": { "type": "string", "format": "date-time" },
+    "load_metrics_declared": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "capacity_limit",
+        "unit",
+        "measurement_method",
+        "timestamp",
+        "tested_environment"
+      ],
+      "properties": {
+        "metric": { "type": "string", "minLength": 3 },
+        "capacity_limit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bytes_limit", "objects_limit", "edges_limit", "latency_limit_ms"],
+          "properties": {
+            "bytes_limit": { "type": "integer", "minimum": 1 },
+            "objects_limit": { "type": "integer", "minimum": 1 },
+            "edges_limit": { "type": "integer", "minimum": 1 },
+            "latency_limit_ms": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "unit": { "type": "string", "minLength": 3 },
+        "measurement_method": { "type": "string", "minLength": 5 },
+        "timestamp": { "type": "string", "minLength": 5 },
+        "tested_environment": { "type": "string", "minLength": 3 }
+      }
+    },
+    "palier_results": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["palier_id", "status", "details", "sub_results"],
+        "properties": {
+          "palier_id": { "type": "string", "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"] },
+          "status": { "type": "string", "enum": ["PASS", "FAIL"] },
+          "details": { "type": "object" },
+          "sub_results": { "type": "object" }
+        }
+      }
+    },
+    "condition_results": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["condition_id", "palier_id", "status", "observed", "evidence_hash"],
+        "properties": {
+          "condition_id": {
+            "type": "string",
+            "enum": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"]
+          },
+          "palier_id": {
+            "type": "string",
+            "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"]
+          },
+          "status": { "type": "string", "enum": ["PASS", "FAIL"] },
+          "observed": { "type": "string", "minLength": 3 },
+          "evidence_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "verdict": { "type": "string", "enum": ["PASS", "FAIL"] },
+    "promotion": { "type": "string", "enum": ["ADMISSIBLE_A_REVUE_HUMAINE", "BLOQUEE"] },
+    "trace_preserved": { "const": true },
+    "cone_to_recalculate": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

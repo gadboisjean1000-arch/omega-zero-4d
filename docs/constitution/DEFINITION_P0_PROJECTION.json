@@ -1,0 +1,121 @@
+{
+  "schema": "projection-Pi0/1",
+  "version": "1.0.0",
+  "status": "VALIDE_SCHEMA",
+  "title": "Définition formelle de l'opérateur de projection Π₀ · Supela Ω-ZERO",
+  "formula": "Π₀(S_t) = {I, P, M, A, H}",
+  "local_formula": "Π₀_local(L_i) = L_i⁰ = {identité, invariants, autorités, index, preuve_transfert, mécanisme_récupération, manques_locaux}",
+  "distinction_PiI_vs_Pi0": {
+    "Pi_I": "Π_I(Ω_t) = 0_I projette l'état émergent global Ω_t sur ses invariants permanents lorsque les éléments variables sont retirés.",
+    "Pi_0": "Π₀(S_t) = 0_t = {I, P, M, A, H} projette un état de travail S_t vers l'état zéro opérationnel en conservant les invariants, preuves indispensables, manques ouverts, autorités applicables et histoire minimale de reconstruction.",
+    "relation": "Π₀ étend Π_I aux cycles d'exploration et de retour au Vide : le zéro n'est ni le néant ni l'amnésie, mais l'état minimal honnête prêt pour le cycle suivant."
+  },
+  "components": [
+    {
+      "symbol": "I",
+      "name": "Invariants",
+      "role": "Garde-fous structurels et épistémiques qui doivent survivre à toute transformation.",
+      "retention_rule": "Toujours conservé intégralement (I₁..I₅ et I_M).",
+      "drop_rule": "Aucun invariant ne peut être retiré par Π₀."
+    },
+    {
+      "symbol": "P",
+      "name": "Preuves et provenances indispensables",
+      "role": "Preuves vérifiables, empreintes SHA-256, provenances distinctes et traces de réfutation (Ref).",
+      "retention_rule": "Conserve toute preuve soutenant une conclusion admise dans son périmètre ainsi que toute réfutation utile à l'évolution.",
+      "drop_rule": "Retire les formulations provisoires redondantes et les candidats non soutenus en tant que conclusions établies."
+    },
+    {
+      "symbol": "M",
+      "name": "Manques encore ouverts",
+      "role": "Invariants d'ouverture orientant le prochain cycle d'exploration (OUVERT, SOUS_EXPLORATION, PARTIELLEMENT_RÉDUIT, INACCESSIBLE_DANS_LE_PÉRIMÈTRE).",
+      "retention_rule": "Tout manque non clôturé reste conservé avec origine, contexte, dépendances, autorité, tentatives, temps et statut.",
+      "drop_rule": "Interdiction stricte de supprimer un manque ou de le transformer silencieusement en VRAI ou FAUX."
+    },
+    {
+      "symbol": "A",
+      "name": "Autorités applicables",
+      "role": "Limites disciplinaires, juridiques, institutionnelles et territoriales de validité.",
+      "retention_rule": "Conserve les périmètres d'autorité distincts sans fusion disciplinaire ni escalade locale→globale.",
+      "drop_rule": "Retire toute autorité revendiquée sans preuve (Autorité(c) ≤ Preuve(c))."
+    },
+    {
+      "symbol": "H",
+      "name": "Histoire minimale permettant la reconstruction",
+      "role": "Trajectoire 4D causale et journal des décisions/transitions nécessaire à la réouverture ciblée.",
+      "retention_rule": "Conserve la chaîne causale minimale, les identifiants stables et les liens de dépendance (cônes).",
+      "drop_rule": "Compresse uniquement les duplications de travail sans perdre les dépendances ni les contradictions."
+    }
+  ],
+  "core_invariants": [
+    {
+      "id": "I1",
+      "label": "Vérité vérifiable",
+      "formal_statement": "Toute conclusion conservée doit être appuyée par une preuve reproductible dans son périmètre."
+    },
+    {
+      "id": "I2",
+      "label": "Traçabilité",
+      "formal_statement": "Chaque objet conservé conserve son origine, sa provenance, son horodatage et ses dépendances."
+    },
+    {
+      "id": "I3",
+      "label": "Réfutabilité",
+      "formal_statement": "Tout raccord admis reste réouvrable face à une nouvelle preuve contradictoire sans détruire Ω."
+    },
+    {
+      "id": "I4",
+      "label": "Cohérence",
+      "formal_statement": "Les contradictions interdisciplinaires ou inter-nœuds non résolues sont représentées explicitement plutôt qu'aplaties."
+    },
+    {
+      "id": "I5",
+      "label": "Conservation de la preuve",
+      "formal_statement": "Aucune donnée ou trace probante (y compris réfutée) n'est effacée silencieusement."
+    },
+    {
+      "id": "I_M",
+      "label": "Conservation du manque ouvert",
+      "formal_statement": "M détecté ⇒ M doit rester représenté jusqu'à résolution, réfutation ou requalification."
+    }
+  ],
+  "algebraic_properties": {
+    "idempotence": "Π₀(Π₀(S_t)) = Π₀(S_t) : projeter un état déjà réduit au zéro opérationnel ne modifie ni I, ni P, ni M, ni A, ni H.",
+    "non_empty_fail_closed": "Π₀(S_t) ≠ ∅ : dès lors que les invariants I existent, la projection ne produit jamais un vide destructeur.",
+    "authority_bounding": "∀c ∈ S_t : Autorité_0(c) ≤ Preuve(c) : le retour au Vide retire l'autorité concluante des constructions non soutenues.",
+    "non_amnesic_local": "L_i⁰ ≠ L_i_amnésique : après revidage transactionnel, le nœud local conserve identité, invariants, index, preuve de transfert, récupération et manques locaux.",
+    "refutation_preservation": "Refuted(R) ⇒ Autorité(R) = 0 ∧ Trace(R) ∈ P ∪ H : un faux raccord perd toute autorité concluante mais demeure une aide évolutive."
+  },
+  "assertions_executables": [
+    {
+      "id": "PI0-ASSERT-01",
+      "formal_expression": "Pi0(Pi0(S)) == Pi0(S)",
+      "verification_method": "Comparaison structurelle et d'empreinte SHA-256 canonique entre Pi0(S) et Pi0(Pi0(S)).",
+      "failure_mode": "Dérive ou perte d'état lors d'applications successives de Π₀."
+    },
+    {
+      "id": "PI0-ASSERT-02",
+      "formal_expression": "len(Pi0(S).invariants) >= 6 and Pi0(S) != empty",
+      "verification_method": "Vérification de non-vacuité et de présence de I₁..I₅ + I_M après projection.",
+      "failure_mode": "Effondrement vers le néant / amnésie du système."
+    },
+    {
+      "id": "PI0-ASSERT-03",
+      "formal_expression": "all(c.authority_level <= c.evidence_level for c in Pi0(S).claims)",
+      "verification_method": "Contrôle d'invariant sur chaque raccord et conclusion après projection.",
+      "failure_mode": "Persistance d'une conclusion sans preuve après retour au Vide."
+    },
+    {
+      "id": "PI0-ASSERT-04",
+      "formal_expression": "open_manques(S) <= open_manques(Pi0(S))",
+      "verification_method": "Vérification que tout manque non clôturé avant Π₀ demeure présent dans M après Π₀.",
+      "failure_mode": "Suppression silencieuse d'un manque ouvert."
+    },
+    {
+      "id": "PI0-ASSERT-05",
+      "formal_expression": "all(r.authority == 'AUCUNE' and r.id in Pi0(S).refutations for r in refuted(S))",
+      "verification_method": "Vérification que les raccords réfutés sont conservés comme traces évolutives sans autorité concluante.",
+      "failure_mode": "Effacement de la mémoire des réfutations ou conservation d'une autorité réfutée."
+    }
+  ]
+}

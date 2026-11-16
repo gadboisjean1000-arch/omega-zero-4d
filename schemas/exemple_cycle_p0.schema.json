@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/exemple_cycle_p0.schema.json",
+  "title": "Exemple de cycle complet Manque → Π₀ → Épreuve → Ω · Supela Ω-ZERO",
+  "description": "Schéma exécutable Draft 2020-12 validant un scénario inter-domaines complet avec détection du manque, exploration, épreuve, intégration Ω bornée par preuve et projection Π₀.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "example_id",
+    "title",
+    "domain",
+    "status",
+    "disciplines",
+    "initial_state_S0",
+    "initial_manque",
+    "candidates",
+    "epreuve_results",
+    "conflicts",
+    "manque_transitions",
+    "omega_integration",
+    "projection_pi0_result",
+    "next_cycle_reentry"
+  ],
+  "properties": {
+    "schema": { "const": "exemple-cycle-p0/1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "example_id": { "type": "string", "minLength": 3 },
+    "title": { "type": "string", "minLength": 5 },
+    "domain": { "type": "string", "minLength": 3 },
+    "status": {
+      "type": "string",
+      "enum": ["TESTABLE", "EXECUTE_ET_VALIDE"]
+    },
+    "disciplines": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "authority_scope", "contribution"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "authority_scope": { "type": "string" },
+          "contribution": { "type": "string" }
+        }
+      }
+    },
+    "initial_state_S0": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["goal", "available", "required_for_goal", "missing_elements", "conclusion_initiale"],
+      "properties": {
+        "goal": { "type": "string" },
+        "available": { "type": "array", "items": { "type": "string" } },
+        "required_for_goal": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "missing_elements": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "conclusion_initiale": { "const": "NON_ETABLIE" }
+      }
+    },
+    "initial_manque": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "contexte", "origine", "dépendances", "autorité", "tentatives", "temps", "statut"],
+      "properties": {
+        "id": { "type": "string" },
+        "question": { "type": "string" },
+        "contexte": { "type": "string" },
+        "origine": { "type": "string" },
+        "dépendances": { "type": "array", "items": { "type": "string" } },
+        "autorité": { "type": "string" },
+        "tentatives": { "type": "array", "items": { "type": "string" } },
+        "temps": { "type": "string" },
+        "statut": { "const": "OUVERT" }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "origin_node", "authority_initial", "status_initial"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "origin_node": { "type": "string" },
+          "authority_initial": { "const": "AUCUNE" },
+          "status_initial": { "const": "CANDIDAT" }
+        }
+      }
+    },
+    "epreuve_results": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["raccord_id", "disciplines_tested", "verdict", "authority_granted", "conditions", "trace_retained"],
+        "properties": {
+          "raccord_id": { "type": "string" },
+          "disciplines_tested": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "verdict": {
+            "type": "string",
+            "enum": ["REFUTE_DANS_PERIMETRE", "SUPPORTE_SOUS_CONDITIONS", "INCONNU_DONNEES_INSUFFISANTES"]
+          },
+          "authority_granted": { "type": "string" },
+          "conditions": { "type": "array", "items": { "type": "string" } },
+          "trace_retained": { "const": true }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "disciplines", "status", "resolution"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "const": "CONFLIT_INTERDISCIPLINAIRE" },
+          "disciplines": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "status": { "const": "CONSERVE" },
+          "resolution": { "type": "string" }
+        }
+      }
+    },
+    "manque_transitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["manque_id", "from_status", "to_status", "guard_id", "reason"],
+        "properties": {
+          "manque_id": { "type": "string" },
+          "from_status": { "type": "string" },
+          "to_status": { "type": "string" },
+          "guard_id": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "omega_integration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["qualified_conclusion", "authority_bounded_by_proof", "retained_refutations", "open_manques"],
+      "properties": {
+        "qualified_conclusion": { "type": "string" },
+        "authority_bounded_by_proof": { "const": true },
+        "retained_refutations": { "type": "array", "items": { "type": "string" } },
+        "open_manques": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "projection_pi0_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["I", "P", "M", "A", "H", "dropped_provisional", "idempotence_checked", "non_empty_checked"],
+      "properties": {
+        "I": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "P": { "type": "array", "items": { "type": "string" } },
+        "M": { "type": "array", "items": { "type": "string" } },
+        "A": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "H": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "dropped_provisional": { "type": "array", "items": { "type": "string" } },
+        "idempotence_checked": { "const": true },
+        "non_empty_checked": { "const": true }
+      }
+    },
+    "next_cycle_reentry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resume_from_manque", "trigger_event", "reopened_cone", "omega_destroyed"],
+      "properties": {
+        "resume_from_manque": { "type": "string" },
+        "trigger_event": { "type": "string" },
+        "reopened_cone": { "type": "array", "items": { "type": "string" } },
+        "omega_destroyed": { "const": false }
+      }
+    }
+  }
+}

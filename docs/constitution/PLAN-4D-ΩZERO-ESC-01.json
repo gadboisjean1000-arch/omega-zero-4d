@@ -1,0 +1,239 @@
+{
+  "schema": "PLAN-4D-ΩZERO-ESC-01/1",
+  "protocol_id": "TEST-4D-ESC-01",
+  "title": "Plan d'Escalade 4D Ω-ZERO — Protocole Corrigé et Exécutable",
+  "version": "1.0.0",
+  "status": "HARNAIS_DISPONIBLE_PRE_EXECUTION",
+  "palier_count": 8,
+  "condition_count": 10,
+  "invariants_tested": [
+    { "id": "I1", "statement": "Manque ≠ Faux" },
+    { "id": "I2", "statement": "Manque ≠ Vrai caché" },
+    { "id": "I3", "statement": "Contribution ≠ Conclusion" },
+    { "id": "I4", "statement": "Synchronisé ≠ Validé" },
+    { "id": "I5", "statement": "Local → Cloud ⇏ Autorité_locale → Autorité_cloud" },
+    { "id": "I6", "statement": "Réfuté comme conclusion ≠ Sans valeur évolutive" },
+    { "id": "I7", "statement": "Revidage ≠ Effacement" },
+    { "id": "I8", "statement": "Saturation du conteneur ≠ Perte de fonction" }
+  ],
+  "paliers": [
+    {
+      "id": "E0",
+      "name": "Contrôle Minimal",
+      "description": "Injection de 1 objet Manque (M-001) sur 1 nœud local (L1) avec aucune réponse candidate.",
+      "load_criteria": { "summary": "1 manque M-001, 1 nœud L1", "quantity": 1, "unit": "manque" },
+      "condition_ids": ["C01"]
+    },
+    {
+      "id": "E1",
+      "name": "Multiplication des Candidats",
+      "description": "Injection de 4 raccords candidats (R-001 à R-004) sur la question fatigue → affectation ; aucun consensus automatique par majorité.",
+      "load_criteria": { "summary": "4 raccords candidats R-001..R-004", "quantity": 4, "unit": "raccords" },
+      "condition_ids": ["C02", "C03"]
+    },
+    {
+      "id": "E2",
+      "name": "Escalade Interdisciplinaire",
+      "description": "5 disciplines (Médecine, Droit, Gestion, Psychologie, Éthique) produisent des évaluations distinctes générant l'objet conflit C-001.",
+      "load_criteria": { "summary": "5 résultats disciplinaires et 1 conflit C-001", "quantity": 5, "unit": "disciplines" },
+      "condition_ids": ["C04", "C05"]
+    },
+    {
+      "id": "E3",
+      "name": "Escalade Distribuée Local–Cloud",
+      "description": "4 nœuds locaux (L1 Montréal, L2 Paris, L3 Dakar, L4 Tokyo) produisent 4 deltas ΔΩ transms dans un ordre aléatoire.",
+      "load_criteria": { "summary": "4 nœuds et 4 deltas en ordre aléatoire", "quantity": 4, "unit": "deltas" },
+      "condition_ids": ["C06"]
+    },
+    {
+      "id": "E4",
+      "name": "Tentative d'Escalade d'Autorité",
+      "description": "L2 soumet R-003 avec LOCAL_STATUS=SUPPORTÉ et REQUESTED_CLOUD_STATUS=ÉTABLI_INTERNATIONALEMENT sans preuve internationale.",
+      "load_criteria": { "summary": "1 tentative d'escalade d'autorité non prouvée", "quantity": 1, "unit": "attaque" },
+      "condition_ids": ["C07"]
+    },
+    {
+      "id": "E5",
+      "name": "Saturation du Conteneur",
+      "description": "Injection de 6 catégories d'objets (duplications, versions, contradictions, inactifs, preuves volumineuses, relations) jusqu'à Load(C1) ≥ 0.80 déclenchant Migration(C1, C2).",
+      "load_criteria": { "summary": "6 catégories d'injection et seuil Load ≥ 0.80", "quantity": 6, "unit": "catégories" },
+      "condition_ids": ["C08"]
+    },
+    {
+      "id": "E6",
+      "name": "Revidage Transactionnel",
+      "description": "Séquence stricte PREPARE → VERIFY → COMMIT → CLEAN avec CLEAN interdit avant COMMIT et vérification des 5 prédicats ACK.",
+      "load_criteria": { "summary": "5 prédicats de vérification avant revidage L1", "quantity": 5, "unit": "conditions_ack" },
+      "condition_ids": ["C09"]
+    },
+    {
+      "id": "E7",
+      "name": "Retour depuis le Vide & Épreuve d'Émergence",
+      "description": "Après revidage, réouverture ciblée de Cone(R-002) sur NouvellePreuve (E7-A) et synthèse du chemin émergent Médecine→Prévention* comme CANDIDAT (E7-B).",
+      "load_criteria": { "summary": "1 réouverture de cône et 1 raccord émergent candidat", "quantity": 2, "unit": "sous_tests" },
+      "condition_ids": ["C10"],
+      "sub_tests": [
+        {
+          "id": "E7-A",
+          "name": "Réouverture depuis le Vide",
+          "pass_criteria": "NouvellePreuve ⇒ Réouverture(Cone(R-002)) ∧ ¬Destruction(Ω) ; M-001 et les candidats rejetés sont retrouvés."
+        },
+        {
+          "id": "E7-B",
+          "name": "Émergence Candidate",
+          "pass_criteria": "Médecine→Prévention* possède TYPE=RACCORD_ÉMERGENT, STATUT=CANDIDAT, AUTORITÉ=AUCUNE, VALIDATION_REQUISE=OUI, et Emergent(R*) ⇏ Established(R*)."
+        }
+      ]
+    }
+  ],
+  "matrix_normative": [
+    {
+      "id": "C01",
+      "palier": "E0",
+      "invariant_ref": "I1, I2, I_M",
+      "label": "M-001 reste traçable et OUVERT",
+      "mandatory_condition": "M-001 = OUVERT ∧ CONCLUSION = AUCUNE ∧ AUTORITÉ = INCHANGÉE",
+      "critical_failure": "Le manque disparaît ou devient vrai/faux"
+    },
+    {
+      "id": "C02",
+      "palier": "E1",
+      "invariant_ref": "I3, M3",
+      "label": "Candidat ≠ Conclusion établie",
+      "mandatory_condition": "∀i : Candidate(Ri) ≠ Established(Ri) (aucune promotion sans preuve)",
+      "critical_failure": "Promotion automatique par majorité ou ordre d'arrivée"
+    },
+    {
+      "id": "C03",
+      "palier": "E1",
+      "invariant_ref": "M4",
+      "label": "Raccords distincts non fusionnés",
+      "mandatory_condition": "∀i ≠ j : Ri ≠ Rj avec identité et provenance séparées",
+      "critical_failure": "Fusion implicite Ri = Rj"
+    },
+    {
+      "id": "C04",
+      "palier": "E2",
+      "invariant_ref": "I4",
+      "label": "Identité et autorité disciplinaires préservées",
+      "mandatory_condition": "Chaque discipline conserve Σ(Ri) = ⟨Force_i, Conflit_i, Discipline_i, Autorité_i⟩",
+      "critical_failure": "Écrasement disciplinaire"
+    },
+    {
+      "id": "C05",
+      "palier": "E2",
+      "invariant_ref": "I4",
+      "label": "Conflit interdisciplinaire conservé",
+      "mandatory_condition": "C-001 = {TYPE: CONFLIT_INTERDISCIPLINAIRE, STATUT: CONSERVÉ, RÉSOLUTION: NON_ACQUISE}",
+      "critical_failure": "Suppression du désaccord C-001"
+    },
+    {
+      "id": "C06",
+      "palier": "E3",
+      "invariant_ref": "I4, I5",
+      "label": "Ordre de réception ≠ Autorité",
+      "mandatory_condition": "Order(Δi) ⇏ Authority(Δi) et conservation origine, cadre juridique, horodatage, autorité, dépendances, contradictions",
+      "critical_failure": "Dernier delta reçu = vérité mondiale"
+    },
+    {
+      "id": "C07",
+      "palier": "E4",
+      "invariant_ref": "I5",
+      "label": "Autorité locale ≠ Autorité internationale",
+      "mandatory_condition": "A_cloud(R-003) ≤ Preuve_cloud(R-003) ; REJET_ESCALADE_AUTORITÉ tracé ; portée L2 conservée",
+      "critical_failure": "Escalade silencieuse vers autorité globale"
+    },
+    {
+      "id": "C08",
+      "palier": "E5",
+      "invariant_ref": "I6, I8",
+      "label": "Migration de conteneur reconstructible",
+      "mandatory_condition": "Load(C1) ≥ 0.80 ⇒ Migration(C1, C2) conservant IDs stables, provenance, relations, statuts, autorités, historique, empreintes, reconstruction et objets réfutés",
+      "critical_failure": "Perte de statut, d'objet réfuté ou de provenance en migration"
+    },
+    {
+      "id": "C09",
+      "palier": "E6",
+      "invariant_ref": "I7",
+      "label": "Revidage transactionnel uniquement après COMMIT",
+      "mandatory_condition": "PREPARE → VERIFY → COMMIT → CLEAN avec CLEAN interdit avant COMMIT et conservation de L1^0",
+      "critical_failure": "Nettoyage prématuré avant COMMIT ou amnésie locale"
+    },
+    {
+      "id": "C10",
+      "palier": "E7",
+      "invariant_ref": "I3, I6",
+      "label": "Réouverture ciblée et émergence strictement candidate",
+      "mandatory_condition": "NouvellePreuve ⇒ Réouverture(Cone(R-002)) sans destruction de Ω ∧ Emergent(Médecine→Prévention*) ⇏ Established(R*)",
+      "critical_failure": "Destruction de Ω ou émergence déclarée établie automatiquement"
+    }
+  ],
+  "load_saturation_spec": {
+    "formula": "Load(C) = max(UsedBytes/BytesLimit, UsedObjects/ObjectsLimit, UsedEdges/EdgesLimit, ObservedLatency/LatencyLimit)",
+    "threshold": 0.8,
+    "action_on_threshold": "MigrationRequired(C1, C2)",
+    "pre_execution_declarations_required": [
+      "metric",
+      "capacity_limit",
+      "unit",
+      "measurement_method",
+      "timestamp",
+      "tested_environment"
+    ],
+    "preserved_on_migration": [
+      "stable_ids",
+      "provenance",
+      "relations",
+      "statuses",
+      "authorities",
+      "history",
+      "integrity_hashes",
+      "reconstruction_capability"
+    ]
+  },
+  "revidage_protocol": {
+    "sequence": ["PREPARE", "VERIFY", "COMMIT", "CLEAN"],
+    "clean_forbidden_before_commit": true,
+    "required_verify_predicates": [
+      "ACK",
+      "HashMatch",
+      "ProvenanceOK",
+      "AuthorityOK",
+      "ReconstructionPASS"
+    ],
+    "on_failure": [
+      "ROLLBACK_LOCAL",
+      "DONNEES_CONSERVEES",
+      "REVIDAGE_ANNULE",
+      "TRACE_ECHEC_AJOUTEE"
+    ],
+    "retained_minimal_state_L0": [
+      "identite",
+      "invariants",
+      "index_minimal",
+      "preuve_transfert",
+      "pointeur_recuperation",
+      "manques_locaux"
+    ]
+  },
+  "verdict_rules": {
+    "pass_formula": "PASS ⟺ ⋀_{k=1}^{10} C_k",
+    "on_all_pass": {
+      "verdict": "PASS",
+      "promotion": "ADMISSIBLE_A_REVUE_HUMAINE",
+      "automatic_promotion": false
+    },
+    "on_any_fail": {
+      "verdict": "FAIL",
+      "promotion_omega": "BLOQUEE",
+      "trace": "CONSERVEE",
+      "cone_touche": "A_RECALCULER"
+    },
+    "epistemic_note": "Un harnais passant valide le périmètre testé et rend la promotion admissible à revue humaine ; il ne s'accorde jamais une autorité universelle automatique."
+  },
+  "execution_readiness": {
+    "harness_path": "docs/constitution/HARNAIS_TEST_ESCALADE_4D.py",
+    "schema_path": "schemas/plan_4d_omega_zero_esc_01.schema.json",
+    "results_embedded_in_spec": false
+  }
+}

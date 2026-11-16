@@ -1,0 +1,180 @@
+{
+  "schema": "execution-report-4d/1",
+  "protocol_id": "TEST-4D-ESC-01",
+  "protocol_sha256": "be1ce58a92ec9fac5ecc3432c09697db4673eb6cbc55db08849215e255ad5faf",
+  "timestamp_utc": "2026-11-16T05:17:55.502250+00:00",
+  "load_metrics_declared": {
+    "metric": "max_ratio(bytes, objects, edges, latency)",
+    "capacity_limit": {
+      "bytes_limit": 2400,
+      "objects_limit": 20,
+      "edges_limit": 40,
+      "latency_limit_ms": 100.0
+    },
+    "unit": "bytes / count / count / ms",
+    "measurement_method": "Mesure directe UTF-8 JSON, comptage d'objets/arêtes et latence simulée déterministe",
+    "timestamp": "2026-11-16T05:17:55.501063+00:00",
+    "tested_environment": "Linux Python 3.11 OmegaZeroEngine"
+  },
+  "palier_results": [
+    {
+      "palier_id": "E0",
+      "status": "PASS",
+      "details": {
+        "manque_id": "M-001",
+        "statut": "OUVERT"
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E1",
+      "status": "PASS",
+      "details": {
+        "candidate_count": 4
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E2",
+      "status": "PASS",
+      "details": {
+        "disciplines": 5,
+        "conflict": true
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E3",
+      "status": "PASS",
+      "details": {
+        "arrival_order": [
+          "ΔΩ-L3",
+          "ΔΩ-L2",
+          "ΔΩ-L4",
+          "ΔΩ-L1"
+        ]
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E4",
+      "status": "PASS",
+      "details": {
+        "attack_outcome": "ISOLÉ",
+        "scope": "L2_UNIQUEMENT"
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E5",
+      "status": "PASS",
+      "details": {
+        "load": {
+          "bytes_ratio": 1.3308333333333333,
+          "objects_ratio": 0.35,
+          "edges_ratio": 0.45,
+          "latency_ratio": 0.42,
+          "load": 1.3308333333333333
+        },
+        "migrated": true
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E6",
+      "status": "PASS",
+      "details": {
+        "premature_blocked": true,
+        "tx_id": "TX-L1-001"
+      },
+      "sub_results": {}
+    },
+    {
+      "palier_id": "E7",
+      "status": "PASS",
+      "details": {
+        "pi0_idempotent": true
+      },
+      "sub_results": {
+        "E7-A": "PASS",
+        "E7-B": "PASS"
+      }
+    }
+  ],
+  "condition_results": [
+    {
+      "condition_id": "C01",
+      "palier_id": "E0",
+      "status": "PASS",
+      "observed": "M-001=OUVERT, raccords=0",
+      "evidence_hash": "8dfdcecc5a9cb3bc4288075b9fed45e60ec5aa60969422f709e2cb973a5526b3"
+    },
+    {
+      "condition_id": "C02",
+      "palier_id": "E1",
+      "status": "PASS",
+      "observed": "tous_candidats_non_etablis=True",
+      "evidence_hash": "006c9c9db95674c243fad5967f9958341e2d63e60128305298330f06d03c7bf6"
+    },
+    {
+      "condition_id": "C03",
+      "palier_id": "E1",
+      "status": "PASS",
+      "observed": "raccords_distincts=4/4",
+      "evidence_hash": "7376648eef0a22f36cebcc8c62e20625ea46e37d5ee32d77cc8bbc1d29704b9b"
+    },
+    {
+      "condition_id": "C04",
+      "palier_id": "E2",
+      "status": "PASS",
+      "observed": "disciplines_conservees=['DROIT', 'GESTION', 'MÉDECINE', 'PSYCHOLOGIE', 'ÉTHIQUE']",
+      "evidence_hash": "3ddfec7215359eb13fbe389a9d762ae50d95b48a010c98d5d86aaaeda8bab645"
+    },
+    {
+      "condition_id": "C05",
+      "palier_id": "E2",
+      "status": "PASS",
+      "observed": "C-001_present=True",
+      "evidence_hash": "c7fd92523b425844fcc990e6a40339d9d82c292d7ff907134153c02caa41c498"
+    },
+    {
+      "condition_id": "C06",
+      "palier_id": "E3",
+      "status": "PASS",
+      "observed": "ordre_aleatoire=['ΔΩ-L3', 'ΔΩ-L2', 'ΔΩ-L4', 'ΔΩ-L1'], autorites_preservees=True",
+      "evidence_hash": "647dd69a2233a8f8a21c912618fa11014e618d7b07f2209e828e881fb368ad24"
+    },
+    {
+      "condition_id": "C07",
+      "palier_id": "E4",
+      "status": "PASS",
+      "observed": "outcome=ISOLÉ, scope=L2_UNIQUEMENT, auth=LOCALE_CONDITIONNELLE",
+      "evidence_hash": "eaa4ffb3932e5e34b342537424a204faf6e59482484a18ff3373b99e088d9715"
+    },
+    {
+      "condition_id": "C08",
+      "palier_id": "E5",
+      "status": "PASS",
+      "observed": "Load(C1)=1.331, migrated=True, lossless=True",
+      "evidence_hash": "70647756c7ac7e84e8be615180206c8af830223bd72d6985926254f898929e52"
+    },
+    {
+      "condition_id": "C09",
+      "palier_id": "E6",
+      "status": "PASS",
+      "observed": "premature_blocked=True, stage=CLEAN, non_amnesic=True",
+      "evidence_hash": "35e8a044f52e97beb4de349f6a1bb3eb5ec04d60effc8a6ce514dd0feeedb34e"
+    },
+    {
+      "condition_id": "C10",
+      "palier_id": "E7",
+      "status": "PASS",
+      "observed": "E7-A=True, E7-B=True, emergent_status=CANDIDAT",
+      "evidence_hash": "db0b65994d30354eb0ccac910df59a7fde32711219cd97fd8e5495bbab932715"
+    }
+  ],
+  "verdict": "PASS",
+  "promotion": "ADMISSIBLE_A_REVUE_HUMAINE",
+  "trace_preserved": true,
+  "cone_to_recalculate": []
+}
