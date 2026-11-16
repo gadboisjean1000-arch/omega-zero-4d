@@ -45,3 +45,13 @@ Les 8 questions critiques du test de perte de sens sont évaluées avant validat
 - `G0` (`SOURCE`) $\to$ `G1` (`TRAVAIL`) $\to$ `G2` (`VALIDATION`) $\to$ `G3` (`CONSOLIDATION`) $\to$ `G4` (`NON-RÉCLAMÉ`) $\to$ `G5` (`DERNIER PASSAGE`).
 - **Réclamation (`G4 → G1/G2`) :** toute nouvelle dépendance, contradiction ou question rouvre le cycle actif sous statut `RÉCLAMÉ`.
 - **Dernier passage (`G5`) :** exige vérification des dépendances (`dependencies_checked = true`), motif explicite et autorité humaine pour `REJET_JUSTIFIE`, tout en conservant le registre historique ($\operatorname{RejetDuContenu} \neq \operatorname{EffacementDeLExistenceHistorique}$).
+
+---
+
+## 4. Crate Rust Exécutable (`SUP-IPC-01` / `SUPELA-WORM-V1`)
+
+En complément du module Python [`guard_kernel.py`](../../src/omega_zero/guard_kernel.py), le dépôt inclut le crate Rust zéro dépendance externe [`rust/supela-guard-kernel/`](../../rust/supela-guard-kernel/README.md) (`#![forbid(unsafe_code)]`) exposant :
+- le service JSON-Lines borné en mémoire $O(1)$ [`GuardService`](../../rust/supela-guard-kernel/src/ipc.rs) (`SUP-IPC-01`),
+- le journal append-only verrouillé par verrou OS exclusif `File::lock()` [`DurableJournal`](../../rust/supela-guard-kernel/src/journal.rs) avec chaînage `SUPELA-WORM-V1`, reprise sur queue partielle sans masquage d'altération historique et idempotence stricte par `request_id`,
+- la sonde inter-outils Python ↔ Rust dans [`network_bus.py`](../../src/omega_zero/network_bus.py).
+

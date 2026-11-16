@@ -1,0 +1,9 @@
+[package]
+name = "supela-guard-kernel"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.89"
+publish = false
+description = "Noyau Rust fail-closed Supela-Guard-Kernel (SUP-ICI-01, SUP-IPC-01, SUPELA-WORM-V1) sans dependances externes."
+
+[dependencies]

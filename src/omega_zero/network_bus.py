@@ -143,10 +143,155 @@ def _check_supela_k3_bridge(root: Path, *, online: bool) -> dict[str, Any]:
     }
 
 
+def _rustc_supports_file_lock() -> bool:
+    rustc = shutil.which("rustc")
+    if not rustc:
+        return False
+    try:
+        res = subprocess.run([rustc, "--version"], capture_output=True, text=True, timeout=10, check=False)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    if res.returncode != 0:
+        return False
+    parts = res.stdout.strip().split()
+    if len(parts) < 2:
+        return False
+    ver_nums = parts[1].split(".")
+    if len(ver_nums) < 2:
+        return False
+    try:
+        major, minor = int(ver_nums[0]), int(ver_nums[1])
+    except ValueError:
+        return False
+    return (major, minor) >= (1, 89)
+
+
+def _probe_rust_guard_kernel(root: Path, cargo_bin: str | None) -> dict[str, Any]:
+    """Vérifie la disponibilité et le dialogue réel SUP-IPC-01 avec le binaire Rust."""
+    crate_dir = root / "rust" / "supela-guard-kernel"
+    if not (crate_dir / "Cargo.toml").exists():
+        return {
+            "crate_present": False,
+            "ipc_protocol": "SUP-IPC-01",
+            "ipc_probe_ok": False,
+            "status": "CRATE_ABSENT",
+        }
+
+    bin_name = "supela-guard-kernel.exe" if sys.platform.startswith("win") else "supela-guard-kernel"
+    prebuilt = next(
+        (
+            candidate
+            for candidate in (
+                crate_dir / "target" / "debug" / bin_name,
+                crate_dir / "target" / "release" / bin_name,
+            )
+            if candidate.exists()
+        ),
+        None,
+    )
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        journal_path = Path(tmpdir) / "bus_rust_probe.jsonl"
+        if prebuilt is not None:
+            cmd = [str(prebuilt), "serve", "--journal", str(journal_path)]
+            cwd = root
+            mode = "PREBUILT_BINARY"
+        elif cargo_bin is not None and _rustc_supports_file_lock():
+            cmd = [cargo_bin, "run", "--locked", "--quiet", "--", "serve", "--journal", str(journal_path)]
+            cwd = crate_dir
+            mode = "CARGO_RUN_LOCKED"
+        else:
+            return {
+                "crate_present": True,
+                "ipc_protocol": "SUP-IPC-01",
+                "ipc_probe_ok": False,
+                "status": "CARGO_UNAVAILABLE_OR_RUSTC_LT_1_89",
+            }
+
+        ipc_requests = [
+            {"protocol": "SUP-IPC-01", "request_id": "bus-rust-ping", "op": "ping", "params": {}},
+            {
+                "protocol": "SUP-IPC-01",
+                "request_id": "bus-rust-eval",
+                "op": "evaluate_candidate",
+                "params": {"candidate_id": "H-BUS-RUST", "reward": 0.85, "r_max": 1.0},
+            },
+            {
+                "protocol": "SUP-IPC-01",
+                "request_id": "bus-rust-verify",
+                "op": "verify_chain",
+                "params": {},
+            },
+        ]
+        stdin_payload = "\n".join(json.dumps(r) for r in ipc_requests) + "\n"
+        try:
+            proc = subprocess.run(
+                cmd,
+                cwd=cwd,
+                input=stdin_payload,
+                text=True,
+                capture_output=True,
+                timeout=30,
+                check=False,
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            return {
+                "crate_present": True,
+                "ipc_protocol": "SUP-IPC-01",
+                "ipc_probe_ok": False,
+                "status": f"EXEC_ERROR:{exc}",
+            }
+
+        if proc.returncode != 0:
+            return {
+                "crate_present": True,
+                "ipc_protocol": "SUP-IPC-01",
+                "ipc_probe_ok": False,
+                "status": f"EXIT_{proc.returncode}",
+                "stderr": proc.stderr.strip(),
+            }
+
+        try:
+            responses = [json.loads(ln) for ln in proc.stdout.splitlines() if ln.strip()]
+        except json.JSONDecodeError as exc:
+            return {
+                "crate_present": True,
+                "ipc_protocol": "SUP-IPC-01",
+                "ipc_probe_ok": False,
+                "status": f"INVALID_JSON_OUTPUT:{exc}",
+            }
+
+        by_id = {r.get("request_id"): r for r in responses if isinstance(r, dict)}
+        eval_verdict = (
+            by_id.get("bus-rust-eval", {})
+            .get("result", {})
+            .get("evaluation", {})
+            .get("promotion_verdict")
+        )
+        chain_res = by_id.get("bus-rust-verify", {}).get("result", {})
+        ok = (
+            len(responses) == 3
+            and all(bool(r.get("ok")) for r in responses)
+            and eval_verdict == "ADMISSIBLE_A_REVUE_HUMAINE"
+            and chain_res.get("entries") == 1
+            and chain_res.get("valid") is True
+        )
+        return {
+            "crate_present": True,
+            "ipc_protocol": "SUP-IPC-01",
+            "mode": mode,
+            "ipc_probe_ok": ok,
+            "eval_verdict": eval_verdict,
+            "worm_entries_after_probe": chain_res.get("entries"),
+            "status": "OPERATIONAL" if ok else "PROBE_FAILED",
+        }
+
+
 def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dict[str, Any]:
     """Inspecte et vérifie l'intercommunication réelle entre tous les outils du réseau Supela Ω-ZERO."""
     repo_root = (root or Path(__file__).resolve().parents[2]).resolve()
     python_exe = _find_tool(repo_root, "python") or sys.executable
+    cargo_bin = _find_tool(repo_root, "cargo")
 
     tools_found = {
         "python": python_exe,
@@ -155,6 +300,7 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
         "mypy": _find_tool(repo_root, "mypy"),
         "opa": _find_tool(repo_root, "opa"),
         "cosign": _find_tool(repo_root, "cosign"),
+        "cargo": cargo_bin,
         "git": _find_tool(repo_root, "git"),
         "gh": _find_tool(repo_root, "gh"),
         "gdrive": _find_tool(repo_root, "gdrive"),
@@ -167,6 +313,7 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
     a12_ok, a12_details = verify_a12(repo_root)
     vr_result = verify_vr_compliance(repo_root)
     mcp_probe = _probe_mcp_stdio(repo_root, python_exe)
+    rust_probe = _probe_rust_guard_kernel(repo_root, cargo_bin)
     k3_bridge = _check_supela_k3_bridge(repo_root, online=online)
 
     core_operational = (
@@ -191,6 +338,7 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
             "seal_sha256": vr_result["seal_sha256"],
         },
         "mcp_stdio_probe": mcp_probe,
+        "rust_guard_kernel": rust_probe,
         "supela_k3_bridge": k3_bridge,
     }
 

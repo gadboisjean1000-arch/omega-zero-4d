@@ -125,3 +125,20 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [MAT-06-CHAINE-TRANSFO.yaml](fiches/MAT-06-CHAINE-TRANSFO.yaml) — Chaîne de transformation H (`formulation_brute: undefined`, `INCONNU` / `RÉOUVERT`).
 - [MAT-07-REWARD-NOT-TRUTH.yaml](fiches/MAT-07-REWARD-NOT-TRUTH.yaml) — Découplage $\mathrm{Reward}(x) \nRightarrow \text{Vérité}(x)$ et contre-exemple GRPO ($L=0, \nabla L \neq 0$).
 - [MAT-08-TESTS-PARITE.yaml](fiches/MAT-08-TESTS-PARITE.yaml) — Chaîne de vérification A12, `GDS`, `SCT` et parité HTML/JS.
+
+## 9. Noyau Rust `supela-guard-kernel` (`rust/supela-guard-kernel/`)
+- `rust/supela-guard-kernel/Cargo.toml` — Manifeste Cargo zéro dépendance externe (`#![forbid(unsafe_code)]`, Rust ≥ 1.89).
+- `rust/supela-guard-kernel/Cargo.lock` — Verrouillage Cargo (`version = 4`, aucune dépendance tierce).
+- `rust/supela-guard-kernel/README.md` — Documentation des garanties réelles (`SUP-ICI-01`, `SUP-IPC-01`, `SUPELA-WORM-V1`) et limites explicites.
+- `rust/supela-guard-kernel/src/lib.rs` — Exports publics de la bibliothèque Rust `supela_guard_kernel`.
+- `rust/supela-guard-kernel/src/main.rs` — Binaire CLI `supela-guard-kernel` (`serve`, `verify`, `status` sur `SUP-IPC-01`).
+- `rust/supela-guard-kernel/src/clock.rs` — Abstraction d'horloge UTC (`Clock`, `SystemClock`, `FixedClock`) et parseur/formateur RFC 3339 strict.
+- `rust/supela-guard-kernel/src/sha256.rs` — Hachage FIPS 180-4 SHA-256 et séparation de domaine `SUPELA-WORM-V1`.
+- `rust/supela-guard-kernel/src/base64.rs` — Codec RFC 4648 Base64 strict (rejet des bits de remplissage non nuls).
+- `rust/supela-guard-kernel/src/json.rs` — Parseur JSON à profondeur bornée et sérialisation canonique déterministe.
+- `rust/supela-guard-kernel/src/kernel.rs` — Machine de transition `SUP-ICI-01` (`C0`/`C1`/`C2`, `G0..G5`) et barrière `Score ≠ Preuve ≠ Vérité`.
+- `rust/supela-guard-kernel/src/journal.rs` — Journal `DurableJournal` coopératif verrouillé OS (`File::lock()`, `sync_all()`, reprise après coupure et idempotence `request_id`).
+- `rust/supela-guard-kernel/src/ipc.rs` — Lecteur de trames à mémoire bornée $O(1)$ (`read_bounded_line`) et service `GuardService` (`SUP-IPC-01`).
+- `rust/supela-guard-kernel/tests/acceptance_tests.rs` — Suite d'acceptation exécutable IPC, barrières `SUP-ICI-01`, Base64/horloge, altération WORM et binaire CLI.
+- `rust/supela-guard-kernel/tests/concurrency_recovery_tests.rs` — Tests de concurrence multi-thread/multi-processus (`File::lock()`), idempotence/conflit et reprise après coupure.
+

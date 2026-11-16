@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 110,
+    "fichiers_omega_zero_4d": 124,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -973,7 +973,7 @@
       {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
-        "taille_octets": 4353
+        "taille_octets": 5229
       },
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
@@ -988,17 +988,17 @@
       {
         "chemin": ".gitignore",
         "categorie": "root",
-        "taille_octets": 199
+        "taille_octets": 223
       },
       {
         "chemin": "GEMINI.md",
         "categorie": "root",
-        "taille_octets": 4071
+        "taille_octets": 4389
       },
       {
         "chemin": "Makefile",
         "categorie": "root",
-        "taille_octets": 2723
+        "taille_octets": 3254
       },
       {
         "chemin": "README.md",
@@ -1018,7 +1018,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 222422
+        "taille_octets": 223811
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1033,7 +1033,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 15481
+        "taille_octets": 17528
       },
       {
         "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
@@ -1073,7 +1073,7 @@
       {
         "chemin": "docs/constitution/SUPELA_GUARD_KERNEL.md",
         "categorie": "docs",
-        "taille_octets": 3182
+        "taille_octets": 4023
       },
       {
         "chemin": "docs/constitution/TEST_P0_EXEMPLE.json",
@@ -1203,7 +1203,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 142039
+        "taille_octets": 143960
       },
       {
         "chemin": "omega.ps1",
@@ -1229,6 +1229,76 @@
         "chemin": "runtime/init_omega_vault.ps1",
         "categorie": "runtime",
         "taille_octets": 2361
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/Cargo.lock",
+        "categorie": "rust",
+        "taille_octets": 163
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/Cargo.toml",
+        "categorie": "rust",
+        "taille_octets": 255
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/README.md",
+        "categorie": "rust",
+        "taille_octets": 1456
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/base64.rs",
+        "categorie": "rust",
+        "taille_octets": 5282
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/clock.rs",
+        "categorie": "rust",
+        "taille_octets": 7097
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/ipc.rs",
+        "categorie": "rust",
+        "taille_octets": 24883
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/journal.rs",
+        "categorie": "rust",
+        "taille_octets": 17861
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/json.rs",
+        "categorie": "rust",
+        "taille_octets": 15076
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/kernel.rs",
+        "categorie": "rust",
+        "taille_octets": 21397
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/lib.rs",
+        "categorie": "rust",
+        "taille_octets": 847
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/main.rs",
+        "categorie": "rust",
+        "taille_octets": 6435
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/src/sha256.rs",
+        "categorie": "rust",
+        "taille_octets": 7859
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/tests/acceptance_tests.rs",
+        "categorie": "rust",
+        "taille_octets": 16674
+      },
+      {
+        "chemin": "rust/supela-guard-kernel/tests/concurrency_recovery_tests.rs",
+        "categorie": "rust",
+        "taille_octets": 10453
       },
       {
         "chemin": "schemas/execution_report.schema.json",
@@ -1283,7 +1353,7 @@
       {
         "chemin": "scripts/build_encyclopedie.py",
         "categorie": "scripts",
-        "taille_octets": 226008
+        "taille_octets": 226022
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
@@ -1303,7 +1373,7 @@
       {
         "chemin": "scripts/verify_a12.py",
         "categorie": "scripts",
-        "taille_octets": 3681
+        "taille_octets": 3695
       },
       {
         "chemin": "scripts/vr_compliance_check.py",
@@ -1348,7 +1418,7 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 16793
+        "taille_octets": 22018
       },
       {
         "chemin": "src/omega_zero/projection.py",
@@ -1403,7 +1473,7 @@
       {
         "chemin": "tests/test_network_bus_and_mcp.py",
         "categorie": "tests",
-        "taille_octets": 7280
+        "taille_octets": 7621
       },
       {
         "chemin": "tests/test_opa_rego.py",
