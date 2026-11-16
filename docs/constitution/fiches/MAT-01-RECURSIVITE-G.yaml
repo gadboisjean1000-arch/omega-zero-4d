@@ -1,0 +1,47 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-01-RECURSIVITE-G
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-01-RECURSIVITE-G"
+nom: "Récursivité de la garantie G(G) ≤ P et G ⇒ P(G)"
+type: "Invariant"
+discipline: "Auto-contrôle mécanique & Non-sursceau"
+formulation_brute: "G(G) ≤ P ; G ⇒ P(G)"
+formulation_normalisee: "Une garantie G ne peut s'auto-sceller au-delà de son périmètre de contrôle P et doit exposer les contrôles P(G) qui testent son propre mécanisme."
+notation_mathématique: "\\mathcal{G}(\\mathcal{G}) \\le \\mathcal{P} \\quad \\land \\quad (\\mathcal{G} \\Rightarrow \\mathcal{P}(\\mathcal{G}))"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Distinction des deux écritures Copilot M365 + lien vers F_sign ≠ F_certif"
+origine: "Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2) & GoogleDoc 1nTp9M..."
+date_source: "2026-11-16"
+statut_epistemique: "INFÉRÉ"
+portee: "Audit des mécanismes de vérification (WORM, Cosign, collecteur PS1, vérificateur HTML)"
+conditions:
+  - "Indépendance du certificateur F_sign ≠ F_certif pour lever le risque d'auto-certification"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+implique: "Le vérificateur doit lui-même subir des tests de réfutation (comme CONTR-PR1-PS1-AUDIT)."
+n_implique_pas: "Un script vert à ses propres tests n'est pas immunisé contre un angle mort externe."
+preuves:
+  - "Trace conversationnelle Copilot + application pratique sur verify_html_parity / PS1 audit"
+tests:
+  - "tests/test_escalation_4d.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Les deux variantes formelles G(G) ≤ P et G ⇒ P(G) sont conservées côte à côte sans écrasement"
+contre_exemples:
+  - "PR #1 CI 4/4 verte contenant encore 5 bogues mécaniques trouvés par relecture"
+contradictions:
+  - "CONTR-PR1-PS1-AUDIT"
+implementations:
+  - "scripts/verify_a12.py"
+  - "scripts/build_encyclopedie.py"
+artefacts:
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "INFÉRÉ"
+    etat_4d: "ACTIF"
+    motif: "Cohérence mécanique vérifiée, preuve formelle générale ouverte"
+conditions_reouverture: "Formalisation de type Gödel/Tarski bornée dans le noyau arithmétique ou Coq/Lean."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+notes: "Les deux formulations historiques G(G) ≤ P et G ⇒ P(G) sont documentées distinctement."

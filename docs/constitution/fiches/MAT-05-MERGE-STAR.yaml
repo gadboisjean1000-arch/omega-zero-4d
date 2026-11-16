@@ -1,0 +1,46 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-05-MERGE-STAR
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-05-MERGE-STAR"
+nom: "Opérateur Merge* et Invariance d'Ordre (24 Permutations E3)"
+type: "Opérateur"
+discipline: "Fusion distribuée asynchrone 4D"
+formulation_brute: "Merge*(Δ_π(1)..Δ_π(n)) ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ}"
+formulation_normalisee: "Fusionne des deltas locaux asynchrones en garantissant que l'ordre d'arrivée n'accorde jamais d'autorité supplémentaire."
+notation_mathématique: "\\operatorname{Merge}^*(\\Delta_{\\pi(1)}, \\dots, \\Delta_{\\pi(k)}) \\in \\{\\text{ACCEPTÉ}, \\text{PARTIEL}, \\text{CONTESTÉ}, \\text{ISOLÉ}, \\text{REFUSÉ}\\}"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO)"
+contribution_ia: "Vérification exhaustive 4! = 24 permutations & Hypothesis"
+origine: "PLAN_4D_OMEGA_ZERO_ESC_01.md & src/omega_zero/protocol.py"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Escalier E3 et agrégation cloud Multi-Nœuds"
+conditions:
+  - "Clé canonique indépendante de l'ordre d'arrivée horaire"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+  - "MAT-05-CONFLIT-C001"
+implique: "Résultat de fusion identique quelles que soient les permutations d'arrivée réseau."
+n_implique_pas: "L'invariance d'ordre ne résout pas un conflit disciplinaire réel C-001."
+preuves:
+  - "Tests exhaustifs sur 24 permutations + génération stochastique Hypothesis"
+tests:
+  - "tests/test_properties_hypothesis.py"
+  - "tests/test_escalation_4d.py"
+resultats:
+  - "24/24 permutations invariantes + propriétés Hypothesis PASS"
+contre_exemples: []
+contradictions: []
+implementations:
+  - "src/omega_zero/protocol.py"
+artefacts:
+  - "reports/TEST-4D-ESC-01.report.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Vérifié par pytest & Hypothesis"
+conditions_reouverture: "Extension à un nouveau statut de verdict Merge*."
+sources:
+  - "src/omega_zero/protocol.py"
+  - "tests/test_properties_hypothesis.py"
+notes: "Valide formellement la condition C05 de non-privilège temporel."

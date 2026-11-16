@@ -1,0 +1,49 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-02-MANQUE-M
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-02-MANQUE-M"
+nom: "Objet Manque M et Règles Déontologiques M1–M5"
+type: "Opérateur"
+discipline: "Déontologie épistémique & Gestion de l'incomplet"
+formulation_brute: "M(S_t, G) ⟺ Required(G) \\ Available(S_t) ≠ ∅ ; M1..M5 (OPEN ∧ ¬FABRICATE)"
+formulation_normalisee: "Formalise tout déficit de preuve requis pour établir G et interdit de convertir une absence en faux, en vrai caché ou en invention."
+notation_mathématique: "M(S_t, G) \\iff \\operatorname{Required}(G) \\setminus \\operatorname{Available}(S_t) \\neq \\emptyset"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO)"
+contribution_ia: "Schéma Draft 2020-12 & barrières allOf sur local_pc_scan"
+origine: "docs/constitution/STATUT_MANQUE.json & schemas/supela_encyclopedie_1.schema.json"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Qualification des manquants (C:/, D:/, M365, historique Edge/Arc/Brave/ChatGPT)"
+conditions:
+  - "7 statuts canoniques exclusifs + interdiction * -> SUPPRIMÉ"
+dependances:
+  - "MAT-00-PI0"
+implique: "Le système déclare honnêtement OUVERT_INCOMPLET_C_D_IA_LOCALES tant que C:/ et D:/ ne sont pas scannés."
+n_implique_pas: "Un Manque M ouvert n'est ni une réfutation automatique ni un feu vert implicite."
+preuves:
+  - "Tests paramétrés négatifs Draft 2020-12 + 7 statuts dans ManqueStateMachine"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Rejet systématique de toute clôture prématurée"
+contre_exemples:
+  - "Toute mutation JSON proclamant COMPLETE_SOUS_PREUVE sans scan EXECUTEE"
+contradictions:
+  - "CONTR-ZERO-INT-MANQUANT"
+implementations:
+  - "src/omega_zero/models.py"
+  - "src/omega_zero/projection.py"
+artefacts:
+  - "docs/constitution/STATUT_MANQUE.json"
+  - "schemas/supela_encyclopedie_1.schema.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Verrou M3 exécuté en schéma et tests"
+conditions_reouverture: "Scan effectif des disques C:/D: et plateformes IA locales par collect_local_encyclopedie.ps1."
+sources:
+  - "docs/constitution/STATUT_MANQUE.json"
+  - "schemas/supela_encyclopedie_1.schema.json"
+notes: "Gouverne directement le comportement de ce dépôt sur les lecteurs Windows non montés."

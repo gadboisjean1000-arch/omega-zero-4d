@@ -1,0 +1,50 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-05-CONFLIT-C001
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-05-CONFLIT-C001"
+nom: "Conflit Interdisciplinaire Conservé C-001"
+type: "Contre-exemple"
+discipline: "Psychologie × Droit du travail × Gestion (4D)"
+formulation_brute: "C-001 = {CONFLIT_INTERDISCIPLINAIRE, CONSERVÉ, NON_ACQUISE}"
+formulation_normalisee: "Un désaccord fondamental entre disciplines ne peut être moyenné ni écrasé ; il demeure CONSERVÉ à autorité NON_ACQUISE."
+notation_mathématique: "C\\text{-}001 = \\langle \\text{Psychologie} \\perp \\text{Droit} \\perp \\text{Gestion},\\; \\text{CONSERVÉ},\\; \\text{NON\\_ACQUISE} \\rangle"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO)"
+contribution_ia: "Tests de non-unanimité artificielle (C04/C05 + I4)"
+origine: "docs/constitution/TEST_P0_EXEMPLE.json & reports/TEST-4D-ESC-01.report.json"
+date_source: "2026-11-16"
+statut_epistemique: "CONTRADICTOIRE"
+portee: "Conservation de contradiction ouverte dans Π₀ et Merge*"
+conditions:
+  - "Présence simultanée d'évaluations disciplinaires incompatibles"
+dependances:
+  - "MAT-05-MERGE-STAR"
+  - "MAT-02-CONSERVATION-ECHEC"
+implique: "Blocage de toute synthèse consensuelle factice et maintien visible dans REGISTRE_CONTRADICTIONS."
+n_implique_pas: "La persistance de C-001 ne bloque pas l'exécution du reste du graphe compatible."
+preuves:
+  - "Rapport exécuté reports/TEST-4D-ESC-01.report.json + tests/test_escalation_4d.py"
+tests:
+  - "tests/test_escalation_4d.py"
+  - "tests/test_second_domain_example.py"
+resultats:
+  - "Conflit C-001 conservé et vérifié dans 2 domaines distincts"
+contre_exemples:
+  - "Unanimité artificielle détectée et bloquée par C04"
+contradictions:
+  - "CONTR-C001"
+implementations:
+  - "src/omega_zero/models.py"
+  - "src/omega_zero/scenarios.py"
+artefacts:
+  - "docs/constitution/TEST_P0_EXEMPLE.json"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "CONTRADICTOIRE"
+    etat_4d: "ACTIF"
+    motif: "Contradiction réelle volontairement non écrasée"
+conditions_reouverture: "Nouvelle preuve empirique/juridique satisfaisant Required(G) des trois disciplines."
+sources:
+  - "docs/constitution/TEST_P0_EXEMPLE.json"
+  - "reports/TEST-4D-ESC-01.report.json"
+notes: "Cas canonique montrant comment Supela représente une contradiction vivante sans la détruire."

@@ -1,0 +1,43 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-00-ZERO-INT
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-00-ZERO-INT"
+nom: "Théorème du Zéro-Intégration (Manque ouvert M365)"
+type: "Théorème"
+discipline: "Fondements formels — Corpus complémentaire non extrait"
+formulation_brute: "Théorème du Zéro-Intégration [énoncé complet non extrait dans le périmètre]"
+formulation_normalisee: "Entrée d'exploration répertoriant le Théorème du Zéro-Intégration cité dans l'historique Copilot sans hypothèse ni énoncé reconstruit."
+notation_mathématique: "\\text{Théorème du Zéro-Intégration} \\in \\text{Manque}(\\text{M365}) [\\text{INCONNU}]"
+auteur_source: "Jean-François Gadbois (mention historique M365)"
+contribution_ia: "Copilot M365 a signalé le titre ; Antigravity applique M3 (non-invention)"
+origine: "Fils Copilot M365 https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2 et https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+date_source: "2026-11-16"
+statut_epistemique: "INCONNU"
+portee: "Périmètre d'exploration M365 / disques locaux Windows C:/D:"
+conditions:
+  - "Réouverture conditionnée à l'ouverture directe du fil/fichier source M365"
+dependances:
+  - "MAT-02-MANQUE-M"
+implique: "Trace explicite que le corpus théorique complet dépasse les extraits actuellement lus."
+n_implique_pas: "N'autorise aucune reconstruction conjecturale de ses hypothèses ou de sa preuve."
+preuves: []
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Statut INCONNU / État 4D LATENT conservé sous règle M3"
+contre_exemples: []
+contradictions:
+  - "CONTR-ZERO-INT-MANQUANT"
+implementations: []
+artefacts:
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "LATENT"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "INCONNU"
+    etat_4d: "LATENT"
+    motif: "Recherche M365 fichiers vide"
+conditions_reouverture: "Extraction textuelle du théorème depuis M365 Copilot ou C:/D: via collect_local_encyclopedie.ps1."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2"
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+notes: "La recherche M365 fichiers n'ayant rien retourné, aucune hypothèse non sourcée n'est fabriquée."

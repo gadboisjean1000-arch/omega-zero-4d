@@ -1,0 +1,54 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-08-TESTS-PARITE
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-08-TESTS-PARITE"
+nom: "Chaîne de Vérification, Règle A12, GDS/SCT & Parité HTML"
+type: "Test"
+discipline: "Vérification intégrée, GDS/SCT & Traçabilité artefacts"
+formulation_brute: "JSON canonique → HTML dérivé → contrôle de parité → validation syntaxique ; GDS = ⟨D, O, A, γ⟩ ; F_sign ≠ F_certif"
+formulation_normalisee: "Toute vue statique ou publication doit être dérivée de manière reproductible du JSON canonique, vérifiée par hachage/syntaxe et couverte par A12 (0 orphelin, 0 lien cassé)."
+notation_mathématique: "\\operatorname{SHA256}(\\text{HTML}_{\\text{json}}) = \\operatorname{SHA256}(\\text{Canon}) \\;\\land\\; \\text{A12}(\\text{repo}) = \\emptyset"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO & Supela-K3-Ω)"
+contribution_ia: "Implémentation verify_a12.py, verify_html_parity, verify_html_js_syntax & pages-encyclopedie.yml"
+origine: "Architecture Ω-ZERO + Supela-K3-Omega + directive HTML/PR #1/Pages"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Ensemble des artefacts versionnés, tests CI et déploiement Pages"
+conditions:
+  - "Zéro script/style CDN externe dans ENCYCLOPEDIE_DICTIONNAIRE.html"
+  - "Règle A12 à zéro orphelin et zéro lien cassé"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+  - "MAT-06-AMELIORATION-AUTO"
+implique: "Distinction stricte entre donnée canonique (JSON), artefact (HTML), contrôle (parité/JS) et publication (Pages)."
+n_implique_pas: "La consultation HTML n'altère jamais le JSON canonique ni la nécessité de revue humaine."
+preuves:
+  - "Contrôle SHA-256 + round-trip HTMLParser sans CDN"
+  - "Validation syntaxique ES via node --check"
+  - "Suite pytest complète + ruff + mypy + A12"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py"
+  - "tests/test_worm_and_crypto.py"
+resultats:
+  - "Parité exacte et bijection A12 vérifiées avant chaque commit"
+contre_exemples:
+  - "Toute divergence HTML vs JSON lève une erreur explicite dans verify_html_parity"
+contradictions:
+  - "CONTR-PR1-PS1-AUDIT"
+implementations:
+  - "scripts/build_encyclopedie.py"
+  - "scripts/verify_a12.py"
+artefacts:
+  - "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html"
+  - ".github/workflows/pages-encyclopedie.yml"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Chaîne JSON→HTML→Parité→JS active"
+conditions_reouverture: "Modification du générateur HTML/JS ou ajout d'un nouveau fichier dans le dépôt."
+sources:
+  - "scripts/verify_a12.py"
+  - "scripts/build_encyclopedie.py"
+  - ".github/workflows/pages-encyclopedie.yml"
+notes: "Matérialise la formule Supela : donnée canonique, artefact, contrôles et publication ont chacun leur rôle borné."

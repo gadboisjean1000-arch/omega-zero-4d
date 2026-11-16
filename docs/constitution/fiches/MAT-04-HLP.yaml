@@ -1,0 +1,47 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-04-HLP
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-04-HLP"
+nom: "Distinction Tridimensionnelle H ≠ L ≠ P"
+type: "Distinction"
+discipline: "Sémantique structurée & Coexistence sans effacement"
+formulation_brute: "H ≠ L ≠ P"
+formulation_normalisee: "Distingue le sens humain (H), la formulation littérale (L) et le plan probatoire établi (P) en autorisant leur coexistence explicite sans effacement."
+notation_mathématique: "H \\neq L \\neq P"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Structuration Copilot M365 + liaison brute/normalisée/probatoire dans l'Encyclopédie"
+origine: "Corpus conversationnel Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2)"
+date_source: "2026-11-16"
+statut_epistemique: "SUPPORTÉ"
+portee: "Toute fiche formule, comparaison brute vs normalisée et analyse de discours IA"
+conditions:
+  - "Ne jamais écraser L (formulation_brute) par H ou P (ex. cas undefined sur MAT-06-CHAINE-TRANSFO)"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+  - "MAT-02-CONSERVATION-ECHEC"
+implique: "Coexistence lisible entre intention humaine, texte brut archivé et preuve technique."
+n_implique_pas: "Une reformulation claire (H) ne vaut pas formulation littérale d'origine (L) ni preuve (P)."
+preuves:
+  - "Extrait Copilot M365 fourni par l'utilisateur"
+  - "Séparation formulation_brute / formulation_normalisee / statut_epistemique du registre"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "Appliqué structurellement à chaque fiche YAML universelle"
+contre_exemples:
+  - "Substitution silencieuse d'un extrait 'undefined' par une phrase réécrite sans avertissement"
+contradictions:
+  - "CONTR-TRANSFO-UNDEF"
+implementations:
+  - "scripts/build_encyclopedie.py"
+artefacts:
+  - "docs/constitution/REGISTRE_FORMULES_SUPELA.md"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Implémenté structurellement dans le tableau des formules"
+conditions_reouverture: "Nouvelle dimension orthogonale identifiée dans les textes originaux H/L/P."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+notes: "Justifie pourquoi le registre sépare formulation brute, normalisation et statut probatoire."

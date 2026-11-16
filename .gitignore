@@ -12,3 +12,4 @@ dist/
 cosign.key
 cosign.pub
 *.bundle
+docs/constitution/local_pc_inventory.json

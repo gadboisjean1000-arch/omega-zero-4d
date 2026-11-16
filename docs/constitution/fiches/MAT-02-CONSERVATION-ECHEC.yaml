@@ -1,0 +1,50 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-02-CONSERVATION-ECHEC
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-02-CONSERVATION-ECHEC"
+nom: "Conservation des échecs adversariaux (Cas T11)"
+type: "Invariant"
+discipline: "Résilience & Chronologie XII sans effacement"
+formulation_brute: "T11 : FAIL antérieur conservé même après PASS ultérieur"
+formulation_normalisee: "Un succès PASS ultérieur clôt ou met en latence l'incident courant sans jamais effacer la trace FAIL initiale dans l'historique."
+notation_mathématique: "\\text{FAIL}_{t_0} \\land \\text{PASS}_{t_1} \\not\\Rightarrow \\operatorname{Erase}(\\text{FAIL}_{t_0})"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Inscription dans REGISTRE_CONTRADICTIONS.json (CONTR-T11)"
+origine: "Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) & Invariant I5"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Registre des contradictions, journaux WORM et historiques CI"
+conditions:
+  - "Enregistrement immuable (effacement_interdit: true) dans REGISTRE_CONTRADICTIONS.json"
+dependances:
+  - "MAT-00-MONOTONIE-K"
+  - "MAT-02-ETATS-4D"
+implique: "Tout correctif conserve la mémoire de la défaillance antérieure comme garde-fou de non-régression."
+n_implique_pas: "Un FAIL passé conservé n'invalide pas un correctif ultérieur prouvé, tant que la régression reste couverte."
+preuves:
+  - "Règle I5 vérifiée par test_pi0_and_manque.py et validation du registre CONTR-T11"
+tests:
+  - "tests/test_pi0_and_manque.py"
+  - "tests/test_encyclopedie_dictionnaire.py"
+resultats:
+  - "CONTR-T11 et CONTR-PR1-PS1-AUDIT indexés avec statut HISTORIQUE_CORRIGEE_CONSERVEE"
+contre_exemples:
+  - "Suppression de logs FAIL lors d'un re-run vert CI"
+contradictions:
+  - "CONTR-T11"
+  - "CONTR-PR1-PS1-AUDIT"
+implementations:
+  - "src/omega_zero/worm_ledger.py"
+artefacts:
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.md"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Verrouillé par supela_contradictions_1.schema.json"
+conditions_reouverture: "Toute modification du schéma contradictions ou tentative d'effacement d'entrée."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+notes: "Directement lié à la section XII et au cas adversarial T11."

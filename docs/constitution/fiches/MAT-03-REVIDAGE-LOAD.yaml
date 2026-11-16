@@ -1,0 +1,49 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-03-REVIDAGE-LOAD
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-03-REVIDAGE-LOAD"
+nom: "Saturation Load(C) et Revidage Transactionnel (E6 / C09)"
+type: "Métrique"
+discipline: "Migration contrôlée & Protocole 4D"
+formulation_brute: "Load(C) = max(Bytes, Objects, Edges, Latency) ≥ 0.80 ; PREPARE → VERIFY → COMMIT → CLEAN"
+formulation_normalisee: "Déclenche une migration vers C2 à 0.80 et impose 5 prédicats ACK avant toute purge locale CLEAN."
+notation_mathématique: "\\operatorname{Load}(C) = \\max(\\text{Bytes}, \\text{Objects}, \\text{Edges}, \\text{Latency}) \\ge 0.80"
+auteur_source: "Jean-François Gadbois (Supela Ω-ZERO)"
+contribution_ia: "Implémentation transactionnelle & règles Rego C08/C09"
+origine: "PLAN_4D_OMEGA_ZERO_ESC_01.md & src/omega_zero/protocol.py"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Transfert sans perte Local → Cloud et préservation du noyau Lᵢ⁰"
+conditions:
+  - "5 prédicats : ACK, HashMatch, ProvenanceOK, AuthorityOK, ReconstructionPASS"
+dependances:
+  - "MAT-00-PI0"
+  - "MAT-00-MONOTONIE-K"
+implique: "Rollback local automatique si un seul des 5 prédicats ACK échoue avant CLEAN."
+n_implique_pas: "Le nettoyage local CLEAN ne produit jamais L_i_amnésique."
+preuves:
+  - "Tests positifs/négatifs C08 et C09 dans pytest et OPA Rego v1"
+tests:
+  - "tests/test_escalation_4d.py"
+  - "tests/rego/omega_zero_invariants_test.rego"
+resultats:
+  - "10/10 conditions normatives et rollback vérifiés"
+contre_exemples:
+  - "Clean prématuré avec HashMatch=False rejeté par C09 et Rego"
+contradictions: []
+implementations:
+  - "src/omega_zero/protocol.py"
+  - "policies/omega_zero_invariants.rego"
+artefacts:
+  - "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json"
+  - "reports/TEST-4D-ESC-01.report.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "C08/C09 validées"
+conditions_reouverture: "Changement du seuil 0.80 ou des 5 prédicats de confirmation ACK."
+sources:
+  - "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md"
+  - "src/omega_zero/protocol.py"
+notes: "Cœur exécutable du palier E6 du protocole PLAN-4D-ΩZERO-ESC-01."

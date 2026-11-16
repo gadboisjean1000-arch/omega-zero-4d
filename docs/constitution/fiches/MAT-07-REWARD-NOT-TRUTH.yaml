@@ -1,0 +1,52 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-07-REWARD-NOT-TRUTH
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-07-REWARD-NOT-TRUTH"
+nom: "Découplage Récompense IA vs Vérité (GRPO / L=0, ∇L≠0)"
+type: "Contre-exemple"
+discipline: "Apprentissage par renforcement IA & Preuve indépendante"
+formulation_brute: "Reward(x) → Candidate(x) → Preuves(x) → Status(x) ; Reward(x) ⇏ Vérité(x) ; L(θ_old)=0 ∧ ∇_θ L(θ_old)≠0"
+formulation_normalisee: "Un signal de récompense produit au mieux un candidat explorable à soumettre à preuve indépendante ; de même L_GRPO(θ_old)=0 n'annule pas le gradient."
+notation_mathématique: "\\operatorname{Reward}(x) \\to \\operatorname{Candidate}(x) \\to \\operatorname{Preuves}(x) \\to \\operatorname{Status}(x), \\quad \\operatorname{Reward}(x) \\not\\Rightarrow \\text{Vérité}(x)"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Dérivation analytique + calcul numérique dans grpo_bridge.py & Copilot M365"
+origine: "Copilot M365 (https://m365.cloud.microsoft/chat/conversation/19:aaBvPORfeBzfC2j9RnsFuEP3hSvhHqVwd9jyhWyGn241@thread.v2), SCHEMA_GRPO_SUPELA.md & src/omega_zero/grpo_bridge.py"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Évaluation de sorties LLM/RLVR et pont Supela-GRPO en 5 étages"
+conditions:
+  - "Aucun verdict épistémique déduit directement d'un score ou avantage relatif A_i"
+dependances:
+  - "MAT-01-AUTORITE-BORNEE"
+  - "MAT-02-ETATS-4D"
+implique: "Le score guide la recherche d'hypothèses (Candidate) mais seule une preuve externe fixe le Status."
+n_implique_pas: "Un score élevé ou une perte scalaire nulle au point θ_old n'implique ni gradient nul ni vérité."
+preuves:
+  - "Preuve numérique exécutée à μ=1, β=0, θ_old=0.25 : L=0.0, ∇L=-0.273837"
+  - "Garde-fous OPA Rego interdisant promotion GRPO sans preuve indépendante"
+tests:
+  - "tests/test_second_domain_example.py"
+  - "tests/test_opa_rego.py"
+resultats:
+  - "grad_theta non nul et blocage Rego vérifiés en CI"
+contre_exemples:
+  - "L(θ_old)=0 ∧ ∇_θ L(θ_old)≠0 (CONTR-GRPO-001)"
+contradictions:
+  - "CONTR-GRPO-001"
+implementations:
+  - "src/omega_zero/grpo_bridge.py"
+  - "policies/omega_zero_invariants.rego"
+artefacts:
+  - "docs/constitution/SCHEMA_GRPO_SUPELA.md"
+  - "docs/constitution/supela-article-registry-1.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Vérifié analytiquement, numériquement et par Rego"
+conditions_reouverture: "Nouvelle fonction de perte ou échec de reproductibilité du gradient dans grpo_bridge.py."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:aaBvPORfeBzfC2j9RnsFuEP3hSvhHqVwd9jyhWyGn241@thread.v2"
+  - "docs/constitution/SCHEMA_GRPO_SUPELA.md"
+  - "src/omega_zero/grpo_bridge.py"
+notes: "Réunit le formalisme Copilot M365 Reward→Candidate→Preuves→Status et le pont mathématique Ω-ZERO."

@@ -1,0 +1,50 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-00-MONOTONIE-K
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-00-MONOTONIE-K"
+nom: "Monotonie du registre Kₜ et Reset de C"
+type: "Axiome"
+discipline: "Fondements formels & Conservation historique"
+formulation_brute: "K_t ⊆ K_{t+1} ; C → ∅"
+formulation_normalisee: "Le registre probatoire K_t croît sans effacement dans le temps même lorsque l'espace d'exécution C est réinitialisé à ∅."
+notation_mathématique: "K_t \\subseteq K_{t+1} \\quad \\land \\quad (C \\to \\emptyset \\not\\Rightarrow K_{t+1} \\subset K_t)"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Consolidation Copilot M365 + implémentation ledger WORM"
+origine: "Corpus Copilot M365 + DEFINITION_P0_PROJECTION.json (Invariant I5)"
+date_source: "2026-11-16"
+statut_epistemique: "PROUVÉ"
+portee: "Journal WORM, revidage E6/C09 et historique 4D"
+conditions:
+  - "Journal append-only SHA-256 actif (WormVault) ou registre de transitions 4D"
+dependances:
+  - "MAT-00-ETAT-FOND"
+implique: "Aucune preuve, réfutation ou transition passée n'est effacée lors d'un reset C → ∅."
+n_implique_pas: "N'interdit pas de réouvrir ou rétrograder l'autorité d'un raccord existant."
+preuves:
+  - "Tests append-only SHA-256 dans tests/test_worm_and_crypto.py"
+  - "Invariance I5 & TR-01..TR-16 dans tests/test_pi0_and_manque.py"
+tests:
+  - "tests/test_worm_and_crypto.py"
+  - "tests/test_pi0_and_manque.py"
+resultats:
+  - "100% PASS sur chaînage WORM et non-suppression du Manque"
+contre_exemples:
+  - "Toute tentative de transition (* -> SUPPRIMÉ) rejetée"
+contradictions:
+  - "CONTR-T11"
+implementations:
+  - "src/omega_zero/worm_ledger.py"
+  - "src/omega_zero/projection.py"
+artefacts:
+  - "docs/constitution/STATUT_MANQUE.json"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "PROUVÉ"
+    etat_4d: "ACTIF"
+    motif: "Vérifié par WORM + tests I5"
+conditions_reouverture: "Modification du modèle d'archive WORM ou ajout de purge transactionnelle."
+sources:
+  - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
+  - "src/omega_zero/worm_ledger.py"
+notes: "Fondement direct du registre des contradictions sans effacement."

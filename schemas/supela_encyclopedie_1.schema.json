@@ -1,0 +1,672 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/supela_encyclopedie_1.schema.json",
+  "title": "Dictionnaire & Encyclopédie Universelle Supela Ω-ZERO (supela-dictionnaire-encyclopedie/1)",
+  "description": "Schéma JSON Draft 2020-12 validant le catalogue unifié (Dictionnaire terminologique + Encyclopédie GitHub, Google Drive/Docs, plateformes IA/navigateurs et disques locaux C:/D:) avec verrou épistémique M3 interdisant toute proclamation complète tant que local_pc_scan='NON_EXECUTEE'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "date",
+    "generateur",
+    "local_pc_scan",
+    "verdict_couverture",
+    "perimetre",
+    "statistiques",
+    "dictionnaire",
+    "encyclopedie",
+    "taxonomie_math",
+    "architecture_xiii_sections",
+    "registre_formules",
+    "registre_contradictions_ref",
+    "collecteur_local",
+    "conclusion"
+  ],
+  "properties": {
+    "schema": { "const": "supela-dictionnaire-encyclopedie/1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "generateur": { "type": "string", "minLength": 3 },
+    "local_pc_scan": {
+      "type": "string",
+      "enum": ["NON_EXECUTEE", "PARTIELLE", "EXECUTEE"]
+    },
+    "verdict_couverture": {
+      "type": "string",
+      "enum": [
+        "OUVERT_INCOMPLET_C_D_IA_LOCALES",
+        "PARTIELLE_AVEC_EXPORT_LOCAL",
+        "COMPLETE_SOUS_PREUVE"
+      ]
+    },
+    "perimetre": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plateforme_execution",
+        "statut_global",
+        "regles_epistemiques",
+        "sources_statuts"
+      ],
+      "properties": {
+        "plateforme_execution": { "type": "string", "minLength": 3 },
+        "statut_global": {
+          "type": "string",
+          "enum": [
+            "PARTIEL_VERIFIE_DISTANT",
+            "HYBRIDE_LOCAL_DISTANT",
+            "COMPLET_SOUS_PREUVE"
+          ]
+        },
+        "regles_epistemiques": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string", "minLength": 3 }
+        },
+        "sources_statuts": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_id", "nom", "statut", "raison_ou_preuve"],
+            "properties": {
+              "source_id": { "type": "string", "minLength": 2 },
+              "nom": { "type": "string", "minLength": 2 },
+              "statut": {
+                "type": "string",
+                "enum": [
+                  "ACCESSIBLE_VERIFIE",
+                  "PARTIELLEMENT_SYNCHRONISE",
+                  "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+                  "INDEXE_LOCAL"
+                ]
+              },
+              "raison_ou_preuve": { "type": "string", "minLength": 5 }
+            }
+          }
+        }
+      }
+    },
+    "statistiques": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "termes_dictionnaire",
+        "depots_github_total",
+        "depots_github_originaux",
+        "depots_github_forks",
+        "discussions_ia_google_docs",
+        "plateformes_ia_navigateurs",
+        "fichiers_omega_zero_4d",
+        "notebooks_colab",
+        "documents_drive_indexes",
+        "disques_locaux_suivis",
+        "entrees_locales_c_d",
+        "formules_normalisees",
+        "fiches_yaml_initiales",
+        "contradictions_conservees"
+      ],
+      "properties": {
+        "termes_dictionnaire": { "type": "integer", "minimum": 1 },
+        "depots_github_total": { "type": "integer", "minimum": 1 },
+        "depots_github_originaux": { "type": "integer", "minimum": 1 },
+        "depots_github_forks": { "type": "integer", "minimum": 0 },
+        "discussions_ia_google_docs": { "type": "integer", "minimum": 1 },
+        "plateformes_ia_navigateurs": { "type": "integer", "minimum": 1 },
+        "fichiers_omega_zero_4d": { "type": "integer", "minimum": 1 },
+        "notebooks_colab": { "type": "integer", "minimum": 0 },
+        "documents_drive_indexes": { "type": "integer", "minimum": 1 },
+        "disques_locaux_suivis": { "type": "integer", "minimum": 2 },
+        "entrees_locales_c_d": { "type": "integer", "minimum": 0 },
+        "formules_normalisees": { "type": "integer", "minimum": 0 },
+        "fiches_yaml_initiales": { "type": "integer", "minimum": 0 },
+        "contradictions_conservees": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "dictionnaire": {
+      "type": "array",
+      "minItems": 15,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "terme",
+          "categorie",
+          "notation",
+          "definition",
+          "sources",
+          "statut_epistemique"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^DICT-[0-9]{3,}$" },
+          "terme": { "type": "string", "minLength": 2 },
+          "categorie": {
+            "type": "string",
+            "enum": [
+              "PROJECTION_PI0",
+              "MANQUE_ET_STATUTS",
+              "ESCALADE_4D",
+              "GDS_ET_SCT",
+              "SECURITE_WORM_CRYPTO",
+              "IA_ET_GRPO",
+              "ECOSYSTEME_OUTILS_IA",
+              "GOUVERNANCE_ET_NORMES"
+            ]
+          },
+          "notation": { "type": "string", "minLength": 1 },
+          "definition": { "type": "string", "minLength": 10 },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 2 }
+          },
+          "statut_epistemique": {
+            "type": "string",
+            "enum": [
+              "VERIFIE_EXECUTEE",
+              "DOCUMENTE_NORMATIF",
+              "CANDIDAT_OUVERT",
+              "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+            ]
+          }
+        }
+      }
+    },
+    "encyclopedie": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "github_depots",
+        "omega_zero_4d_arborescence",
+        "discussions_ia_google_docs",
+        "plateformes_ia_et_navigateurs",
+        "google_drive_inventaire",
+        "disques_locaux_windows"
+      ],
+      "properties": {
+        "github_depots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name_with_owner",
+              "url",
+              "type",
+              "is_private",
+              "primary_language",
+              "disk_usage_kb",
+              "default_branch",
+              "updated_at",
+              "description",
+              "role_ecosysteme",
+              "fichiers_cles"
+            ],
+            "properties": {
+              "name_with_owner": { "type": "string", "minLength": 3 },
+              "url": { "type": "string", "pattern": "^https://github\\.com/" },
+              "type": { "type": "string", "enum": ["ORIGINAL", "FORK"] },
+              "is_private": { "type": "boolean" },
+              "primary_language": { "type": "string", "minLength": 1 },
+              "disk_usage_kb": { "type": "integer", "minimum": 0 },
+              "default_branch": { "type": "string", "minLength": 1 },
+              "updated_at": { "type": "string", "minLength": 10 },
+              "description": { "type": "string" },
+              "role_ecosysteme": { "type": "string", "minLength": 5 },
+              "fichiers_cles": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "omega_zero_4d_arborescence": {
+          "type": "array",
+          "minItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["chemin", "categorie", "taille_octets"],
+            "properties": {
+              "chemin": { "type": "string", "minLength": 2 },
+              "categorie": { "type": "string", "minLength": 2 },
+              "taille_octets": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "discussions_ia_google_docs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "titre",
+              "url",
+              "type_artefact",
+              "date_modif",
+              "domaine",
+              "outils_ia_associes",
+              "resume_verifie",
+              "perimetre_statut"
+            ],
+            "properties": {
+              "id": { "type": "string", "minLength": 10 },
+              "titre": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "pattern": "^https://" },
+              "type_artefact": {
+                "type": "string",
+                "enum": [
+                  "GOOGLE_DOC",
+                  "MARKDOWN_DRIVE",
+                  "COLAB_NOTEBOOK",
+                  "GOOGLE_DOC_COPIE"
+                ]
+              },
+              "date_modif": { "type": "string", "minLength": 10 },
+              "lignes": { "type": "integer", "minimum": 0 },
+              "caracteres": { "type": "integer", "minimum": 0 },
+              "domaine": { "type": "string", "minLength": 2 },
+              "outils_ia_associes": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 2 }
+              },
+              "resume_verifie": { "type": "string", "minLength": 5 },
+              "perimetre_statut": {
+                "type": "string",
+                "enum": ["ACCESSIBLE_VERIFIE", "PARTIELLEMENT_SYNCHRONISE"]
+              }
+            }
+          }
+        },
+        "plateformes_ia_et_navigateurs": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "nom",
+              "categorie",
+              "trace_accessible_cloud",
+              "emplacement_local_windows",
+              "perimetre_statut",
+              "methode_collecte_locale",
+              "notes"
+            ],
+            "properties": {
+              "id": { "type": "string", "minLength": 2 },
+              "nom": { "type": "string", "minLength": 2 },
+              "categorie": {
+                "type": "string",
+                "enum": ["ASSISTANT_IA", "NAVIGATEUR_IA", "IDE_AGENT_IA"]
+              },
+              "trace_accessible_cloud": { "type": "string", "minLength": 3 },
+              "emplacement_local_windows": { "type": "string", "minLength": 3 },
+              "perimetre_statut": {
+                "type": "string",
+                "enum": [
+                  "ACCESSIBLE_VERIFIE",
+                  "PARTIELLEMENT_SYNCHRONISE",
+                  "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+                  "INDEXE_LOCAL"
+                ]
+              },
+              "methode_collecte_locale": { "type": "string", "minLength": 5 },
+              "notes": { "type": "string", "minLength": 5 },
+              "elements_locaux_detectes": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "total_traces_locaux": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "google_drive_inventaire": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quota_utilise_gb",
+            "quota_limite_gb",
+            "note_pagination",
+            "pc_synchronise_dossier",
+            "comptes_par_categorie",
+            "echantillons_documents_cles"
+          ],
+          "properties": {
+            "quota_utilise_gb": { "type": "number", "minimum": 0 },
+            "quota_limite_gb": { "type": "number", "minimum": 0 },
+            "note_pagination": { "type": "string", "minLength": 5 },
+            "pc_synchronise_dossier": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "nom",
+                "id",
+                "desktop_items",
+                "documents_items",
+                "downloads_items",
+                "statut"
+              ],
+              "properties": {
+                "nom": { "type": "string" },
+                "id": { "type": "string" },
+                "desktop_items": { "type": "integer", "minimum": 0 },
+                "documents_items": { "type": "integer", "minimum": 0 },
+                "downloads_items": { "type": "integer", "minimum": 0 },
+                "statut": { "type": "string" }
+              }
+            },
+            "comptes_par_categorie": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 }
+            },
+            "echantillons_documents_cles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "nom", "categorie", "date_modif"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "nom": { "type": "string" },
+                  "categorie": { "type": "string" },
+                  "date_modif": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "disques_locaux_windows": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lecteur",
+              "perimetre_statut",
+              "raison",
+              "cibles_connues",
+              "collecteur_script",
+              "elements_indexes"
+            ],
+            "properties": {
+              "lecteur": { "type": "string", "pattern": "^[A-Z]:\\\\$" },
+              "perimetre_statut": {
+                "type": "string",
+                "enum": [
+                  "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+                  "PARTIELLEMENT_INDEXE",
+                  "INDEXE_LOCAL"
+                ]
+              },
+              "raison": { "type": "string", "minLength": 5 },
+              "cibles_connues": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "collecteur_script": { "type": "string", "minLength": 5 },
+              "elements_indexes": {
+                "type": "array",
+                "items": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "taxonomie_math": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["famille", "titre", "sous_modules"],
+        "properties": {
+          "famille": { "type": "string", "pattern": "^MATH/0[0-8]_" },
+          "titre": { "type": "string", "minLength": 2 },
+          "sous_modules": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 2 }
+          }
+        }
+      }
+    },
+    "architecture_xiii_sections": {
+      "type": "array",
+      "minItems": 13,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["roman", "titre", "description", "statut_couverture"],
+        "properties": {
+          "roman": { "type": "string", "minLength": 1 },
+          "titre": { "type": "string", "minLength": 2 },
+          "description": { "type": "string", "minLength": 5 },
+          "statut_couverture": {
+            "type": "string",
+            "enum": [
+              "ACCESSIBLE_VERIFIE",
+              "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
+              "OUVERT_EXPLORATOIRE",
+              "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+            ]
+          }
+        }
+      }
+    },
+    "registre_formules": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "nom",
+          "famille_math",
+          "objet",
+          "discipline",
+          "formulation_brute",
+          "formulation_normalisee",
+          "notation_mathematique",
+          "statut_probatoire",
+          "etat_4d",
+          "source_type",
+          "origine",
+          "implique",
+          "n_implique_pas",
+          "tests",
+          "fiche_yaml"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^MAT-[0-9]{2}-[A-Z0-9_-]+$" },
+          "nom": { "type": "string", "minLength": 2 },
+          "famille_math": { "type": "string", "pattern": "^MATH/0[0-8]_" },
+          "objet": {
+            "type": "string",
+            "enum": [
+              "Théorème",
+              "Axiome",
+              "Invariant",
+              "Formule",
+              "Opérateur",
+              "Règle",
+              "Distinction",
+              "Métrique",
+              "Test",
+              "Contre-exemple"
+            ]
+          },
+          "discipline": { "type": "string", "minLength": 2 },
+          "formulation_brute": { "type": "string", "minLength": 1 },
+          "formulation_normalisee": { "type": "string", "minLength": 1 },
+          "notation_mathematique": { "type": "string", "minLength": 1 },
+          "statut_probatoire": {
+            "type": "string",
+            "enum": [
+              "PROUVÉ",
+              "SUPPORTÉ",
+              "INFÉRÉ",
+              "HYPOTHÉTIQUE",
+              "INCONNU",
+              "CONTRADICTOIRE",
+              "RÉFUTÉ"
+            ]
+          },
+          "etat_4d": {
+            "type": "string",
+            "enum": ["ACTIF", "LATENT", "RÉOUVERT"]
+          },
+          "source_type": {
+            "type": "string",
+            "enum": ["Conversation", "Fichier", "Code", "Test", "Rapport", "Source externe"]
+          },
+          "origine": { "type": "string", "minLength": 3 },
+          "url_source": { "type": "string" },
+          "implique": { "type": "string", "minLength": 2 },
+          "n_implique_pas": { "type": "string", "minLength": 2 },
+          "tests": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "fiche_yaml": { "type": "string", "pattern": "^docs/constitution/fiches/.*\\.yaml$" }
+        }
+      }
+    },
+    "registre_contradictions_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fichier_json", "fichier_md", "nombre_contradictions", "effacement_interdit"],
+      "properties": {
+        "fichier_json": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.json" },
+        "fichier_md": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.md" },
+        "nombre_contradictions": { "type": "integer", "minimum": 1 },
+        "effacement_interdit": { "const": true }
+      }
+    },
+    "collecteur_local": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "script_powershell",
+        "script_fusion_python",
+        "commande_windows",
+        "commande_fusion",
+        "garanties_securite",
+        "dernier_import_local"
+      ],
+      "properties": {
+        "script_powershell": { "type": "string", "minLength": 5 },
+        "script_fusion_python": { "type": "string", "minLength": 5 },
+        "commande_windows": { "type": "string", "minLength": 5 },
+        "commande_fusion": { "type": "string", "minLength": 5 },
+        "garanties_securite": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 5 }
+        },
+        "dernier_import_local": {
+          "type": ["object", "null"]
+        }
+      }
+    },
+    "conclusion": { "type": "string", "minLength": 10 }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "local_pc_scan": { "const": "NON_EXECUTEE" }
+        }
+      },
+      "then": {
+        "properties": {
+          "verdict_couverture": { "const": "OUVERT_INCOMPLET_C_D_IA_LOCALES" },
+          "perimetre": {
+            "properties": {
+              "statut_global": { "const": "PARTIEL_VERIFIE_DISTANT" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "local_pc_scan": { "const": "PARTIELLE" }
+        }
+      },
+      "then": {
+        "properties": {
+          "verdict_couverture": {
+            "enum": [
+              "OUVERT_INCOMPLET_C_D_IA_LOCALES",
+              "PARTIELLE_AVEC_EXPORT_LOCAL"
+            ]
+          },
+          "perimetre": {
+            "properties": {
+              "statut_global": {
+                "enum": [
+                  "PARTIEL_VERIFIE_DISTANT",
+                  "HYBRIDE_LOCAL_DISTANT"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict_couverture": { "const": "COMPLETE_SOUS_PREUVE" }
+        }
+      },
+      "then": {
+        "properties": {
+          "local_pc_scan": { "const": "EXECUTEE" },
+          "perimetre": {
+            "properties": {
+              "statut_global": { "const": "COMPLET_SOUS_PREUVE" },
+              "sources_statuts": {
+                "items": {
+                  "properties": {
+                    "statut": {
+                      "enum": [
+                        "ACCESSIBLE_VERIFIE",
+                        "PARTIELLEMENT_SYNCHRONISE",
+                        "INDEXE_LOCAL"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "encyclopedie": {
+            "properties": {
+              "disques_locaux_windows": {
+                "items": {
+                  "properties": {
+                    "perimetre_statut": { "const": "INDEXE_LOCAL" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
