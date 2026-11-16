@@ -973,7 +973,7 @@
       {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
-        "taille_octets": 3799
+        "taille_octets": 4353
       },
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
@@ -1403,7 +1403,7 @@
       {
         "chemin": "tests/test_network_bus_and_mcp.py",
         "categorie": "tests",
-        "taille_octets": 7251
+        "taille_octets": 7280
       },
       {
         "chemin": "tests/test_opa_rego.py",

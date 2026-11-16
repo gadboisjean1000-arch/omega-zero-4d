@@ -30,9 +30,16 @@ jobs:
           python docs/constitution/HARNAIS_TEST_ESCALADE_4D.py --out /tmp/r2.json
           python -c "import json; r1=json.load(open('/tmp/r1.json')); r2=json.load(open('/tmp/r2.json')); assert r1['protocol_sha256']==r2['protocol_sha256']; assert r1['condition_results']==r2['condition_results']"
           make vault
+      - name: Install OPA v1.22.4 (SHA-256 verified)
+        run: |
+          curl -fsSL -o /tmp/opa https://github.com/open-policy-agent/opa/releases/download/v1.22.4/opa_linux_amd64_static
+          echo "35e3b352e715e80624ead6c89930d8585f6f7d94cdc409eb2a9fe36620dcccba  /tmp/opa" | sha256sum -c -
+          chmod +x /tmp/opa && sudo mv /tmp/opa /usr/local/bin/opa
+          opa version
       - name: Run pytest suite and network bus pipeline
         run: |
           pytest -v
+          omega-network doctor
           omega-network pipeline
 
   opa-rego-v1:
@@ -40,9 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install OPA
+      - name: Install OPA v1.22.4 (SHA-256 verified)
         run: |
-          curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v1.22.4/opa_linux_amd64_static
+          curl -fsSL -o opa https://github.com/open-policy-agent/opa/releases/download/v1.22.4/opa_linux_amd64_static
+          echo "35e3b352e715e80624ead6c89930d8585f6f7d94cdc409eb2a9fe36620dcccba  opa" | sha256sum -c -
           chmod +x opa && sudo mv opa /usr/local/bin/opa
           opa version
       - name: Rego format check

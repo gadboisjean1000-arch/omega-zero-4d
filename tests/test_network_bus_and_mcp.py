@@ -74,7 +74,7 @@ def test_network_doctor_offline_verifies_all_tools_and_mcp() -> None:
     assert res["vr_compliance"]["all_passed"] is True
     assert res["mcp_stdio_probe"]["ok"] is True
     assert res["mcp_stdio_probe"]["tool_count"] >= 9
-    assert res["operational"] is True
+    assert res["operational"] is (res["tools"]["opa"] is not None)
     assert res["supela_k3_bridge"]["repo"] == "gadboisjean1000-arch/Supela-K3-Omega"
 
 
