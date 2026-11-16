@@ -48,17 +48,17 @@
     },
     {
       "id": "CONTR-TRANSFO-UNDEF",
-      "titre": "Chaîne de transformation H retournée comme 'undefined' dans l'extrait Copilot",
+      "titre": "Chaîne de transformation H retournée comme 'undefined' (Hi Ace LOL.docx insuffisant)",
       "objet_concerne": "MAT-06-CHAINE-TRANSFO",
       "statut_contradiction": "INCONNUE_SOURCE_INCOMPLETE",
       "etat_4d": "RÉOUVERT",
       "constat_fail_historique": "Lors de l'extraction de la section H (« Transformation et responsabilité »), la formule brute originale est ressortie littéralement comme 'undefined' dans le rendu source.",
-      "etat_ulterieur": "La normalisation proposée (Demande → Interprétation → Transformation → Résultat) est conservée explicitement comme proposition dérivée non sourcée, tandis que la formule brute demeure marquée INCONNU sous statut INCONNUE_SOURCE_INCOMPLETE.",
+      "etat_ulterieur": "La recherche M365 partielle dans Hi Ace LOL.docx (e8728a71...) et Corpus Unifié v3.0 (12e8eb37...) montre bien des énoncés généraux (preuves, limites, inconnues, Pipeline Cuba CB-1..6), mais pas la chaîne H/L/P brute exacte (missing: exact_H_definition, exact_L_definition, exact_P_definition, exact_chain_source). La proposition dérivée reste marquée INCONNU / promotion: FORBIDDEN.",
       "justification_conservation": "Règle M3 (Manque ≠ permission d'inventer) et séparation Source ≠ Autorité : interdiction d'attribuer rétrospectivement une reconstruction à une archive absente.",
-      "invariants_impactes": ["M3", "I_M", "H ≠ L ≠ P", "amélioration ≠ autorisation"],
-      "conditions_reouverture": "Réouverture directe du fil Copilot source 19:b__mSUKb... ou des archives locales pour retrouver la chaîne exacte originelle.",
-      "source_provenance": "Extrait Copilot M365 fourni par l'utilisateur (19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2)",
-      "url_source": "https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
+      "invariants_impactes": ["M3", "I_M", "H ≠ L ≠ P", "amélioration ≠ autorisation", "EXTRACTED ⇏ VALIDATED"],
+      "conditions_reouverture": "Réouverture directe du fil Copilot source 19:b__mSUKb... ou d'un fichier M365/local contenant explicitement H/L/P et la source de la chaîne brute.",
+      "source_provenance": "Copilot M365 (19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) & Hi Ace LOL.docx (e8728a71-b867-4ffe-a1ae-c33ec590a267)",
+      "url_source": "https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=e8728a71-b867-4ffe-a1ae-c33ec590a267&cid=172bcdc878ead1c9"
     },
     {
       "id": "CONTR-PR1-PS1-AUDIT",
@@ -75,17 +75,31 @@
     },
     {
       "id": "CONTR-ZERO-INT-MANQUANT",
-      "titre": "Corpus complémentaires non encore extraits (Théorème du Zéro-Intégration, RESET*, R*, VR-22)",
-      "objet_concerne": "MAT-00-ZERO-INT / MAT-03-RESET-STAR",
+      "titre": "Réduction progressive M365 : TZI et VR-22 extraits mais non encore formalisés/exécutés",
+      "objet_concerne": "MAT-00-ZERO-INT / MAT-03-RESET-STAR / PROV-TZI-001 / PROV-RESET-002",
       "statut_contradiction": "CONSERVEE_OUVERTE",
-      "etat_4d": "LATENT",
-      "constat_fail_historique": "La recherche M365 fichiers n'a rien retourné et les fils 19:Fcb7Bbl... / 19:nWs3b4mo... montrent l'existence du Théorème du Zéro-Intégration, de RESET*, R* et VR-22 sans texte complet extrait.",
-      "etat_ulterieur": "Fiches créées à l'état LATENT / statut INCONNU pour interdire toute proclamation d'exhaustivité mathématique prématurée.",
-      "justification_conservation": "Invariant I_M et principe « Autorité bornée. Exploration ouverte. » : l'index conserve le manque ouvert jusqu'à ouverture directe des sources.",
-      "invariants_impactes": ["I_M", "M3", "explorable ≠ actif"],
-      "conditions_reouverture": "Extraction directe des documents source M365 ou des lecteurs locaux C:/D: contenant le Théorème du Zéro-Intégration, RESET*, R* et VR-22.",
-      "source_provenance": "Extraits Copilot M365 (19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2 et 19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2)",
-      "url_source": "https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2"
+      "etat_4d": "RÉOUVERT",
+      "constat_fail_historique": "État initial (2026-11-16) : la recherche M365 fichiers n'avait rien retourné et les fils 19:Fcb7Bbl... / 19:nWs3b4mo... ne livraient que les titres Théorème du Zéro-Intégration, RESET*, R* et VR-22 sans contenu source.",
+      "etat_ulterieur": "Réduction majeure de Manque sans effacer le constat initial : 16 sources OneDrive/M365 identifiées ; passages PDF TZI (3d411db4..., 6 écritures semi-formelles), Corpus Unifié v3.0 complet (12e8eb37..., Parties I–XI), et spécification vr22.py (Texte collé (3).txt 3f105653...) extraits. Restent ouverts : formalisation 1er ordre/catégories annoncée par le PDF, exécution locale de vr22.py (CODE_RECOVERED ⇏ CODE_EXECUTED) et dérivation complète de tous les variants RESET*.",
+      "justification_conservation": "Monotonie K_t ⊆ K_{t+1} et règles « SOURCE_IDENTIFIED ⇏ PROUVÉ », « EXTRACTED ⇏ VALIDATED », « CODE_RECOVERED ⇏ CODE_EXECUTED ».",
+      "invariants_impactes": ["I_M", "M3", "K_t ⊆ K_{t+1}", "explorable ≠ actif", "CODE_RECOVERED ⇏ CODE_EXECUTED"],
+      "conditions_reouverture": "Exécution vérifiée de vr22.py en suite de tests reproductible et formalisation logique complète du TZI + comparaison différentielle Livre v2.0 / v3.0.",
+      "source_provenance": "Fils M365 (19:Fcb7Bbl..., 19:nWs3b4mo...), PDF TZI (3d411db4...), Texte collé (3).txt (3f105653...) et Corpus Unifié v3.0 (12e8eb37...)",
+      "url_source": "https://onedrive.live.com/?id=3d411db4-56fc-4d4f-aa62-3a69da2899a3&cid=172bcdc878ead1c9&web=1"
+    },
+    {
+      "id": "CONTR-Z0-TENSION",
+      "titre": "Tension Z₀ / Cycle & divergences multi-sources : Branche A (TZI R(S_n)→Z₀) vs Branche B (v3.0 cycle_def: undefined / non_resolu) & Vide ≠ Z₀",
+      "objet_concerne": "MAT-00-ZERO-INT / MAT-00-XERO-VIDE / MAT-03-RESET-STAR / MAT-00-PI0",
+      "statut_contradiction": "CONSERVEE_OUVERTE",
+      "etat_4d": "ACTIF",
+      "constat_fail_historique": "Branche A (Théorème du Zéro-Intégration — PDF Pierre Conceptuelle, Section 2.1) exige une clôture stricte du cycle par retour au zéro d'ancrage R(S_n) → Z₀ (¬∃R(C)→Z₀ ⇒ C ∉ Corpus) avec notations déclarées semi-formelles (LPO / Catégories différées) et filiation « Reset fusionné au Vide ». Branche B (Livre Supela — Corpus Unifié v3.0.docx et Hi Ace LOL.docx) comporte des définitions du cycle sans retour strict uniforme au point d'origine (cycle_def: undefined / non_resolu), sépare strictement Vide (𝕍) ≠ Zéro (Z₀) (§3.2) tout en écrivant §4.1 « depuis l'état Zéro — le Vide intact » et SGG_v2 (somme des poids = 1.20), tandis que vr22.py définit R0..R5 avec purge R5(E,C) sur ⟨P,E,C,K⟩ face au PRZ v3.0.0 (N1..N3) et Π₀(S_t) = {I,P,M,A,H}.",
+      "etat_ulterieur": "Traitement 4D (PR-M365-01 / PR_ACCEPTED_PARTIAL) : divergence enregistrée explicitement comme tension historique conservée ; toute harmonisation artificielle ou écrasement de la Branche A ou B est interdit.",
+      "justification_conservation": "Règle « NEW_VERSION ⇏ ERASE(OLD_VERSION) », invariant I4 (Cohérence sans écrasement) et séparation H ≠ L ≠ P : la divergence Z₀ / Cycle et l'état semi-formel du PDF TZI doivent rester auditables.",
+      "invariants_impactes": ["I4", "K_t ⊆ K_{t+1}", "H ≠ L ≠ P", "SOURCE_IDENTIFIED ⇏ PROUVÉ", "NEW_VERSION ⇏ ERASE(OLD_VERSION)"],
+      "conditions_reouverture": "Formalisation LPO / Théorie des Catégories reliant sans perte Branche A (TZI R(S_n)→Z₀), Branche B (Corpus v3.0 cycle_def / Vide ≠ Z₀), les niveaux R0..R5 (vr22.py) et Π₀(S_t).",
+      "source_provenance": "PDF TZI (3d411db4...), Livre Supela Corpus Unifié v3.0 (12e8eb37...), Texte collé (3).txt vr22.py (3f105653...), Hi Ace LOL.docx (e8728a71...) et src/omega_zero/projection.py",
+      "url_source": "https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9"
     }
   ]
 }

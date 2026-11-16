@@ -9,7 +9,7 @@ Ce document répertorie de manière strictement vérifiable (règles `M3` : *Man
 3. Les **Discussions IA, Google Docs, Markdown et Notebooks Colab** archivés dans Google Drive ;
 4. La **Matrice des Plateformes IA & Navigateurs** (Copilot, Gemini, Arc, Brave, Opera, Antigravity, Cursor, KiloCode, Cline, ChatGPT, Claude) ;
 5. Les **Disques Locaux Windows (`C:\` et `D:\`)** avec leur statut d'accessibilité et le collecteur PowerShell dédié ;
-6. La **Taxonomie `MATH/00..08`, l'Architecture XIII Domaines, le Registre des Formules, les 20 Fiches YAML et le Registre des Contradictions**.
+6. La **Taxonomie `MATH/00..08`, l'Architecture XIII Domaines, le Registre des Formules, les 25 Fiches YAML, le Registre des Contradictions et le Registre de Provenance M365 (16 sources)**.
 
 ## 1. Synthèse & Périmètre d'Accessibilité
 
@@ -22,13 +22,14 @@ Ce document répertorie de manière strictement vérifiable (règles `M3` : *Man
 | **Disque local Windows D:\** | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | Lecteur local Windows D:\ non monté dans l'environnement cloud ; requiert collect_local_encyclopedie.ps1. |
 | **Historiques directs Copilot / Gemini / Arc / Brave / Opera** | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | Aucune API d'historique web Copilot/Gemini/ChatGPT/Claude connectée et profils navigateurs résidant sur C:\. |
 
-- **Termes au dictionnaire :** `52`
-- **Formules normalisées & Fiches YAML :** `20`
-- **Contradictions & Échecs conservés :** `6`
+- **Termes au dictionnaire :** `62`
+- **Formules normalisées & Fiches YAML :** `25`
+- **Contradictions & Échecs conservés :** `7`
+- **Sources OneDrive/M365 suivies :** `16`
 - **Dépôts GitHub :** `15` (`4` originaux + `11` forks)
 - **Discussions IA / Docs / Notebooks répertoriés :** `54`
 - **Plateformes IA & Navigateurs suivis :** `9`
-- **Fichiers réels dans `omega-zero-4d` :** `80`
+- **Fichiers réels dans `omega-zero-4d` :** `88`
 - **Entrées locales `C:\` / `D:\` importées :** `0`
 
 ## 2. Dictionnaire Terminologique & Conceptuel
@@ -87,6 +88,16 @@ Ce document répertorie de manière strictement vérifiable (règles `M3` : *Man
 | `DICT-050` | **Fraîcheur Probante (15 minutes)** | `GOUVERNANCE_ET_NORMES` | `max_attestation_age_ns = 900000000000` | `VERIFIE_EXECUTEE` | Fenêtre temporelle maximale (900 s) exigée par OPA Rego v1 entre l'horodatage RFC 3339 d'attestation et l'évaluation de gouvernance. |
 | `DICT-051` | **Norme ISO-GDS-2026 & Modules HDR** | `GOUVERNANCE_ET_NORMES` | `ISO-GDS-2026` | `DOCUMENTE_NORMATIF` | Spécification normative dérivée du corpus doctoral GDS = ⟨D, O, A, γ⟩ déclinée en article scientifique et Habilitation à Diriger des Recherches. |
 | `DICT-052` | **Architecture 3 Couches (Supela / K3 / Ω)** | `GOUVERNANCE_ET_NORMES` | `INV-SUP-01 / INV-K3 / INV-OMG` | `DOCUMENTE_NORMATIF` | Séparation hiérarchique stricte entre exécution (Supela), orchestration k3s/PowerShell (K3) et oracle de ratification indépendant (Ω). |
+| `DICT-053` | **Xero (𝕏 / Z₀) et le Vide Intact (𝕍)** | `PROJECTION_PI0` | `𝕏 = Z₀ ; 𝕍 ≠ Z₀ ; Z₀ → Sₙ → R → Z₀` | `DOCUMENTE_NORMATIF` | Axiomatique fondamentale du Corpus Unifié v3.0 : Xero (Z₀) est l'état d'initialisation et de retour cyclique (orthogonalité temporelle t=0), distinct du Vide ontologique intact (𝕍) dont toute excitation dérive. |
+| `DICT-054` | **Théorème du Zéro-Intégration (TZI · Extraits Primaires)** | `PROJECTION_PI0` | `I(C,Z₀) ; ΔS=Sₙ-Z₀ ; R(Sₙ)→Z₀ ; ¬∃R(C)→Z₀ ⇒ C∉Corpus ; D(Sₙ,Z₀)=\|\|Sₙ-Z₀\|\|` | `DOCUMENTE_NORMATIF` | Axiome fondateur exigeant que tout cycle intégrable C démarre en Z₀ et retourne à Z₀. Notations explicitement déclarées semi-formelles dans le PDF source en attente de formalisation 1er ordre ou catégories. |
+| `DICT-055` | **Moteur VR-22 (vr22.py) & Niveaux R0–R5** | `ESCALADE_4D` | `vr22.py : ⟨P, E, C, K⟩ ; R0..R5 ; Ve ≥ 1.0 ; \|K_{t+1}\| > \|K_t\|` | `CANDIDAT_OUVERT` | Spécification extraite protégeant les invariants racines (P→refus), rétractant les lemmes (E→R4) et conjectures (C→R3), effaçant E/C au niveau R5 tout en préservant \|K_{t+1}\| > \|K_t\|. Code récupéré non encore exécuté (CODE_RECOVERED ⇏ CODE_EXECUTED). |
+| `DICT-056` | **Architecture SCDH Tricouche & Module Zéro** | `GDS_ET_SCT` | `SCDH(Fond Intact, Surface, Cible) · 5 noyaux · 3 axiomes IPC` | `DOCUMENTE_NORMATIF` | Architecture logicielle v3.0 séparant Fond intact inviolable, Surface réactive et Cible adaptative autour de 5 noyaux (Main, Renderer, Shared, Extension, Pty), interfaces BootConfig/ModuleZero TypeScript et invariants I1–I4. |
+| `DICT-057` | **Protocole Rapporter au Zéro (PRZ v3.0.0) & Reset N1–N3** | `ESCALADE_4D` | `PRZ v3.0.0 (6 phases) ; I_{Z₀}(O) ; Reset N1..N3 ; RFC K3` | `DOCUMENTE_NORMATIF` | Protocole canonique de retour au zéro en 6 phases (Détecter_Dérive → Isoler → Préserver_Traces → Recharger_Z₀ → Vérifier_Retour → Clôturer) complété par la graduation Reset Niveau 1–3 et la RFC K3. |
+| `DICT-058` | **Méta-Évaluation MOG-E (IDI, IIB, QIT, SGG_v2)** | `IA_ET_GRPO` | `IDI=σ/\|μ\| ; IIB=0.40D+0.35A+0.25I ; QIT=√(QIT_é²+QIT_a²) ; SGG_v2 (∑poids=1.20)` | `DOCUMENTE_NORMATIF` | Système métrique multi-niveaux du Corpus v3.0 mesurant dérive relative (IDI), intégrité (IIB), qualité d'itération (QIT) et score global SGG_v2 (dont la somme brute des poids vaut 1.20, conservée telle quelle dans CONTR-Z0-TENSION). |
+| `DICT-059` | **Pipeline Cuba (CB-1..6) & Langage LAS (BNF / AP-01..15)** | `GOUVERNANCE_ET_NORMES` | `CB-1..CB-6 ; BNF LAS ; PA-01..10 / PC-01..05 / MP-01..03 ; AP-01..15` | `DOCUMENTE_NORMATIF` | Chaîne d'exécution déterministe en 6 étapes (Pipeline Cuba), catalogue de patterns v3.0, grammaire BNF du langage de spécification LAS et 15 anti-patterns normatifs dont AP-15 (unicité de Z₀). |
+| `DICT-060` | **Principes Directeurs P1–P12, Échelle N0–N4 & Verdicts V1–V4** | `GOUVERNANCE_ET_NORMES` | `P1..P12 (P6 Règle d'Or) ; N0..N4 ; V1..V4 ; IS-01..04` | `DOCUMENTE_NORMATIF` | Corpus axiologique complet gouvernant primauté du zéro, invariance structurale (IS), réversibilité contrôlée, échelle probatoire N0–N4 et verdicts V1–V4. |
+| `DICT-061` | **Polygone Supela & Polygramme Supela (Candidat M365)** | `GDS_ET_SCT` | `Polygone Supela / Polygramme Supela [INCONNU · M365-SRC-10]` | `CANDIDAT_OUVERT` | Notions identifiées dans les métadonnées OneDrive (Corpus Doctrinal Supela · Géométrie Conversation.txt) dont le corps complet n'est pas encore extrait (SOURCE_IDENTIFIED ⇏ PROUVÉ). |
+| `DICT-062` | **Chaîne de Provenance M365 & Politique Collecté ≠ Publiable** | `MANQUE_ET_STATUTS` | `supela-provenance-m365/1 ; LOCAL_UNIQUEMENT_PAR_DEFAUT ; anonymize_local_inventory()` | `VERIFIE_EXECUTEE` | Pipeline en 8 étapes et contrat Draft 2020-12 empêchant toute auto-promotion (SOURCE_IDENTIFIED ⇏ PROUVÉ, CODE_RECOVERED ⇏ CODE_EXECUTED) et filtrant les chemins privés C:/D:/AppData avant toute PR publique. |
 
 ## 3. Encyclopédie GitHub (`gadboisjean1000-arch`)
 
@@ -171,7 +182,7 @@ Ce document répertorie de manière strictement vérifiable (règles `M3` : *Man
 
 | Plateforme / Navigateur | Catégorie | Statut | Emplacement Windows | Trace Cloud Vérifiée |
 |---|---|---|---|---|
-| **Microsoft Copilot & Edge** | `ASSISTANT_IA` | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | `%LOCALAPPDATA%\Microsoft\Edge\User Data\` | Extraits conversationnels M365 Copilot fournis par l'utilisateur (6 fils cités : 19:itiW3fl..., 19:b__mSUKb..., 19:aaBvPORf..., 19:Fcb7Bbl..., 19:nWs3b4mo...) ; recherche fichiers M365 vide et profil local Edge/Bing sur C:\ hors périmètre VM. |
+| **Microsoft Copilot & Edge** | `ASSISTANT_IA` | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | `%LOCALAPPDATA%\Microsoft\Edge\User Data\` | 16 sources OneDrive/M365 identifiées (dont PDF TZI §2.1, vr22.py dans Texte collé (3).txt, Hi Ace LOL.docx et texte intégral Livre Supela Corpus Unifié v3.0 fournis par l'utilisateur ; accès réseau direct depuis la VM bloqué HTTP/2 403) + 6 fils Copilot cités ; profil local Edge/Bing sur C:\ hors périmètre VM. |
 | **Google Gemini & AI Studio** | `ASSISTANT_IA` | `PARTIELLEMENT_SYNCHRONISE` | `%LOCALAPPDATA%\Google\Chrome\User Data\` | 51 Google Docs + 2 notebooks Colab Supela exportés dans Google Drive ; aucun accès direct à l'historique web gemini.google.com. |
 | **Arc Browser** | `NAVIGATEUR_IA` | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | `%LOCALAPPDATA%\Packages\TheBrowserCompany.Arc*\LocalCache\Local\Arc\User Data\` | Aucune donnée Arc synchronisée dans Drive ou GitHub. |
 | **Brave Browser & Brave Leo** | `NAVIGATEUR_IA` | `INACCESSIBLE_DANS_LE_PÉRIMÈTRE` | `%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\` | Installeur BraveBrowserSetup-BRV040.exe présent dans Drive/Downloads ; profils et historique Leo non synchronisés. |
@@ -205,15 +216,15 @@ python scripts/build_encyclopedie.py --local-inventory docs/constitution/local_p
 
 | Famille `MATH/` | Intitulé | Sous-modules |
 |---|---|---|
-| `MATH/00_FONDEMENTS/` | **État fondamental Sᵢ, monotonie Kₜ ⊆ Kₜ₊₁, projection Π₀ & Zéro-Intégration** | `etat_fondamental.md (S_i = ⟨P_i, E_i, C_i, K_i⟩)`, `monotonie_et_reset.md (K_t ⊆ K_{t+1}, C → ∅)`, `projection_pi0.md (Π₀(S_t) = {I, P, M, A, H})`, `zero_integration_ouverture.md (Théorème du Zéro-Intégration · INCONNU/LATENT)` |
-| `MATH/01_PREUVES/` | **Treillis probatoire G₀..G₄, autorité bornée, récursivité & réflexivité** | `treillis_probatoire_g0_g4.md (G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4)`, `autorite_bornee.md (Authority(G) ≤ Proof(G))`, `recursivite_garantie.md (G(G) ≤ P et G ⇒ P(G))`, `reflexivite_probatoire.md (Formule hypothétique ∀R ...)` |
+| `MATH/00_FONDEMENTS/` | **État fondamental Sᵢ, Xero/Vide (𝕏, 𝕍), monotonie Kₜ ⊆ Kₜ₊₁, Π₀ & TZI** | `etat_fondamental.md (S_i = ⟨P_i, E_i, C_i, K_i⟩)`, `monotonie_et_reset.md (K_t ⊆ K_{t+1}, C → ∅)`, `projection_pi0.md (Π₀(S_t) = {I, P, M, A, H})`, `zero_integration_tzi.md (TZI PDF §2.1 · 6 écritures semi-formelles · SUPPORTÉ/RÉOUVERT)`, `xero_vide_dualite.md (Xero 𝕏/Z₀ ≠ Vide 𝕍, D1.1–D1.5, A0–A4 · Corpus v3.0)` |
+| `MATH/01_PREUVES/` | **Treillis G₀..G₄, autorité bornée, récursivité, réflexivité & Principes P1–P12** | `treillis_probatoire_g0_g4.md (G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4)`, `autorite_bornee.md (Authority(G) ≤ Proof(G))`, `recursivite_garantie.md (G(G) ≤ P et G ⇒ P(G))`, `reflexivite_probatoire.md (Formule hypothétique ∀R ...)`, `principes_p1_p12_is_ap.md (Principes P1–P12, échelle N0–N4, verdicts V1–V4, IS-01..04)` |
 | `MATH/02_STATUTS_4D/` | **Cycle ACTIF → LATENT → RÉOUVERT, 7 statuts du Manque & conservation T11** | `transitions_4d.md (ACTIF → LATENT → RÉOUVERT → ACTIF, explorable ≠ actif)`, `conservation_echec_t11.md (NOUVEAU RÉSULTAT ⇏ EFFACEMENT DU PASSÉ)`, `manque_deontologie_m1_m5.md (M(S_t, G), M1..M5)` |
-| `MATH/03_REVIDAGE_MIGRATION/` | **Saturation Load(C), revidage E6/C09, RESET*, R* & VR-22** | `saturation_et_revidage.md (Load(C) ≥ 0.80, PREPARE → VERIFY → COMMIT → CLEAN)`, `reset_star_et_vr22.md (RESET*, R*, VR-22 · INCONNU/LATENT)` |
+| `MATH/03_REVIDAGE_MIGRATION/` | **Saturation Load(C), E6/C09, VR-22 (vr22.py R0–R5) & PRZ v3.0.0** | `saturation_et_revidage.md (Load(C) ≥ 0.80, PREPARE → VERIFY → COMMIT → CLEAN)`, `reset_star_et_vr22.md (vr22.py P/E/C/K, R0..R5, V_e≥1.0 · SUPPORTÉ/RAPPORTÉ, non exécuté localement)`, `prz_v3_et_reset_n1_n3.md (Protocole Rapporter au Zéro PRZ v3.0.0 · 6 phases · Reset N1..N3)` |
 | `MATH/04_DIMENSIONS_H_L_P/` | **Distinction tridimensionnelle H ≠ L ≠ P sans effacement** | `dimensions_orthogonales_hlp.md (Sens humain H ≠ Littéral L ≠ Établi P)` |
-| `MATH/05_CONFLITS_FUSION/` | **Opérateur Merge*, invariance d'ordre E3 & conflits 4D conservés** | `merge_star_invariance.md (Merge* ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ})`, `conflit_interdisciplinaire_c001.md (Conflict4D C-001 CONSERVÉ / NON_ACQUISE)` |
-| `MATH/06_RESPONSABILITE_TRANSFO/` | **Séparation amélioration ≠ autorisation & chaîne de transformation H** | `amelioration_vs_autorisation.md (amélioration ≠ autorisation, C10)`, `chaine_transformation_h.md (brute = undefined · normalisation proposée)` |
+| `MATH/05_CONFLITS_FUSION/` | **Merge*, invariance E3, conflits 4D (C-001 / Z₀) & SCDH Tricouche** | `merge_star_invariance.md (Merge* ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ})`, `conflit_interdisciplinaire_c001.md (Conflict4D C-001 CONSERVÉ / NON_ACQUISE)`, `scdh_tricouche_module_zero.md (Fond/Surface/Cible, I1–I4, 5 noyaux, 3 axiomes IPC, Module Zéro)`, `tension_z0_multi_sources.md (CONTR-Z0-TENSION · Branche A TZI vs Branche B v3.0 · CONSERVEE_OUVERTE)` |
+| `MATH/06_RESPONSABILITE_TRANSFO/` | **Séparation amélioration ≠ autorisation & chaîne de transformation H** | `amelioration_vs_autorisation.md (amélioration ≠ autorisation, C10)`, `chaine_transformation_h.md (brute = undefined · Hi Ace LOL.docx & v3.0 sans triplet H/L/P · PROMOTION_FORBIDDEN)` |
 | `MATH/07_IA_GRPO/` | **Pont Supela-GRPO : Reward(x) ⇏ Vérité(x) & preuve L=0, ∇L≠0** | `reward_not_truth.md (Reward → Candidate → Preuves → Status)`, `gradient_grpo_non_nul.md (L(θ_old)=0 ∧ ∇_θ L(θ_old)≠0)` |
-| `MATH/08_TESTS/` | **Vérification exécutable T11, A12, OPA Rego v1, Ed25519, WORM & parité HTML** | `matrice_tests_adversariaux.md (T11, E3 24 permutations, A12, Rego 16/16)`, `chaine_parite_html_pages.md (JSON canonique → HTML → Parité/JS → Pages)` |
+| `MATH/08_TESTS/` | **T11, A12, OPA Rego v1, Parité HTML, MOG-E/LAS & Provenance M365** | `matrice_tests_adversariaux.md (T11, E3 24 permutations, A12, Rego 16/16)`, `chaine_parite_html_pages.md (JSON canonique → HTML → Parité/JS → Pages)`, `patterns_moge_cuba_las.md (PA/PC/MP, MOG-E IDI/IIB/QIT/SGG_v2, Pipeline Cuba CB-1..6, LAS & AP-01..15)`, `provenance_m365_anonymisation.md (supela-provenance-m365/1 · 8 étapes · anonymize_local_inventory())` |
 
 ## 9. Registre Normalisé des Formules Supela & Fiches YAML
 
@@ -224,7 +235,7 @@ Voir le registre détaillé [REGISTRE_FORMULES_SUPELA.md](REGISTRE_FORMULES_SUPE
 | `MAT-00-ETAT-FOND` | **État fondamental Supela Sᵢ** | `MATH/00_FONDEMENTS/` | `Formule` | `SUPPORTÉ` | `ACTIF` | `S_i = ⟨P_i, E_i, C_i, K_i⟩` |
 | `MAT-00-MONOTONIE-K` | **Monotonie du registre Kₜ et Reset de C** | `MATH/00_FONDEMENTS/` | `Axiome` | `PROUVÉ` | `ACTIF` | `K_t ⊆ K_{t+1} ; C → ∅` |
 | `MAT-00-PI0` | **Opérateur de Projection Zéro Π₀ et Idempotence** | `MATH/00_FONDEMENTS/` | `Opérateur` | `PROUVÉ` | `ACTIF` | `Π₀(S_t) = {I, P, M, A, H} ; Π₀(Π₀(S_t)) = Π₀(S_t)` |
-| `MAT-00-ZERO-INT` | **Théorème du Zéro-Intégration (Manque ouvert M365)** | `MATH/00_FONDEMENTS/` | `Théorème` | `INCONNU` | `LATENT` | `Théorème du Zéro-Intégration [énoncé complet non extrait dans le périmètre]` |
+| `MAT-00-ZERO-INT` | **Théorème du Zéro-Intégration (TZI · Extraits Section 2.1 PDF & Partie IV v3.0)** | `MATH/00_FONDEMENTS/` | `Théorème` | `SUPPORTÉ` | `RÉOUVERT` | `I(C, Z_0) ; ΔS = S_n - Z_0 ; R(S_n) → Z_0 ; ∀C intégrable, ∃R(C) tel que R(C) → Z_0 ; ¬∃R(C) → Z_0 ⇒ C ∉ Corpus ; D(S_n, Z_0) = \|\|ΔS\|\| = \|\|S_n - Z_0\|\|` |
 | `MAT-01-TREILLIS` | **Treillis probatoire G₀ ≺ G₁ ≺ G₂ ≺ G₃ ≺ G₄** | `MATH/01_PREUVES/` | `Opérateur` | `SUPPORTÉ` | `ACTIF` | `G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4` |
 | `MAT-01-AUTORITE-BORNEE` | **Loi d'Autorité Bornée par la Preuve** | `MATH/01_PREUVES/` | `Axiome` | `PROUVÉ` | `ACTIF` | `Authority(G) ≤ Proof(G)` |
 | `MAT-01-RECURSIVITE-G` | **Récursivité de la garantie G(G) ≤ P et G ⇒ P(G)** | `MATH/01_PREUVES/` | `Invariant` | `INFÉRÉ` | `ACTIF` | `G(G) ≤ P ; G ⇒ P(G)` |
@@ -232,20 +243,31 @@ Voir le registre détaillé [REGISTRE_FORMULES_SUPELA.md](REGISTRE_FORMULES_SUPE
 | `MAT-02-ETATS-4D` | **Cycle temporel 4D : ACTIF → LATENT → RÉOUVERT → ACTIF** | `MATH/02_STATUTS_4D/` | `Règle` | `PROUVÉ` | `ACTIF` | `ACTIF → LATENT → RÉOUVERT → ACTIF ; explorable ≠ actif` |
 | `MAT-02-CONSERVATION-ECHEC` | **Conservation des échecs adversariaux (Cas T11)** | `MATH/02_STATUTS_4D/` | `Invariant` | `PROUVÉ` | `ACTIF` | `T11 : FAIL antérieur conservé même après PASS ultérieur` |
 | `MAT-02-MANQUE-M` | **Objet Manque M et Règles Déontologiques M1–M5** | `MATH/02_STATUTS_4D/` | `Opérateur` | `PROUVÉ` | `ACTIF` | `M(S_t, G) ⟺ Required(G) \ Available(S_t) ≠ ∅ ; M1..M5 (OPEN ∧ ¬FABRICATE)` |
-| `MAT-03-RESET-STAR` | **Famille RESET*, R* et VR-22 (Manque ouvert M365)** | `MATH/03_REVIDAGE_MIGRATION/` | `Opérateur` | `INCONNU` | `LATENT` | `RESET* ; R* ; VR-22 [spécifications détaillées non extraites]` |
+| `MAT-03-RESET-STAR` | **Moteur VR-22 (vr22.py), niveaux R0–R5, vitalité Ve et lignée RESET*** | `MATH/03_REVIDAGE_MIGRATION/` | `Opérateur` | `SUPPORTÉ` | `RÉOUVERT` | `vr22.py : P (invariants racines), E (lemmes), C (conjectures), K (mémoire cumulative) ; R0_NOMINAL..R5_ABSOLU ; Cible∈P⇒Refus, Cible∈E⇒R4, Cible∈C⇒R3, Cible∉(P∪E∪C)⇒Erreur, R5⇒Purge(E,C) ; \|K_{t+1}\| > \|K_t\| ; V_e = Valeur / Complexité ≥ 1.0` |
 | `MAT-03-REVIDAGE-LOAD` | **Saturation Load(C) et Revidage Transactionnel (E6 / C09)** | `MATH/03_REVIDAGE_MIGRATION/` | `Métrique` | `PROUVÉ` | `ACTIF` | `Load(C) = max(Bytes, Objects, Edges, Latency) ≥ 0.80 ; PREPARE → VERIFY → COMMIT → CLEAN` |
 | `MAT-04-HLP` | **Distinction Tridimensionnelle H ≠ L ≠ P** | `MATH/04_DIMENSIONS_H_L_P/` | `Distinction` | `SUPPORTÉ` | `ACTIF` | `H ≠ L ≠ P` |
 | `MAT-05-MERGE-STAR` | **Opérateur Merge* et Invariance d'Ordre (24 Permutations E3)** | `MATH/05_CONFLITS_FUSION/` | `Opérateur` | `PROUVÉ` | `ACTIF` | `Merge*(Δ_π(1)..Δ_π(n)) ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ}` |
 | `MAT-05-CONFLIT-C001` | **Conflit Interdisciplinaire Conservé C-001** | `MATH/05_CONFLITS_FUSION/` | `Contre-exemple` | `CONTRADICTOIRE` | `ACTIF` | `C-001 = {CONFLIT_INTERDISCIPLINAIRE, CONSERVÉ, NON_ACQUISE}` |
 | `MAT-06-AMELIORATION-AUTO` | **Séparation Amélioration ≠ Autorisation** | `MATH/06_RESPONSABILITE_TRANSFO/` | `Règle` | `PROUVÉ` | `ACTIF` | `amélioration ≠ autorisation ; ADMISSIBLE_A_REVUE_HUMAINE` |
-| `MAT-06-CHAINE-TRANSFO` | **Chaîne de Transformation H (Source brute undefined)** | `MATH/06_RESPONSABILITE_TRANSFO/` | `Formule` | `INCONNU` | `RÉOUVERT` | `undefined` |
+| `MAT-06-CHAINE-TRANSFO` | **Chaîne de Transformation H (Source brute undefined · PROMOTION_FORBIDDEN)** | `MATH/06_RESPONSABILITE_TRANSFO/` | `Formule` | `INCONNU` | `RÉOUVERT` | `undefined` |
 | `MAT-07-REWARD-NOT-TRUTH` | **Découplage Récompense IA vs Vérité (GRPO / L=0, ∇L≠0)** | `MATH/07_IA_GRPO/` | `Contre-exemple` | `PROUVÉ` | `ACTIF` | `Reward(x) → Candidate(x) → Preuves(x) → Status(x) ; Reward(x) ⇏ Vérité(x) ; L(θ_old)=0 ∧ ∇_θ L(θ_old)≠0` |
 | `MAT-08-TESTS-PARITE` | **Chaîne de Vérification, Règle A12, GDS/SCT & Parité HTML** | `MATH/08_TESTS/` | `Test` | `PROUVÉ` | `ACTIF` | `JSON canonique → HTML dérivé → contrôle de parité → validation syntaxique ; GDS = ⟨D, O, A, γ⟩ ; F_sign ≠ F_certif` |
+| `MAT-00-XERO-VIDE` | **Axiomatique Xero (𝕏 / Z₀) & Vide Intact (𝕍)** | `MATH/00_FONDEMENTS/` | `Axiome` | `SUPPORTÉ` | `ACTIF` | `𝕏 = Z₀ (orthogonalité temporelle t=0) ; 𝕍 ≠ Z₀ (Vide intact ontologique) ; D1.1–D1.5 ; A0–A4 ; Z₀ → Sₙ → R → Z₀ ; D(Sₙ, Z₀) < θ_critique` |
+| `MAT-01-PRINCIPES-P1-P12` | **Principes Directeurs P1–P12, Échelle N0–N4, Verdicts V1–V4 & IS-01..04** | `MATH/01_PREUVES/` | `Règle` | `SUPPORTÉ` | `ACTIF` | `P1..P12 (P6 Règle d'Or) ; Échelle N0..N4 ; Verdicts V1_VALIDÉ..V4_REJETÉ ; Invariants Structuraux IS-01..IS-04` |
+| `MAT-03-PRZ-V3` | **Protocole Rapporter au Zéro (PRZ v3.0.0) & Reset Gradué N1–N3** | `MATH/03_REVIDAGE_MIGRATION/` | `Opérateur` | `SUPPORTÉ` | `ACTIF` | `PRZ v3.0.0 : Détecter_Dérive → Isoler → Préserver_Traces → Recharger_Z₀ → Vérifier_Retour → Clôturer ; I_{Z₀}(O) ; Reset Niveau 1..3 ; RFC K3` |
+| `MAT-05-SCDH-TRICOUCHE` | **Architecture SCDH Tricouche (5 Noyaux, Axiomes IPC & Module Zéro)** | `MATH/05_CONFLITS_FUSION/` | `Invariant` | `SUPPORTÉ` | `ACTIF` | `SCDH(Fond Intact, Surface, Cible) ; I1..I4 (Fond inviolable) ; Noyaux={Main, Renderer, Shared, Extension, Pty} ; Axiomes IPC (1..3) ; BootConfig / ModuleZero` |
+| `MAT-08-PATTERNS-LAS` | **Patterns PA/PC/MP, Métriques MOG-E (SGG_v2), Pipeline Cuba & BNF LAS** | `MATH/08_TESTS/` | `Métrique` | `SUPPORTÉ` | `ACTIF` | `PA-01..10 / PC-01..05 / MP-01..03 ; IDI=σ/\|μ\| ; IIB=0.40D+0.35A+0.25I ; QIT=√(QIT_é²+QIT_a²) ; SGG=0.25A+0.30V+0.30É+0.15T+0.20M (∑=1.20) ; CB-1..6 ; BNF LAS ; AP-01..15` |
 
 ## 10. Registre des Contradictions & Conservation des Échecs (`T11`)
 
-- **JSON canonique contradictions :** [REGISTRE_CONTRADICTIONS.json](REGISTRE_CONTRADICTIONS.json) (`effacement_interdit: True`, `6` entrées conservées).
+- **JSON canonique contradictions :** [REGISTRE_CONTRADICTIONS.json](REGISTRE_CONTRADICTIONS.json) (`effacement_interdit: True`, `7` entrées conservées).
 - **Vue Markdown contradictions :** [REGISTRE_CONTRADICTIONS.md](REGISTRE_CONTRADICTIONS.md).
 - **Artefact HTML statique dérivé :** [ENCYCLOPEDIE_DICTIONNAIRE.html](ENCYCLOPEDIE_DICTIONNAIRE.html).
 
-> **Conclusion :** Le Dictionnaire et l'Encyclopédie répertorient de façon vérifiée les 15 dépôts GitHub, les discussions IA et artefacts Google Drive/Docs/Colab ainsi que la nomenclature complète Supela Ω-ZERO ; les disques locaux C:/D: et historiques directs Copilot/Gemini/Arc/Brave restent honnêtement marqués INACCESSIBLE_DANS_LE_PÉRIMÈTRE jusqu'à exécution du collecteur PowerShell local.
+## 11. Provenance M365, Anonymisation Locale & Réduction de Manque (`PR-M365-01`)
+
+- **JSON canonique provenance M365 :** [REGISTRE_PROVENANCE_M365.json](REGISTRE_PROVENANCE_M365.json) (`sources_m365_candidates: 16`, `candidats_m365_suivis: 5`, `effacement_interdit: True`).
+- **Vue Markdown provenance M365 :** [REGISTRE_PROVENANCE_M365.md](REGISTRE_PROVENANCE_M365.md).
+- **Politique disques locaux `C:\` / `D:\` :** `LOCAL_UNIQUEMENT_PAR_DEFAUT` (`collecté ≠ publiable`, filtre `anonymize_local_inventory()` requis avant toute PR publique).
+
+> **Conclusion :** Le Dictionnaire (62 termes) et l'Encyclopédie répertorient de façon vérifiée 15 dépôts GitHub, 54 discussions/artefacts Google Drive/Docs/Colab, 16 sources OneDrive/M365 suivies (PR-M365-01 / Corpus Unifié v3.0 intégral), 25 fiches YAML et 7 contradictions conservées ; les disques locaux C:/ et D:/ ainsi que les historiques directs Copilot/Gemini/Arc/Brave restent honnêtement marqués INACCESSIBLE_DANS_LE_PÉRIMÈTRE et sous politique LOCAL_UNIQUEMENT_PAR_DEFAUT jusqu'à exécution et anonymisation éventuelle.

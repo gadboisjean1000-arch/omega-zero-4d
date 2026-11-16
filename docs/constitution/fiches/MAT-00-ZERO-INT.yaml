@@ -1,43 +1,61 @@
 # Fiche Encyclopédique Supela Ω-ZERO · MAT-00-ZERO-INT
 # Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
 id: "MAT-00-ZERO-INT"
-nom: "Théorème du Zéro-Intégration (Manque ouvert M365)"
+nom: "Théorème du Zéro-Intégration (TZI · Extraits Section 2.1 PDF & Partie IV v3.0)"
 type: "Théorème"
-discipline: "Fondements formels — Corpus complémentaire non extrait"
-formulation_brute: "Théorème du Zéro-Intégration [énoncé complet non extrait dans le périmètre]"
-formulation_normalisee: "Entrée d'exploration répertoriant le Théorème du Zéro-Intégration cité dans l'historique Copilot sans hypothèse ni énoncé reconstruit."
-notation_mathématique: "\\text{Théorème du Zéro-Intégration} \\in \\text{Manque}(\\text{M365}) [\\text{INCONNU}]"
-auteur_source: "Jean-François Gadbois (mention historique M365)"
-contribution_ia: "Copilot M365 a signalé le titre ; Antigravity applique M3 (non-invention)"
-origine: "Fils Copilot M365 https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2 et https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+discipline: "Fondements formels — Cycle, Excitation ΔS et Retour à Z₀"
+formulation_brute: "I(C, Z_0) ; ΔS = S_n - Z_0 ; R(S_n) → Z_0 ; ∀C intégrable, ∃R(C) tel que R(C) → Z_0 ; ¬∃R(C) → Z_0 ⇒ C ∉ Corpus ; D(S_n, Z_0) = ||ΔS|| = ||S_n - Z_0||"
+formulation_normalisee: "7 primitives extraites (Fond, Surface, Excitation ΔS, Intégration I, Cycle C, Reset R, Zéro Z₀) et 6 écritures exactes (Section 2.1 Énoncé officiel PDF + Partie IV Corpus Unifié v3.0) imposant le retour de tout cycle intégrable vers Z₀ et intégrant la filiation Théorème du Reset fusionné au Théorème du Vide → TZI. Clause sémiotique : notation explicitement déclarée semi-formelle par la source (formalisation LPO / Théorie des Catégories différée)."
+notation_mathématique: "I(C, Z_0),\\; \\Delta S = S_n - Z_0,\\; R(S_n) \\to Z_0,\\; \\neg\\exists R(C) \\to Z_0 \\implies C \\notin \\text{Corpus},\\; D(S_n, Z_0) = \\|\\Delta S\\| = \\|S_n - Z_0\\|"
+auteur_source: "Jean-François Gadbois (Jef)"
+contribution_ia: "Extraction M365 PR-M365-01 & mise sous clause semi-formelle (SOURCE_IDENTIFIED ⇏ PROUVÉ)"
+origine: "Théorème du Zéro-Intégration — Pierre Conceptuelle du Corpus Supela.pdf (M365, Section 2.1 Énoncé officiel) & Livre Supela — Corpus Unifié v3.0.docx (Partie IV)"
 date_source: "2026-11-16"
-statut_epistemique: "INCONNU"
-portee: "Périmètre d'exploration M365 / disques locaux Windows C:/D:"
+statut_epistemique: "SUPPORTÉ"
+portee: "Fondements ontologiques et critère d'intégration des cycles C ∈ Corpus (TZI ↔ Reset → Vide)"
 conditions:
-  - "Réouverture conditionnée à l'ouverture directe du fil/fichier source M365"
+  - "7 primitives : Fond, Surface, Excitation (ΔS), Intégration (I), Cycle (C), Reset (R), Zéro (Z_0)"
+  - "Clause sémiotique source : notation semi-formelle en attente de formalisation LPO ou Théorie des Catégories"
+  - "Divergence Z₀ / Cycle avec Corpus Unifié v3.0 conservée sans écrasement dans CONTR-Z0-TENSION"
 dependances:
   - "MAT-02-MANQUE-M"
-implique: "Trace explicite que le corpus théorique complet dépasse les extraits actuellement lus."
-n_implique_pas: "N'autorise aucune reconstruction conjecturale de ses hypothèses ou de sa preuve."
-preuves: []
+  - "MAT-00-XERO-VIDE"
+implique: "Réduit fortement le manque M3 initial (MANQUE ↓) en ancrant TZI, ses 7 primitives, ses 6 écritures exactes et sa généalogie Reset+Vide sur des sources primaires attribuées."
+n_implique_pas: "NE vaut PAS formalisation achevée en LPO ni en Théorie des Catégories (explicitement différée par la source elle-même) et ne suffit pas à promouvoir le statut à PROUVÉ."
+preuves:
+  - "M365-SRC-04 : Section 2.1 (Énoncé officiel) PDF Pierre Conceptuelle (3d411db4...)"
+  - "M365-SRC-09 : Livre Supela — Corpus Unifié v3.0.docx Partie IV (4 arguments, C1–C5, T2–T5, P1–P8)"
 tests:
   - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+  - "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions"
 resultats:
-  - "Statut INCONNU / État 4D LATENT conservé sous règle M3"
-contre_exemples: []
+  - "MANQUE ↓ (PR_ACCEPTED_PARTIAL) : transition monotone INCONNU/LATENT → SUPPORTÉ/RÉOUVERT"
+  - "Plafond épistémique respecté sous clause semi-formelle"
+contre_exemples:
+  - "Cycle sans opérateur de retour R(C) → Z_0 exclu du Corpus (C ∉ Corpus)"
+  - "Branche B (Corpus v3.0) avec cycle_def non uniformément résolu (CONTR-Z0-TENSION)"
 contradictions:
   - "CONTR-ZERO-INT-MANQUANT"
+  - "CONTR-Z0-TENSION"
 implementations: []
 artefacts:
+  - "docs/constitution/REGISTRE_PROVENANCE_M365.json"
   - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
-etat_4d: "LATENT"
+  - "docs/constitution/fiches/MAT-00-ZERO-INT.yaml"
+etat_4d: "RÉOUVERT"
 historique_statuts:
   - date: "2026-11-16"
     statut: "INCONNU"
     etat_4d: "LATENT"
     motif: "Recherche M365 fichiers vide"
-conditions_reouverture: "Extraction textuelle du théorème depuis M365 Copilot ou C:/D: via collect_local_encyclopedie.ps1."
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "RÉOUVERT"
+    motif: "MANQUE ↓ (PR-M365-01) : 7 primitives et 6 écritures extraites de Section 2.1 du PDF TZI et Partie IV du Corpus Unifié v3.0 ; plafonné SUPPORTÉ sous clause semi-formelle (LPO/Catégories explicitement différées)"
+conditions_reouverture: "Formalisation explicite en LPO ou Théorie des Catégories annoncée par le PDF, résolution sans perte de CONTR-Z0-TENSION, et contrôle SHA-256 binaire de la copie M365-SRC-07."
 sources:
+  - "OneDrive M365 PDF TZI: https://onedrive.live.com/?id=3d411db4-56fc-4d4f-aa62-3a69da2899a3&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=97423cb3-1a76-47cd-ac37-23b31da3f698"
+  - "OneDrive M365 Corpus Unifié v3.0: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
   - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2"
   - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
-notes: "La recherche M365 fichiers n'ayant rien retourné, aucune hypothèse non sourcée n'est fabriquée."
+notes: "Monotonie K_t ⊆ K_{t+1} respectée : l'état initial INCONNU/LATENT reste conservé dans historique_statuts ; notation déclarée semi-formelle sans promotion indue en LPO."

@@ -1,44 +1,62 @@
 # Fiche Encyclopédique Supela Ω-ZERO · MAT-03-RESET-STAR
 # Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
 id: "MAT-03-RESET-STAR"
-nom: "Famille RESET*, R* et VR-22 (Manque ouvert M365)"
+nom: "Moteur VR-22 (vr22.py), niveaux R0–R5, vitalité Ve et lignée RESET*"
 type: "Opérateur"
-discipline: "Revidage & Protocoles complémentaires non extraits"
-formulation_brute: "RESET* ; R* ; VR-22 [spécifications détaillées non extraites]"
-formulation_normalisee: "Marqueurs méthodologiques identifiés dans l'historique Copilot M365 sans contenu intégral récupéré ; maintenus LATENT / INCONNU."
-notation_mathématique: "\\{\\text{RESET}^*,\\; R^*,\\; \\text{VR-22}\\} \\subseteq \\text{Périmètre non extrait} [\\text{INCONNU}]"
-auteur_source: "Jean-François Gadbois (corpus M365)"
-contribution_ia: "Préservation de l'espace exploratoire sans invention (Antigravity)"
-origine: "Fils Copilot M365 https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2 et https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+discipline: "Revidage, Rétraction Contrôlée & Règles de Retour au Zéro"
+formulation_brute: "vr22.py : P (invariants racines), E (lemmes), C (conjectures), K (mémoire cumulative) ; R0_NOMINAL..R5_ABSOLU ; Cible∈P⇒Refus, Cible∈E⇒R4, Cible∈C⇒R3, Cible∉(P∪E∪C)⇒Erreur, R5⇒Purge(E,C) ; |K_{t+1}| > |K_t| ; V_e = Valeur / Complexité ≥ 1.0"
+formulation_normalisee: "Spécification extraite du moteur VR-22 (vr22.py, Texte collé (3).txt) structurant l'espace ⟨P, E, C, K⟩ sur 6 niveaux (R0_NOMINAL, R1_PARAMETRIQUE, R2_EPHEMERE, R3_LOCAL, R4_STRUCTUREL, R5_ABSOLU), 5 règles de rétraction et les invariants de monotonie |K_{t+1}| > |K_t| et de vitalité V_e = Valeur / Complexité ≥ 1.0. Statut d'exécution : RAPPORTÉ (code et tests décrits dans M365 mais non exécutés localement ; CODE_RECOVERED ⇏ CODE_EXECUTED)."
+notation_mathématique: "\\operatorname{VR22}(\\langle P, E, C, K \\rangle),\\; R_0 \\prec \\dots \\prec R_5,\\; |K_{t+1}| > |K_t|,\\; V_e = \\frac{\\text{Valeur}}{\\text{Complexité}} \\ge 1.0"
+auteur_source: "Jean-François Gadbois"
+contribution_ia: "Extraction M365 PR-M365-01 ; séparation stricte CODE_RECOVERED ⇏ CODE_EXECUTED"
+origine: "Texte collé (3).txt (M365, vr22.py & suite de tests rapportée) + Théorème du Zéro-Intégration PDF (Reset fusionné au Vide)"
 date_source: "2026-11-16"
-statut_epistemique: "INCONNU"
-portee: "Articulation future avec E6 / C09 (PREPARE→VERIFY→COMMIT→CLEAN) et C → ∅"
+statut_epistemique: "SUPPORTÉ"
+portee: "Rétraction contrôlée sans effacement de K et articulation avec E6 / C09 & PRZ v3.0.0"
 conditions:
-  - "Accès direct aux fils complets ou documents Drive/C:/D: définissant RESET*, R* et VR-22"
+  - "Partition stricte P (protégé/refus), E (lemmes/R4), C (conjectures/R3), K (mémoire monotone)"
+  - "R5_ABSOLU purge E et C en conservant strictement |K_{t+1}| > |K_t|"
+  - "Statut preuve_test_niveau = RAPPORTÉ : aucune exécution vérifiée sur le banc local"
 dependances:
   - "MAT-03-REVIDAGE-LOAD"
   - "MAT-00-MONOTONIE-K"
-implique: "Ouverture explicite d'une piste à ne pas oublier lors de l'exploration du corpus Supela."
-n_implique_pas: "Ne doit pas être confondu avec VR-24 (Canon de Continuité, lui documenté) ni avec Load(C)."
-preuves: []
+  - "MAT-03-PRZ-V3"
+implique: "Réduit fortement le manque initial (MANQUE ↓) sur VR-22 en documentant l'architecture ⟨P, E, C, K⟩, R0_NOMINAL..R5_ABSOLU et V_e = Valeur / Complexité ≥ 1.0 sans confusion avec VR-24."
+n_implique_pas: "NE vaut PAS exécution locale réussie ni preuve formelle achevée (CODE_RECOVERED ⇏ CODE_EXECUTED ; toute promotion PROUVÉ est bloquée à ce stade)."
+preuves:
+  - "M365-SRC-15 : Texte collé (3).txt contenant vr22.py et suite de tests R3/R4/R5 [preuve_test_niveau: RAPPORTÉ]"
+  - "M365-SRC-04 : Filiation Reset fusionné au Vide → TZI dans PDF Pierre Conceptuelle"
 tests:
   - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+  - "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions"
 resultats:
-  - "Fiche placée en état LATENT et statut INCONNU"
-contre_exemples: []
+  - "MANQUE ↓ (PR_ACCEPTED_PARTIAL) : transition monotone INCONNU/LATENT → SUPPORTÉ/RÉOUVERT"
+  - "Statut preuve/test conservé à RAPPORTÉ sans revendication d'exécution locale"
+contre_exemples:
+  - "Tentative de rétraction sur Cible ∈ P refusée"
+  - "Cible ∉ (P ∪ E ∪ C) levée en Erreur ; divergence d'échelles vs PRZ N1–N3 tracée dans CONTR-Z0-TENSION"
 contradictions:
   - "CONTR-ZERO-INT-MANQUANT"
+  - "CONTR-Z0-TENSION"
 implementations: []
 artefacts:
+  - "docs/constitution/REGISTRE_PROVENANCE_M365.json"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
   - "docs/constitution/fiches/MAT-03-RESET-STAR.yaml"
-etat_4d: "LATENT"
+etat_4d: "RÉOUVERT"
 historique_statuts:
   - date: "2026-11-16"
     statut: "INCONNU"
     etat_4d: "LATENT"
     motif: "Mentionné sans corps récupéré"
-conditions_reouverture: "Extraction textuelle directe de RESET*, R* et VR-22 dans un artefact vérifiable."
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "RÉOUVERT"
+    motif: "MANQUE ↓ (PR-M365-01) : spécification vr22.py (P/E/C/K, R0_NOMINAL..R5_ABSOLU, 5 transitions, |K_{t+1}|>|K_t|, V_e = Valeur / Complexité ≥ 1.0) extraite de Texte collé (3).txt sous statut d'exécution RAPPORTÉ (non exécuté localement)"
+conditions_reouverture: "Exécution indépendante de vr22.py sur le banc pytest local de omega-zero-4d et cartographie complète R0..R5 ↔ PRZ Niveau 1..3."
 sources:
+  - "OneDrive M365 Texte collé (3).txt: https://onedrive.live.com/?id=3f105653-da39-4a1a-ac40-25b8e4d1667a&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=4786da25-fd0a-4d12-a358-d897230d22ed"
+  - "OneDrive M365 PDF TZI: https://onedrive.live.com/?id=3d411db4-56fc-4d4f-aa62-3a69da2899a3&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=97423cb3-1a76-47cd-ac37-23b31da3f698"
   - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:Fcb7BblUm4nPjxP9J6HFPXK9wrCl7kZwQe354E_-Irk1@thread.v2"
   - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
-notes: "Ne pas inventer la sémantique de VR-22 par simple analogie avec VR-24."
+notes: "Monotonie K_t ⊆ K_{t+1} respectée : l'état initial INCONNU/LATENT reste conservé dans historique_statuts ; preuve_test_niveau = RAPPORTÉ exclusivement (CODE_RECOVERED ⇏ CODE_EXECUTED)."

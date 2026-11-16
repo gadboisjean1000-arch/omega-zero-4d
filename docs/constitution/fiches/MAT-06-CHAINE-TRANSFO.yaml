@@ -1,45 +1,57 @@
 # Fiche Encyclopédique Supela Ω-ZERO · MAT-06-CHAINE-TRANSFO
 # Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
 id: "MAT-06-CHAINE-TRANSFO"
-nom: "Chaîne de Transformation H (Source brute undefined)"
+nom: "Chaîne de Transformation H (Source brute undefined · PROMOTION_FORBIDDEN)"
 type: "Formule"
 discipline: "Transformation & Responsabilité (Section H)"
 formulation_brute: "undefined"
-formulation_normalisee: "Proposition dérivée non sourcée : Demande → Interprétation → Transformation → Résultat (formule brute absente : undefined)"
+formulation_normalisee: "Proposition dérivée non sourcée : Demande → Interprétation → Transformation → Résultat (formule brute absente : undefined ; exact_source_status: NOT_ESTABLISHED ; PROMOTION_FORBIDDEN)"
 notation_mathématique: "\\text{Brut} = \\text{undefined} \\;\\mid\\; \\text{Proposition normalisée} : \\text{Demande} \\to \\text{Interprétation} \\to \\text{Transformation} \\to \\text{Résultat}"
 auteur_source: "Inconnu dans l'extrait source (chaîne brute retournée 'undefined')"
 contribution_ia: "Copilot/Antigravity proposent une normalisation explicite sans l'attribuer à l'archive"
-origine: "Extrait Copilot M365 Section H (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) retournant littéralement 'undefined'"
+origine: "Extrait Copilot M365 Section H (https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2) + consultations M365 Corpus Unifié v3.0 & Hi Ace LOL.docx sans triplet H/L/P"
 date_source: "2026-11-16"
 statut_epistemique: "INCONNU"
 portee: "Traçabilité de la responsabilité entre demande, interprétation et résultat"
 conditions:
-  - "Ne jamais masquer le caractère undefined de l'expression d'origine"
+  - "exact_H_definition : NON RETROUVÉ"
+  - "exact_L_definition : NON RETROUVÉ"
+  - "exact_P_definition : NON RETROUVÉ"
+  - "exact_chain_source : NON ÉTABLIE"
+  - "PROMOTION_FORBIDDEN : ne jamais masquer le caractère undefined de l'expression d'origine"
 dependances:
   - "MAT-04-HLP"
   - "MAT-02-MANQUE-M"
-implique: "Exemple exemplaire d'honnêteté M3 : la proposition normalisée est clairement séparée du texte brut manquant."
-n_implique_pas: "La chaîne proposée N'EST PAS certifiée comme étant la formule exacte originelle."
+implique: "Exemple exemplaire d'honnêteté M3 : le manque reste ouvert (MANQUE MAINTENU OUVERT) malgré la lecture de Corpus Unifié v3.0 et Hi Ace LOL.docx."
+n_implique_pas: "La chaîne proposée N'EST PAS certifiée comme étant la formule exacte originelle (PROMOTION_FORBIDDEN)."
 preuves: []
 tests:
   - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+  - "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions"
 resultats:
-  - "Conservée en état RÉOUVERT et statut INCONNU jusqu'à vérification du fil originel"
+  - "Conservée strictement en état RÉOUVERT et statut INCONNU (PROMOTION_FORBIDDEN)"
 contre_exemples:
-  - "Effacer 'undefined' et prétendre que la chaîne normalisée vient d'un document source"
+  - "Effacer 'undefined' et prétendre que la chaîne normalisée vient de Corpus Unifié v3.0 ou Hi Ace LOL.docx"
 contradictions:
   - "CONTR-TRANSFO-UNDEF"
 implementations: []
 artefacts:
   - "docs/constitution/fiches/MAT-06-CHAINE-TRANSFO.yaml"
   - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+  - "docs/constitution/REGISTRE_PROVENANCE_M365.json"
 etat_4d: "RÉOUVERT"
 historique_statuts:
   - date: "2026-11-16"
     statut: "INCONNU"
     etat_4d: "RÉOUVERT"
     motif: "Extraction brute retournée comme 'undefined'"
-conditions_reouverture: "Relecture complète de la conversation originale 19:b__mSUKb... ou des archives locales pour rétablir la formulation brute."
+  - date: "2026-11-16"
+    statut: "INCONNU"
+    etat_4d: "RÉOUVERT"
+    motif: "PR-M365-01 : Corpus Unifié v3.0 et Hi Ace LOL.docx consultés — énoncés généraux présents mais exact_H_definition, exact_L_definition, exact_P_definition et exact_chain_source non retrouvés (PROMOTION_FORBIDDEN)"
+conditions_reouverture: "Relecture complète de la conversation originale 19:b__mSUKb... ou d'un fichier M365 contenant explicitement H/L/P et exact_chain_source."
 sources:
   - "Copilot M365: https://m365.cloud.microsoft/chat/conversation/19:b__mSUKbgyV6KrsLScOwey2Ti8-Fa0EFmEGYVZlbgrM1@thread.v2"
-notes: "Conformité stricte M3 & H ≠ L ≠ P : on garde 'undefined' intact en formulation_brute et on qualifie la normalisation de proposition non sourcée."
+  - "OneDrive Hi Ace LOL.docx: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=e8728a71-b867-4ffe-a1ae-c33ec590a267&cid=172bcdc878ead1c9&EntityRepresentationId=d6aec6f6-c200-451a-ba84-4a13545b77da"
+  - "OneDrive Corpus Unifié v3.0: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
+notes: "Conformité stricte M3 & H ≠ L ≠ P : formulation_brute='undefined' intact, PROMOTION_FORBIDDEN explicite."

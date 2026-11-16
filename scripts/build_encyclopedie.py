@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -18,6 +19,7 @@ from html import escape as html_escape
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from jsonschema import Draft202012Validator
 
@@ -29,6 +31,9 @@ DEFAULT_HTML_OUT = ROOT_DIR / "docs" / "constitution" / "ENCYCLOPEDIE_DICTIONNAI
 DEFAULT_FORMULAS_MD_OUT = ROOT_DIR / "docs" / "constitution" / "REGISTRE_FORMULES_SUPELA.md"
 DEFAULT_CONTRADICTIONS_JSON = ROOT_DIR / "docs" / "constitution" / "REGISTRE_CONTRADICTIONS.json"
 DEFAULT_CONTRADICTIONS_MD = ROOT_DIR / "docs" / "constitution" / "REGISTRE_CONTRADICTIONS.md"
+DEFAULT_PROVENANCE_SCHEMA = ROOT_DIR / "schemas" / "supela_provenance_m365_1.schema.json"
+DEFAULT_PROVENANCE_JSON = ROOT_DIR / "docs" / "constitution" / "REGISTRE_PROVENANCE_M365.json"
+DEFAULT_PROVENANCE_MD = ROOT_DIR / "docs" / "constitution" / "REGISTRE_PROVENANCE_M365.md"
 DEFAULT_FICHES_DIR = ROOT_DIR / "docs" / "constitution" / "fiches"
 
 
@@ -782,6 +787,87 @@ def build_dictionary_entries() -> list[dict[str, Any]]:
             ["GoogleDoc:1SJRQt_ebmOw7lvUkNnHzPFbOKtDzdayrieyh2JlLx1A"],
             "DOCUMENTE_NORMATIF",
         ),
+        # --- CORPUS UNIFIE V3.0, TZI, VR-22 & PROVENANCE M365 ---
+        (
+            "Xero (𝕏 / Z₀) et le Vide Intact (𝕍)",
+            "PROJECTION_PI0",
+            "𝕏 = Z₀ ; 𝕍 ≠ Z₀ ; Z₀ → Sₙ → R → Z₀",
+            "Axiomatique fondamentale du Corpus Unifié v3.0 : Xero (Z₀) est l'état d'initialisation et de retour cyclique (orthogonalité temporelle t=0), distinct du Vide ontologique intact (𝕍) dont toute excitation dérive.",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 §3.1–3.3)", "OneDrive:M365-SRC-04 (PDF TZI)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Théorème du Zéro-Intégration (TZI · Extraits Primaires)",
+            "PROJECTION_PI0",
+            "I(C,Z₀) ; ΔS=Sₙ-Z₀ ; R(Sₙ)→Z₀ ; ¬∃R(C)→Z₀ ⇒ C∉Corpus ; D(Sₙ,Z₀)=||Sₙ-Z₀||",
+            "Axiome fondateur exigeant que tout cycle intégrable C démarre en Z₀ et retourne à Z₀. Notations explicitement déclarées semi-formelles dans le PDF source en attente de formalisation 1er ordre ou catégories.",
+            ["OneDrive:M365-SRC-04 (PDF TZI Section 2.1)", "OneDrive:M365-SRC-09 (Partie IV §4.1–4.5)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Moteur VR-22 (vr22.py) & Niveaux R0–R5",
+            "ESCALADE_4D",
+            "vr22.py : ⟨P, E, C, K⟩ ; R0..R5 ; Ve ≥ 1.0 ; |K_{t+1}| > |K_t|",
+            "Spécification extraite protégeant les invariants racines (P→refus), rétractant les lemmes (E→R4) et conjectures (C→R3), effaçant E/C au niveau R5 tout en préservant |K_{t+1}| > |K_t|. Code récupéré non encore exécuté (CODE_RECOVERED ⇏ CODE_EXECUTED).",
+            ["OneDrive:M365-SRC-15 (Texte collé (3).txt)", "OneDrive:M365-SRC-04 (PDF TZI)"],
+            "CANDIDAT_OUVERT",
+        ),
+        (
+            "Architecture SCDH Tricouche & Module Zéro",
+            "GDS_ET_SCT",
+            "SCDH(Fond Intact, Surface, Cible) · 5 noyaux · 3 axiomes IPC",
+            "Architecture logicielle v3.0 séparant Fond intact inviolable, Surface réactive et Cible adaptative autour de 5 noyaux (Main, Renderer, Shared, Extension, Pty), interfaces BootConfig/ModuleZero TypeScript et invariants I1–I4.",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 Partie V)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Protocole Rapporter au Zéro (PRZ v3.0.0) & Reset N1–N3",
+            "ESCALADE_4D",
+            "PRZ v3.0.0 (6 phases) ; I_{Z₀}(O) ; Reset N1..N3 ; RFC K3",
+            "Protocole canonique de retour au zéro en 6 phases (Détecter_Dérive → Isoler → Préserver_Traces → Recharger_Z₀ → Vérifier_Retour → Clôturer) complété par la graduation Reset Niveau 1–3 et la RFC K3.",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 §8.4–8.5)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Méta-Évaluation MOG-E (IDI, IIB, QIT, SGG_v2)",
+            "IA_ET_GRPO",
+            "IDI=σ/|μ| ; IIB=0.40D+0.35A+0.25I ; QIT=√(QIT_é²+QIT_a²) ; SGG_v2 (∑poids=1.20)",
+            "Système métrique multi-niveaux du Corpus v3.0 mesurant dérive relative (IDI), intégrité (IIB), qualité d'itération (QIT) et score global SGG_v2 (dont la somme brute des poids vaut 1.20, conservée telle quelle dans CONTR-Z0-TENSION).",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 §10.2 & Annexes)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Pipeline Cuba (CB-1..6) & Langage LAS (BNF / AP-01..15)",
+            "GOUVERNANCE_ET_NORMES",
+            "CB-1..CB-6 ; BNF LAS ; PA-01..10 / PC-01..05 / MP-01..03 ; AP-01..15",
+            "Chaîne d'exécution déterministe en 6 étapes (Pipeline Cuba), catalogue de patterns v3.0, grammaire BNF du langage de spécification LAS et 15 anti-patterns normatifs dont AP-15 (unicité de Z₀).",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 Parties VII, VIII & X)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Principes Directeurs P1–P12, Échelle N0–N4 & Verdicts V1–V4",
+            "GOUVERNANCE_ET_NORMES",
+            "P1..P12 (P6 Règle d'Or) ; N0..N4 ; V1..V4 ; IS-01..04",
+            "Corpus axiologique complet gouvernant primauté du zéro, invariance structurale (IS), réversibilité contrôlée, échelle probatoire N0–N4 et verdicts V1–V4.",
+            ["OneDrive:M365-SRC-09 (Corpus Unifié v3.0 Partie VI & Annexe D)"],
+            "DOCUMENTE_NORMATIF",
+        ),
+        (
+            "Polygone Supela & Polygramme Supela (Candidat M365)",
+            "GDS_ET_SCT",
+            "Polygone Supela / Polygramme Supela [INCONNU · M365-SRC-10]",
+            "Notions identifiées dans les métadonnées OneDrive (Corpus Doctrinal Supela · Géométrie Conversation.txt) dont le corps complet n'est pas encore extrait (SOURCE_IDENTIFIED ⇏ PROUVÉ).",
+            ["OneDrive:M365-SRC-10 (797c3699-fffc-4561-b88e-b75263cd50ac)"],
+            "CANDIDAT_OUVERT",
+        ),
+        (
+            "Chaîne de Provenance M365 & Politique Collecté ≠ Publiable",
+            "MANQUE_ET_STATUTS",
+            "supela-provenance-m365/1 ; LOCAL_UNIQUEMENT_PAR_DEFAUT ; anonymize_local_inventory()",
+            "Pipeline en 8 étapes et contrat Draft 2020-12 empêchant toute auto-promotion (SOURCE_IDENTIFIED ⇏ PROUVÉ, CODE_RECOVERED ⇏ CODE_EXECUTED) et filtrant les chemins privés C:/D:/AppData avant toute PR publique.",
+            ["schemas/supela_provenance_m365_1.schema.json", "docs/constitution/REGISTRE_PROVENANCE_M365.json"],
+            "VERIFIE_EXECUTEE",
+        ),
     ]
 
     return [
@@ -836,22 +922,24 @@ def build_math_taxonomy() -> list[dict[str, Any]]:
     return [
         {
             "famille": "MATH/00_FONDEMENTS/",
-            "titre": "État fondamental Sᵢ, monotonie Kₜ ⊆ Kₜ₊₁, projection Π₀ & Zéro-Intégration",
+            "titre": "État fondamental Sᵢ, Xero/Vide (𝕏, 𝕍), monotonie Kₜ ⊆ Kₜ₊₁, Π₀ & TZI",
             "sous_modules": [
                 "etat_fondamental.md (S_i = ⟨P_i, E_i, C_i, K_i⟩)",
                 "monotonie_et_reset.md (K_t ⊆ K_{t+1}, C → ∅)",
                 "projection_pi0.md (Π₀(S_t) = {I, P, M, A, H})",
-                "zero_integration_ouverture.md (Théorème du Zéro-Intégration · INCONNU/LATENT)",
+                "zero_integration_tzi.md (TZI PDF §2.1 · 6 écritures semi-formelles · SUPPORTÉ/RÉOUVERT)",
+                "xero_vide_dualite.md (Xero 𝕏/Z₀ ≠ Vide 𝕍, D1.1–D1.5, A0–A4 · Corpus v3.0)",
             ],
         },
         {
             "famille": "MATH/01_PREUVES/",
-            "titre": "Treillis probatoire G₀..G₄, autorité bornée, récursivité & réflexivité",
+            "titre": "Treillis G₀..G₄, autorité bornée, récursivité, réflexivité & Principes P1–P12",
             "sous_modules": [
                 "treillis_probatoire_g0_g4.md (G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4)",
                 "autorite_bornee.md (Authority(G) ≤ Proof(G))",
                 "recursivite_garantie.md (G(G) ≤ P et G ⇒ P(G))",
                 "reflexivite_probatoire.md (Formule hypothétique ∀R ...)",
+                "principes_p1_p12_is_ap.md (Principes P1–P12, échelle N0–N4, verdicts V1–V4, IS-01..04)",
             ],
         },
         {
@@ -865,10 +953,11 @@ def build_math_taxonomy() -> list[dict[str, Any]]:
         },
         {
             "famille": "MATH/03_REVIDAGE_MIGRATION/",
-            "titre": "Saturation Load(C), revidage E6/C09, RESET*, R* & VR-22",
+            "titre": "Saturation Load(C), E6/C09, VR-22 (vr22.py R0–R5) & PRZ v3.0.0",
             "sous_modules": [
                 "saturation_et_revidage.md (Load(C) ≥ 0.80, PREPARE → VERIFY → COMMIT → CLEAN)",
-                "reset_star_et_vr22.md (RESET*, R*, VR-22 · INCONNU/LATENT)",
+                "reset_star_et_vr22.md (vr22.py P/E/C/K, R0..R5, V_e≥1.0 · SUPPORTÉ/RAPPORTÉ, non exécuté localement)",
+                "prz_v3_et_reset_n1_n3.md (Protocole Rapporter au Zéro PRZ v3.0.0 · 6 phases · Reset N1..N3)",
             ],
         },
         {
@@ -880,10 +969,12 @@ def build_math_taxonomy() -> list[dict[str, Any]]:
         },
         {
             "famille": "MATH/05_CONFLITS_FUSION/",
-            "titre": "Opérateur Merge*, invariance d'ordre E3 & conflits 4D conservés",
+            "titre": "Merge*, invariance E3, conflits 4D (C-001 / Z₀) & SCDH Tricouche",
             "sous_modules": [
                 "merge_star_invariance.md (Merge* ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ})",
                 "conflit_interdisciplinaire_c001.md (Conflict4D C-001 CONSERVÉ / NON_ACQUISE)",
+                "scdh_tricouche_module_zero.md (Fond/Surface/Cible, I1–I4, 5 noyaux, 3 axiomes IPC, Module Zéro)",
+                "tension_z0_multi_sources.md (CONTR-Z0-TENSION · Branche A TZI vs Branche B v3.0 · CONSERVEE_OUVERTE)",
             ],
         },
         {
@@ -891,7 +982,7 @@ def build_math_taxonomy() -> list[dict[str, Any]]:
             "titre": "Séparation amélioration ≠ autorisation & chaîne de transformation H",
             "sous_modules": [
                 "amelioration_vs_autorisation.md (amélioration ≠ autorisation, C10)",
-                "chaine_transformation_h.md (brute = undefined · normalisation proposée)",
+                "chaine_transformation_h.md (brute = undefined · Hi Ace LOL.docx & v3.0 sans triplet H/L/P · PROMOTION_FORBIDDEN)",
             ],
         },
         {
@@ -904,10 +995,12 @@ def build_math_taxonomy() -> list[dict[str, Any]]:
         },
         {
             "famille": "MATH/08_TESTS/",
-            "titre": "Vérification exécutable T11, A12, OPA Rego v1, Ed25519, WORM & parité HTML",
+            "titre": "T11, A12, OPA Rego v1, Parité HTML, MOG-E/LAS & Provenance M365",
             "sous_modules": [
                 "matrice_tests_adversariaux.md (T11, E3 24 permutations, A12, Rego 16/16)",
                 "chaine_parite_html_pages.md (JSON canonique → HTML → Parité/JS → Pages)",
+                "patterns_moge_cuba_las.md (PA/PC/MP, MOG-E IDI/IIB/QIT/SGG_v2, Pipeline Cuba CB-1..6, LAS & AP-01..15)",
+                "provenance_m365_anonymisation.md (supela-provenance-m365/1 · 8 étapes · anonymize_local_inventory())",
             ],
         },
     ]
@@ -918,26 +1011,26 @@ def build_architecture_xiii() -> list[dict[str, Any]]:
     return [
         {
             "roman": "I",
-            "titre": "Fondements formels (Sᵢ, Π₀, Kₜ, Zéro-Intégration)",
-            "description": "État fondamental S_i = ⟨P_i, E_i, C_i, K_i⟩, monotonie K_t ⊆ K_{t+1}, reset C → ∅, idempotence Π₀ et manque ouvert sur Zéro-Intégration.",
+            "titre": "Fondements formels (Sᵢ, Π₀, Kₜ, Xero/Vide & TZI)",
+            "description": "État fondamental S_i = ⟨P_i, E_i, C_i, K_i⟩, monotonie K_t ⊆ K_{t+1}, idempotence Π₀, axiomatique Xero (𝕏/Z₀) + Vide (𝕍) et Théorème du Zéro-Intégration (7 primitives, 6 écritures PDF §2.1 semi-formelles, SUPPORTÉ/RÉOUVERT).",
             "statut_couverture": "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
         },
         {
             "roman": "II",
-            "titre": "Treillis probatoire & bornage d'autorité",
-            "description": "Treillis G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4, loi Authority(G) ≤ Proof(G), récursivité G(G) ≤ P / G ⇒ P(G) et réflexivité hypothétique.",
+            "titre": "Treillis probatoire, bornage d'autorité & Principes P1–P12",
+            "description": "Treillis G_0 ≺ G_1 ≺ G_2 ≺ G_3 ≺ G_4, loi Authority(G) ≤ Proof(G), récursivité G(G) ≤ P / G ⇒ P(G), réflexivité hypothétique et Corpus v3.0 (P1–P12, N0–N4, V1–V4, IS-01..04).",
             "statut_couverture": "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
         },
         {
             "roman": "III",
-            "titre": "États 4D, Manque M & cycle de vie",
-            "description": "7 statuts du Manque, transitions ACTIF → LATENT → RÉOUVERT → ACTIF, séparation explorable ≠ actif et règles M1–M5.",
+            "titre": "États 4D, Manque M, cycle de vie & Provenance M365",
+            "description": "7 statuts du Manque, transitions ACTIF → LATENT → RÉOUVERT → ACTIF, règles M1–M5 et chaîne de provenance M365 en 8 étapes verrouillée contre toute auto-promotion.",
             "statut_couverture": "ACCESSIBLE_VERIFIE",
         },
         {
             "roman": "IV",
-            "titre": "Revidage transactionnel, saturation & RESET*",
-            "description": "Seuil Load(C) ≥ 0.80, protocole E6/C09 (PREPARE→VERIFY→COMMIT→CLEAN) et famille RESET*, R*, VR-22 maintenue LATENT.",
+            "titre": "Revidage transactionnel, VR-22 (vr22.py) & PRZ v3.0.0",
+            "description": "Seuil Load(C) ≥ 0.80, E6/C09 (PREPARE→VERIFY→COMMIT→CLEAN), moteur VR-22 (P/E/C/K, R0..R5, V_e=Valeur/Complexité≥1.0 · SUPPORTÉ/RAPPORTÉ, non exécuté localement) et PRZ v3.0.0 (6 phases, Reset N1–N3).",
             "statut_couverture": "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
         },
         {
@@ -948,14 +1041,14 @@ def build_architecture_xiii() -> list[dict[str, Any]]:
         },
         {
             "roman": "VI",
-            "titre": "Conflits 4D & fusion multi-nœuds asynchrone",
-            "description": "Opérateur Merge*, invariance stricte aux 24 permutations E3 et conservation explicite du conflit interdisciplinaire C-001.",
+            "titre": "Conflits 4D, SCDH Tricouche & fusion multi-nœuds asynchrone",
+            "description": "Opérateur Merge*, invariance aux 24 permutations E3, conflit C-001 conservé et Architecture SCDH Tricouche (Fond/Surface/Cible, 5 noyaux, 3 axiomes IPC, Module Zéro TypeScript).",
             "statut_couverture": "ACCESSIBLE_VERIFIE",
         },
         {
             "roman": "VII",
             "titre": "Transformation, responsabilité & autorisation humaine",
-            "description": "Loi amélioration ≠ autorisation, statut maximal ADMISSIBLE_A_REVUE_HUMAINE et chaîne de transformation H (brute undefined).",
+            "description": "Loi amélioration ≠ autorisation (C10) et maintien strict de MAT-06-CHAINE-TRANSFO (brute undefined, Hi Ace LOL.docx & v3.0 sans triplet H/L/P, PROMOTION_FORBIDDEN).",
             "statut_couverture": "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
         },
         {
@@ -966,8 +1059,8 @@ def build_architecture_xiii() -> list[dict[str, Any]]:
         },
         {
             "roman": "IX",
-            "titre": "Monolithe GDS = ⟨D, O, A, γ⟩, SCT & VR-Fractal-Ω",
-            "description": "Formalisme doctoral Supela-K3-Ω, Théorème de Cohérence Systémique γ*, PDD-01, disjoncteurs D0–D8 et VR-24.",
+            "titre": "Monolithe GDS = ⟨D, O, A, γ⟩, Patterns, MOG-E, Cuba & LAS",
+            "description": "Formalisme doctoral Supela-K3-Ω, SCT γ*, PDD-01, D0–D8, VR-24 et apports Corpus Unifié v3.0 (Patterns PA/PC/MP, MOG-E IDI/IIB/QIT/SGG_v2, Pipeline Cuba CB-1..6, BNF LAS & AP-01..15).",
             "statut_couverture": "ACCESSIBLE_VERIFIE",
         },
         {
@@ -978,20 +1071,20 @@ def build_architecture_xiii() -> list[dict[str, Any]]:
         },
         {
             "roman": "XI",
-            "titre": "Cartographie plateformes, GitHub, Drive & lecteurs Windows",
-            "description": "15 dépôts GitHub, 54 artefacts Drive/Docs/Colab, 9 plateformes IA/navigateurs, M365 Copilot (extraits fournis) et C:/D: locaux.",
+            "titre": "Cartographie plateformes, GitHub, Drive, M365 & C:/D:",
+            "description": "15 dépôts GitHub, 54 artefacts Drive/Docs/Colab, 9 plateformes IA/navigateurs, 16 sources OneDrive/M365 suivies (PR-M365-01) et disques locaux C:/D: (LOCAL_UNIQUEMENT_PAR_DEFAUT + anonymisation).",
             "statut_couverture": "PARTIELLEMENT_EXTRAIT_CONVERSATIONS",
         },
         {
             "roman": "XII",
             "titre": "Registre des contradictions & non-effacement des échecs",
-            "description": "Conservation permanente des contradictions (C-001) et échecs passés (T11 FAIL puis PASS) avec déclencheurs de réouverture.",
+            "description": "Conservation permanente des 7 contradictions/tensions (C-001, T11, CONTR-Z0-TENSION Branche A vs B, CONTR-TRANSFO-UNDEF...) avec déclencheurs de réouverture (K_t ⊆ K_{t+1}).",
             "statut_couverture": "ACCESSIBLE_VERIFIE",
         },
         {
             "roman": "XIII",
             "titre": "Fiches YAML, artefact HTML statique & surface de consultation",
-            "description": "Chaîne JSON canonique → Fiches YAML + HTML dérivé → Parité SHA-256 & syntaxe JS → Publication GitHub Pages séparée.",
+            "description": "Chaîne JSON canonique → 25 Fiches YAML + HTML dérivé (8 onglets dont Provenance M365) → Parité SHA-256 & syntaxe JS → Publication GitHub Pages séparée.",
             "statut_couverture": "ACCESSIBLE_VERIFIE",
         },
     ]
@@ -1071,7 +1164,7 @@ def _make_fiche(
 
 
 def build_formula_cards() -> list[dict[str, Any]]:
-    """Construit les 20 fiches encyclopédiques YAML initiales au squelette universel (29 clés)."""
+    """Construit les 25 fiches encyclopédiques YAML au squelette universel (29 clés)."""
     m365_1 = (
         "https://m365.cloud.microsoft/chat/conversation/"
         "19:itiW3flsmEMNG4tP50OhJ8hkhqVdNYGtCQmSoX0J0zA1@thread.v2"
@@ -1091,6 +1184,24 @@ def build_formula_cards() -> list[dict[str, Any]]:
     m365_5 = (
         "https://m365.cloud.microsoft/chat/conversation/"
         "19:nWs3b4mo8etGD4tLAglKVZIpsWPuH5bqOOQwa9UnerI1@thread.v2"
+    )
+    m365_pdf_tzi = (
+        "https://onedrive.live.com/?id=3d411db4-56fc-4d4f-aa62-3a69da2899a3"
+        "&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=97423cb3-1a76-47cd-ac37-23b31da3f698"
+    )
+    m365_corpus_v3 = (
+        "https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?"
+        "resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9"
+        "&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
+    )
+    m365_vr22 = (
+        "https://onedrive.live.com/?id=3f105653-da39-4a1a-ac40-25b8e4d1667a"
+        "&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=4786da25-fd0a-4d12-a358-d897230d22ed"
+    )
+    m365_hi_ace = (
+        "https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?"
+        "resid=e8728a71-b867-4ffe-a1ae-c33ec590a267&cid=172bcdc878ead1c9"
+        "&EntityRepresentationId=d6aec6f6-c200-451a-ba84-4a13545b77da"
     )
     return [
         _make_fiche(
@@ -1212,40 +1323,105 @@ def build_formula_cards() -> list[dict[str, Any]]:
         ),
         _make_fiche(
             fid="MAT-00-ZERO-INT",
-            nom="Théorème du Zéro-Intégration (Manque ouvert M365)",
+            nom="Théorème du Zéro-Intégration (TZI · Extraits Section 2.1 PDF & Partie IV v3.0)",
             ftype="Théorème",
-            discipline="Fondements formels — Corpus complémentaire non extrait",
+            discipline="Fondements formels — Cycle, Excitation ΔS et Retour à Z₀",
             famille_math="MATH/00_FONDEMENTS/",
             section_xiii="I",
-            source_type="Conversation",
-            url_source=m365_4,
-            formulation_brute="Théorème du Zéro-Intégration [énoncé complet non extrait dans le périmètre]",
-            formulation_normalisee="Entrée d'exploration répertoriant le Théorème du Zéro-Intégration cité dans l'historique Copilot sans hypothèse ni énoncé reconstruit.",
-            notation="\\text{Théorème du Zéro-Intégration} \\in \\text{Manque}(\\text{M365}) [\\text{INCONNU}]",
-            auteur_source="Jean-François Gadbois (mention historique M365)",
-            contribution_ia="Copilot M365 a signalé le titre ; Antigravity applique M3 (non-invention)",
-            origine=f"Fils Copilot M365 {m365_4} et {m365_5}",
+            source_type="Fichier",
+            url_source=m365_pdf_tzi,
+            formulation_brute=(
+                "I(C, Z_0) ; ΔS = S_n - Z_0 ; R(S_n) → Z_0 ; "
+                "∀C intégrable, ∃R(C) tel que R(C) → Z_0 ; "
+                "¬∃R(C) → Z_0 ⇒ C ∉ Corpus ; D(S_n, Z_0) = ||ΔS|| = ||S_n - Z_0||"
+            ),
+            formulation_normalisee=(
+                "7 primitives extraites (Fond, Surface, Excitation ΔS, Intégration I, Cycle C, Reset R, Zéro Z₀) "
+                "et 6 écritures exactes (Section 2.1 Énoncé officiel PDF + Partie IV Corpus Unifié v3.0) "
+                "imposant le retour de tout cycle intégrable vers Z₀ et intégrant la filiation "
+                "Théorème du Reset fusionné au Théorème du Vide → TZI. "
+                "Clause sémiotique : notation explicitement déclarée semi-formelle par la source "
+                "(formalisation LPO / Théorie des Catégories différée)."
+            ),
+            notation=(
+                "I(C, Z_0),\\; \\Delta S = S_n - Z_0,\\; R(S_n) \\to Z_0,\\; "
+                "\\neg\\exists R(C) \\to Z_0 \\implies C \\notin \\text{Corpus},\\; "
+                "D(S_n, Z_0) = \\|\\Delta S\\| = \\|S_n - Z_0\\|"
+            ),
+            auteur_source="Jean-François Gadbois (Jef)",
+            contribution_ia="Extraction M365 PR-M365-01 & mise sous clause semi-formelle (SOURCE_IDENTIFIED ⇏ PROUVÉ)",
+            origine=(
+                "Théorème du Zéro-Intégration — Pierre Conceptuelle du Corpus Supela.pdf "
+                "(M365, Section 2.1 Énoncé officiel) & Livre Supela — Corpus Unifié v3.0.docx (Partie IV)"
+            ),
             date_source="2026-11-16",
-            statut="INCONNU",
-            portee="Périmètre d'exploration M365 / disques locaux Windows C:/D:",
-            conditions=["Réouverture conditionnée à l'ouverture directe du fil/fichier source M365"],
-            dependances=["MAT-02-MANQUE-M"],
-            implique="Trace explicite que le corpus théorique complet dépasse les extraits actuellement lus.",
-            n_implique_pas="N'autorise aucune reconstruction conjecturale de ses hypothèses ou de sa preuve.",
-            preuves=[],
-            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
-            resultats=["Statut INCONNU / État 4D LATENT conservé sous règle M3"],
-            contre_exemples=[],
-            contradictions=["CONTR-ZERO-INT-MANQUANT"],
-            implementations=[],
-            artefacts=["docs/constitution/REGISTRE_CONTRADICTIONS.json"],
-            etat_4d="LATENT",
-            historique_statuts=[
-                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "LATENT", "motif": "Recherche M365 fichiers vide"}
+            statut="SUPPORTÉ",
+            portee="Fondements ontologiques et critère d'intégration des cycles C ∈ Corpus (TZI ↔ Reset → Vide)",
+            conditions=[
+                "7 primitives : Fond, Surface, Excitation (ΔS), Intégration (I), Cycle (C), Reset (R), Zéro (Z_0)",
+                "Clause sémiotique source : notation semi-formelle en attente de formalisation LPO ou Théorie des Catégories",
+                "Divergence Z₀ / Cycle avec Corpus Unifié v3.0 conservée sans écrasement dans CONTR-Z0-TENSION",
             ],
-            conditions_reouverture="Extraction textuelle du théorème depuis M365 Copilot ou C:/D: via collect_local_encyclopedie.ps1.",
-            sources=[f"Copilot M365: {m365_4}", f"Copilot M365: {m365_5}"],
-            notes="La recherche M365 fichiers n'ayant rien retourné, aucune hypothèse non sourcée n'est fabriquée.",
+            dependances=["MAT-02-MANQUE-M", "MAT-00-XERO-VIDE"],
+            implique=(
+                "Réduit fortement le manque M3 initial (MANQUE ↓) en ancrant TZI, ses 7 primitives, "
+                "ses 6 écritures exactes et sa généalogie Reset+Vide sur des sources primaires attribuées."
+            ),
+            n_implique_pas=(
+                "NE vaut PAS formalisation achevée en LPO ni en Théorie des Catégories "
+                "(explicitement différée par la source elle-même) et ne suffit pas à promouvoir le statut à PROUVÉ."
+            ),
+            preuves=[
+                "M365-SRC-04 : Section 2.1 (Énoncé officiel) PDF Pierre Conceptuelle (3d411db4...)",
+                "M365-SRC-09 : Livre Supela — Corpus Unifié v3.0.docx Partie IV (4 arguments, C1–C5, T2–T5, P1–P8)",
+            ],
+            tests=[
+                "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty",
+                "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions",
+            ],
+            resultats=[
+                "MANQUE ↓ (PR_ACCEPTED_PARTIAL) : transition monotone INCONNU/LATENT → SUPPORTÉ/RÉOUVERT",
+                "Plafond épistémique respecté sous clause semi-formelle",
+            ],
+            contre_exemples=[
+                "Cycle sans opérateur de retour R(C) → Z_0 exclu du Corpus (C ∉ Corpus)",
+                "Branche B (Corpus v3.0) avec cycle_def non uniformément résolu (CONTR-Z0-TENSION)",
+            ],
+            contradictions=["CONTR-ZERO-INT-MANQUANT", "CONTR-Z0-TENSION"],
+            implementations=[],
+            artefacts=[
+                "docs/constitution/REGISTRE_PROVENANCE_M365.json",
+                "docs/constitution/REGISTRE_CONTRADICTIONS.json",
+                "docs/constitution/fiches/MAT-00-ZERO-INT.yaml",
+            ],
+            etat_4d="RÉOUVERT",
+            historique_statuts=[
+                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "LATENT", "motif": "Recherche M365 fichiers vide"},
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "RÉOUVERT",
+                    "motif": (
+                        "MANQUE ↓ (PR-M365-01) : 7 primitives et 6 écritures extraites de Section 2.1 du PDF TZI "
+                        "et Partie IV du Corpus Unifié v3.0 ; plafonné SUPPORTÉ sous clause semi-formelle "
+                        "(LPO/Catégories explicitement différées)"
+                    ),
+                },
+            ],
+            conditions_reouverture=(
+                "Formalisation explicite en LPO ou Théorie des Catégories annoncée par le PDF, résolution sans perte de CONTR-Z0-TENSION, "
+                "et contrôle SHA-256 binaire de la copie M365-SRC-07."
+            ),
+            sources=[
+                f"OneDrive M365 PDF TZI: {m365_pdf_tzi}",
+                f"OneDrive M365 Corpus Unifié v3.0: {m365_corpus_v3}",
+                f"Copilot M365: {m365_4}",
+                f"Copilot M365: {m365_5}",
+            ],
+            notes=(
+                "Monotonie K_t ⊆ K_{t+1} respectée : l'état initial INCONNU/LATENT reste conservé dans historique_statuts ; "
+                "notation déclarée semi-formelle sans promotion indue en LPO."
+            ),
         ),
         _make_fiche(
             fid="MAT-01-TREILLIS",
@@ -1512,40 +1688,104 @@ def build_formula_cards() -> list[dict[str, Any]]:
         ),
         _make_fiche(
             fid="MAT-03-RESET-STAR",
-            nom="Famille RESET*, R* et VR-22 (Manque ouvert M365)",
+            nom="Moteur VR-22 (vr22.py), niveaux R0–R5, vitalité Ve et lignée RESET*",
             ftype="Opérateur",
-            discipline="Revidage & Protocoles complémentaires non extraits",
+            discipline="Revidage, Rétraction Contrôlée & Règles de Retour au Zéro",
             famille_math="MATH/03_REVIDAGE_MIGRATION/",
             section_xiii="IV",
-            source_type="Conversation",
-            url_source=m365_5,
-            formulation_brute="RESET* ; R* ; VR-22 [spécifications détaillées non extraites]",
-            formulation_normalisee="Marqueurs méthodologiques identifiés dans l'historique Copilot M365 sans contenu intégral récupéré ; maintenus LATENT / INCONNU.",
-            notation="\\{\\text{RESET}^*,\\; R^*,\\; \\text{VR-22}\\} \\subseteq \\text{Périmètre non extrait} [\\text{INCONNU}]",
-            auteur_source="Jean-François Gadbois (corpus M365)",
-            contribution_ia="Préservation de l'espace exploratoire sans invention (Antigravity)",
-            origine=f"Fils Copilot M365 {m365_4} et {m365_5}",
+            source_type="Code",
+            url_source=m365_vr22,
+            formulation_brute=(
+                "vr22.py : P (invariants racines), E (lemmes), C (conjectures), K (mémoire cumulative) ; "
+                "R0_NOMINAL..R5_ABSOLU ; Cible∈P⇒Refus, Cible∈E⇒R4, Cible∈C⇒R3, Cible∉(P∪E∪C)⇒Erreur, "
+                "R5⇒Purge(E,C) ; |K_{t+1}| > |K_t| ; V_e = Valeur / Complexité ≥ 1.0"
+            ),
+            formulation_normalisee=(
+                "Spécification extraite du moteur VR-22 (vr22.py, Texte collé (3).txt) structurant "
+                "l'espace ⟨P, E, C, K⟩ sur 6 niveaux (R0_NOMINAL, R1_PARAMETRIQUE, R2_EPHEMERE, R3_LOCAL, "
+                "R4_STRUCTUREL, R5_ABSOLU), 5 règles de rétraction et les invariants de monotonie |K_{t+1}| > |K_t| "
+                "et de vitalité V_e = Valeur / Complexité ≥ 1.0. "
+                "Statut d'exécution : RAPPORTÉ (code et tests décrits dans M365 mais non exécutés localement ; CODE_RECOVERED ⇏ CODE_EXECUTED)."
+            ),
+            notation=(
+                "\\operatorname{VR22}(\\langle P, E, C, K \\rangle),\\; "
+                "R_0 \\prec \\dots \\prec R_5,\\; |K_{t+1}| > |K_t|,\\; "
+                "V_e = \\frac{\\text{Valeur}}{\\text{Complexité}} \\ge 1.0"
+            ),
+            auteur_source="Jean-François Gadbois",
+            contribution_ia="Extraction M365 PR-M365-01 ; séparation stricte CODE_RECOVERED ⇏ CODE_EXECUTED",
+            origine=(
+                "Texte collé (3).txt (M365, vr22.py & suite de tests rapportée) + "
+                "Théorème du Zéro-Intégration PDF (Reset fusionné au Vide)"
+            ),
             date_source="2026-11-16",
-            statut="INCONNU",
-            portee="Articulation future avec E6 / C09 (PREPARE→VERIFY→COMMIT→CLEAN) et C → ∅",
-            conditions=["Accès direct aux fils complets ou documents Drive/C:/D: définissant RESET*, R* et VR-22"],
-            dependances=["MAT-03-REVIDAGE-LOAD", "MAT-00-MONOTONIE-K"],
-            implique="Ouverture explicite d'une piste à ne pas oublier lors de l'exploration du corpus Supela.",
-            n_implique_pas="Ne doit pas être confondu avec VR-24 (Canon de Continuité, lui documenté) ni avec Load(C).",
-            preuves=[],
-            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
-            resultats=["Fiche placée en état LATENT et statut INCONNU"],
-            contre_exemples=[],
-            contradictions=["CONTR-ZERO-INT-MANQUANT"],
-            implementations=[],
-            artefacts=["docs/constitution/fiches/MAT-03-RESET-STAR.yaml"],
-            etat_4d="LATENT",
-            historique_statuts=[
-                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "LATENT", "motif": "Mentionné sans corps récupéré"}
+            statut="SUPPORTÉ",
+            portee="Rétraction contrôlée sans effacement de K et articulation avec E6 / C09 & PRZ v3.0.0",
+            conditions=[
+                "Partition stricte P (protégé/refus), E (lemmes/R4), C (conjectures/R3), K (mémoire monotone)",
+                "R5_ABSOLU purge E et C en conservant strictement |K_{t+1}| > |K_t|",
+                "Statut preuve_test_niveau = RAPPORTÉ : aucune exécution vérifiée sur le banc local",
             ],
-            conditions_reouverture="Extraction textuelle directe de RESET*, R* et VR-22 dans un artefact vérifiable.",
-            sources=[f"Copilot M365: {m365_4}", f"Copilot M365: {m365_5}"],
-            notes="Ne pas inventer la sémantique de VR-22 par simple analogie avec VR-24.",
+            dependances=["MAT-03-REVIDAGE-LOAD", "MAT-00-MONOTONIE-K", "MAT-03-PRZ-V3"],
+            implique=(
+                "Réduit fortement le manque initial (MANQUE ↓) sur VR-22 en documentant l'architecture "
+                "⟨P, E, C, K⟩, R0_NOMINAL..R5_ABSOLU et V_e = Valeur / Complexité ≥ 1.0 sans confusion avec VR-24."
+            ),
+            n_implique_pas=(
+                "NE vaut PAS exécution locale réussie ni preuve formelle achevée "
+                "(CODE_RECOVERED ⇏ CODE_EXECUTED ; toute promotion PROUVÉ est bloquée à ce stade)."
+            ),
+            preuves=[
+                "M365-SRC-15 : Texte collé (3).txt contenant vr22.py et suite de tests R3/R4/R5 [preuve_test_niveau: RAPPORTÉ]",
+                "M365-SRC-04 : Filiation Reset fusionné au Vide → TZI dans PDF Pierre Conceptuelle",
+            ],
+            tests=[
+                "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty",
+                "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions",
+            ],
+            resultats=[
+                "MANQUE ↓ (PR_ACCEPTED_PARTIAL) : transition monotone INCONNU/LATENT → SUPPORTÉ/RÉOUVERT",
+                "Statut preuve/test conservé à RAPPORTÉ sans revendication d'exécution locale",
+            ],
+            contre_exemples=[
+                "Tentative de rétraction sur Cible ∈ P refusée",
+                "Cible ∉ (P ∪ E ∪ C) levée en Erreur ; divergence d'échelles vs PRZ N1–N3 tracée dans CONTR-Z0-TENSION",
+            ],
+            contradictions=["CONTR-ZERO-INT-MANQUANT", "CONTR-Z0-TENSION"],
+            implementations=[],
+            artefacts=[
+                "docs/constitution/REGISTRE_PROVENANCE_M365.json",
+                "docs/constitution/REGISTRE_CONTRADICTIONS.json",
+                "docs/constitution/fiches/MAT-03-RESET-STAR.yaml",
+            ],
+            etat_4d="RÉOUVERT",
+            historique_statuts=[
+                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "LATENT", "motif": "Mentionné sans corps récupéré"},
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "RÉOUVERT",
+                    "motif": (
+                        "MANQUE ↓ (PR-M365-01) : spécification vr22.py (P/E/C/K, R0_NOMINAL..R5_ABSOLU, "
+                        "5 transitions, |K_{t+1}|>|K_t|, V_e = Valeur / Complexité ≥ 1.0) extraite de Texte collé (3).txt "
+                        "sous statut d'exécution RAPPORTÉ (non exécuté localement)"
+                    ),
+                },
+            ],
+            conditions_reouverture=(
+                "Exécution indépendante de vr22.py sur le banc pytest local de omega-zero-4d "
+                "et cartographie complète R0..R5 ↔ PRZ Niveau 1..3."
+            ),
+            sources=[
+                f"OneDrive M365 Texte collé (3).txt: {m365_vr22}",
+                f"OneDrive M365 PDF TZI: {m365_pdf_tzi}",
+                f"Copilot M365: {m365_4}",
+                f"Copilot M365: {m365_5}",
+            ],
+            notes=(
+                "Monotonie K_t ⊆ K_{t+1} respectée : l'état initial INCONNU/LATENT reste conservé dans historique_statuts ; "
+                "preuve_test_niveau = RAPPORTÉ exclusivement (CODE_RECOVERED ⇏ CODE_EXECUTED)."
+            ),
         ),
         _make_fiche(
             fid="MAT-03-REVIDAGE-LOAD",
@@ -1737,40 +1977,69 @@ def build_formula_cards() -> list[dict[str, Any]]:
         ),
         _make_fiche(
             fid="MAT-06-CHAINE-TRANSFO",
-            nom="Chaîne de Transformation H (Source brute undefined)",
+            nom="Chaîne de Transformation H (Source brute undefined · PROMOTION_FORBIDDEN)",
             ftype="Formule",
             discipline="Transformation & Responsabilité (Section H)",
             famille_math="MATH/06_RESPONSABILITE_TRANSFO/",
             section_xiii="VII",
             source_type="Conversation",
-            url_source=m365_2,
+            url_source=m365_hi_ace,
             formulation_brute="undefined",
-            formulation_normalisee="Proposition dérivée non sourcée : Demande → Interprétation → Transformation → Résultat (formule brute absente : undefined)",
+            formulation_normalisee=(
+                "Proposition dérivée non sourcée : Demande → Interprétation → Transformation → Résultat "
+                "(formule brute absente : undefined ; exact_source_status: NOT_ESTABLISHED ; PROMOTION_FORBIDDEN)"
+            ),
             notation="\\text{Brut} = \\text{undefined} \\;\\mid\\; \\text{Proposition normalisée} : \\text{Demande} \\to \\text{Interprétation} \\to \\text{Transformation} \\to \\text{Résultat}",
             auteur_source="Inconnu dans l'extrait source (chaîne brute retournée 'undefined')",
             contribution_ia="Copilot/Antigravity proposent une normalisation explicite sans l'attribuer à l'archive",
-            origine=f"Extrait Copilot M365 Section H ({m365_2}) retournant littéralement 'undefined'",
+            origine=(
+                f"Extrait Copilot M365 Section H ({m365_2}) + consultations M365 "
+                "Corpus Unifié v3.0 & Hi Ace LOL.docx sans triplet H/L/P"
+            ),
             date_source="2026-11-16",
             statut="INCONNU",
             portee="Traçabilité de la responsabilité entre demande, interprétation et résultat",
-            conditions=["Ne jamais masquer le caractère undefined de l'expression d'origine"],
+            conditions=[
+                "exact_H_definition : NON RETROUVÉ",
+                "exact_L_definition : NON RETROUVÉ",
+                "exact_P_definition : NON RETROUVÉ",
+                "exact_chain_source : NON ÉTABLIE",
+                "PROMOTION_FORBIDDEN : ne jamais masquer le caractère undefined de l'expression d'origine",
+            ],
             dependances=["MAT-04-HLP", "MAT-02-MANQUE-M"],
-            implique="Exemple exemplaire d'honnêteté M3 : la proposition normalisée est clairement séparée du texte brut manquant.",
-            n_implique_pas="La chaîne proposée N'EST PAS certifiée comme étant la formule exacte originelle.",
+            implique="Exemple exemplaire d'honnêteté M3 : le manque reste ouvert (MANQUE MAINTENU OUVERT) malgré la lecture de Corpus Unifié v3.0 et Hi Ace LOL.docx.",
+            n_implique_pas="La chaîne proposée N'EST PAS certifiée comme étant la formule exacte originelle (PROMOTION_FORBIDDEN).",
             preuves=[],
-            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
-            resultats=["Conservée en état RÉOUVERT et statut INCONNU jusqu'à vérification du fil originel"],
-            contre_exemples=["Effacer 'undefined' et prétendre que la chaîne normalisée vient d'un document source"],
+            tests=[
+                "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty",
+                "tests/test_encyclopedie_dictionnaire.py::test_provenance_m365_registry_and_forbidden_auto_promotions",
+            ],
+            resultats=["Conservée strictement en état RÉOUVERT et statut INCONNU (PROMOTION_FORBIDDEN)"],
+            contre_exemples=["Effacer 'undefined' et prétendre que la chaîne normalisée vient de Corpus Unifié v3.0 ou Hi Ace LOL.docx"],
             contradictions=["CONTR-TRANSFO-UNDEF"],
             implementations=[],
-            artefacts=["docs/constitution/fiches/MAT-06-CHAINE-TRANSFO.yaml", "docs/constitution/REGISTRE_CONTRADICTIONS.json"],
+            artefacts=[
+                "docs/constitution/fiches/MAT-06-CHAINE-TRANSFO.yaml",
+                "docs/constitution/REGISTRE_CONTRADICTIONS.json",
+                "docs/constitution/REGISTRE_PROVENANCE_M365.json",
+            ],
             etat_4d="RÉOUVERT",
             historique_statuts=[
-                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "RÉOUVERT", "motif": "Extraction brute retournée comme 'undefined'"}
+                {"date": "2026-11-16", "statut": "INCONNU", "etat_4d": "RÉOUVERT", "motif": "Extraction brute retournée comme 'undefined'"},
+                {
+                    "date": "2026-11-16",
+                    "statut": "INCONNU",
+                    "etat_4d": "RÉOUVERT",
+                    "motif": (
+                        "PR-M365-01 : Corpus Unifié v3.0 et Hi Ace LOL.docx consultés — "
+                        "énoncés généraux présents mais exact_H_definition, exact_L_definition, exact_P_definition "
+                        "et exact_chain_source non retrouvés (PROMOTION_FORBIDDEN)"
+                    ),
+                },
             ],
-            conditions_reouverture="Relecture complète de la conversation originale 19:b__mSUKb... ou des archives locales pour rétablir la formulation brute.",
-            sources=[f"Copilot M365: {m365_2}"],
-            notes="Conformité stricte M3 & H ≠ L ≠ P : on garde 'undefined' intact en formulation_brute et on qualifie la normalisation de proposition non sourcée.",
+            conditions_reouverture="Relecture complète de la conversation originale 19:b__mSUKb... ou d'un fichier M365 contenant explicitement H/L/P et exact_chain_source.",
+            sources=[f"Copilot M365: {m365_2}", f"OneDrive Hi Ace LOL.docx: {m365_hi_ace}", f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}"],
+            notes="Conformité stricte M3 & H ≠ L ≠ P : formulation_brute='undefined' intact, PROMOTION_FORBIDDEN explicite.",
         ),
         _make_fiche(
             fid="MAT-07-REWARD-NOT-TRUTH",
@@ -1858,6 +2127,278 @@ def build_formula_cards() -> list[dict[str, Any]]:
             conditions_reouverture="Modification du générateur HTML/JS ou ajout d'un nouveau fichier dans le dépôt.",
             sources=["scripts/verify_a12.py", "scripts/build_encyclopedie.py", ".github/workflows/pages-encyclopedie.yml"],
             notes="Matérialise la formule Supela : donnée canonique, artefact, contrôles et publication ont chacun leur rôle borné.",
+        ),
+        _make_fiche(
+            fid="MAT-00-XERO-VIDE",
+            nom="Axiomatique Xero (𝕏 / Z₀) & Vide Intact (𝕍)",
+            ftype="Axiome",
+            discipline="Ontologie Fondamentale & Géométrie du Zéro (Corpus Unifié v3.0)",
+            famille_math="MATH/00_FONDEMENTS/",
+            section_xiii="I",
+            source_type="Fichier",
+            url_source=m365_corpus_v3,
+            formulation_brute=(
+                "𝕏 = Z₀ (orthogonalité temporelle t=0) ; 𝕍 ≠ Z₀ (Vide intact ontologique) ; "
+                "D1.1–D1.5 ; A0–A4 ; Z₀ → Sₙ → R → Z₀ ; D(Sₙ, Z₀) < θ_critique"
+            ),
+            formulation_normalisee=(
+                "Formalisation du Livre Supela — Corpus Unifié v3.0 (Parties III et XI) distinguant "
+                "l'espace d'initialisation et de retour cyclique Xero (𝕏 = Z₀) du Vide intact ontologique (𝕍 ≠ Z₀ §3.2), "
+                "tout en conservant la tension documentaire avec §4.1 (« depuis l'état Zéro — le Vide intact ») dans CONTR-Z0-TENSION."
+            ),
+            notation=(
+                "\\mathbb{X} = Z_0,\\; \\mathbb{V} \\neq Z_0,\\; Z_0 \\to S_n \\to R \\to Z_0,\\; "
+                "D(S_n, Z_0) < \\theta_{\\text{critique}}"
+            ),
+            auteur_source="Jean-François Gadbois (Jef) — Institut Supela",
+            contribution_ia="Extraction Corpus Unifié v3.0 PR-M365-01 sans écrasement des tensions inter-sections",
+            origine="Livre Supela — Corpus Unifié v3.0.docx (Prologue, Partie III §3.1–3.3, Partie IV §4.1, Partie XI)",
+            date_source="2026-07-30",
+            statut="SUPPORTÉ",
+            portee="Fondation ontologique Xero+Vide v3.0 (D1.1–D1.5, A0–A4, T1–T5, C1–C5)",
+            conditions=[
+                "Séparation D1.1–D1.5 entre Vide (𝕍), Excitation (ΔS), Surface (S), Intégration (I) et Xero (Z₀)",
+                "Coexistence explicite avec Branche A (PDF TZI) et divergences cycle_def consignées dans CONTR-Z0-TENSION",
+            ],
+            dependances=["MAT-00-ZERO-INT", "MAT-00-PI0"],
+            implique="Ancrage textuel complet des axiomes A0–A4 et de la dualité Z₀ / 𝕍 issue du Corpus Unifié v3.0.",
+            n_implique_pas="Ne résout pas la contradiction conservée CONTR-Z0-TENSION entre §3.2 (𝕍 ≠ Z₀), §4.1 et cycle_def.",
+            preuves=["M365-SRC-09 : texte intégral Corpus Unifié v3.0 fourni par l'auteur (Parties III, IV, XI)"],
+            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
+            resultats=["Classée SUPPORTÉ (DOCUMENTE_NORMATIF) avec tension Z₀ conservée"],
+            contre_exemples=["Assimiler 𝕍 ≡ Z₀ partout ou effacer §3.2 lors d'une synthèse"],
+            contradictions=["CONTR-Z0-TENSION"],
+            implementations=[],
+            artefacts=[
+                "docs/constitution/fiches/MAT-00-XERO-VIDE.yaml",
+                "docs/constitution/REGISTRE_CONTRADICTIONS.json",
+            ],
+            etat_4d="ACTIF",
+            historique_statuts=[
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "ACTIF",
+                    "motif": "Ajoutée via Corpus Unifié v3.0 intégral sous statut SUPPORTÉ (EXTRACTED ⇏ VALIDATED)",
+                }
+            ],
+            conditions_reouverture="Unification formelle LPO/Catégories de 𝕍, Z₀ et cycle_def levant CONTR-Z0-TENSION.",
+            sources=[f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}", f"OneDrive PDF TZI: {m365_pdf_tzi}"],
+            notes="Corpus Unifié v3.0 (30 juillet 2026, Beauharnois, QC) — aucune formalisation automatique au-delà de SUPPORTÉ.",
+        ),
+        _make_fiche(
+            fid="MAT-01-PRINCIPES-P1-P12",
+            nom="Principes Directeurs P1–P12, Échelle N0–N4, Verdicts V1–V4 & IS-01..04",
+            ftype="Règle",
+            discipline="Épistémologie Normative & Gouvernance Supela v3.0",
+            famille_math="MATH/01_PREUVES/",
+            section_xiii="II",
+            source_type="Fichier",
+            url_source=m365_corpus_v3,
+            formulation_brute=(
+                "P1..P12 (P6 Règle d'Or) ; Échelle N0..N4 ; Verdicts V1_VALIDÉ..V4_REJETÉ ; "
+                "Invariants Structuraux IS-01..IS-04"
+            ),
+            formulation_normalisee=(
+                "Codification axiologique du Corpus Unifié v3.0 (Partie VI & Annexe D) regroupant les 12 principes directeurs "
+                "(primauté du zéro, invariance structurale, réversibilité contrôlée, règle d'or P6), l'échelle probatoire N0–N4 "
+                "et les 4 verdicts V1–V4 sous autorité bornée."
+            ),
+            notation="\\{P_1..P_{12}\\} \\times \\{N_0..N_4\\} \\to \\{V_1, V_2, V_3, V_4\\}, \\quad IS_{01..04}",
+            auteur_source="Jean-François Gadbois (Jef) — Institut Supela",
+            contribution_ia="Normalisation squelette YAML 29 clés sans surclassement d'autorité",
+            origine="Livre Supela — Corpus Unifié v3.0.docx (Partie VI Principes directeurs P1–P12 & Annexe D)",
+            date_source="2026-07-30",
+            statut="SUPPORTÉ",
+            portee="Norme comportementale et grille d'évaluation probatoire v3.0",
+            conditions=[
+                "Application conjointe avec Authority(G) ≤ Proof(G) et séparation amélioration ≠ autorisation",
+                "Conformité explicite de N0..N4 à vérifier face au treillis G₀..G₄",
+            ],
+            dependances=["MAT-01-TREILLIS", "MAT-01-AUTORITE-BORNEE"],
+            implique="Relie la grille doctrinale P1–P12 / N0–N4 / V1–V4 du Corpus v3.0 au noyau ω-ZERO.",
+            n_implique_pas="Les verdicts textuels V1–V4 du livre ne remplacent pas les assertions exécutables Rego/Python.",
+            preuves=["M365-SRC-09 : Partie VI & Annexe D du Corpus Unifié v3.0 intégral"],
+            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
+            resultats=["Intégrée au registre v3.0 sous statut SUPPORTÉ"],
+            contre_exemples=["Déclarer un verdict V1_VALIDÉ sans preuve correspondante N3/N4"],
+            contradictions=[],
+            implementations=[],
+            artefacts=["docs/constitution/fiches/MAT-01-PRINCIPES-P1-P12.yaml"],
+            etat_4d="ACTIF",
+            historique_statuts=[
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "ACTIF",
+                    "motif": "Indexation des Principes P1–P12, N0–N4, V1–V4 et IS-01..04 depuis Corpus Unifié v3.0",
+                }
+            ],
+            conditions_reouverture="Implémentation directe d'un module N0..N4 ↔ G0..G4 dans src/omega_zero/.",
+            sources=[f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}"],
+            notes="Source v3.0 citée avec attribution complète (Jean-François Gadbois, 30 juillet 2026).",
+        ),
+        _make_fiche(
+            fid="MAT-03-PRZ-V3",
+            nom="Protocole Rapporter au Zéro (PRZ v3.0.0) & Reset Gradué N1–N3",
+            ftype="Opérateur",
+            discipline="Protocole de Réinitialisation Cyclique & RFC K3",
+            famille_math="MATH/03_REVIDAGE_MIGRATION/",
+            section_xiii="IV",
+            source_type="Fichier",
+            url_source=m365_corpus_v3,
+            formulation_brute=(
+                "PRZ v3.0.0 : Détecter_Dérive → Isoler → Préserver_Traces → Recharger_Z₀ → Vérifier_Retour → Clôturer ; "
+                "I_{Z₀}(O) ; Reset Niveau 1..3 ; RFC K3"
+            ),
+            formulation_normalisee=(
+                "Protocole canonique v3.0 en 6 phases assurant le retour au point d'ancrage Z₀ avec graduation "
+                "Reset Niveau 1–3 et intégration RFC K3. Coexiste avec vr22.py (R0_NOMINAL..R5_ABSOLU) et E6/C09 sans écrasement."
+            ),
+            notation="\\operatorname{PRZ}_{v3.0.0}(O) : \\Phi_1 \\to \\dots \\to \\Phi_6 \\implies I_{Z_0}(O) = Z_0",
+            auteur_source="Jean-François Gadbois (Jef) — Institut Supela",
+            contribution_ia="Extraction Corpus Unifié v3.0 PR-M365-01 & liaison CONTR-Z0-TENSION",
+            origine="Livre Supela — Corpus Unifié v3.0.docx (Partie VIII §8.4–8.5 & Annexes K3)",
+            date_source="2026-07-30",
+            statut="SUPPORTÉ",
+            portee="Cycle opérationnel de récupération sur dérive et spécification RFC K3",
+            conditions=[
+                "Préservation obligatoire des traces avant rechargement de Z₀ (Phase 3)",
+                "Distinction maintenue entre Reset N1–N3 (PRZ v3.0), R0–R5 (vr22.py) et CLEAN (C09)",
+            ],
+            dependances=["MAT-00-XERO-VIDE", "MAT-03-REVIDAGE-LOAD", "MAT-03-RESET-STAR"],
+            implique="Définit la séquence normative complète en 6 phases du PRZ v3.0.0.",
+            n_implique_pas="Ne prouve pas l'identité sémantique directe entre N1–N3 et R0–R5 (trace ouverte dans CONTR-Z0-TENSION).",
+            preuves=["M365-SRC-09 : Corpus Unifié v3.0 Partie VIII (§8.4–8.5)"],
+            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
+            resultats=["Classée SUPPORTÉ sous séparation Source ≠ Autorité"],
+            contre_exemples=["Rechargement Z₀ sans exécuter la phase Préserver_Traces"],
+            contradictions=["CONTR-Z0-TENSION"],
+            implementations=[],
+            artefacts=["docs/constitution/fiches/MAT-03-PRZ-V3.yaml", "docs/constitution/REGISTRE_CONTRADICTIONS.json"],
+            etat_4d="ACTIF",
+            historique_statuts=[
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "ACTIF",
+                    "motif": "Extraction Corpus Unifié v3.0 (§8.4–8.5 PRZ v3.0.0 & Reset N1–N3)",
+                }
+            ],
+            conditions_reouverture="Implémentation exécutable du PRZ v3.0.0 et preuve d'équivalence/mapping avec vr22.py R0..R5.",
+            sources=[f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}", f"OneDrive Texte collé (3).txt: {m365_vr22}"],
+            notes="S'articule directement avec Supela-K3-Omega (RFC K3) et E6/C09.",
+        ),
+        _make_fiche(
+            fid="MAT-05-SCDH-TRICOUCHE",
+            nom="Architecture SCDH Tricouche (5 Noyaux, Axiomes IPC & Module Zéro)",
+            ftype="Invariant",
+            discipline="Architecture Logicielle Tricouche & Séparation Fond/Surface/Cible",
+            famille_math="MATH/05_CONFLITS_FUSION/",
+            section_xiii="VI",
+            source_type="Fichier",
+            url_source=m365_corpus_v3,
+            formulation_brute=(
+                "SCDH(Fond Intact, Surface, Cible) ; I1..I4 (Fond inviolable) ; "
+                "Noyaux={Main, Renderer, Shared, Extension, Pty} ; Axiomes IPC (1..3) ; BootConfig / ModuleZero"
+            ),
+            formulation_normalisee=(
+                "Spécification architecturale du Corpus Unifié v3.0 (Partie V) isolant le Fond intact (Z₀) de la Surface "
+                "et de la Cible via 4 invariants I1–I4, 5 noyaux d'exécution, 3 axiomes IPC et interfaces TypeScript ModuleZero. "
+                "Clause EXTRACTION : EXTRACTED ⇏ VALIDATED tant que non compilé/exécuté dans le dépôt."
+            ),
+            notation="\\operatorname{SCDH} = \\langle \\text{Fond}(\\text{inviolable}),\\; \\text{Surface},\\; \\text{Cible} \\rangle_{I_1..I_4}",
+            auteur_source="Jean-François Gadbois (Jef) — Institut Supela",
+            contribution_ia="Extraction Corpus Unifié v3.0 PR-M365-01 sans confusion entre spécs TypeScript textuelles et code exécuté",
+            origine="Livre Supela — Corpus Unifié v3.0.docx (Partie V §5.1–5.5 & Annexe TypeScript)",
+            date_source="2026-07-30",
+            statut="SUPPORTÉ",
+            portee="Couche d'architecture applicative tricouche SCDH et isolation inter-processus IPC",
+            conditions=[
+                "Inviolabilité du Fond par Surface/Cible",
+                "Interfaces BootConfig / SupelaModule / ModuleZero extraites du texte non encore exécutées (EXTRACTED ⇏ VALIDATED)",
+            ],
+            dependances=["MAT-00-XERO-VIDE", "MAT-01-PRINCIPES-P1-P12"],
+            implique="Documente fidèlement l'architecture tricouche et les interfaces TypeScript normatives du Corpus v3.0.",
+            n_implique_pas="La présence des interfaces TypeScript dans le texte .docx n'implique pas leur compilation ni passage en tests.",
+            preuves=["M365-SRC-09 : Partie V intégrale du Corpus Unifié v3.0"],
+            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
+            resultats=["Normalisée sous statut SUPPORTÉ / DOCUMENTE_NORMATIF"],
+            contre_exemples=["Accès direct non médiatisé de Renderer vers Main violant les 3 axiomes IPC"],
+            contradictions=[],
+            implementations=[],
+            artefacts=["docs/constitution/fiches/MAT-05-SCDH-TRICOUCHE.yaml", "docs/constitution/REGISTRE_PROVENANCE_M365.json"],
+            etat_4d="ACTIF",
+            historique_statuts=[
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "ACTIF",
+                    "motif": "Spécification SCDH Tricouche & Module Zéro extraite du Corpus Unifié v3.0",
+                }
+            ],
+            conditions_reouverture="Implémentation et exécution en CI des 5 noyaux et de ModuleZero.",
+            sources=[f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}"],
+            notes="Reliée à PROV-CORPUS-004 dans REGISTRE_PROVENANCE_M365.json.",
+        ),
+        _make_fiche(
+            fid="MAT-08-PATTERNS-LAS",
+            nom="Patterns PA/PC/MP, Métriques MOG-E (SGG_v2), Pipeline Cuba & BNF LAS",
+            ftype="Métrique",
+            discipline="Ingénierie Systèmes, Évaluation Quantitative & Grammaire Formelle LAS",
+            famille_math="MATH/08_TESTS/",
+            section_xiii="IX",
+            source_type="Fichier",
+            url_source=m365_corpus_v3,
+            formulation_brute=(
+                "PA-01..10 / PC-01..05 / MP-01..03 ; "
+                "IDI=σ/|μ| ; IIB=0.40D+0.35A+0.25I ; QIT=√(QIT_é²+QIT_a²) ; "
+                "SGG=0.25A+0.30V+0.30É+0.15T+0.20M (∑=1.20) ; CB-1..6 ; BNF LAS ; AP-01..15"
+            ),
+            formulation_normalisee=(
+                "Synthèse technique du Corpus Unifié v3.0 (Parties VII, VIII, IX, X & Annexes) réunissant patterns "
+                "architecturaux/cycliques/méta, métriques MOG-E, Pipeline Cuba (CB-1..6), grammaire BNF du langage LAS "
+                "et 15 anti-patterns AP-01..15. Trace honnête : la somme brute des coefficients de SGG_v2 égale 1.20 "
+                "(0.25+0.30+0.30+0.15+0.20) et est conservée sans correction silencieuse dans CONTR-Z0-TENSION."
+            ),
+            notation=(
+                "\\operatorname{IDI}=\\frac{\\sigma}{|\\mu|},\\; "
+                "\\operatorname{IIB}=0.40D+0.35A+0.25I,\\; "
+                "\\operatorname{QIT}=\\sqrt{\\operatorname{QIT}_é^2+\\operatorname{QIT}_a^2},\\; "
+                "\\sum w_{\\text{SGG}}=1.20"
+            ),
+            auteur_source="Jean-François Gadbois (Jef) — Institut Supela",
+            contribution_ia="Extraction Corpus Unifié v3.0 PR-M365-01 & signalement arithmétique SGG_v2 sans modification du texte source",
+            origine="Livre Supela — Corpus Unifié v3.0.docx (Parties VII, VIII §8.3, X §10.2 & Annexes C/E/F)",
+            date_source="2026-07-30",
+            statut="SUPPORTÉ",
+            portee="Outillage méthodologique, scoring MOG-E et syntaxe LAS dans le corpus v3.0",
+            conditions=[
+                "Conservation brute des pondérations SGG_v2 (somme = 1.20) conformément à H ≠ L ≠ P",
+                "Respect d'AP-15 (Unicité de Z₀) et des 15 anti-patterns normatifs",
+            ],
+            dependances=["MAT-00-XERO-VIDE", "MAT-08-TESTS-PARITE"],
+            implique="Catalogue unifié des patterns, métriques MOG-E, pipeline Cuba et grammaire LAS sous statut SUPPORTÉ.",
+            n_implique_pas="Un score SGG_v2 non normalisé (somme 1.20) ne constitue pas une métrique calibrée exécutée en Python.",
+            preuves=["M365-SRC-09 : Corpus Unifié v3.0 Parties VII–X et Annexes C, E, F"],
+            tests=["tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"],
+            resultats=["Divergence pondération SGG_v2 consignée honnêtement dans CONTR-Z0-TENSION"],
+            contre_exemples=["Correction silencieuse de SGG_v2 sans garder la formulation brute (1.20)"],
+            contradictions=["CONTR-Z0-TENSION"],
+            implementations=[],
+            artefacts=["docs/constitution/fiches/MAT-08-PATTERNS-LAS.yaml", "docs/constitution/REGISTRE_CONTRADICTIONS.json"],
+            etat_4d="ACTIF",
+            historique_statuts=[
+                {
+                    "date": "2026-11-16",
+                    "statut": "SUPPORTÉ",
+                    "etat_4d": "ACTIF",
+                    "motif": "Indexation Patterns/MOG-E/Cuba/LAS depuis Corpus Unifié v3.0 avec trace SGG_v2=1.20",
+                }
+            ],
+            conditions_reouverture="Audit mathématique de normalisation SGG_v2 et parseur exécutable BNF LAS.",
+            sources=[f"OneDrive Corpus Unifié v3.0: {m365_corpus_v3}"],
+            notes="Illustration directe de L (formulation brute exacte 1.20) préservé face à P (signalement critique).",
         ),
     ]
 
@@ -2019,13 +2560,205 @@ def load_contradictions_registry(path: Path = DEFAULT_CONTRADICTIONS_JSON) -> di
     }
 
 
+def load_provenance_m365_registry(path: Path = DEFAULT_PROVENANCE_JSON) -> dict[str, Any]:
+    """Charge le registre de provenance M365 et d'anonymisation locale."""
+    if not path.exists():
+        raise FileNotFoundError(f"Registre de provenance M365 introuvable : {path}")
+    data: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
+    return data
+
+
+def validate_provenance_m365_registry(
+    provenance_doc: dict[str, Any],
+    schema_path: Path = DEFAULT_PROVENANCE_SCHEMA,
+) -> None:
+    """Valide le registre de provenance M365 (Draft 2020-12 + unicité & intégrité référentielle)."""
+    schema: dict[str, Any] = json.loads(schema_path.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(provenance_doc)
+
+    src_ids = [str(s["id_source"]) for s in provenance_doc.get("sources_onedrive_m365", [])]
+    if len(src_ids) != len(set(src_ids)):
+        raise ValueError("Identifiants id_source dupliqués dans sources_onedrive_m365.")
+    src_id_set = set(src_ids)
+
+    cand_ids = [str(c["id"]) for c in provenance_doc.get("candidats_m365", [])]
+    if len(cand_ids) != len(set(cand_ids)):
+        raise ValueError("Identifiants dupliqués dans candidats_m365.")
+
+    for cand in provenance_doc.get("candidats_m365", []):
+        if cand.get("effacement_interdit") is not True:
+            raise ValueError(f"effacement_interdit doit valoir True sur {cand.get('id')}.")
+        for ref_id in cand.get("sources_liees", []):
+            if str(ref_id) not in src_id_set:
+                raise ValueError(
+                    f"Référence sources_liees inconnue '{ref_id}' dans candidat {cand.get('id')}."
+                )
+
+    manque_ids = [str(m["id_manque"]) for m in provenance_doc.get("reduction_manques_m3", [])]
+    if len(manque_ids) != len(set(manque_ids)):
+        raise ValueError("Identifiants id_manque dupliqués dans reduction_manques_m3.")
+
+
+_LOCAL_LEAK_RE = re.compile(
+    r"(?i)([a-z]:\\(?:users|utilisateurs)\\|appdata\\|%localappdata%|%appdata%|%userprofile%)"
+)
+
+
+def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
+    """Anonymise un export local_pc_inventory.json (collecté ≠ publiable, zéro chemin PII)."""
+    schema_name = str(local_inv.get("schema") or "")
+    if schema_name and schema_name != "supela-local-pc-inventory/1":
+        raise ValueError(f"Schéma inventaire local inattendu : {schema_name}")
+
+    raw_machine = str(local_inv.get("machine_name") or "").strip()
+    machine_sha256_prefix = (
+        hashlib.sha256(raw_machine.encode("utf-8")).hexdigest()[:12]
+        if raw_machine
+        else "000000000000"
+    )
+
+    drives_agreges: list[dict[str, Any]] = []
+    for drv in local_inv.get("drives", []):
+        raw_letter = str(drv.get("lecteur") or "").strip().upper()
+        drive_label = (
+            raw_letter[:3]
+            if len(raw_letter) >= 2 and raw_letter[1] == ":" and raw_letter[0].isalpha()
+            else "[REDACTE]"
+        )
+        drives_agreges.append(
+            {
+                "lecteur": drive_label,
+                "statut": str(drv.get("statut") or "INCONNU"),
+                "dossiers_racine_count": len(drv.get("dossiers_racine", [])),
+                "total_depots_git": int(drv.get("total_depots_git", 0) or 0),
+                "total_fichiers_notables": int(drv.get("total_fichiers_notables", 0) or 0),
+                "scan_tronque": bool(drv.get("scan_tronque", False)),
+                "dossiers_inaccessibles": int(drv.get("dossiers_inaccessibles", 0) or 0),
+            }
+        )
+
+    git_repos = list(local_inv.get("git_repos", []))
+    git_remote_hosts_counts: dict[str, int] = {}
+    git_repos_par_lecteur: dict[str, int] = {}
+    for repo in git_repos:
+        raw_l = str(repo.get("lecteur") or "").strip().upper()
+        lbl = raw_l[:3] if len(raw_l) >= 2 and raw_l[1] == ":" and raw_l[0].isalpha() else "[REDACTE]"
+        git_repos_par_lecteur[lbl] = git_repos_par_lecteur.get(lbl, 0) + 1
+        raw_remote = str(repo.get("remote_origin") or "").strip()
+        if raw_remote:
+            parsed = urlsplit(raw_remote)
+            if parsed.scheme.lower() in {"http", "https", "ssh", "git"} and parsed.hostname:
+                host_key = f"{parsed.scheme.lower()}://{parsed.hostname.lower()}"
+                git_remote_hosts_counts[host_key] = git_remote_hosts_counts.get(host_key, 0) + 1
+
+    notable_files = list(local_inv.get("notable_files", []))
+    extensions_counts: dict[str, int] = {}
+    notable_par_lecteur: dict[str, int] = {}
+    for nf in notable_files:
+        raw_l = str(nf.get("lecteur") or "").strip().upper()
+        lbl = raw_l[:3] if len(raw_l) >= 2 and raw_l[1] == ":" and raw_l[0].isalpha() else "[REDACTE]"
+        notable_par_lecteur[lbl] = notable_par_lecteur.get(lbl, 0) + 1
+        ext = str(nf.get("extension") or "").strip().lower() or "(sans_extension)"
+        extensions_counts[ext] = extensions_counts.get(ext, 0) + 1
+
+    trace_types_counts: dict[str, int] = {}
+    domaines_http_counts: dict[str, int] = {}
+    plateformes_agregees: list[dict[str, Any]] = []
+    total_traces_ia = 0
+    ai_presentes = 0
+    for plat in local_inv.get("ai_platforms", []):
+        is_present = bool(plat.get("present", False))
+        if is_present:
+            ai_presentes += 1
+        plat_trace_count = int(plat.get("total_traces_ia", 0) or 0)
+        total_traces_ia += plat_trace_count
+        plat_trace_types: dict[str, int] = {}
+        plat_domains: dict[str, int] = {}
+        for tr in plat.get("traces_echantillon", []):
+            ttype = str(tr.get("type") or "TRACE").strip() or "TRACE"
+            plat_trace_types[ttype] = plat_trace_types.get(ttype, 0) + 1
+            trace_types_counts[ttype] = trace_types_counts.get(ttype, 0) + 1
+            raw_url = str(tr.get("url") or "").strip()
+            if raw_url:
+                parsed = urlsplit(raw_url)
+                if parsed.scheme.lower() in {"http", "https"} and parsed.hostname:
+                    dom_key = f"{parsed.scheme.lower()}://{parsed.hostname.lower()}"
+                    plat_domains[dom_key] = plat_domains.get(dom_key, 0) + 1
+                    domaines_http_counts[dom_key] = domaines_http_counts.get(dom_key, 0) + 1
+        plateformes_agregees.append(
+            {
+                "id": str(plat.get("id") or ""),
+                "nom": str(plat.get("nom") or ""),
+                "present": is_present,
+                "chemin_detecte": "[REDACTE]",
+                "total_traces_ia": plat_trace_count,
+                "echantillon_traces_count": len(plat.get("traces_echantillon", [])),
+                "trace_types_counts": dict(sorted(plat_trace_types.items())),
+                "domaines_http_counts": dict(sorted(plat_domains.items())),
+            }
+        )
+
+    result: dict[str, Any] = {
+        "schema": "supela-local-pc-inventory-anonyme/1",
+        "politique_confidentialite": "LOCAL_UNIQUEMENT_PAR_DEFAUT",
+        "admissible_pr_publique": True,
+        "generated_utc": str(local_inv.get("generated_utc") or ""),
+        "machine_sha256_prefix": machine_sha256_prefix,
+        "skip_browser_history": bool(local_inv.get("skip_browser_history", False)),
+        "totaux": {
+            "drives": len(drives_agreges),
+            "git_repos": len(git_repos),
+            "notable_files": len(notable_files),
+            "ai_platforms_suivies": len(plateformes_agregees),
+            "ai_platforms_presentes": ai_presentes,
+            "total_traces_ia": total_traces_ia,
+        },
+        "drives_agreges": drives_agreges,
+        "git_repos_par_lecteur": dict(sorted(git_repos_par_lecteur.items())),
+        "git_remote_hosts_counts": dict(sorted(git_remote_hosts_counts.items())),
+        "notable_files_par_lecteur": dict(sorted(notable_par_lecteur.items())),
+        "extensions_fichiers_notables": dict(sorted(extensions_counts.items())),
+        "trace_types_counts": dict(sorted(trace_types_counts.items())),
+        "domaines_http_counts": dict(sorted(domaines_http_counts.items())),
+        "plateformes_ia_agregees": plateformes_agregees,
+        "champs_supprimes": [
+            "machine_name",
+            "dossiers_racine[].nom/chemin",
+            "git_repos[].chemin",
+            "notable_files[].chemin",
+            "ai_platforms[].chemin_detecte",
+            "traces_echantillon[].titre/url_locale",
+        ],
+    }
+
+    serialized = json.dumps(result, ensure_ascii=False, sort_keys=True)
+    if _LOCAL_LEAK_RE.search(serialized):
+        raise ValueError("Fuite potentielle de chemin local Windows détectée après anonymisation.")
+    if (
+        len(raw_machine) >= 3
+        and raw_machine.lower() not in {"windows", "local", "supela"}
+        and raw_machine.lower() in serialized.lower()
+    ):
+        raise ValueError("Fuite potentielle du nom de machine Windows après anonymisation.")
+    return result
+
+
 def enrich_structural_knowledge(
     doc: dict[str, Any],
     cards: list[dict[str, Any]],
     contradictions_doc: dict[str, Any],
+    provenance_doc: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Injecte taxonomie MATH/, architecture XIII, registre normalisé et lien contradictions."""
+    """Injecte taxonomie MATH/, architecture XIII, dictionnaire, formules, contradictions et M365."""
+    dictionnaire = build_dictionary_entries()
     rows = cards_to_registry_rows(cards)
+    prov = provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
+    sources_m365 = list(prov.get("sources_onedrive_m365", []))
+    candidats_m365 = list(prov.get("candidats_m365", []))
+    pol_locale = prov.get("politique_confidentialite_locale", {})
+
+    doc["dictionnaire"] = dictionnaire
     doc["taxonomie_math"] = build_math_taxonomy()
     doc["architecture_xiii_sections"] = build_architecture_xiii()
     doc["registre_formules"] = rows
@@ -2035,18 +2768,43 @@ def enrich_structural_knowledge(
         "nombre_contradictions": len(contradictions_doc.get("contradictions", [])),
         "effacement_interdit": True,
     }
+    doc["registre_provenance_m365_ref"] = {
+        "fichier_json": "docs/constitution/REGISTRE_PROVENANCE_M365.json",
+        "fichier_md": "docs/constitution/REGISTRE_PROVENANCE_M365.md",
+        "schema_json": "schemas/supela_provenance_m365_1.schema.json",
+        "sources_m365_candidates": len(sources_m365),
+        "candidats_m365_suivis": len(candidats_m365),
+        "politique_locale_defaut": str(pol_locale.get("mode_defaut") or "LOCAL_UNIQUEMENT_PAR_DEFAUT"),
+        "effacement_interdit": True,
+    }
+    doc["statistiques"]["termes_dictionnaire"] = len(dictionnaire)
     doc["statistiques"]["formules_normalisees"] = len(rows)
     doc["statistiques"]["fiches_yaml_initiales"] = len(cards)
     doc["statistiques"]["contradictions_conservees"] = len(
         contradictions_doc.get("contradictions", [])
     )
+    doc["statistiques"]["sources_m365_candidates"] = len(sources_m365)
+
     for plat in doc.get("encyclopedie", {}).get("plateformes_ia_et_navigateurs", []):
         if plat.get("id") == "copilot_edge":
             plat["trace_accessible_cloud"] = (
-                "Extraits conversationnels M365 Copilot fournis par l'utilisateur (6 fils cités : "
-                "19:itiW3fl..., 19:b__mSUKb..., 19:aaBvPORf..., 19:Fcb7Bbl..., 19:nWs3b4mo...) ; "
-                "recherche fichiers M365 vide et profil local Edge/Bing sur C:\\ hors périmètre VM."
+                "16 sources OneDrive/M365 identifiées (dont PDF TZI §2.1, vr22.py dans Texte collé (3).txt, "
+                "Hi Ace LOL.docx et texte intégral Livre Supela Corpus Unifié v3.0 fournis par l'utilisateur ; "
+                "accès réseau direct depuis la VM bloqué HTTP/2 403) + 6 fils Copilot cités ; "
+                "profil local Edge/Bing sur C:\\ hors périmètre VM."
             )
+
+    if doc.get("local_pc_scan") == "NON_EXECUTEE":
+        n_contr = len(contradictions_doc.get("contradictions", []))
+        doc["conclusion"] = (
+            f"Le Dictionnaire ({len(dictionnaire)} termes) et l'Encyclopédie répertorient de façon "
+            f"vérifiée 15 dépôts GitHub, 54 discussions/artefacts Google Drive/Docs/Colab, "
+            f"{len(sources_m365)} sources OneDrive/M365 suivies (PR-M365-01 / Corpus Unifié v3.0 intégral), "
+            f"{len(cards)} fiches YAML et {n_contr} contradictions conservées ; les disques locaux "
+            "C:/ et D:/ ainsi que les historiques directs Copilot/Gemini/Arc/Brave restent "
+            "honnêtement marqués INACCESSIBLE_DANS_LE_PÉRIMÈTRE et sous politique "
+            "LOCAL_UNIQUEMENT_PAR_DEFAUT jusqu'à exécution et anonymisation éventuelle."
+        )
     return doc
 
 
@@ -2081,6 +2839,7 @@ def build_from_sources(
     sources_dir: Path,
     root: Path,
     contradictions_doc: dict[str, Any] | None = None,
+    provenance_doc: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Construit l'encyclopédie complète à partir des exports JSON vérifiés."""
     gh_repos_raw: list[dict[str, Any]] = json.loads(
@@ -2556,7 +3315,8 @@ def build_from_sources(
         "conclusion": "Le Dictionnaire et l'Encyclopédie répertorient de façon vérifiée les 15 dépôts GitHub, les discussions IA et artefacts Google Drive/Docs/Colab ainsi que la nomenclature complète Supela Ω-ZERO ; les disques locaux C:/D: et historiques directs Copilot/Gemini/Arc/Brave restent honnêtement marqués INACCESSIBLE_DANS_LE_PÉRIMÈTRE jusqu'à exécution du collecteur PowerShell local.",
     }
     contr = contradictions_doc if contradictions_doc is not None else load_contradictions_registry()
-    return enrich_structural_knowledge(doc, build_formula_cards(), contr)
+    prov = provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
+    return enrich_structural_knowledge(doc, build_formula_cards(), contr, provenance_doc=prov)
 
 
 def _parse_iso_utc(raw_ts: str) -> datetime | None:
@@ -2784,13 +3544,16 @@ def merge_local_inventory(base_doc: dict[str, Any], local_inv: dict[str, Any], r
 def render_formulas_markdown(
     doc: dict[str, Any],
     contradictions_doc: dict[str, Any] | None = None,
+    provenance_doc: dict[str, Any] | None = None,
 ) -> str:
     """Génère REGISTRE_FORMULES_SUPELA.md (taxonomie MATH/00..08, XIII domaines et tableau normalisé)."""
     contr = contradictions_doc if contradictions_doc is not None else load_contradictions_registry()
+    prov = provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
+    n_src = len(prov.get("sources_onedrive_m365", []))
     lines: list[str] = [
         "# Registre Normalisé des Formules & Taxonomie MATH/ · Supela Ω-ZERO",
         "",
-        "> **Principe fondamental (`Source ≠ Autorité`) :** Une apparition dans une conversation M365, Google Doc ou carnet d'idées atteste la *provenance*, jamais une démonstration mathématique. Toute formule conserve séparément sa **formulation brute**, sa **normalisation**, son **statut épistémique** (`PROUVÉ`..`RÉFUTÉ`) et son **état 4D** (`ACTIF`/`LATENT`/`RÉOUVERT`).",
+        "> **Principe fondamental (`Source ≠ Autorité`) :** Une apparition dans une conversation M365, Google Doc, fichier OneDrive ou carnet d'idées atteste la *provenance*, jamais une démonstration mathématique ni une exécution locale. Toute formule conserve séparément sa **formulation brute**, sa **normalisation**, son **statut épistémique** (`PROUVÉ`..`RÉFUTÉ`) et son **état 4D** (`ACTIF`/`LATENT`/`RÉOUVERT`).",
         "",
         "## 1. Classification 3 Axes & Architecture `MATH/00_FONDEMENTS/` .. `MATH/08_TESTS/`",
         "",
@@ -2840,13 +3603,164 @@ def render_formulas_markdown(
     lines.extend(
         [
             "",
-            "## 4. Manques Ouverts & Mises en Garde Vérifiées (`M3`)",
+            "## 4. Manques Ouverts, Réduction M365 (`PR-M365-01`) & Mises en Garde (`M3`)",
             "",
-            "- **Recherche fichiers M365 vide :** Aucune prétention d'exhaustivité sur les fichiers locaux ou M365 non extraits.",
-            "- **`MAT-00-ZERO-INT` (`Théorème du Zéro-Intégration`) et `MAT-03-RESET-STAR` (`RESET*`, `R*`, `VR-22`) :** Maintenus au statut `INCONNU` / état `LATENT` sans reconstruction spéculative.",
-            "- **`MAT-06-CHAINE-TRANSFO` (Section H) :** La chaîne brute est retournée littéralement `undefined` ; la suite `Demande → Interprétation → Transformation → Résultat` est explicitement qualifiée de *proposition dérivée non sourcée*.",
+            f"- **Provenance OneDrive/M365 (`PR-M365-01`, statut `{prov.get('decision_statut', 'PR_ACCEPTED_PARTIAL')}`) :** `{n_src}` sources inventoriées, extraits TZI / `vr22.py` / *Hi Ace LOL.docx* / texte intégral *Corpus Unifié v3.0* fournis par l'utilisateur (sonde VM directe `HTTP/2 403`), sans aucune auto-promotion (`SOURCE_IDENTIFIED ⇏ PROUVÉ`, `EXTRACTED ⇏ VALIDATED`). Voir [REGISTRE_PROVENANCE_M365.md](REGISTRE_PROVENANCE_M365.md).",
+            "- **`MAT-00-ZERO-INT` (`Théorème du Zéro-Intégration`) — `MANQUE ↓` (`SUPPORTÉ` / `RÉOUVERT`) :** 7 primitives et 6 écritures exactes extraites de Section 2.1 du PDF Pierre Conceptuelle et Partie IV du Corpus Unifié v3.0 ; maintenu sous **clause sémiotique semi-formelle** (LPO / Catégories différées) en conservant l'historique initial `INCONNU / LATENT`.",
+            "- **`MAT-03-RESET-STAR` (`VR-22` / `vr22.py`) — `MANQUE ↓` (`SUPPORTÉ` / `RÉOUVERT`) :** Spécification `⟨P, E, C, K⟩`, niveaux `R0_NOMINAL..R5_ABSOLU`, 5 transitions, `|K_{t+1}| > |K_t|` et `V_e = Valeur / Complexité ≥ 1.0` extraite sous statut d'exécution `RAPPORTÉ` exclusivement (`CODE_RECOVERED ⇏ CODE_EXECUTED`, sans étiquetage d'exécution validée sur banc local).",
+            "- **`MAT-06-CHAINE-TRANSFO` (Section H) — `MANQUE MAINTENU OUVERT` (`INCONNU` / `RÉOUVERT`) :** Après consultation du *Corpus Unifié v3.0* et de *Hi Ace LOL.docx*, le triplet `H / L / P` et la source de chaîne exacte ne sont pas retrouvés (`exact_source_status: NOT_ESTABLISHED`, `PROMOTION_FORBIDDEN`) ; `formulation_brute` reste littéralement `undefined` et la suite `Demande → Interprétation → Transformation → Résultat` reste qualifiée de *proposition dérivée non sourcée*.",
+            "- **Tension multi-sources `CONTR-Z0-TENSION` :** Divergence conservée sans harmonisation artificielle entre Branche A (TZI `R(S_n) → Z_0`) et Branche B (*Corpus Unifié v3.0* `cycle_def: undefined / non_resolu`, `Vide (𝕍) ≠ Z₀`, `SGG_v2` somme = `1.20`, `vr22 R0..R5` vs `PRZ N1..N3` vs `Π₀`).",
             "- **`MAT-01-REFLPROB` (Réflexivité probatoire) :** Maintenue au statut `HYPOTHÉTIQUE` (présence historique dans Supela ≠ théorème démontré).",
             f"- **Contradictions & Échecs conservés (`{len(contr.get('contradictions', []))}` entrées) :** Voir [REGISTRE_CONTRADICTIONS.md](REGISTRE_CONTRADICTIONS.md) et [INDEX_FICHES.md](fiches/INDEX_FICHES.md).",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def _esc_md_cell(value: Any) -> str:
+    return str(value).replace("|", "\\|").replace("\r\n", " ").replace("\n", " ")
+
+
+def render_provenance_markdown(provenance_doc: dict[str, Any]) -> str:
+    """Génère REGISTRE_PROVENANCE_M365.md depuis REGISTRE_PROVENANCE_M365.json."""
+    acces = provenance_doc.get("acces_reseau_vm", {})
+    pol = provenance_doc.get("politique_confidentialite_locale", {})
+    sources = provenance_doc.get("sources_onedrive_m365", [])
+    candidats = provenance_doc.get("candidats_m365", [])
+    manques = provenance_doc.get("reduction_manques_m3", [])
+
+    lines: list[str] = [
+        "# Registre de Provenance M365, Anonymisation Locale & Réduction de Manque · Supela Ω-ZERO",
+        "",
+        (
+            f"> **Schéma :** `{provenance_doc.get('schema', 'supela-provenance-m365/1')}` · "
+            f"**Version :** `{provenance_doc.get('version', '1.0.0')}` · "
+            f"**Date :** `{provenance_doc.get('date', '')}` · "
+            f"**PR :** `{provenance_doc.get('pr_reference', 'PR-M365-01')}` · "
+            f"**Statut :** `{provenance_doc.get('decision_statut', 'PR_ACCEPTED_PARTIAL')}`"
+        ),
+        "",
+        "## 1. Principes Directeurs & Relations Interdites (`retrouver ≠ canoniser`)",
+        "",
+    ]
+    for p in provenance_doc.get("principes_directeurs", []):
+        lines.append(f"- {p}")
+    lines.extend(["", "**Relations interdites (Draft 2020-12) :** " + " · ".join(
+        f"`{r}`" for r in provenance_doc.get("relations_interdites", [])
+    ), ""])
+
+    lines.extend(
+        [
+            "## 2. Contrôle d'Accès Réseau depuis la VM (`acces_reseau_vm`)",
+            "",
+            f"- **Plugin M365 connecté :** `{acces.get('plugin_m365_connecte', False)}`",
+            f"- **Réponse sonde VM `onedrive.live.com` :** `{acces.get('controle_vm_onedrive', '')}` (`{acces.get('horodatage_verification', '')}`)",
+            f"- **Mode d'acquisition :** `{acces.get('mode_acquisition', '')}`",
+            f"- **Note d'honnêteté :** {acces.get('note_honnetete', '')}",
+            "",
+            "## 3. Chaîne Normative de Provenance (8 Étapes)",
+            "",
+            "| Ordre | Étape | Rôle | Sorties autorisées |",
+            "|---|---|---|---|",
+        ]
+    )
+    for st in provenance_doc.get("pipeline_etapes", []):
+        sorties = ", ".join(f"`{s}`" for s in st.get("sorties_autorisees", []))
+        lines.append(
+            f"| `{st['ordre']}` | **`{st['etape']}`** | {_esc_md_cell(st['role'])} | {sorties} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 4. Politique de Confidentialité Locale (`collecté ≠ publiable`)",
+            "",
+            f"- **Mode par défaut :** `{pol.get('mode_defaut', 'LOCAL_UNIQUEMENT_PAR_DEFAUT')}`",
+            f"- **Architecture du flux :** `{pol.get('architecture_flux', '')}`",
+            "- **Motifs interdits dans tout export public :** " + "; ".join(
+                f"`{m}`" for m in pol.get("motifs_interdits_export_public", [])
+            ),
+            "",
+            "| Catégorie | Résumé anonyme | Admissible PR publique |",
+            "|---|---|---|",
+        ]
+    )
+    for el in pol.get("elements_publiables", []):
+        lines.append(
+            f"| `{el['categorie']}` | {_esc_md_cell(el['resume_anonyme'])} | `{el['admissible_pr_publique']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            f"## 5. Sources OneDrive / M365 Inventoriées (`{len(sources)}` entrées)",
+            "",
+            "| ID | Titre | Type | Stade extraction | Accès VM | Cibles liées | Résumé / Extrait |",
+            "|---|---|---|---|---|---|---|",
+        ]
+    )
+    for src in sources:
+        cibles = ", ".join(f"`{c}`" for c in src.get("cibles_liees", []))
+        titre_cell = f"[{_esc_md_cell(src['titre'])}]({src['url']})"
+        lines.append(
+            f"| `{src['id_source']}` | {titre_cell} | `{src['type_fichier']}` | "
+            f"`{src['stade_extraction']}` | {_esc_md_cell(src['acces_depuis_vm'])} | "
+            f"{cibles} | {_esc_md_cell(src['extrait_rapporte'])} |"
+        )
+
+    lines.extend(["", f"## 6. Candidats M365 & Suivi de Provenance (`{len(candidats)}` entrées)", ""])
+    for cand in candidats:
+        orig = cand.get("origine", {})
+        cible = cand.get("cible_fiche_id") or "AUCUNE_FICHE_CIBLE"
+        lines.extend(
+            [
+                f"### {cand['id']} — {cand['titre']}",
+                "",
+                (
+                    f"- **Cible :** `{cible}` · **Objet :** `{cand['objet_encyclopedique']}` · "
+                    f"**Stade :** `{cand['stade_provenance']}` · "
+                    f"**Preuve/Test :** `{cand['preuve_test_niveau']}`"
+                ),
+                (
+                    f"- **Comparaison :** `{cand['comparison_outcome']}` · "
+                    f"**Revue humaine :** `{cand['human_review_status']}` · "
+                    f"**Statut :** `{cand['statut_epistemique']}` · **État 4D :** `{cand['etat_4d']}`"
+                ),
+                f"- **Origine :** {orig.get('auteur', '')} — *{orig.get('titre_source', '')}* (`{orig.get('reference_id', '')}`)",
+                f"- **Caveat provenance :** {cand['caveat_provenance']}",
+                "- **Éléments encore manquants :** " + "; ".join(cand.get("elements_manquants", [])),
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## 7. Réduction de Manque M3 (`K_t ⊆ K_{t+1}`)",
+            "",
+            "| ID Manque | Recherche M365 | Statut Source | Verdict | Promotion | Avant → Après | Manquants restants |",
+            "|---|---|---|---|---|---|---|",
+        ]
+    )
+    for mq in manques:
+        miss = "; ".join(mq.get("missing", []))
+        avant_apres = f"{mq['statut_avant']} → {mq['statut_apres']}"
+        lines.append(
+            f"| `{mq['id_manque']}` | `{mq['m365_search_status']}` | `{mq['exact_source_status']}` | "
+            f"`{mq['reduction_manque_verdict']}` | `{mq['promotion']}` | "
+            f"{_esc_md_cell(avant_apres)} | {_esc_md_cell(miss)} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "---",
+            (
+                "Voir aussi : [ENCYCLOPEDIE_DICTIONNAIRE.md](ENCYCLOPEDIE_DICTIONNAIRE.md) · "
+                "[REGISTRE_FORMULES_SUPELA.md](REGISTRE_FORMULES_SUPELA.md) · "
+                "[REGISTRE_CONTRADICTIONS.md](REGISTRE_CONTRADICTIONS.md) · "
+                "[INDEX_CONSTITUTION.md](INDEX_CONSTITUTION.md)."
+            ),
             "",
         ]
     )
@@ -2901,6 +3815,11 @@ def render_markdown(doc: dict[str, Any]) -> str:
     """Génère la vue Markdown lisible et vérifiable de l'Encyclopédie & du Dictionnaire."""
     stats = doc["statistiques"]
     perim = doc["perimetre"]
+    n_fiches = stats.get("fiches_yaml_initiales", len(doc.get("registre_formules", [])))
+    n_m365 = stats.get(
+        "sources_m365_candidates",
+        doc.get("registre_provenance_m365_ref", {}).get("sources_m365_candidates", 0),
+    )
     lines: list[str] = [
         "# Dictionnaire & Encyclopédie Universelle · Supela Ω-ZERO",
         "",
@@ -2913,7 +3832,7 @@ def render_markdown(doc: dict[str, Any]) -> str:
         "3. Les **Discussions IA, Google Docs, Markdown et Notebooks Colab** archivés dans Google Drive ;",
         "4. La **Matrice des Plateformes IA & Navigateurs** (Copilot, Gemini, Arc, Brave, Opera, Antigravity, Cursor, KiloCode, Cline, ChatGPT, Claude) ;",
         "5. Les **Disques Locaux Windows (`C:\\` et `D:\\`)** avec leur statut d'accessibilité et le collecteur PowerShell dédié ;",
-        "6. La **Taxonomie `MATH/00..08`, l'Architecture XIII Domaines, le Registre des Formules, les 20 Fiches YAML et le Registre des Contradictions**.",
+        f"6. La **Taxonomie `MATH/00..08`, l'Architecture XIII Domaines, le Registre des Formules, les {n_fiches} Fiches YAML, le Registre des Contradictions et le Registre de Provenance M365 ({n_m365} sources)**.",
         "",
         "## 1. Synthèse & Périmètre d'Accessibilité",
         "",
@@ -2929,6 +3848,7 @@ def render_markdown(doc: dict[str, Any]) -> str:
             f"- **Termes au dictionnaire :** `{stats['termes_dictionnaire']}`",
             f"- **Formules normalisées & Fiches YAML :** `{stats.get('formules_normalisees', len(doc.get('registre_formules', [])))}`",
             f"- **Contradictions & Échecs conservés :** `{stats.get('contradictions_conservees', doc.get('registre_contradictions_ref', {}).get('nombre_contradictions', 0))}`",
+            f"- **Sources OneDrive/M365 suivies :** `{n_m365}`",
             f"- **Dépôts GitHub :** `{stats['depots_github_total']}` (`{stats['depots_github_originaux']}` originaux + `{stats['depots_github_forks']}` forks)",
             f"- **Discussions IA / Docs / Notebooks répertoriés :** `{stats['discussions_ia_google_docs']}`",
             f"- **Plateformes IA & Navigateurs suivis :** `{stats['plateformes_ia_navigateurs']}`",
@@ -3075,6 +3995,19 @@ def render_markdown(doc: dict[str, Any]) -> str:
                 f"- **JSON canonique contradictions :** [{Path(cref['fichier_json']).name}]({Path(cref['fichier_json']).name}) (`effacement_interdit: {cref['effacement_interdit']}`, `{cref['nombre_contradictions']}` entrées conservées).",
                 f"- **Vue Markdown contradictions :** [{Path(cref['fichier_md']).name}]({Path(cref['fichier_md']).name}).",
                 "- **Artefact HTML statique dérivé :** [ENCYCLOPEDIE_DICTIONNAIRE.html](ENCYCLOPEDIE_DICTIONNAIRE.html).",
+                "",
+            ]
+        )
+
+    if doc.get("registre_provenance_m365_ref"):
+        pref = doc["registre_provenance_m365_ref"]
+        lines.extend(
+            [
+                "## 11. Provenance M365, Anonymisation Locale & Réduction de Manque (`PR-M365-01`)",
+                "",
+                f"- **JSON canonique provenance M365 :** [{Path(pref['fichier_json']).name}]({Path(pref['fichier_json']).name}) (`sources_m365_candidates: {pref['sources_m365_candidates']}`, `candidats_m365_suivis: {pref['candidats_m365_suivis']}`, `effacement_interdit: {pref['effacement_interdit']}`).",
+                f"- **Vue Markdown provenance M365 :** [{Path(pref['fichier_md']).name}]({Path(pref['fichier_md']).name}).",
+                f"- **Politique disques locaux `C:\\` / `D:\\` :** `{pref['politique_locale_defaut']}` (`collecté ≠ publiable`, filtre `anonymize_local_inventory()` requis avant toute PR publique).",
                 "",
             ]
         )
@@ -3242,13 +4175,64 @@ _HTML_JS = r"""
 
   function statusClass(st) {
     var s = String(st || "").toUpperCase();
-    if (s.indexOf("PROUV") === 0 || s.indexOf("VERIFIE") >= 0 || s.indexOf("INDEXE_LOCAL") === 0 || s.indexOf("COMPLET") >= 0 || s === "ACTIF" || s === "ORIGINAL" || s === "HISTORIQUE_CORRIGEE_CONSERVEE") {
-      return "badge badge-ok";
-    }
-    if (s.indexOf("INACCESSIBLE") >= 0 || s.indexOf("CONSERVEE") >= 0 || s === "CONTRADICTOIRE" || s === "RÉFUTÉ" || s === "RÉOUVERT" || s === "INCONNUE_SOURCE_INCOMPLETE") {
+    if (
+      s.indexOf("INCOMPLET") >= 0 ||
+      s.indexOf("PROMOTION_FORBIDDEN") >= 0 ||
+      s === "FORBIDDEN" ||
+      s === "NOT_ESTABLISHED" ||
+      s.indexOf("ENCORE_OUVERT") >= 0 ||
+      s === "NON_EXTRAIT" ||
+      s === "NON_EXÉCUTÉ" ||
+      s === "CONTRADICTORY" ||
+      s === "REJETE_HUMAIN" ||
+      s.indexOf("INACCESSIBLE") >= 0 ||
+      s === "CONSERVEE_OUVERTE" ||
+      s === "CONSERVEE_NON_ACQUISE" ||
+      s === "CONTRADICTOIRE" ||
+      s === "RÉFUTÉ" ||
+      s === "RÉOUVERT" ||
+      s === "INCONNUE_SOURCE_INCOMPLETE"
+    ) {
       return "badge badge-err";
     }
-    if (s.indexOf("PARTIEL") >= 0 || s.indexOf("HYBRIDE") >= 0 || s.indexOf("OUVERT") >= 0 || s === "LATENT" || s === "INCONNU" || s === "HYPOTHÉTIQUE") {
+    if (
+      s.indexOf("PROUV") === 0 ||
+      s.indexOf("VERIFIE") >= 0 ||
+      s.indexOf("INDEXE_LOCAL") === 0 ||
+      s.indexOf("COMPLET") >= 0 ||
+      s === "COMPLETE" ||
+      s === "ACTIF" ||
+      s === "ORIGINAL" ||
+      s === "HISTORIQUE_CORRIGEE_CONSERVEE" ||
+      s === "TEXTE_INTEGRAL_FOURNI_UTILISATEUR" ||
+      s === "PASSAGES_EXTRAITS_UTILISATEUR" ||
+      s === "ESTABLISHED_EXTRACTED" ||
+      s === "MANQUE_FORTEMENT_REDUIT" ||
+      s === "APPROUVE_HUMAIN" ||
+      s === "COMPATIBLE"
+    ) {
+      return "badge badge-ok";
+    }
+    if (
+      s.indexOf("PARTIEL") >= 0 ||
+      s === "PARTIAL" ||
+      s === "PARTIAL_ESTABLISHED" ||
+      s.indexOf("HYBRIDE") >= 0 ||
+      s.indexOf("OUVERT") >= 0 ||
+      s === "LATENT" ||
+      s === "INCONNU" ||
+      s === "HYPOTHÉTIQUE" ||
+      s === "METADATA_AND_SNIPPET_ONLY" ||
+      s === "SOURCE_IDENTIFIED" ||
+      s === "M365_RECOVERED" ||
+      s === "RAPPORTÉ" ||
+      s === "REQUIS_AVANT_CANONISATION" ||
+      s === "CAPPED_BELOW_PROUVE" ||
+      s === "EN_ATTENTE" ||
+      s === "DIVERGENT" ||
+      s === "PR_ACCEPTED_PARTIAL" ||
+      s === "LOCAL_UNIQUEMENT_PAR_DEFAUT"
+    ) {
       return "badge badge-warn";
     }
     return "badge badge-info";
@@ -3257,6 +4241,8 @@ _HTML_JS = r"""
   var baseData = JSON.parse(document.getElementById("encyclopedia-data").textContent);
   var contradictionsData = JSON.parse(document.getElementById("contradictions-data").textContent);
   var fichesList = JSON.parse(document.getElementById("fiches-yaml-data").textContent);
+  var provEl = document.getElementById("provenance-m365-data");
+  var provenanceData = provEl ? JSON.parse(provEl.textContent) : {};
   var fichesById = {};
   fichesList.forEach(function (f) { fichesById[f.id] = f; });
 
@@ -3286,6 +4272,7 @@ _HTML_JS = r"""
     renderDiscussions();
     renderGithubDrive();
     renderLocalCollector();
+    renderProvenanceM365();
     applyTabVisibility();
   }
 
@@ -3303,6 +4290,7 @@ _HTML_JS = r"""
       { v: st.formules_normalisees || (currentDoc.registre_formules || []).length, l: "Formules MATH/" },
       { v: st.fiches_yaml_initiales || fichesList.length, l: "Fiches YAML (29 clés)" },
       { v: st.contradictions_conservees || (contradictionsData.contradictions || []).length, l: "Contradictions" },
+      { v: st.sources_m365_candidates || (provenanceData.sources_onedrive_m365 || []).length, l: "Sources M365" },
       { v: st.depots_github_total || 0, l: "Dépôts GitHub" },
       { v: st.discussions_ia_google_docs || 0, l: "Docs & Colab Drive" },
       { v: st.fichiers_omega_zero_4d || 0, l: "Fichiers A12" },
@@ -3604,6 +4592,124 @@ _HTML_JS = r"""
     }).join("");
   }
 
+  function renderProvenanceM365() {
+    var metaBox = document.getElementById("prov-meta-badges");
+    if (!metaBox) return;
+    var p = provenanceData || {};
+    var acc = p.acces_reseau_vm || {};
+    metaBox.innerHTML =
+      '<span class="badge badge-primary">' + escHtml(p.pr_reference || "PR-M365-01") + '</span>' +
+      '<span class="' + statusClass(p.decision_statut) + '">' + escHtml(p.decision_statut || "") + '</span>' +
+      '<span class="badge badge-err">Sonde VM OneDrive : ' + escHtml(acc.controle_vm_onedrive || "") + '</span>' +
+      '<span class="badge">Acquisition : ' + escHtml(acc.mode_acquisition || "") + '</span>';
+
+    var vmNote = document.getElementById("prov-vm-note");
+    if (vmNote) {
+      vmNote.innerHTML = '<strong>Honnêteté réseau VM :</strong> ' + escHtml(acc.note_honnetete || "");
+    }
+
+    var forbEl = document.getElementById("prov-forbidden");
+    if (forbEl) {
+      forbEl.innerHTML = (p.relations_interdites || []).map(function (r) {
+        return '<span class="badge badge-err">' + escHtml(r) + '</span>';
+      }).join("");
+    }
+
+    var privEl = document.getElementById("prov-privacy");
+    var pol = p.politique_confidentialite_locale || {};
+    if (privEl) {
+      var pubRows = (pol.elements_publiables || []).map(function (it) {
+        return '<div class="list-row"><span><code>' + escHtml(it.categorie) + '</code> — ' + escHtml(it.resume_anonyme) + '</span>' +
+          '<span class="' + (it.admissible_pr_publique ? "badge badge-ok" : "badge badge-warn") + '">' +
+          (it.admissible_pr_publique ? "ADMISSIBLE_PR" : "LOCAL_PAR_DEFAUT") + '</span></div>';
+      }).join("");
+      privEl.innerHTML =
+        '<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px;">' +
+        '<strong>Politique de Confidentialité Locale (collecté ≠ publiable)</strong>' +
+        '<span class="' + statusClass(pol.mode_defaut) + '">' + escHtml(pol.mode_defaut || "") + '</span></div>' +
+        '<div class="mono-wrap muted" style="margin-bottom:6px;">' + escHtml(pol.architecture_flux || "") + '</div>' +
+        '<div class="muted" style="margin-bottom:6px;">Motifs interdits : ' +
+        (pol.motifs_interdits_export_public || []).map(function (m) { return '<code>' + escHtml(m) + '</code>'; }).join(" · ") +
+        '</div>' + pubRows;
+    }
+
+    var pipeEl = document.getElementById("prov-pipeline");
+    if (pipeEl) {
+      pipeEl.innerHTML = (p.pipeline_etapes || []).map(function (st) {
+        return '<div class="subcard">' +
+          '<div style="display:flex;justify-content:space-between;gap:6px;margin-bottom:4px;">' +
+          '<strong>' + escHtml(st.ordre + ". " + st.etape) + '</strong>' +
+          '<span class="badge">Étape ' + escHtml(st.ordre) + '</span></div>' +
+          '<div style="font-size:12px;">' + escHtml(st.role) + '</div>' +
+          '<div class="muted" style="margin-top:4px;">' +
+          (st.sorties_autorisees || []).map(function (s) { return '<code>' + escHtml(s) + '</code>'; }).join(" ") +
+          '</div></div>';
+      }).join("");
+    }
+
+    var mqEl = document.getElementById("prov-manques");
+    if (mqEl) {
+      mqEl.innerHTML = (p.reduction_manques_m3 || []).map(function (mq) {
+        return '<div class="subcard">' +
+          '<div style="display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:4px;">' +
+          '<strong>' + escHtml(mq.id_manque) + '</strong>' +
+          '<span class="' + statusClass(mq.reduction_manque_verdict) + '">' + escHtml(mq.reduction_manque_verdict) + '</span></div>' +
+          '<div style="margin-bottom:4px;"><span class="' + statusClass(mq.promotion) + '">' + escHtml(mq.promotion) + '</span> ' +
+          '<span class="badge">' + escHtml(mq.exact_source_status) + '</span></div>' +
+          '<div class="muted"><strong>Avant :</strong> ' + escHtml(mq.statut_avant) + '</div>' +
+          '<div style="font-size:12px;margin-top:3px;"><strong>Après :</strong> ' + escHtml(mq.statut_apres) + '</div>' +
+          '<ul style="margin:5px 0 0 16px;padding:0;font-size:11.5px;" class="muted">' +
+          (mq.missing || []).map(function (m) { return '<li>' + escHtml(m) + '</li>'; }).join("") +
+          '</ul></div>';
+      }).join("");
+    }
+
+    var srcList = p.sources_onedrive_m365 || [];
+    var pq = ((document.getElementById("prov-search") || {}).value || "").toLowerCase().trim();
+    var pStage = (document.getElementById("prov-stage-filter") || {}).value || "ALL";
+    var srcFiltered = srcList.filter(function (s) {
+      if (pStage !== "ALL" && s.stade_extraction !== pStage) return false;
+      if (!pq) return true;
+      return (s.id_source + " " + s.titre + " " + s.type_fichier + " " + (s.cibles_liees || []).join(" ") + " " + s.extrait_rapporte).toLowerCase().indexOf(pq) !== -1;
+    });
+    var pCnt = document.getElementById("prov-count");
+    if (pCnt) pCnt.textContent = srcFiltered.length + " / " + srcList.length;
+
+    var tbody = document.getElementById("prov-sources-tbody");
+    if (tbody) {
+      tbody.innerHTML = srcFiltered.map(function (s) {
+        return '<tr>' +
+          '<td class="mono-wrap"><strong>' + escHtml(s.id_source) + '</strong></td>' +
+          '<td><a target="_blank" rel="noopener" href="' + escHtml(s.url) + '"><strong>' + escHtml(s.titre) + '</strong></a><div class="mono-wrap muted">' + escHtml(s.id_item) + '</div></td>' +
+          '<td><span class="badge">' + escHtml(s.type_fichier) + '</span></td>' +
+          '<td><span class="' + statusClass(s.stade_extraction) + '">' + escHtml(s.stade_extraction) + '</span></td>' +
+          '<td class="muted">' + escHtml(s.acces_depuis_vm) + '</td>' +
+          '<td class="mono-wrap">' + (s.cibles_liees || []).map(function (c) { return '<span class="badge">' + escHtml(c) + '</span>'; }).join(" ") + '</td>' +
+          '<td>' + escHtml(s.extrait_rapporte) + '</td></tr>';
+      }).join("");
+    }
+
+    var candEl = document.getElementById("prov-candidats");
+    if (candEl) {
+      candEl.innerHTML = (p.candidats_m365 || []).map(function (c) {
+        var orig = c.origine || {};
+        return '<div class="subcard">' +
+          '<div style="display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:4px;">' +
+          '<strong>' + escHtml(c.id + " · " + (c.cible_fiche_id || "SANS_FICHE")) + '</strong>' +
+          '<div class="badges"><span class="' + statusClass(c.statut_epistemique) + '">' + escHtml(c.statut_epistemique) + '</span>' +
+          '<span class="' + statusClass(c.etat_4d) + '">' + escHtml(c.etat_4d) + '</span>' +
+          '<span class="' + statusClass(c.preuve_test_niveau) + '">' + escHtml(c.preuve_test_niveau) + '</span></div></div>' +
+          '<div style="font-weight:600;margin-bottom:4px;">' + escHtml(c.titre) + '</div>' +
+          '<div class="muted" style="margin-bottom:4px;">Stade : <code>' + escHtml(c.stade_provenance) + '</code> · Comparaison : <code>' + escHtml(c.comparison_outcome) + '</code> · Revue : <code>' + escHtml(c.human_review_status) + '</code></div>' +
+          '<div style="font-size:12px;"><strong>Origine :</strong> ' + escHtml((orig.auteur || "") + " — " + (orig.titre_source || "")) + '</div>' +
+          '<div style="font-size:12px;margin-top:4px;"><strong>Caveat :</strong> ' + escHtml(c.caveat_provenance) + '</div>' +
+          '<ul style="margin:4px 0 0 16px;padding:0;font-size:11.5px;" class="muted">' +
+          (c.elements_manquants || []).map(function (m) { return '<li>' + escHtml(m) + '</li>'; }).join("") +
+          '</ul></div>';
+      }).join("");
+    }
+  }
+
   function applyTabVisibility() {
     document.querySelectorAll(".tab-btn").forEach(function (b) {
       var isAct = b.getAttribute("data-tab") === activeTab;
@@ -3639,7 +4745,9 @@ _HTML_JS = r"""
     ["disc-type-filter", "change", renderDiscussions],
     ["gh-type-filter", "change", renderGithubDrive],
     ["tree-search", "input", renderGithubDrive],
-    ["drive-cat-filter", "change", renderGithubDrive]
+    ["drive-cat-filter", "change", renderGithubDrive],
+    ["prov-search", "input", renderProvenanceM365],
+    ["prov-stage-filter", "change", renderProvenanceM365]
   ].forEach(function (cfg) {
     var el = document.getElementById(cfg[0]);
     if (el) el.addEventListener(cfg[1], cfg[2]);
@@ -3803,10 +4911,12 @@ def render_html(
     doc: dict[str, Any],
     contradictions_doc: dict[str, Any] | None = None,
     cards: list[dict[str, Any]] | None = None,
+    provenance_doc: dict[str, Any] | None = None,
 ) -> str:
     """Génère la vue HTML statique autonome (zéro CDN) avec parité SHA-256 stricte."""
     contr = contradictions_doc if contradictions_doc is not None else load_contradictions_registry()
     card_list = cards if cards is not None else build_formula_cards()
+    prov = provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
     fiches_public = [extract_yaml_payload(c) for c in card_list]
     canonical_hash = _canonical_sha256(doc)
 
@@ -3855,6 +4965,7 @@ def render_html(
             '      <button type="button" data-tab="discussions" class="tab-btn btn">5. Discussions IA, Docs &amp; Colab</button>',
             '      <button type="button" data-tab="github-drive" class="tab-btn btn">6. GitHub &amp; Drive</button>',
             '      <button type="button" data-tab="local-collector" class="tab-btn btn">7. Collecteur Windows C:\\ &amp; D:\\</button>',
+            '      <button type="button" data-tab="provenance" class="tab-btn btn">8. Provenance M365 &amp; Anonymisation</button>',
             "    </nav>",
             '    <section id="tab-perimetre" class="tab-panel card">',
             '      <h2>1. Périmètre d\'Accessibilité Vérifié &amp; Matrice Plateformes IA</h2>',
@@ -3947,10 +5058,31 @@ def render_html(
             "      </div>",
             '      <div id="disks-grid" class="grid-2"></div>',
             "    </section>",
+            '    <section id="tab-provenance" class="tab-panel card">',
+            "      <h2>8. Provenance M365 (PR-M365-01), Anonymisation Locale &amp; Réduction de Manque</h2>",
+            '      <div id="prov-meta-badges" class="badges" style="margin-bottom:8px;"></div>',
+            '      <div id="prov-vm-note" class="notice" style="margin-bottom:10px;"></div>',
+            '      <div id="prov-forbidden" class="badges" style="margin-bottom:12px;"></div>',
+            '      <div id="prov-privacy" class="subcard" style="margin-bottom:12px;"></div>',
+            "      <h3>Chaîne Normative de Provenance (8 Étapes · retrouver ≠ canoniser)</h3>",
+            '      <div id="prov-pipeline" class="grid-3" style="margin-bottom:14px;"></div>',
+            "      <h3>Réduction de Manque M3 (K_t ⊆ K_{t+1})</h3>",
+            '      <div id="prov-manques" class="grid-3" style="margin-bottom:14px;"></div>',
+            "      <h3>Sources OneDrive / M365 Inventoriées</h3>",
+            '      <div class="controls">',
+            '        <input id="prov-search" type="search" placeholder="Filtrer source M365, ID, cible (MAT-00, MAT-03, MAT-06) ou extrait..." />',
+            '        <select id="prov-stage-filter"><option value="ALL">Tous stades extraction</option><option value="TEXTE_INTEGRAL_FOURNI_UTILISATEUR">TEXTE_INTEGRAL_FOURNI_UTILISATEUR</option><option value="PASSAGES_EXTRAITS_UTILISATEUR">PASSAGES_EXTRAITS_UTILISATEUR</option><option value="METADATA_AND_SNIPPET_ONLY">METADATA_AND_SNIPPET_ONLY</option></select>',
+            '        <span id="prov-count" class="badge"></span>',
+            "      </div>",
+            '      <div class="tbl-wrap" style="margin-bottom:14px;"><table><thead><tr><th>ID Source</th><th>Titre &amp; Lien OneDrive</th><th>Type</th><th>Stade extraction</th><th>Accès VM</th><th>Cibles liées</th><th>Résumé / Extrait</th></tr></thead><tbody id="prov-sources-tbody"></tbody></table></div>',
+            "      <h3>Candidats M365 &amp; État de Provenance</h3>",
+            '      <div id="prov-candidats" class="grid-2"></div>',
+            "    </section>",
             "  </div>",
             f'  <script id="encyclopedia-data" type="application/json">{_safe_json_for_html_script(doc)}</script>',
             f'  <script id="contradictions-data" type="application/json">{_safe_json_for_html_script(contr)}</script>',
             f'  <script id="fiches-yaml-data" type="application/json">{_safe_json_for_html_script(fiches_public)}</script>',
+            f'  <script id="provenance-m365-data" type="application/json">{_safe_json_for_html_script(prov)}</script>',
             "  <script>",
             _HTML_JS.strip(),
             "  </script>",
@@ -4039,22 +5171,64 @@ def main() -> int:
     parser.add_argument("--out-formulas-md", type=Path, default=None)
     parser.add_argument("--out-contradictions-json", type=Path, default=DEFAULT_CONTRADICTIONS_JSON)
     parser.add_argument("--out-contradictions-md", type=Path, default=None)
+    parser.add_argument("--provenance-json", type=Path, default=DEFAULT_PROVENANCE_JSON)
+    parser.add_argument("--provenance-schema", type=Path, default=DEFAULT_PROVENANCE_SCHEMA)
+    parser.add_argument("--out-provenance-md", type=Path, default=None)
+    parser.add_argument("--anonymize-local", type=Path, default=None)
+    parser.add_argument("--anonymize-out", type=Path, default=None)
     parser.add_argument("--out-fiches-dir", type=Path, default=None)
     parser.add_argument("--skip-html", action="store_true")
     parser.add_argument("--skip-fiches", action="store_true")
     args = parser.parse_args()
 
+    anonymized_out_path: Path | None = None
+    if args.anonymize_local is not None:
+        raw_inv = json.loads(args.anonymize_local.read_text(encoding="utf-8"))
+        anonymized = anonymize_local_inventory(raw_inv)
+        anonymized_out_path = (
+            args.anonymize_out
+            if args.anonymize_out is not None
+            else args.anonymize_local.with_name(f"{args.anonymize_local.stem}.anonymized.json")
+        )
+        _atomic_write_text(
+            anonymized_out_path,
+            json.dumps(anonymized, indent=2, ensure_ascii=False) + "\n",
+        )
+        if args.local_inventory is None and args.sources_dir is None:
+            print(
+                json.dumps(
+                    {
+                        "status": "OK",
+                        "mode": "ANONYMIZE_LOCAL_ONLY",
+                        "out_anonymized": str(anonymized_out_path),
+                        "politique_confidentialite": anonymized["politique_confidentialite"],
+                        "admissible_pr_publique": anonymized["admissible_pr_publique"],
+                        "totaux": anonymized["totaux"],
+                    },
+                    indent=2,
+                    ensure_ascii=False,
+                )
+            )
+            return 0
+
     contradictions_doc = load_contradictions_registry(args.out_contradictions_json)
+    provenance_doc = load_provenance_m365_registry(args.provenance_json)
+    validate_provenance_m365_registry(provenance_doc, args.provenance_schema)
     cards = build_formula_cards()
     is_canonical_run = (
         args.out_json.resolve() == (args.root / "docs" / "constitution" / "supela-dictionnaire-encyclopedie-1.json").resolve()
     )
 
     if args.sources_dir is not None:
-        doc = build_from_sources(args.sources_dir, args.root, contradictions_doc=contradictions_doc)
+        doc = build_from_sources(
+            args.sources_dir,
+            args.root,
+            contradictions_doc=contradictions_doc,
+            provenance_doc=provenance_doc,
+        )
     else:
         doc = json.loads(args.base_registry.read_text(encoding="utf-8"))
-        doc = enrich_structural_knowledge(doc, cards, contradictions_doc)
+        doc = enrich_structural_knowledge(doc, cards, contradictions_doc, provenance_doc)
 
     if not args.skip_fiches:
         fiches_dir = args.out_fiches_dir if args.out_fiches_dir is not None else (
@@ -4069,10 +5243,18 @@ def main() -> int:
     contradictions_md_out = args.out_contradictions_md if args.out_contradictions_md is not None else (
         DEFAULT_CONTRADICTIONS_MD if is_canonical_run else None
     )
+    provenance_md_out = args.out_provenance_md if args.out_provenance_md is not None else (
+        DEFAULT_PROVENANCE_MD if is_canonical_run else None
+    )
     if formulas_md_out is not None:
-        _atomic_write_text(formulas_md_out, render_formulas_markdown(doc, contradictions_doc))
+        _atomic_write_text(
+            formulas_md_out,
+            render_formulas_markdown(doc, contradictions_doc, provenance_doc),
+        )
     if contradictions_md_out is not None:
         _atomic_write_text(contradictions_md_out, render_contradictions_markdown(contradictions_doc))
+    if provenance_md_out is not None:
+        _atomic_write_text(provenance_md_out, render_provenance_markdown(provenance_doc))
 
     doc["encyclopedie"]["omega_zero_4d_arborescence"] = scan_repo_tree(args.root)
     doc["statistiques"]["fichiers_omega_zero_4d"] = len(
@@ -4097,7 +5279,7 @@ def main() -> int:
     for _ in range(4):
         json_text = json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
         md_text = render_markdown(doc)
-        html_text = "" if args.skip_html else render_html(doc, contradictions_doc, cards)
+        html_text = "" if args.skip_html else render_html(doc, contradictions_doc, cards, provenance_doc)
 
         prev_json = args.out_json.read_text(encoding="utf-8") if args.out_json.exists() else ""
         prev_md = args.out_md.read_text(encoding="utf-8") if args.out_md.exists() else ""
@@ -4134,6 +5316,8 @@ def main() -> int:
                 "out_json": str(args.out_json),
                 "out_md": str(args.out_md),
                 "out_html": None if args.skip_html else str(out_html),
+                "out_provenance_md": str(provenance_md_out) if provenance_md_out is not None else None,
+                "out_anonymized": str(anonymized_out_path) if anonymized_out_path is not None else None,
                 "html_parity_verified": html_verified,
                 "canonical_sha256": _canonical_sha256(doc),
                 "verdict_couverture": doc["verdict_couverture"],

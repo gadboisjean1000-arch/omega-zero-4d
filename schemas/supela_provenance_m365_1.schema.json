@@ -1,0 +1,519 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.omega-zero.local/schemas/supela_provenance_m365_1.schema.json",
+  "title": "Schéma de Provenance M365, Anonymisation Locale & Réduction de Manque · Supela Ω-ZERO (supela-provenance-m365/1)",
+  "description": "Schéma JSON Draft 2020-12 gouvernant la chaîne ORIGINE → SOURCE_BRUTE → EXTRACTION → NORMALISATION → OBJET_ENCYCLOPÉDIQUE → PREUVE/TEST → STATUT ÉPISTÉMIQUE → HISTORIQUE 4D, l'interdiction d'auto-promotion (SOURCE_IDENTIFIED ⇏ PROUVÉ, EXTRACTED ⇏ VALIDATED, CODE_RECOVERED ⇏ CODE_EXECUTED, NEW_VERSION ⇏ ERASE(OLD_VERSION)), la monotonie K_t ⊆ K_{t+1} et la politique locale collecté ≠ publiable.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "date",
+    "pr_reference",
+    "decision_statut",
+    "principes_directeurs",
+    "relations_interdites",
+    "pipeline_etapes",
+    "acces_reseau_vm",
+    "politique_confidentialite_locale",
+    "sources_onedrive_m365",
+    "candidats_m365",
+    "reduction_manques_m3"
+  ],
+  "properties": {
+    "schema": { "const": "supela-provenance-m365/1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "pr_reference": { "type": "string", "minLength": 3 },
+    "decision_statut": {
+      "type": "string",
+      "enum": ["PR_ACCEPTED_PARTIAL", "PR_OPEN_CANDIDATE", "COMPLETE_SOUS_PREUVE"]
+    },
+    "principes_directeurs": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 5 }
+    },
+    "relations_interdites": {
+      "type": "array",
+      "minItems": 4,
+      "contains": { "const": "SOURCE_IDENTIFIED ⇏ PROUVÉ" },
+      "items": {
+        "type": "string",
+        "enum": [
+          "SOURCE_IDENTIFIED ⇏ PROUVÉ",
+          "EXTRACTED ⇏ VALIDATED",
+          "CODE_RECOVERED ⇏ CODE_EXECUTED",
+          "NEW_VERSION ⇏ ERASE(OLD_VERSION)",
+          "COLLECTE ⇏ PUBLIABLE",
+          "INVENTORIE ⇏ AUTORISE_A_DIFFUSER"
+        ]
+      }
+    },
+    "pipeline_etapes": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ordre", "etape", "role", "sorties_autorisees"],
+        "properties": {
+          "ordre": { "type": "integer", "minimum": 1, "maximum": 8 },
+          "etape": {
+            "type": "string",
+            "enum": [
+              "ORIGINE",
+              "SOURCE_BRUTE",
+              "EXTRACTION",
+              "NORMALISATION",
+              "OBJET_ENCYCLOPEDIQUE",
+              "PREUVE_TEST",
+              "STATUT_EPISTEMIQUE",
+              "HISTORIQUE_4D"
+            ]
+          },
+          "role": { "type": "string", "minLength": 5 },
+          "sorties_autorisees": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 2 }
+          }
+        }
+      }
+    },
+    "acces_reseau_vm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plugin_m365_connecte",
+        "controle_vm_onedrive",
+        "horodatage_verification",
+        "mode_acquisition",
+        "note_honnetete"
+      ],
+      "properties": {
+        "plugin_m365_connecte": { "type": "boolean" },
+        "controle_vm_onedrive": { "type": "string", "minLength": 4 },
+        "horodatage_verification": { "type": "string", "minLength": 10 },
+        "mode_acquisition": { "type": "string", "minLength": 5 },
+        "note_honnetete": { "type": "string", "minLength": 10 }
+      }
+    },
+    "politique_confidentialite_locale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode_defaut",
+        "collecte_neq_publiable",
+        "inventorie_neq_autorise_a_diffuser",
+        "filtre_anonymisation_requis",
+        "architecture_flux",
+        "motifs_interdits_export_public",
+        "elements_publiables"
+      ],
+      "properties": {
+        "mode_defaut": { "const": "LOCAL_UNIQUEMENT_PAR_DEFAUT" },
+        "collecte_neq_publiable": { "const": true },
+        "inventorie_neq_autorise_a_diffuser": { "const": true },
+        "filtre_anonymisation_requis": { "const": true },
+        "architecture_flux": {
+          "const": "INVENTAIRE LOCAL COMPLET → FILTRE D'ANONYMISATION → EXPORT ADMISSIBLE"
+        },
+        "motifs_interdits_export_public": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "elements_publiables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["categorie", "resume_anonyme", "admissible_pr_publique"],
+            "properties": {
+              "categorie": { "type": "string", "minLength": 2 },
+              "resume_anonyme": {
+                "type": "string",
+                "minLength": 5,
+                "not": {
+                  "pattern": "([A-Za-z]:\\\\([Uu]sers|[Uu]tilisateurs)\\\\|[Aa]pp[Dd]ata\\\\|%LOCALAPPDATA%|%APPDATA%|%USERPROFILE%)"
+                }
+              },
+              "admissible_pr_publique": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "sources_onedrive_m365": {
+      "type": "array",
+      "minItems": 14,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id_source",
+          "titre",
+          "id_item",
+          "id_type",
+          "cid",
+          "url",
+          "type_fichier",
+          "stade_extraction",
+          "acces_depuis_vm",
+          "cibles_liees",
+          "extrait_rapporte"
+        ],
+        "properties": {
+          "id_source": { "type": "string", "pattern": "^M365-SRC-[0-9]{2,}$" },
+          "titre": { "type": "string", "minLength": 2 },
+          "id_item": { "type": "string", "minLength": 8 },
+          "entity_representation_id": { "type": "string", "minLength": 8 },
+          "id_type": { "type": "string", "enum": ["id", "resid"] },
+          "cid": { "type": "string", "minLength": 8 },
+          "url": { "type": "string", "pattern": "^https://onedrive\\.live\\.com/" },
+          "type_fichier": { "type": "string", "minLength": 2 },
+          "attribution_auteur": { "type": "string" },
+          "date_source": { "type": "string" },
+          "stade_extraction": {
+            "type": "string",
+            "enum": [
+              "NON_EXTRAIT",
+              "METADATA_AND_SNIPPET_ONLY",
+              "PASSAGES_EXTRAITS_UTILISATEUR",
+              "TEXTE_INTEGRAL_FOURNI_UTILISATEUR",
+              "EXTRAIT_COMPLET_VERIFIE"
+            ]
+          },
+          "acces_depuis_vm": { "type": "string", "minLength": 3 },
+          "cibles_liees": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 2 }
+          },
+          "extrait_rapporte": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "candidats_m365": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "titre",
+          "objet_encyclopedique",
+          "origine",
+          "stade_provenance",
+          "contenu_complet_extrait",
+          "preuve_test_niveau",
+          "comparison_outcome",
+          "human_review_status",
+          "statut_epistemique",
+          "etat_4d",
+          "effacement_interdit",
+          "caveat_provenance",
+          "elements_manquants",
+          "sources_liees",
+          "historique_provenance"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^PROV-[A-Z0-9_-]+$" },
+          "cible_fiche_id": { "type": ["string", "null"] },
+          "titre": { "type": "string", "minLength": 3 },
+          "objet_encyclopedique": {
+            "type": "string",
+            "enum": [
+              "Théorème",
+              "Axiome",
+              "Invariant",
+              "Formule",
+              "Opérateur",
+              "Règle",
+              "Distinction",
+              "Métrique",
+              "Test",
+              "Contre-exemple",
+              "Architecture",
+              "Corpus"
+            ]
+          },
+          "origine": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["auteur", "titre_source", "source_system", "reference_id", "emplacement"],
+            "properties": {
+              "auteur": { "type": "string", "minLength": 2 },
+              "titre_source": { "type": "string", "minLength": 2 },
+              "source_system": { "type": "string", "minLength": 2 },
+              "reference_id": { "type": "string", "minLength": 2 },
+              "emplacement": { "type": "string", "minLength": 5 }
+            }
+          },
+          "extraction": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["passage_exact", "sections_ou_lignes", "formules_exactes", "contexte"],
+            "properties": {
+              "passage_exact": { "type": "string" },
+              "sections_ou_lignes": { "type": "string" },
+              "formules_exactes": { "type": "array", "items": { "type": "string" } },
+              "contexte": { "type": "string" }
+            }
+          },
+          "normalisation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["notation_uniformisee", "aucune_autorite_ajoutee", "transformation_documentee"],
+            "properties": {
+              "notation_uniformisee": { "type": "string" },
+              "aucune_autorite_ajoutee": { "const": true },
+              "transformation_documentee": { "type": "string" }
+            }
+          },
+          "stade_provenance": {
+            "type": "string",
+            "enum": [
+              "M365_RECOVERED",
+              "SOURCE_IDENTIFIED",
+              "EXTRACTED",
+              "NORMALIZED",
+              "COMPARED_TO_CURRENT",
+              "HUMAN_REVIEW",
+              "STATUT_EPISTEMIQUE"
+            ]
+          },
+          "contenu_complet_extrait": { "type": "boolean" },
+          "preuve_test_niveau": {
+            "type": "string",
+            "enum": ["NON_EXÉCUTÉ", "RAPPORTÉ", "EXÉCUTÉ", "REPRODUIT"]
+          },
+          "comparison_outcome": {
+            "type": "string",
+            "enum": ["NON_EVALUE", "COMPATIBLE", "DIVERGENT", "CONTRADICTORY", "DUPLICATE"]
+          },
+          "human_review_status": {
+            "type": "string",
+            "enum": [
+              "EN_ATTENTE",
+              "REQUIS_AVANT_CANONISATION",
+              "APPROUVE_HUMAIN",
+              "REJETE_HUMAIN"
+            ]
+          },
+          "statut_epistemique": {
+            "type": "string",
+            "enum": [
+              "PROUVÉ",
+              "SUPPORTÉ",
+              "INFÉRÉ",
+              "HYPOTHÉTIQUE",
+              "INCONNU",
+              "CONTRADICTOIRE",
+              "RÉFUTÉ"
+            ]
+          },
+          "etat_4d": {
+            "type": "string",
+            "enum": ["ACTIF", "LATENT", "RÉOUVERT"]
+          },
+          "effacement_interdit": { "const": true },
+          "caveat_provenance": { "type": "string", "minLength": 5 },
+          "elements_manquants": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 2 }
+          },
+          "sources_liees": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^M365-SRC-[0-9]{2,}$" }
+          },
+          "historique_provenance": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["date", "stade_provenance", "statut_epistemique", "etat_4d", "motif"],
+              "properties": {
+                "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+                "stade_provenance": {
+                  "type": "string",
+                  "enum": [
+                    "M365_RECOVERED",
+                    "SOURCE_IDENTIFIED",
+                    "EXTRACTED",
+                    "NORMALIZED",
+                    "COMPARED_TO_CURRENT",
+                    "HUMAN_REVIEW",
+                    "STATUT_EPISTEMIQUE"
+                  ]
+                },
+                "statut_epistemique": {
+                  "type": "string",
+                  "enum": [
+                    "PROUVÉ",
+                    "SUPPORTÉ",
+                    "INFÉRÉ",
+                    "HYPOTHÉTIQUE",
+                    "INCONNU",
+                    "CONTRADICTOIRE",
+                    "RÉFUTÉ"
+                  ]
+                },
+                "etat_4d": { "type": "string", "enum": ["ACTIF", "LATENT", "RÉOUVERT"] },
+                "motif": { "type": "string", "minLength": 3 }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "stade_provenance": { "enum": ["M365_RECOVERED", "SOURCE_IDENTIFIED"] }
+              }
+            },
+            "then": {
+              "properties": {
+                "statut_epistemique": { "const": "INCONNU" },
+                "contenu_complet_extrait": { "const": false },
+                "preuve_test_niveau": { "const": "NON_EXÉCUTÉ" },
+                "comparison_outcome": { "const": "NON_EVALUE" },
+                "human_review_status": {
+                  "enum": ["EN_ATTENTE", "REQUIS_AVANT_CANONISATION"]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "stade_provenance": {
+                  "enum": ["EXTRACTED", "NORMALIZED", "COMPARED_TO_CURRENT", "HUMAN_REVIEW"]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "statut_epistemique": {
+                  "enum": [
+                    "SUPPORTÉ",
+                    "INFÉRÉ",
+                    "HYPOTHÉTIQUE",
+                    "INCONNU",
+                    "CONTRADICTOIRE",
+                    "RÉFUTÉ"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "preuve_test_niveau": { "enum": ["NON_EXÉCUTÉ", "RAPPORTÉ"] }
+              }
+            },
+            "then": {
+              "properties": {
+                "statut_epistemique": {
+                  "enum": [
+                    "SUPPORTÉ",
+                    "INFÉRÉ",
+                    "HYPOTHÉTIQUE",
+                    "INCONNU",
+                    "CONTRADICTOIRE",
+                    "RÉFUTÉ"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "statut_epistemique": { "const": "PROUVÉ" }
+              }
+            },
+            "then": {
+              "properties": {
+                "stade_provenance": { "const": "STATUT_EPISTEMIQUE" },
+                "human_review_status": { "const": "APPROUVE_HUMAIN" },
+                "contenu_complet_extrait": { "const": true },
+                "preuve_test_niveau": { "enum": ["EXÉCUTÉ", "REPRODUIT"] }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "comparison_outcome": { "const": "CONTRADICTORY" }
+              }
+            },
+            "then": {
+              "properties": {
+                "statut_epistemique": {
+                  "enum": [
+                    "CONTRADICTOIRE",
+                    "INCONNU",
+                    "SUPPORTÉ",
+                    "INFÉRÉ",
+                    "HYPOTHÉTIQUE"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "reduction_manques_m3": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id_manque",
+          "m365_search_status",
+          "exact_source_status",
+          "statut_avant",
+          "statut_apres",
+          "reduction_manque_verdict",
+          "missing",
+          "promotion"
+        ],
+        "properties": {
+          "id_manque": { "type": "string", "minLength": 3 },
+          "m365_search_status": { "type": "string", "enum": ["EMPTY", "PARTIAL", "COMPLETE"] },
+          "exact_source_status": {
+            "type": "string",
+            "enum": ["ESTABLISHED_EXTRACTED", "PARTIAL_ESTABLISHED", "NOT_ESTABLISHED"]
+          },
+          "statut_avant": { "type": "string", "minLength": 3 },
+          "statut_apres": { "type": "string", "minLength": 3 },
+          "reduction_manque_verdict": {
+            "type": "string",
+            "enum": [
+              "MANQUE_FORTEMENT_REDUIT",
+              "MANQUE_PARTIELLEMENT_REDUIT",
+              "MANQUE_ENCORE_OUVERT"
+            ]
+          },
+          "missing": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "promotion": {
+            "type": "string",
+            "enum": ["FORBIDDEN", "PROMOTION_FORBIDDEN", "CAPPED_BELOW_PROUVE", "HUMAN_REVIEW_REQUIRED"]
+          }
+        }
+      }
+    }
+  }
+}

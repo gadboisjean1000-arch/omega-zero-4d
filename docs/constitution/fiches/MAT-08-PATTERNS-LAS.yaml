@@ -1,0 +1,47 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-08-PATTERNS-LAS
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-08-PATTERNS-LAS"
+nom: "Patterns PA/PC/MP, Métriques MOG-E (SGG_v2), Pipeline Cuba & BNF LAS"
+type: "Métrique"
+discipline: "Ingénierie Systèmes, Évaluation Quantitative & Grammaire Formelle LAS"
+formulation_brute: "PA-01..10 / PC-01..05 / MP-01..03 ; IDI=σ/|μ| ; IIB=0.40D+0.35A+0.25I ; QIT=√(QIT_é²+QIT_a²) ; SGG=0.25A+0.30V+0.30É+0.15T+0.20M (∑=1.20) ; CB-1..6 ; BNF LAS ; AP-01..15"
+formulation_normalisee: "Synthèse technique du Corpus Unifié v3.0 (Parties VII, VIII, IX, X & Annexes) réunissant patterns architecturaux/cycliques/méta, métriques MOG-E, Pipeline Cuba (CB-1..6), grammaire BNF du langage LAS et 15 anti-patterns AP-01..15. Trace honnête : la somme brute des coefficients de SGG_v2 égale 1.20 (0.25+0.30+0.30+0.15+0.20) et est conservée sans correction silencieuse dans CONTR-Z0-TENSION."
+notation_mathématique: "\\operatorname{IDI}=\\frac{\\sigma}{|\\mu|},\\; \\operatorname{IIB}=0.40D+0.35A+0.25I,\\; \\operatorname{QIT}=\\sqrt{\\operatorname{QIT}_é^2+\\operatorname{QIT}_a^2},\\; \\sum w_{\\text{SGG}}=1.20"
+auteur_source: "Jean-François Gadbois (Jef) — Institut Supela"
+contribution_ia: "Extraction Corpus Unifié v3.0 PR-M365-01 & signalement arithmétique SGG_v2 sans modification du texte source"
+origine: "Livre Supela — Corpus Unifié v3.0.docx (Parties VII, VIII §8.3, X §10.2 & Annexes C/E/F)"
+date_source: "2026-07-30"
+statut_epistemique: "SUPPORTÉ"
+portee: "Outillage méthodologique, scoring MOG-E et syntaxe LAS dans le corpus v3.0"
+conditions:
+  - "Conservation brute des pondérations SGG_v2 (somme = 1.20) conformément à H ≠ L ≠ P"
+  - "Respect d'AP-15 (Unicité de Z₀) et des 15 anti-patterns normatifs"
+dependances:
+  - "MAT-00-XERO-VIDE"
+  - "MAT-08-TESTS-PARITE"
+implique: "Catalogue unifié des patterns, métriques MOG-E, pipeline Cuba et grammaire LAS sous statut SUPPORTÉ."
+n_implique_pas: "Un score SGG_v2 non normalisé (somme 1.20) ne constitue pas une métrique calibrée exécutée en Python."
+preuves:
+  - "M365-SRC-09 : Corpus Unifié v3.0 Parties VII–X et Annexes C, E, F"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Divergence pondération SGG_v2 consignée honnêtement dans CONTR-Z0-TENSION"
+contre_exemples:
+  - "Correction silencieuse de SGG_v2 sans garder la formulation brute (1.20)"
+contradictions:
+  - "CONTR-Z0-TENSION"
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-08-PATTERNS-LAS.yaml"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Indexation Patterns/MOG-E/Cuba/LAS depuis Corpus Unifié v3.0 avec trace SGG_v2=1.20"
+conditions_reouverture: "Audit mathématique de normalisation SGG_v2 et parseur exécutable BNF LAS."
+sources:
+  - "OneDrive Corpus Unifié v3.0: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
+notes: "Illustration directe de L (formulation brute exacte 1.20) préservé face à P (signalement critique)."

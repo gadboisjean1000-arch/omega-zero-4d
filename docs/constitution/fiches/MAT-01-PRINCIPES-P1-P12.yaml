@@ -1,0 +1,45 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-01-PRINCIPES-P1-P12
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-01-PRINCIPES-P1-P12"
+nom: "Principes Directeurs P1–P12, Échelle N0–N4, Verdicts V1–V4 & IS-01..04"
+type: "Règle"
+discipline: "Épistémologie Normative & Gouvernance Supela v3.0"
+formulation_brute: "P1..P12 (P6 Règle d'Or) ; Échelle N0..N4 ; Verdicts V1_VALIDÉ..V4_REJETÉ ; Invariants Structuraux IS-01..IS-04"
+formulation_normalisee: "Codification axiologique du Corpus Unifié v3.0 (Partie VI & Annexe D) regroupant les 12 principes directeurs (primauté du zéro, invariance structurale, réversibilité contrôlée, règle d'or P6), l'échelle probatoire N0–N4 et les 4 verdicts V1–V4 sous autorité bornée."
+notation_mathématique: "\\{P_1..P_{12}\\} \\times \\{N_0..N_4\\} \\to \\{V_1, V_2, V_3, V_4\\}, \\quad IS_{01..04}"
+auteur_source: "Jean-François Gadbois (Jef) — Institut Supela"
+contribution_ia: "Normalisation squelette YAML 29 clés sans surclassement d'autorité"
+origine: "Livre Supela — Corpus Unifié v3.0.docx (Partie VI Principes directeurs P1–P12 & Annexe D)"
+date_source: "2026-07-30"
+statut_epistemique: "SUPPORTÉ"
+portee: "Norme comportementale et grille d'évaluation probatoire v3.0"
+conditions:
+  - "Application conjointe avec Authority(G) ≤ Proof(G) et séparation amélioration ≠ autorisation"
+  - "Conformité explicite de N0..N4 à vérifier face au treillis G₀..G₄"
+dependances:
+  - "MAT-01-TREILLIS"
+  - "MAT-01-AUTORITE-BORNEE"
+implique: "Relie la grille doctrinale P1–P12 / N0–N4 / V1–V4 du Corpus v3.0 au noyau ω-ZERO."
+n_implique_pas: "Les verdicts textuels V1–V4 du livre ne remplacent pas les assertions exécutables Rego/Python."
+preuves:
+  - "M365-SRC-09 : Partie VI & Annexe D du Corpus Unifié v3.0 intégral"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Intégrée au registre v3.0 sous statut SUPPORTÉ"
+contre_exemples:
+  - "Déclarer un verdict V1_VALIDÉ sans preuve correspondante N3/N4"
+contradictions: []
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-01-PRINCIPES-P1-P12.yaml"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Indexation des Principes P1–P12, N0–N4, V1–V4 et IS-01..04 depuis Corpus Unifié v3.0"
+conditions_reouverture: "Implémentation directe d'un module N0..N4 ↔ G0..G4 dans src/omega_zero/."
+sources:
+  - "OneDrive Corpus Unifié v3.0: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
+notes: "Source v3.0 citée avec attribution complète (Jean-François Gadbois, 30 juillet 2026)."
