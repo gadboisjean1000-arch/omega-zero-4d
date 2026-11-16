@@ -7,6 +7,7 @@ import argparse
 import copy
 import hashlib
 import io
+import ipaddress
 import json
 import os
 import re
@@ -2568,6 +2569,16 @@ def load_provenance_m365_registry(path: Path = DEFAULT_PROVENANCE_JSON) -> dict[
     return data
 
 
+_EXTRACTED_SOURCE_STAGES: frozenset[str] = frozenset(
+    {
+        "PASSAGES_EXTRAITS_UTILISATEUR",
+        "TEXTE_INTEGRAL_FOURNI_UTILISATEUR",
+        "EXTRAIT_COMPLET_VERIFIE",
+    }
+)
+_PLACEHOLDER_EXTRACTION_RE = re.compile(r"^\s*(?:undefined|null|none|n/a)?\s*$", re.IGNORECASE)
+
+
 def validate_provenance_m365_registry(
     provenance_doc: dict[str, Any],
     schema_path: Path = DEFAULT_PROVENANCE_SCHEMA,
@@ -2577,32 +2588,180 @@ def validate_provenance_m365_registry(
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(provenance_doc)
 
-    src_ids = [str(s["id_source"]) for s in provenance_doc.get("sources_onedrive_m365", [])]
-    if len(src_ids) != len(set(src_ids)):
-        raise ValueError("Identifiants id_source dupliqués dans sources_onedrive_m365.")
-    src_id_set = set(src_ids)
+    src_by_id: dict[str, dict[str, Any]] = {}
+    for src in provenance_doc.get("sources_onedrive_m365", []):
+        sid = str(src["id_source"])
+        if sid in src_by_id:
+            raise ValueError("Identifiants id_source dupliqués dans sources_onedrive_m365.")
+        src_by_id[sid] = src
 
     cand_ids = [str(c["id"]) for c in provenance_doc.get("candidats_m365", [])]
     if len(cand_ids) != len(set(cand_ids)):
         raise ValueError("Identifiants dupliqués dans candidats_m365.")
 
+    manques_by_id: dict[str, dict[str, Any]] = {}
+    for mq in provenance_doc.get("reduction_manques_m3", []):
+        mq_id = str(mq["id_manque"])
+        if mq_id in manques_by_id:
+            raise ValueError("Identifiants id_manque dupliqués dans reduction_manques_m3.")
+        manques_by_id[mq_id] = mq
+
     for cand in provenance_doc.get("candidats_m365", []):
         if cand.get("effacement_interdit") is not True:
             raise ValueError(f"effacement_interdit doit valoir True sur {cand.get('id')}.")
+        linked_sources: list[dict[str, Any]] = []
         for ref_id in cand.get("sources_liees", []):
-            if str(ref_id) not in src_id_set:
+            ref_key = str(ref_id)
+            if ref_key not in src_by_id:
                 raise ValueError(
                     f"Référence sources_liees inconnue '{ref_id}' dans candidat {cand.get('id')}."
                 )
+            linked_sources.append(src_by_id[ref_key])
 
-    manque_ids = [str(m["id_manque"]) for m in provenance_doc.get("reduction_manques_m3", [])]
-    if len(manque_ids) != len(set(manque_ids)):
-        raise ValueError("Identifiants id_manque dupliqués dans reduction_manques_m3.")
+        if cand.get("statut_epistemique") == "PROUVÉ":
+            cand_id = str(cand.get("id"))
+            extraction = cand.get("extraction")
+            normalisation = cand.get("normalisation")
+            if not isinstance(extraction, dict) or not isinstance(normalisation, dict):
+                raise ValueError(
+                    f"Candidat {cand_id} déclaré PROUVÉ sans blocs extraction/normalisation."
+                )
+            if _PLACEHOLDER_EXTRACTION_RE.match(str(extraction.get("passage_exact") or "")):
+                raise ValueError(
+                    f"Candidat {cand_id} déclaré PROUVÉ avec passage_exact vide ou placeholder."
+                )
+            if _PLACEHOLDER_EXTRACTION_RE.match(str(extraction.get("sections_ou_lignes") or "")):
+                raise ValueError(
+                    f"Candidat {cand_id} déclaré PROUVÉ sans sections_ou_lignes vérifiables."
+                )
+            if _PLACEHOLDER_EXTRACTION_RE.match(str(normalisation.get("notation_uniformisee") or "")):
+                raise ValueError(
+                    f"Candidat {cand_id} déclaré PROUVÉ sans notation_uniformisee valide."
+                )
+            if not any(
+                str(s.get("stade_extraction") or "") in _EXTRACTED_SOURCE_STAGES
+                for s in linked_sources
+            ):
+                raise ValueError(
+                    f"Candidat {cand_id} déclaré PROUVÉ sans aucune source liée effectivement extraite."
+                )
+            cible_id = str(cand.get("cible_fiche_id") or "")
+            linked_manque = manques_by_id.get(cible_id)
+            if linked_manque and (
+                linked_manque.get("exact_source_status") == "NOT_ESTABLISHED"
+                or linked_manque.get("promotion") in {"FORBIDDEN", "PROMOTION_FORBIDDEN"}
+            ):
+                raise ValueError(
+                    f"Candidat {cand_id} bloqué pour PROUVÉ : manque associé {cible_id} non établi."
+                )
 
 
 _LOCAL_LEAK_RE = re.compile(
     r"(?i)([a-z]:\\(?:users|utilisateurs)\\|appdata\\|%localappdata%|%appdata%|%userprofile%)"
 )
+_PUBLIC_GIT_HOSTS: frozenset[str] = frozenset(
+    {
+        "github.com",
+        "gist.github.com",
+        "gitlab.com",
+        "bitbucket.org",
+        "codeberg.org",
+        "git.sr.ht",
+        "sr.ht",
+    }
+)
+_PUBLIC_AI_HTTP_HOSTS: frozenset[str] = frozenset(
+    {
+        "gemini.google.com",
+        "aistudio.google.com",
+        "copilot.microsoft.com",
+        "edgeservices.bing.com",
+        "bing.com",
+        "www.bing.com",
+        "chatgpt.com",
+        "chat.openai.com",
+        "claude.ai",
+        "perplexity.ai",
+        "www.perplexity.ai",
+        "poe.com",
+        "arc.net",
+        "github.com",
+        "copilot.github.com",
+        "huggingface.co",
+        "mistral.ai",
+        "chat.mistral.ai",
+        "deepseek.com",
+        "chat.deepseek.com",
+    }
+)
+_PRIVATE_HOST_SUFFIXES: tuple[str, ...] = (
+    ".local",
+    ".internal",
+    ".lan",
+    ".home",
+    ".corp",
+    ".intranet",
+    ".arpa",
+    ".localdomain",
+)
+_SCP_REMOTE_RE = re.compile(r"^[^@/\s:]+@([^:\s/]+):(.+)$")
+_URL_USERINFO_RE = re.compile(r"(?i)\b(?:https?|ssh|git)://[^/\s@]+@")
+_HOST_REDACTED_TOKEN = "[HOST_ANONYMISE_LOCAL]"
+
+
+def _is_allowed_public_host(host: str, allowlist: frozenset[str]) -> bool:
+    """Retourne True uniquement pour un hôte FQDN public explicitement listé (jamais IP ni domaine local)."""
+    normalized = host.strip().strip("[]").rstrip(".").lower()
+    if not normalized or normalized == "localhost":
+        return False
+    if any(normalized.endswith(suffix) for suffix in _PRIVATE_HOST_SUFFIXES):
+        return False
+    try:
+        ipaddress.ip_address(normalized)
+        return False
+    except ValueError:
+        pass
+    if "." not in normalized:
+        return False
+    return normalized in allowlist
+
+
+def redact_git_remote_host(raw_remote: str) -> tuple[str | None, str | None, str | None]:
+    """Extrait (host_key_anonymise, host_brut_prive, secret_userinfo) pour un remote Git."""
+    trimmed = raw_remote.strip()
+    if not trimmed:
+        return None, None, None
+
+    if "://" not in trimmed:
+        scp_match = _SCP_REMOTE_RE.match(trimmed)
+        if scp_match:
+            host = scp_match.group(1).strip().strip("[]").rstrip(".").lower()
+            if _is_allowed_public_host(host, _PUBLIC_GIT_HOSTS):
+                return f"ssh://{host}", None, None
+            return f"ssh://{_HOST_REDACTED_TOKEN}", host or None, None
+        return _HOST_REDACTED_TOKEN, None, None
+
+    parsed = urlsplit(trimmed)
+    scheme = parsed.scheme.lower()
+    if scheme not in {"http", "https", "ssh", "git"}:
+        if scheme == "file":
+            return f"file://{_HOST_REDACTED_TOKEN}", None, None
+        return None, None, None
+
+    secret_userinfo: str | None = None
+    if scheme in {"http", "https"}:
+        pwd = parsed.password
+        if pwd and len(pwd) >= 3:
+            secret_userinfo = pwd
+        elif parsed.username and len(parsed.username) >= 4:
+            secret_userinfo = parsed.username
+
+    host = (parsed.hostname or "").strip().strip("[]").rstrip(".").lower()
+    if not host:
+        return f"{scheme}://{_HOST_REDACTED_TOKEN}", None, secret_userinfo
+    if _is_allowed_public_host(host, _PUBLIC_GIT_HOSTS):
+        return f"{scheme}://{host}", None, secret_userinfo
+    return f"{scheme}://{_HOST_REDACTED_TOKEN}", host, secret_userinfo
 
 
 def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
@@ -2617,6 +2776,9 @@ def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
         if raw_machine
         else "000000000000"
     )
+
+    private_hosts_seen: set[str] = set()
+    userinfo_secrets_seen: set[str] = set()
 
     drives_agreges: list[dict[str, Any]] = []
     for drv in local_inv.get("drives", []):
@@ -2647,9 +2809,12 @@ def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
         git_repos_par_lecteur[lbl] = git_repos_par_lecteur.get(lbl, 0) + 1
         raw_remote = str(repo.get("remote_origin") or "").strip()
         if raw_remote:
-            parsed = urlsplit(raw_remote)
-            if parsed.scheme.lower() in {"http", "https", "ssh", "git"} and parsed.hostname:
-                host_key = f"{parsed.scheme.lower()}://{parsed.hostname.lower()}"
+            host_key, private_host, secret_part = redact_git_remote_host(raw_remote)
+            if private_host:
+                private_hosts_seen.add(private_host)
+            if secret_part:
+                userinfo_secrets_seen.add(secret_part)
+            if host_key:
                 git_remote_hosts_counts[host_key] = git_remote_hosts_counts.get(host_key, 0) + 1
 
     notable_files = list(local_inv.get("notable_files", []))
@@ -2682,8 +2847,19 @@ def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
             raw_url = str(tr.get("url") or "").strip()
             if raw_url:
                 parsed = urlsplit(raw_url)
-                if parsed.scheme.lower() in {"http", "https"} and parsed.hostname:
-                    dom_key = f"{parsed.scheme.lower()}://{parsed.hostname.lower()}"
+                scheme = parsed.scheme.lower()
+                if scheme in {"http", "https"} and parsed.hostname:
+                    if parsed.password and len(parsed.password) >= 3:
+                        userinfo_secrets_seen.add(parsed.password)
+                    elif parsed.username and len(parsed.username) >= 4:
+                        userinfo_secrets_seen.add(parsed.username)
+                    host = parsed.hostname.strip().strip("[]").rstrip(".").lower()
+                    if _is_allowed_public_host(host, _PUBLIC_AI_HTTP_HOSTS):
+                        dom_key = f"{scheme}://{host}"
+                    else:
+                        if host:
+                            private_hosts_seen.add(host)
+                        dom_key = f"{scheme}://{_HOST_REDACTED_TOKEN}"
                     plat_domains[dom_key] = plat_domains.get(dom_key, 0) + 1
                     domaines_http_counts[dom_key] = domaines_http_counts.get(dom_key, 0) + 1
         plateformes_agregees.append(
@@ -2726,22 +2902,108 @@ def anonymize_local_inventory(local_inv: dict[str, Any]) -> dict[str, Any]:
             "machine_name",
             "dossiers_racine[].nom/chemin",
             "git_repos[].chemin",
+            "git_repos[].remote_origin_prive",
             "notable_files[].chemin",
             "ai_platforms[].chemin_detecte",
             "traces_echantillon[].titre/url_locale",
+            "traces_echantillon[].url_privee",
         ],
     }
 
     serialized = json.dumps(result, ensure_ascii=False, sort_keys=True)
-    if _LOCAL_LEAK_RE.search(serialized):
-        raise ValueError("Fuite potentielle de chemin local Windows détectée après anonymisation.")
+    serialized_wo_token = serialized.replace(_HOST_REDACTED_TOKEN, "")
+    if _LOCAL_LEAK_RE.search(serialized_wo_token) or _URL_USERINFO_RE.search(serialized_wo_token):
+        raise ValueError(
+            "Fuite potentielle de chemin local Windows ou d'identifiant détectée après anonymisation."
+        )
     if (
         len(raw_machine) >= 3
         and raw_machine.lower() not in {"windows", "local", "supela"}
-        and raw_machine.lower() in serialized.lower()
+        and raw_machine.lower() in serialized_wo_token.lower()
     ):
         raise ValueError("Fuite potentielle du nom de machine Windows après anonymisation.")
+    emitted_hosts: set[str] = set()
+    for host_keys, allowed in (
+        (list(git_remote_hosts_counts), _PUBLIC_GIT_HOSTS),
+        (list(domaines_http_counts), _PUBLIC_AI_HTTP_HOSTS),
+        (
+            [k for p in plateformes_agregees for k in p["domaines_http_counts"]],
+            _PUBLIC_AI_HTTP_HOSTS,
+        ),
+    ):
+        for host_key in host_keys:
+            if _HOST_REDACTED_TOKEN in host_key:
+                continue
+            emitted_host = (urlsplit(host_key).hostname or "").lower()
+            if not _is_allowed_public_host(emitted_host, allowed):
+                raise ValueError(f"Hôte non public détecté après anonymisation : {host_key}")
+            emitted_hosts.add(emitted_host)
+    for leaked_host in private_hosts_seen:
+        if leaked_host in emitted_hosts:
+            raise ValueError("Fuite potentielle d'hôte réseau privé après anonymisation.")
+    for leaked_secret in userinfo_secrets_seen:
+        if leaked_secret in serialized_wo_token:
+            raise ValueError("Fuite potentielle d'identifiant ou jeton URL après anonymisation.")
     return result
+
+
+def merge_dictionary_entries(
+    existing_entries: list[dict[str, Any]] | None,
+    canonical_entries: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fusionne les entrées canoniques avec les entrées personnalisées d'un --base-registry sans collision."""
+    if not existing_entries:
+        return list(canonical_entries)
+
+    canonical_by_id: dict[str, dict[str, Any]] = {}
+    canonical_terms: dict[str, str] = {}
+    for entry in canonical_entries:
+        cid = str(entry["id"])
+        canonical_by_id[cid] = entry
+        norm_term = str(entry.get("terme") or "").strip().casefold()
+        if norm_term:
+            canonical_terms[norm_term] = cid
+
+    seen_existing_ids: set[str] = set()
+    seen_custom_terms: dict[str, str] = {}
+    custom_entries: list[dict[str, Any]] = []
+
+    for entry in existing_entries:
+        eid = str(entry.get("id") or "").strip()
+        eterme = str(entry.get("terme") or "").strip()
+        if not eid:
+            raise KeyError("REJET_COLLISION_REGISTRE: entrée dictionnaire sans identifiant id dans --base-registry.")
+        if eid in seen_existing_ids:
+            raise KeyError(
+                f"REJET_COLLISION_REGISTRE: identifiant '{eid}' dupliqué dans --base-registry."
+            )
+        seen_existing_ids.add(eid)
+        norm_term = eterme.casefold()
+
+        if eid in canonical_by_id:
+            canon_term = str(canonical_by_id[eid].get("terme") or "").strip().casefold()
+            if norm_term and norm_term != canon_term:
+                raise KeyError(
+                    f"REJET_COLLISION_REGISTRE: l'identifiant canonique '{eid}' entre en collision "
+                    f"avec un terme distinct ('{eterme}') dans --base-registry."
+                )
+            continue
+
+        if norm_term in canonical_terms:
+            raise KeyError(
+                f"REJET_COLLISION_REGISTRE: le terme personnalisé '{eterme}' ('{eid}') entre en "
+                f"collision avec l'entrée canonique '{canonical_terms[norm_term]}'."
+            )
+        if norm_term and norm_term in seen_custom_terms:
+            raise KeyError(
+                f"REJET_COLLISION_REGISTRE: terme personnalisé dupliqué '{eterme}' "
+                f"('{eid}' vs '{seen_custom_terms[norm_term]}')."
+            )
+        if norm_term:
+            seen_custom_terms[norm_term] = eid
+        custom_entries.append(copy.deepcopy(entry))
+
+    return list(canonical_entries) + custom_entries
 
 
 def enrich_structural_knowledge(
@@ -2751,7 +3013,12 @@ def enrich_structural_knowledge(
     provenance_doc: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Injecte taxonomie MATH/, architecture XIII, dictionnaire, formules, contradictions et M365."""
-    dictionnaire = build_dictionary_entries()
+    canonical_entries = build_dictionary_entries()
+    existing_entries = doc.get("dictionnaire")
+    dictionnaire = merge_dictionary_entries(
+        existing_entries if isinstance(existing_entries, list) else None,
+        canonical_entries,
+    )
     rows = cards_to_registry_rows(cards)
     prov = provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
     sources_m365 = list(prov.get("sources_onedrive_m365", []))
@@ -4859,13 +5126,23 @@ _HTML_JS = r"""
 
 
 class _EncyclopediaHtmlParser(HTMLParser):
-    """Analyseur HTML strict vérifiant absence de CDN, empreinte SHA-256 et bloc JSON."""
+    """Analyseur HTML strict vérifiant absence de CDN, empreinte SHA-256 et blocs JSON."""
+
+    _JSON_SCRIPT_IDS = frozenset(
+        {
+            "encyclopedia-data",
+            "contradictions-data",
+            "fiches-yaml-data",
+            "provenance-m365-data",
+        }
+    )
 
     def __init__(self) -> None:
         super().__init__()
         self.external_assets: list[str] = []
         self.meta_sha256: str | None = None
         self.json_script_chunks: list[str] = []
+        self.json_scripts_by_id: dict[str, list[str]] = {}
         self.ui_js_blocks: list[str] = []
         self._capture_target: str | None = None
         self._current_chunks: list[str] = []
@@ -4878,8 +5155,8 @@ class _EncyclopediaHtmlParser(HTMLParser):
                 self.external_assets.append(f"script src={src}")
             sid = attr_map.get("id", "")
             stype = attr_map.get("type", "").lower()
-            if sid == "encyclopedia-data":
-                self._capture_target = "json_main"
+            if sid in self._JSON_SCRIPT_IDS:
+                self._capture_target = f"json:{sid}"
                 self._current_chunks = []
             elif stype != "application/json":
                 self._capture_target = "ui_js"
@@ -4899,8 +5176,11 @@ class _EncyclopediaHtmlParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag.lower() == "script" and self._capture_target is not None:
             joined = "".join(self._current_chunks)
-            if self._capture_target == "json_main":
-                self.json_script_chunks.append(joined)
+            if self._capture_target.startswith("json:"):
+                sid = self._capture_target[5:]
+                self.json_scripts_by_id.setdefault(sid, []).append(joined)
+                if sid == "encyclopedia-data":
+                    self.json_script_chunks.append(joined)
             elif self._capture_target == "ui_js" and joined.strip():
                 self.ui_js_blocks.append(joined)
             self._capture_target = None
@@ -5093,7 +5373,13 @@ def render_html(
     )
 
 
-def verify_html_parity(doc: dict[str, Any], html_text: str) -> str:
+def verify_html_parity(
+    doc: dict[str, Any],
+    html_text: str,
+    contradictions_doc: dict[str, Any] | None = None,
+    cards: list[dict[str, Any]] | None = None,
+    provenance_doc: dict[str, Any] | None = None,
+) -> str:
     """Vérifie zéro CDN externe, parité JSON stricte et empreinte SHA-256 du HTML généré."""
     parser = _EncyclopediaHtmlParser()
     parser.feed(html_text)
@@ -5110,9 +5396,85 @@ def verify_html_parity(doc: dict[str, Any], html_text: str) -> str:
         raise ValueError(
             f"Nombre invalide de blocs #encyclopedia-data ({len(parser.json_script_chunks)})."
         )
-    recovered = json.loads(parser.json_script_chunks[0])
+    try:
+        recovered = json.loads(parser.json_script_chunks[0])
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"JSON #encyclopedia-data invalide dans HTML : {exc}") from exc
     if recovered != doc:
         raise ValueError("Le JSON embarqué dans ENCYCLOPEDIE_DICTIONNAIRE.html diverge du canon.")
+
+    expected_contr = (
+        contradictions_doc if contradictions_doc is not None else load_contradictions_registry()
+    )
+    expected_cards = cards if cards is not None else build_formula_cards()
+    expected_fiches = [extract_yaml_payload(c) for c in expected_cards]
+    expected_prov = (
+        provenance_doc if provenance_doc is not None else load_provenance_m365_registry()
+    )
+
+    def _parse_single_json_script(script_id: str) -> Any:
+        chunks = parser.json_scripts_by_id.get(script_id, [])
+        if len(chunks) != 1:
+            raise ValueError(f"Nombre invalide de blocs #{script_id} ({len(chunks)}).")
+        raw_chunk = chunks[0]
+        if not raw_chunk.strip():
+            raise ValueError(f"Bloc JSON #{script_id} vide dans HTML.")
+        try:
+            return json.loads(raw_chunk)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"JSON #{script_id} invalide dans HTML : {exc}") from exc
+
+    recovered_contr = _parse_single_json_script("contradictions-data")
+    if recovered_contr != expected_contr:
+        raise ValueError(
+            "Le JSON #contradictions-data embarqué dans HTML diverge du registre contradictions."
+        )
+
+    recovered_fiches = _parse_single_json_script("fiches-yaml-data")
+    if recovered_fiches != expected_fiches:
+        raise ValueError(
+            "Le JSON #fiches-yaml-data embarqué dans HTML diverge des fiches YAML."
+        )
+
+    recovered_prov = _parse_single_json_script("provenance-m365-data")
+    if (
+        not isinstance(recovered_prov, dict)
+        or not recovered_prov.get("sources_onedrive_m365")
+        or not recovered_prov.get("candidats_m365")
+        or not recovered_prov.get("reduction_manques_m3")
+    ):
+        raise ValueError(
+            "Le JSON #provenance-m365-data embarqué dans HTML est vide ou incomplet."
+        )
+    if recovered_prov != expected_prov:
+        raise ValueError(
+            "Le JSON #provenance-m365-data embarqué dans HTML diverge du registre M365 canonique."
+        )
+
+    prov_ref = doc.get("registre_provenance_m365_ref")
+    if isinstance(prov_ref, dict):
+        if len(recovered_prov["sources_onedrive_m365"]) != prov_ref.get("sources_m365_candidates"):
+            raise ValueError(
+                "Incohérence du nombre de sources M365 entre #provenance-m365-data et doc."
+            )
+        if len(recovered_prov["candidats_m365"]) != prov_ref.get("candidats_m365_suivis"):
+            raise ValueError(
+                "Incohérence du nombre de candidats M365 entre #provenance-m365-data et doc."
+            )
+
+    contr_ref = doc.get("registre_contradictions_ref")
+    if isinstance(contr_ref, dict) and (
+        len(recovered_contr.get("contradictions", [])) != contr_ref.get("nombre_contradictions")
+    ):
+        raise ValueError(
+            "Incohérence du nombre de contradictions entre #contradictions-data et doc."
+        )
+
+    stats = doc.get("statistiques")
+    expected_fiches_count = stats.get("fiches_yaml_initiales") if isinstance(stats, dict) else None
+    if expected_fiches_count is not None and len(recovered_fiches) != expected_fiches_count:
+        raise ValueError("Incohérence du nombre de fiches entre #fiches-yaml-data et doc.")
+
     if not parser.ui_js_blocks:
         raise ValueError("Aucun bloc JavaScript UI trouvé dans HTML.")
     return "\n".join(parser.ui_js_blocks)
@@ -5289,7 +5651,13 @@ def main() -> int:
         _atomic_write_text(args.out_md, md_text)
         if not args.skip_html:
             _atomic_write_text(out_html, html_text)
-            verify_html_parity(doc, html_text)
+            verify_html_parity(
+                doc,
+                html_text,
+                contradictions_doc=contradictions_doc,
+                cards=cards,
+                provenance_doc=provenance_doc,
+            )
             if shutil.which("node") is not None:
                 js_res = verify_html_js_syntax(html_text)
                 if not js_res["ok"]:

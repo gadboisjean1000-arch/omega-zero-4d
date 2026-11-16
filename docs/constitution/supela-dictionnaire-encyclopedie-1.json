@@ -1318,12 +1318,12 @@
       {
         "chemin": "schemas/supela_provenance_m365_1.schema.json",
         "categorie": "schemas",
-        "taille_octets": 17599
+        "taille_octets": 19852
       },
       {
         "chemin": "scripts/build_encyclopedie.py",
         "categorie": "scripts",
-        "taille_octets": 295697
+        "taille_octets": 310535
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
@@ -1403,7 +1403,7 @@
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
         "categorie": "tests",
-        "taille_octets": 30611
+        "taille_octets": 41951
       },
       {
         "chemin": "tests/test_escalation_4d.py",

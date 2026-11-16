@@ -440,11 +440,57 @@
               }
             },
             "then": {
+              "required": ["extraction", "normalisation"],
               "properties": {
                 "stade_provenance": { "const": "STATUT_EPISTEMIQUE" },
                 "human_review_status": { "const": "APPROUVE_HUMAIN" },
                 "contenu_complet_extrait": { "const": true },
-                "preuve_test_niveau": { "enum": ["EXÉCUTÉ", "REPRODUIT"] }
+                "preuve_test_niveau": { "enum": ["EXÉCUTÉ", "REPRODUIT"] },
+                "comparison_outcome": { "enum": ["COMPATIBLE", "DIVERGENT", "DUPLICATE"] },
+                "origine": {
+                  "type": "object",
+                  "required": ["auteur", "titre_source", "source_system", "reference_id", "emplacement"],
+                  "properties": {
+                    "reference_id": { "type": "string", "minLength": 2 },
+                    "emplacement": { "type": "string", "minLength": 5 }
+                  }
+                },
+                "extraction": {
+                  "type": "object",
+                  "required": ["passage_exact", "sections_ou_lignes", "formules_exactes", "contexte"],
+                  "properties": {
+                    "passage_exact": {
+                      "type": "string",
+                      "minLength": 10,
+                      "not": {
+                        "pattern": "^\\s*([Uu][Nn][Dd][Ee][Ff][Ii][Nn][Ee][Dd]|[Nn][Uu][Ll][Ll]|[Nn][Oo][Nn][Ee]|[Nn]/[Aa])?\\s*$"
+                      }
+                    },
+                    "sections_ou_lignes": {
+                      "type": "string",
+                      "minLength": 3,
+                      "not": {
+                        "pattern": "^\\s*([Uu][Nn][Dd][Ee][Ff][Ii][Nn][Ee][Dd]|[Nn][Uu][Ll][Ll]|[Nn][Oo][Nn][Ee]|[Nn]/[Aa])?\\s*$"
+                      }
+                    },
+                    "contexte": { "type": "string", "minLength": 5 }
+                  }
+                },
+                "normalisation": {
+                  "type": "object",
+                  "required": ["notation_uniformisee", "aucune_autorite_ajoutee", "transformation_documentee"],
+                  "properties": {
+                    "notation_uniformisee": {
+                      "type": "string",
+                      "minLength": 3,
+                      "not": {
+                        "pattern": "^\\s*([Uu][Nn][Dd][Ee][Ff][Ii][Nn][Ee][Dd]|[Nn][Uu][Ll][Ll]|[Nn][Oo][Nn][Ee]|[Nn]/[Aa])?\\s*$"
+                      }
+                    },
+                    "aucune_autorite_ajoutee": { "const": true },
+                    "transformation_documentee": { "type": "string", "minLength": 5 }
+                  }
+                }
               }
             }
           },

@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,7 +17,9 @@ from omega_zero.models import canonical_sha256
 from scripts.build_encyclopedie import (
     UNIVERSAL_FICHE_KEYS,
     anonymize_local_inventory,
+    build_dictionary_entries,
     load_provenance_m365_registry,
+    merge_dictionary_entries,
     merge_local_inventory,
     parse_simple_yaml_fiche,
     render_html,
@@ -717,4 +720,285 @@ def test_anonymize_local_inventory_strips_pii_and_paths(tmp_path: Path) -> None:
     assert cli_payload["mode"] == "ANONYMIZE_LOCAL_ONLY"
     assert cli_payload["admissible_pr_publique"] is True
     assert json.loads(anon_out.read_text(encoding="utf-8")) == anon
+
+
+def test_provenance_m365_rejects_prouve_without_extraction() -> None:
+    prov_schema = _load_json(PROVENANCE_SCHEMA_PATH)
+    prov_doc = load_provenance_m365_registry(PROVENANCE_PATH)
+
+    # 1. Candidat non extrait (PROV-GEOM-005) promu PROUVÉ sans blocs extraction/normalisation -> rejet Draft 2020-12
+    bad_geom = copy.deepcopy(prov_doc)
+    geom = next(c for c in bad_geom["candidats_m365"] if c["id"] == "PROV-GEOM-005")
+    geom["stade_provenance"] = "STATUT_EPISTEMIQUE"
+    geom["human_review_status"] = "APPROUVE_HUMAIN"
+    geom["contenu_complet_extrait"] = True
+    geom["preuve_test_niveau"] = "REPRODUIT"
+    geom["comparison_outcome"] = "COMPATIBLE"
+    geom["statut_epistemique"] = "PROUVÉ"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(prov_schema).validate(bad_geom)
+
+    # 2. Blocs présents mais avec valeurs placeholder ("undefined" / "n/a") -> rejet Draft 2020-12
+    bad_placeholder = copy.deepcopy(bad_geom)
+    geom2 = next(c for c in bad_placeholder["candidats_m365"] if c["id"] == "PROV-GEOM-005")
+    geom2["extraction"] = {
+        "passage_exact": "undefined",
+        "sections_ou_lignes": "n/a",
+        "formules_exactes": [],
+        "contexte": "Contexte minimal test",
+    }
+    geom2["normalisation"] = {
+        "notation_uniformisee": "none",
+        "aucune_autorite_ajoutee": True,
+        "transformation_documentee": "Transformation minimale test",
+    }
+    with pytest.raises(ValidationError):
+        Draft202012Validator(prov_schema).validate(bad_placeholder)
+
+    # 3. Source liée uniquement METADATA_AND_SNIPPET_ONLY -> rejet référentiel validate_provenance_m365_registry
+    bad_unextracted_src = copy.deepcopy(bad_geom)
+    geom3 = next(c for c in bad_unextracted_src["candidats_m365"] if c["id"] == "PROV-GEOM-005")
+    geom3["extraction"] = {
+        "passage_exact": "Définition formelle complète du Polygone Supela (extrait textuel vérifié).",
+        "sections_ou_lignes": "Section 1.2 (lignes 10-24)",
+        "formules_exactes": ["Polygone(S) = Conv(Sommet_1, ..., Sommet_n)"],
+        "contexte": "Extrait complet avec section et bornes exactes.",
+    }
+    geom3["normalisation"] = {
+        "notation_uniformisee": "Polygone_Supela(S)",
+        "aucune_autorite_ajoutee": True,
+        "transformation_documentee": "Normalisation test sans ajout d'autorité.",
+    }
+    with pytest.raises(ValueError, match="aucune source liée effectivement extraite"):
+        validate_provenance_m365_registry(bad_unextracted_src, PROVENANCE_SCHEMA_PATH)
+
+    # 4. Témoin positif : PROUVÉ avec source effectivement extraite + extraction/normalisation complètes -> valide
+    valid_prouve = copy.deepcopy(prov_doc)
+    tzi = next(c for c in valid_prouve["candidats_m365"] if c["id"] == "PROV-TZI-001")
+    tzi["stade_provenance"] = "STATUT_EPISTEMIQUE"
+    tzi["human_review_status"] = "APPROUVE_HUMAIN"
+    tzi["contenu_complet_extrait"] = True
+    tzi["preuve_test_niveau"] = "EXÉCUTÉ"
+    tzi["comparison_outcome"] = "COMPATIBLE"
+    tzi["statut_epistemique"] = "PROUVÉ"
+    validate_provenance_m365_registry(valid_prouve, PROVENANCE_SCHEMA_PATH)
+
+
+def test_base_registry_preserves_custom_terms_and_rejects_collisions(tmp_path: Path) -> None:
+    schema = _load_json(SCHEMA_PATH)
+    base_doc = _load_json(REGISTRY_PATH)
+    custom_entry = {
+        "id": "DICT-063",
+        "terme": "Terme Custom Local DICT-063",
+        "categorie": "GOUVERNANCE_ET_NORMES",
+        "notation": "C_63(x)",
+        "definition": "Entrée personnalisée conservée lors d'une reconstruction via --base-registry.",
+        "sources": ["test:custom_base_registry"],
+        "statut_epistemique": "CANDIDAT_OUVERT",
+    }
+    base_with_custom = copy.deepcopy(base_doc)
+    base_with_custom["dictionnaire"].append(custom_entry)
+    base_path = tmp_path / "base_custom.json"
+    base_path.write_text(json.dumps(base_with_custom, ensure_ascii=False), encoding="utf-8")
+
+    out_json = tmp_path / "out_custom.json"
+    out_md = tmp_path / "out_custom.md"
+    out_html = tmp_path / "out_custom.html"
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT_DIR / "scripts" / "build_encyclopedie.py"),
+            "--base-registry",
+            str(base_path),
+            "--out-json",
+            str(out_json),
+            "--out-md",
+            str(out_md),
+            "--out-html",
+            str(out_html),
+            "--skip-fiches",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    built = _load_json(out_json)
+    Draft202012Validator(schema).validate(built)
+    assert built["statistiques"]["termes_dictionnaire"] == 63
+    assert len(built["dictionnaire"]) == 63
+    assert built["dictionnaire"][-1] == custom_entry
+
+    # Rafraîchissement canonique normal avec définition mise à jour mais même (id, terme) : OK
+    canon = build_dictionary_entries()
+    stale_canon = copy.deepcopy(canon)
+    stale_canon[0]["definition"] = "Ancienne définition à rafraîchir automatiquement depuis le canon."
+    refreshed = merge_dictionary_entries(stale_canon + [custom_entry], canon)
+    assert len(refreshed) == len(canon) + 1
+    assert refreshed[0]["definition"] == canon[0]["definition"]
+    assert refreshed[-1] == custom_entry
+
+    # Rejets explicites anti-collision REJET_COLLISION_REGISTRE
+    dup_id = canon + [custom_entry, copy.deepcopy(custom_entry)]
+    with pytest.raises(KeyError, match="REJET_COLLISION_REGISTRE"):
+        merge_dictionary_entries(dup_id, canon)
+
+    canon_id_hijack = copy.deepcopy(canon)
+    canon_id_hijack[0]["terme"] = "Terme Collidant Distinct Sur DICT-001"
+    with pytest.raises(KeyError, match="REJET_COLLISION_REGISTRE"):
+        merge_dictionary_entries(canon_id_hijack, canon)
+
+    dup_term = canon + [
+        {
+            **custom_entry,
+            "id": "DICT-064",
+            "terme": canon[0]["terme"],
+        }
+    ]
+    with pytest.raises(KeyError, match="REJET_COLLISION_REGISTRE"):
+        merge_dictionary_entries(dup_term, canon)
+
+
+@pytest.mark.parametrize(
+    "mutator",
+    [
+        "empty_provenance",
+        "missing_provenance",
+        "stale_provenance_source_count",
+        "invalid_provenance_json",
+        "stale_contradictions",
+        "stale_fiches",
+    ],
+)
+def test_html_parity_enforces_provenance_m365_and_secondary_blocks(mutator: str) -> None:
+    doc = _load_json(REGISTRY_PATH)
+    html_text = render_html(doc)
+    verify_html_parity(doc, html_text)
+
+    if mutator == "empty_provenance":
+        bad_html = re.sub(
+            r'<script id="provenance-m365-data" type="application/json">.*?</script>',
+            '<script id="provenance-m365-data" type="application/json">{}</script>',
+            html_text,
+            flags=re.DOTALL,
+        )
+    elif mutator == "missing_provenance":
+        bad_html = re.sub(
+            r'<script id="provenance-m365-data" type="application/json">.*?</script>',
+            "",
+            html_text,
+            flags=re.DOTALL,
+        )
+    elif mutator == "stale_provenance_source_count":
+        prov_stale = copy.deepcopy(load_provenance_m365_registry(PROVENANCE_PATH))
+        prov_stale["sources_onedrive_m365"] = prov_stale["sources_onedrive_m365"][:-1]
+        stale_payload = json.dumps(prov_stale, ensure_ascii=False)
+        bad_html = re.sub(
+            r'<script id="provenance-m365-data" type="application/json">.*?</script>',
+            lambda _m: f'<script id="provenance-m365-data" type="application/json">{stale_payload}</script>',
+            html_text,
+            flags=re.DOTALL,
+        )
+    elif mutator == "invalid_provenance_json":
+        bad_html = re.sub(
+            r'<script id="provenance-m365-data" type="application/json">.*?</script>',
+            '<script id="provenance-m365-data" type="application/json">{broken json</script>',
+            html_text,
+            flags=re.DOTALL,
+        )
+    elif mutator == "stale_contradictions":
+        bad_html = re.sub(
+            r'<script id="contradictions-data" type="application/json">.*?</script>',
+            '<script id="contradictions-data" type="application/json">{"contradictions": []}</script>',
+            html_text,
+            flags=re.DOTALL,
+        )
+    elif mutator == "stale_fiches":
+        bad_html = re.sub(
+            r'<script id="fiches-yaml-data" type="application/json">.*?</script>',
+            '<script id="fiches-yaml-data" type="application/json">[]</script>',
+            html_text,
+            flags=re.DOTALL,
+        )
+    else:
+        raise AssertionError(mutator)
+
+    assert bad_html != html_text
+    with pytest.raises(ValueError):
+        verify_html_parity(doc, bad_html)
+
+
+def test_anonymize_local_inventory_redacts_private_git_hosts_and_http_domains() -> None:
+    inv = _sample_full_inventory()
+    inv["git_repos"].extend(
+        [
+            {
+                "chemin": "C:\\Work\\corp-repo",
+                "lecteur": "C:\\",
+                "remote_origin": "https://user:glpat-secret-999@git.corp.internal/org/repo.git",
+            },
+            {
+                "chemin": "D:\\Repos\\intranet",
+                "lecteur": "D:\\",
+                "remote_origin": "git@gitlab.internal.lan:team/app.git",
+            },
+            {
+                "chemin": "D:\\Repos\\ip-remote",
+                "lecteur": "D:\\",
+                "remote_origin": "http://192.168.1.50:8080/repo.git",
+            },
+            {
+                "chemin": "D:\\Repos\\single-label",
+                "lecteur": "D:\\",
+                "remote_origin": "http://git/org/internal-repo.git",
+            },
+            {
+                "chemin": "D:\\Repos\\pub-ssh",
+                "lecteur": "D:\\",
+                "remote_origin": "git@github.com:gadboisjean1000-arch/public-ssh.git",
+            },
+        ]
+    )
+    inv["ai_platforms"][0]["traces_echantillon"].extend(
+        [
+            {
+                "source": "copilot_edge",
+                "titre": "Private IP chat",
+                "url": "https://10.0.0.12/chat",
+                "type": "HISTORIQUE_URL_IA",
+            },
+            {
+                "source": "copilot_edge",
+                "titre": "Local AI portal",
+                "url": "http://ai.corp.local/prompt",
+                "type": "HISTORIQUE_URL_IA",
+            },
+        ]
+    )
+
+    anon = anonymize_local_inventory(inv)
+    assert anon["git_remote_hosts_counts"] == {
+        "http://[HOST_ANONYMISE_LOCAL]": 2,
+        "https://[HOST_ANONYMISE_LOCAL]": 1,
+        "https://github.com": 1,
+        "ssh://[HOST_ANONYMISE_LOCAL]": 1,
+        "ssh://github.com": 1,
+    }
+    assert "https://copilot.microsoft.com" in anon["domaines_http_counts"]
+    assert anon["domaines_http_counts"]["https://[HOST_ANONYMISE_LOCAL]"] == 1
+    assert anon["domaines_http_counts"]["http://[HOST_ANONYMISE_LOCAL]"] == 1
+    assert all(k.startswith(("http://", "https://")) for k in anon["domaines_http_counts"])
+
+    serialized = json.dumps(anon, ensure_ascii=False)
+    for forbidden in (
+        "git.corp.internal",
+        "gitlab.internal.lan",
+        "192.168.1.50",
+        "10.0.0.12",
+        "ai.corp.local",
+        "glpat-secret-999",
+        "http://git",
+    ):
+        assert forbidden.lower() not in serialized.lower()
+
 
