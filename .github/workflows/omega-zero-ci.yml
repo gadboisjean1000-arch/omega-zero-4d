@@ -98,3 +98,25 @@ jobs:
           Import-Module Pester -MinimumVersion 5.0.0 -Force
           $r = Invoke-Pester -Path ./tests/init_omega_vault.Tests.ps1 -PassThru
           if ($r.FailedCount -gt 0) { exit 1 }
+
+  rust-guard-kernel:
+    name: Rust supela-guard-kernel (${{ matrix.os }} / fmt + clippy + cargo test)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Cargo fmt check
+        working-directory: rust/supela-guard-kernel
+        run: cargo fmt -- --check --config newline_style=Native
+      - name: Cargo clippy (strict -D warnings)
+        working-directory: rust/supela-guard-kernel
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Cargo test (locked, unit + acceptance + concurrency/recovery)
+        working-directory: rust/supela-guard-kernel
+        run: cargo test --locked --all-targets -- --nocapture

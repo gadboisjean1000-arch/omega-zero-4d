@@ -1,5 +1,5 @@
 .POSIX:
-.PHONY: test lint typecheck a12 vr doctor vault sign verify attest clean all
+.PHONY: test lint typecheck a12 vr doctor vault rust-lint rust-test sign verify attest clean all
 
 PYTHON := $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
 PYTEST := $(shell if [ -x .venv/bin/pytest ]; then echo .venv/bin/pytest; else echo pytest; fi)
@@ -7,6 +7,7 @@ OPA    := $(shell if [ -x .venv/bin/opa ]; then echo .venv/bin/opa; else command
 COSIGN := $(shell if [ -x .venv/bin/cosign ]; then echo .venv/bin/cosign; else command -v cosign 2>/dev/null; fi)
 RUFF   := $(shell if [ -x .venv/bin/ruff ]; then echo .venv/bin/ruff; else command -v ruff 2>/dev/null; fi)
 MYPY   := $(shell if [ -x .venv/bin/mypy ]; then echo .venv/bin/mypy; else command -v mypy 2>/dev/null; fi)
+CARGO  := $(shell command -v cargo 2>/dev/null)
 
 REPORT := reports/TEST-4D-ESC-01.report.json
 VAULT  := .omega_vault
@@ -41,6 +42,20 @@ doctor:
 vault:
 	PYTHONPATH=src $(PYTHON) -c "import hashlib, pathlib; from omega_zero import WormVault; p=pathlib.Path('docs/constitution/PLAN-4D-ΩZERO-ESC-01.json'); h=hashlib.sha256(p.read_bytes()).hexdigest(); v=WormVault(pathlib.Path('$(VAULT)')); r1=v.init_idempotent(h); r2=v.init_idempotent(h); assert r1.manifest_sha256==r2.manifest_sha256; assert r2.ledger_lines==r1.ledger_lines+1; assert r2.chain_valid; print('VAULT_IDEMPOTENT_OK', r2.manifest_sha256, r2.ledger_lines)"
 
+rust-lint:
+	@if [ -n "$(CARGO)" ]; then \
+		cd rust/supela-guard-kernel && $(CARGO) fmt --check && $(CARGO) clippy --all-targets --all-features -- -D warnings; \
+	else \
+		echo "[!] cargo absent du PATH - lint Rust non execute"; exit 1; \
+	fi
+
+rust-test:
+	@if [ -n "$(CARGO)" ]; then \
+		cd rust/supela-guard-kernel && $(CARGO) test --locked --all-targets; \
+	else \
+		echo "[!] cargo absent du PATH - tests Rust non executes"; exit 1; \
+	fi
+
 sign:
 	@if [ -z "$(COSIGN)" ]; then echo "[!] cosign absent - signature NON executee"; exit 1; fi
 	COSIGN_PASSWORD=omega-local-test $(COSIGN) sign-blob --key cosign.key --yes --bundle $(REPORT).bundle $(REPORT)
@@ -57,4 +72,4 @@ clean:
 	rm -f $(REPORT).bundle quote.msg quote.sig pcr.bin
 	rm -rf $(VAULT)
 
-all: lint typecheck a12 vr test vault
+all: lint typecheck a12 vr test vault rust-lint rust-test

@@ -75,6 +75,11 @@ def test_network_doctor_offline_verifies_all_tools_and_mcp() -> None:
     assert res["mcp_stdio_probe"]["ok"] is True
     assert res["mcp_stdio_probe"]["tool_count"] >= 9
     assert res["operational"] is (res["tools"]["opa"] is not None)
+    assert res["rust_guard_kernel"]["crate_present"] is True
+    assert res["rust_guard_kernel"]["ipc_protocol"] == "SUP-IPC-01"
+    if res["rust_guard_kernel"]["status"] == "OPERATIONAL":
+        assert res["rust_guard_kernel"]["ipc_probe_ok"] is True
+        assert res["rust_guard_kernel"]["eval_verdict"] == "ADMISSIBLE_A_REVUE_HUMAINE"
     assert res["supela_k3_bridge"]["repo"] == "gadboisjean1000-arch/Supela-K3-Omega"
 
 

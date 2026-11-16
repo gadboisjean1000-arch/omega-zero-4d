@@ -61,6 +61,7 @@ EXCLUDED_REPO_DIRS = {
     ".omega_vault",
     "__pycache__",
     "dist",
+    "target",
     "omega_zero_4d.egg-info",
 }
 
