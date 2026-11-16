@@ -54,3 +54,11 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `scripts/verify_a12.py` — Vérificateur anti-orphelins et cohérence croisée JSON/Rego/Markdown (Règle A12).
 - `scripts/verify_a12.ps1` — Enveloppe PowerShell pour la vérification A12.
 - `scripts/install_into_excited_meitner.ps1` — Script PowerShell de déploiement et vérification SHA-256 vers `C:\Users\Group\Documents\antigravity\excited-meitner`.
+
+## 7. Dictionnaire & Encyclopédie Universelle
+- [supela-dictionnaire-encyclopedie-1.json](supela-dictionnaire-encyclopedie-1.json) — Catalogue canonique JSON unifié (Dictionnaire 52 termes, 15 dépôts GitHub, 54 discussions/docs/notebooks Drive, 9 plateformes IA/navigateurs et suivi des disques `C:\`/`D:\`).
+- [ENCYCLOPEDIE_DICTIONNAIRE.md](ENCYCLOPEDIE_DICTIONNAIRE.md) — Vue Markdown lisible générée depuis le catalogue JSON canonique.
+- `schemas/supela_encyclopedie_1.schema.json` — Schéma JSON Draft 2020-12 avec verrou épistémique M3 interdisant toute clôture sans preuve locale.
+- `scripts/build_encyclopedie.py` — Constructeur et fusionneur Python (`--sources-dir`, `--local-inventory`).
+- `scripts/collect_local_encyclopedie.ps1` — Collecteur PowerShell lecture-seule pour `C:\`, `D:\`, Edge/Copilot, Chrome/Gemini, Arc, Brave, Opera, Antigravity, Cursor et VS Code.
+- `tests/test_encyclopedie_dictionnaire.py` — Suite `pytest` vérifiant schéma 2020-12, barrière M3, exhaustivité, exclusions de secrets, fusion locale partielle/complète et Règle A12.

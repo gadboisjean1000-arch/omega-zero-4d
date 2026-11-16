@@ -1,0 +1,2270 @@
+{
+  "schema": "supela-dictionnaire-encyclopedie/1",
+  "version": "1.0.0",
+  "date": "2026-11-16",
+  "generateur": "scripts/build_encyclopedie.py",
+  "local_pc_scan": "NON_EXECUTEE",
+  "verdict_couverture": "OUVERT_INCOMPLET_C_D_IA_LOCALES",
+  "perimetre": {
+    "plateforme_execution": "VM Cloud Linux distante (Debian 12) sans montage direct des lecteurs Windows C:\\ et D:\\",
+    "statut_global": "PARTIEL_VERIFIE_DISTANT",
+    "regles_epistemiques": [
+      "M3 : Manque ≠ permission d'inventer (OPEN ∧ ¬FABRICATE)",
+      "Autorité ≤ Preuve : aucun disque local non lu n'est déclaré indexé",
+      "I_M : Conservation explicite des périmètres INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+      "PDD-01 : Exclusion des états volatils RAM non consignés sur artefact persistant"
+    ],
+    "sources_statuts": [
+      {
+        "source_id": "github",
+        "nom": "GitHub (gadboisjean1000-arch)",
+        "statut": "ACCESSIBLE_VERIFIE",
+        "raison_ou_preuve": "15 dépôts listés via gh CLI (4 originaux + 11 forks) et arborescence complète de omega-zero-4d."
+      },
+      {
+        "source_id": "google_drive_docs",
+        "nom": "Google Drive, Docs, Sheets, Slides, Colab",
+        "statut": "ACCESSIBLE_VERIFIE",
+        "raison_ou_preuve": "51 Google Docs natifs, 43 tableurs, 5 présentations, 4 notebooks et méta-données Drive (33,6 Go / 5120 Go) lus via gdrive/gdocs."
+      },
+      {
+        "source_id": "pc_synchronise_drive",
+        "nom": "Mon ordinateur portable (1) dans Drive",
+        "statut": "PARTIELLEMENT_SYNCHRONISE",
+        "raison_ou_preuve": "Sous-ensemble sauvegardé dans Drive : Desktop (9), Documents (86), Downloads (262)."
+      },
+      {
+        "source_id": "windows_drive_C",
+        "nom": "Disque local Windows C:\\",
+        "statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "raison_ou_preuve": "Lecteur local non accessible depuis la VM cloud ; inclut C:\\Users\\Group\\Documents\\antigravity\\excited-meitner et AppData."
+      },
+      {
+        "source_id": "windows_drive_D",
+        "nom": "Disque local Windows D:\\",
+        "statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "raison_ou_preuve": "Lecteur local Windows D:\\ non monté dans l'environnement cloud ; requiert collect_local_encyclopedie.ps1."
+      },
+      {
+        "source_id": "historiques_ia_locaux",
+        "nom": "Historiques directs Copilot / Gemini / Arc / Brave / Opera",
+        "statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "raison_ou_preuve": "Aucune API d'historique web Copilot/Gemini/ChatGPT/Claude connectée et profils navigateurs résidant sur C:\\."
+      }
+    ]
+  },
+  "statistiques": {
+    "termes_dictionnaire": 52,
+    "depots_github_total": 15,
+    "depots_github_originaux": 4,
+    "depots_github_forks": 11,
+    "discussions_ia_google_docs": 54,
+    "plateformes_ia_navigateurs": 9,
+    "fichiers_omega_zero_4d": 53,
+    "notebooks_colab": 4,
+    "documents_drive_indexes": 494,
+    "disques_locaux_suivis": 2,
+    "entrees_locales_c_d": 0
+  },
+  "dictionnaire": [
+    {
+      "id": "DICT-001",
+      "terme": "Opérateur de Projection Π₀",
+      "categorie": "PROJECTION_PI0",
+      "notation": "Π₀(S_t) = {I, P, M, A, H}",
+      "definition": "Projette un état de travail S_t vers son état zéro opérationnel honnête en préservant invariants (I), preuves et réfutations (P), manques ouverts (M), autorités bornées (A) et histoire minimale (H).",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json",
+        "src/omega_zero/projection.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-002",
+      "terme": "Opérateur de Projection Π_I",
+      "categorie": "PROJECTION_PI0",
+      "notation": "Π_I(Ω_t) = 0_I",
+      "definition": "Projette l'état émergent global Ω_t sur ses invariants permanents en retirant les éléments variables ; étendu par Π₀ pour les cycles de reprise.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json",
+        "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-003",
+      "terme": "Idempotence de Π₀",
+      "categorie": "PROJECTION_PI0",
+      "notation": "Π₀(Π₀(S_t)) = Π₀(S_t)",
+      "definition": "Propriété algébrique garantissant qu'une seconde projection sur un état déjà projeté ne détruit ni n'altère aucune des 5 composantes {I, P, M, A, H}.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json",
+        "tests/test_pi0_and_manque.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-004",
+      "terme": "État Local Minimal Lᵢ⁰",
+      "categorie": "PROJECTION_PI0",
+      "notation": "Π₀_local(L_i) = L_i⁰ ≠ L_i_amnésique",
+      "definition": "Noyau conservé localement après revidage transactionnel : identité, invariants, autorités, index minimal, preuve de transfert, pointeur de récupération et manques locaux.",
+      "sources": [
+        "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md",
+        "src/omega_zero/protocol.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-005",
+      "terme": "Invariant I1 (Vérité vérifiable)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I1",
+      "definition": "Toute conclusion conservée doit être appuyée par une preuve reproductible dans son périmètre explicite.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-006",
+      "terme": "Invariant I2 (Traçabilité)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I2",
+      "definition": "Chaque objet conservé garde son origine, sa provenance, son horodatage et ses dépendances causales.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-007",
+      "terme": "Invariant I3 (Réfutabilité)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I3",
+      "definition": "Tout raccord admis reste réouvrable face à une nouvelle preuve contradictoire sans détruire Ω.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-008",
+      "terme": "Invariant I4 (Cohérence)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I4",
+      "definition": "Les contradictions interdisciplinaires ou inter-nœuds non résolues sont représentées explicitement plutôt qu'écrasées.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-009",
+      "terme": "Invariant I5 (Conservation de la preuve)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I5",
+      "definition": "Aucune donnée ou trace probante (y compris réfutée, avec Autorité=0) n'est effacée silencieusement.",
+      "sources": [
+        "docs/constitution/DEFINITION_P0_PROJECTION.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-010",
+      "terme": "Invariant I_M (Conservation du Manque ouvert)",
+      "categorie": "PROJECTION_PI0",
+      "notation": "I_M",
+      "definition": "Tout manque détecté doit rester représenté jusqu'à résolution, réfutation ou requalification ; la suppression silencieuse (* -> SUPPRIMÉ) est interdite.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-011",
+      "terme": "Objet Manque M",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "M(S_t, G) ⟺ Required(G) \\ Available(S_t) ≠ ∅",
+      "definition": "Structure 4D traçant un déficit d'éléments requis pour établir G : id, question, contexte, origine, dépendances, autorité, tentatives, temps et statut.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json",
+        "src/omega_zero/models.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-012",
+      "terme": "Statut OUVERT",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.OUVERT",
+      "definition": "Statut initial actif d'un Manque non résolu ; conservé intégralement par Π₀ et interdit de saut direct vers RÉSOLU.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-013",
+      "terme": "Statut SOUS_EXPLORATION",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.SOUS_EXPLORATION",
+      "definition": "Statut actif indiquant qu'un ou plusieurs raccords candidats sont enregistrés avec autorité initiale AUCUNE en attente d'épreuve.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-014",
+      "terme": "Statut PARTIELLEMENT_RÉDUIT",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.PARTIELLEMENT_RÉDUIT",
+      "definition": "Un sous-périmètre est soutenu sous conditions tandis qu'un autre sous-périmètre demeure ouvert.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-015",
+      "terme": "Statut RÉSOLU",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.RÉSOLU",
+      "definition": "Un raccord candidat a satisfait Required(G) avec Preuve ≥ Autorité ; demeure réouvrable via TR-14 si une NouvellePreuve contredit le raccord.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-016",
+      "terme": "Statut RÉFUTÉ_COMME_PROBLÈME",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.RÉFUTÉ_COMME_PROBLÈME",
+      "definition": "La prémisse constitutive est prouvée fausse ou impossible (A ↛ C) ; la trace est conservée et réouvrable via TR-16.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-017",
+      "terme": "Statut REQUALIFIÉ",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.REQUALIFIÉ",
+      "definition": "Clôture conditionnelle divisant ou reformulant un Manque (M₁ → {M₁ₐ, M₁ᵦ}) avec filiation explicite parent → enfant.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-018",
+      "terme": "Statut INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "ManqueStatus.INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+      "definition": "Les éléments requis dépassent les limites techniques, juridiques ou d'accès du périmètre courant (ex. disques Windows C:/D: depuis une VM cloud) ; réouvrable via TR-15.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-019",
+      "terme": "Règles Déontologiques M1–M5",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "M1..M5",
+      "definition": "M1: Manque ≠ faux ; M2: Manque ≠ vrai caché ; M3: Manque ≠ permission d'inventer (OPEN ∧ ¬FABRICATE) ; M4: Tout remplissage garde son raccord ; M5: Évolution temporelle tracée.",
+      "sources": [
+        "docs/constitution/STATUT_MANQUE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-020",
+      "terme": "Raccord",
+      "categorie": "MANQUE_ET_STATUTS",
+      "notation": "Raccord ⟨id, status, authority_level ≤ evidence_level⟩",
+      "definition": "Lien candidat, soutenu sous conditions, réfuté, inconnu ou établi entre une source/hypothèse et un objectif, borné par son niveau de preuve.",
+      "sources": [
+        "src/omega_zero/models.py",
+        "policies/omega_zero_invariants.rego"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-021",
+      "terme": "Protocole PLAN-4D-ΩZERO-ESC-01",
+      "categorie": "ESCALADE_4D",
+      "notation": "E0..E7 / C01..C10",
+      "definition": "Protocole d'escalade Local–Cloud–4D structuré en 8 paliers (E0..E7) et 10 conditions normatives (C01..C10), ne permettant qu'une promotion ADMISSIBLE_A_REVUE_HUMAINE.",
+      "sources": [
+        "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
+        "src/omega_zero/protocol.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-022",
+      "terme": "Seuil de Saturation Load(C)",
+      "categorie": "ESCALADE_4D",
+      "notation": "Load(C) = max(Bytes, Objects, Edges, Latency) ≥ 0.80",
+      "definition": "Métrique normalisée déclenchant une migration contrôlée sans perte entre conteneurs C₁ → C₂ après déclaration explicite de métrique et limites.",
+      "sources": [
+        "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md",
+        "src/omega_zero/protocol.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-023",
+      "terme": "Revidage Transactionnel (E6 / C09)",
+      "categorie": "ESCALADE_4D",
+      "notation": "PREPARE → VERIFY → COMMIT → CLEAN",
+      "definition": "Transfert Local → Cloud imposant 5 prédicats ACK (ACK, HashMatch, ProvenanceOK, AuthorityOK, ReconstructionPASS) avant tout CLEAN, avec rollback local en cas d'échec.",
+      "sources": [
+        "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md",
+        "policies/omega_zero_invariants.rego"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-024",
+      "terme": "Fusion Merge* & Invariance d'Ordre",
+      "categorie": "ESCALADE_4D",
+      "notation": "Merge* ∈ {ACCEPTÉ, PARTIEL, CONTESTÉ, ISOLÉ, REFUSÉ}",
+      "definition": "Opérateur de fusion cloud garantissant que l'ordre d'arrivée des deltas locaux Δᵢ (4! = 24 permutations testées en E3) n'accorde aucune autorité.",
+      "sources": [
+        "src/omega_zero/protocol.py",
+        "tests/test_properties_hypothesis.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-025",
+      "terme": "Conflit 4D (Conflict4D)",
+      "categorie": "ESCALADE_4D",
+      "notation": "C-001 = {CONFLIT_INTERDISCIPLINAIRE, CONSERVÉ, NON_ACQUISE}",
+      "definition": "Représentation explicite d'un désaccord entre disciplines ou nœuds locaux, protégée contre l'écrasement silencieux (C04/C05).",
+      "sources": [
+        "src/omega_zero/models.py",
+        "docs/constitution/TEST_P0_EXEMPLE.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-026",
+      "terme": "Système Dynamique Général (GDS)",
+      "categorie": "GDS_ET_SCT",
+      "notation": "GDS = ⟨D, O, A, γ⟩",
+      "definition": "Formalisme du corpus doctoral Supela-K3-Ω : Domaine (D), Opérations/Ouverture (O), Artefacts/Absorption (A) et Opérateur de cohérence (γ).",
+      "sources": [
+        "gadboisjean1000-arch/Supela-K3-Omega:Supela-MONOLITHE-INTEGRAL.md"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-027",
+      "terme": "Théorème de Cohérence Systémique (SCT)",
+      "categorie": "GDS_ET_SCT",
+      "notation": "SCT = γ*(D, O, A) ; γ* = γ ∘ Λ",
+      "definition": "Établit 6 propriétés de stabilité collaborative sous charge et mises à jour asynchrones via les invariants σ (sémantique), τ (temporel), κ (cinétique) et δ (clôture dimensionnelle).",
+      "sources": [
+        "gadboisjean1000-arch/Supela-K3-Omega:Supela-MONOLITHE-INTEGRAL.md"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-028",
+      "terme": "VR-24 : Canon de Continuité",
+      "categorie": "GDS_ET_SCT",
+      "notation": "Ω-VR-24",
+      "definition": "Spécification normative établissant que la continuité prévaut sur la certitude : découplage physico-sémantique, agilité cryptographique NIST et cycles de réattestation.",
+      "sources": [
+        "GoogleDoc:1U8jjFymxQz5xWfnqfahA3lyT2wN7oEBbeYab9mHazKo"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-029",
+      "terme": "VR-Fractal-Ω",
+      "categorie": "GDS_ET_SCT",
+      "notation": "P_t = (T_t + C_t) / (1 + Δ_t)",
+      "definition": "Mécanique de descente fractale résolvant la macro-turbulence (Δ_t ≫ 0) en subdivisant vers des sous-échelles où Δ_{t,i} → 0.",
+      "sources": [
+        "gadboisjean1000-arch/Supela-K3-Omega:VR-Fractal-Omega.md"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-030",
+      "terme": "Axiome PDD-01 (Persistance au Point de Décision)",
+      "categorie": "GDS_ET_SCT",
+      "notation": "PDD-01",
+      "definition": "Un fait mesuré est nul tant qu'il n'est pas consigné au point d'évaluation ; exige le couple (Commande, Sortie) et exclut les états volatils en RAM/historique chat.",
+      "sources": [
+        "GoogleDoc:1S_gioLWccxrMIIRYOpqhXICMLEaErY-of1eoD3hz1WQ"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-031",
+      "terme": "Séparation Signataire vs Certificateur",
+      "categorie": "GDS_ET_SCT",
+      "notation": "F_sign ≠ F_certif",
+      "definition": "Invariant d'indépendance interdisant à un composant d'exécution (Supela/K3) de s'auto-certifier auprès de l'autorité terminale (Ω).",
+      "sources": [
+        "GoogleDoc:1nTp9MuemFpvQyeYyZHC6G4f6S-ZGJPcdjGbAXsWKeuc",
+        "GoogleDrive:supela_ratification_simulation_v2.ipynb"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-032",
+      "terme": "Disjoncteurs D0–D8 (Phase A v3.1 / C1)",
+      "categorie": "GDS_ET_SCT",
+      "notation": "D0..D8 (Couche C1)",
+      "definition": "Neuf disjoncteurs orthogonaux isolant strictement les causes de défaut structurel ou logique dans la Couche 1 déterministe avant toute évaluation stochastique C2.",
+      "sources": [
+        "GoogleDoc:1r6R0_7l7Z1ydw5yxjOQJpLxnz9gLxhciYWeQyXCFJho"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-033",
+      "terme": "Coffre-fort WORM Logique (WormVault)",
+      "categorie": "SECURITE_WORM_CRYPTO",
+      "notation": "0o444 / IsReadOnly + SHA-256 append-only",
+      "definition": "Stockage logique à manifeste lecture seule et journal JSONL chaîné SHA-256 ; déclaré honnêtement distinct d'un WORM matériel TPM/TEE.",
+      "sources": [
+        "src/omega_zero/worm_ledger.py",
+        "runtime/init_omega_vault.ps1"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-034",
+      "terme": "Attestation Cryptographique Ed25519 & Cosign v3",
+      "categorie": "SECURITE_WORM_CRYPTO",
+      "notation": "AttestationSigner / cosign --bundle",
+      "definition": "Signature non-répudiable Ed25519 des rapports et scellement Cosign v3 au format --bundle avec vérification d'intégrité.",
+      "sources": [
+        "src/omega_zero/attestation.py",
+        "Makefile"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-035",
+      "terme": "Politiques OPA Rego v1",
+      "categorie": "SECURITE_WORM_CRYPTO",
+      "notation": "supela.omega_zero.governance",
+      "definition": "Garde-fous exécutables évaluant fraîcheur (15 min), hachage protocole, immutabilité WORM, 10 conditions C01..C10, barrières GRPO/émergence et revue humaine.",
+      "sources": [
+        "policies/omega_zero_invariants.rego",
+        "tests/rego/omega_zero_invariants_test.rego"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-036",
+      "terme": "Règle A12 (Anti-orphelins & Cohérence)",
+      "categorie": "SECURITE_WORM_CRYPTO",
+      "notation": "verify_a12()",
+      "definition": "Vérifie la bijection entre tous les fichiers réels du dépôt et INDEX_CONSTITUTION.md (0 orphelin, 0 lien cassé) ainsi que la cohérence JSON ↔ Rego ↔ Markdown.",
+      "sources": [
+        "scripts/verify_a12.py",
+        "tests/test_supela_article_registry.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-037",
+      "terme": "Pont Supela-GRPO",
+      "categorie": "IA_ET_GRPO",
+      "notation": "Score ≠ Preuve ≠ Vérité",
+      "definition": "Architecture en 5 étages découplant l'exploration comparative (récompenses et avantages relatifs GRPO) de la validation par preuve indépendante.",
+      "sources": [
+        "docs/constitution/SCHEMA_GRPO_SUPELA.md",
+        "src/omega_zero/grpo_bridge.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-038",
+      "terme": "Preuve GRPO L = 0 et ∇L ≠ 0",
+      "categorie": "IA_ET_GRPO",
+      "notation": "L(θ_old) = 0 ∧ ∇_θ L(θ_old) ≠ 0",
+      "definition": "Résultat analytique et numérique (à μ=1, β=0) démontrant qu'une perte scalaire nulle au point initial n'implique pas un gradient nul.",
+      "sources": [
+        "docs/constitution/SCHEMA_GRPO_SUPELA.md",
+        "src/omega_zero/grpo_bridge.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-039",
+      "terme": "Registre des 6 Articles IA",
+      "categorie": "IA_ET_GRPO",
+      "notation": "supela-article-registry/1",
+      "definition": "Cartographie en 5 branches (Attention, Inférence, Apprentissage, Interprétabilité, Évaluation) maintenant Hook=AnalysisCandidate et verdict=OUVERT sans reproduction.",
+      "sources": [
+        "docs/constitution/supela-article-registry-1.json",
+        "schemas/supela_article_registry_1.schema.json"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-040",
+      "terme": "Microsoft Copilot & Edge",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "Edge User Data / Copilot",
+      "definition": "Assistant IA Microsoft et profils Edge : historique local Windows non accessible depuis le cloud Linux (collecte locale requise via collect_local_encyclopedie.ps1).",
+      "sources": [
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-041",
+      "terme": "Google Gemini",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "gemini.google.com / Drive Docs",
+      "definition": "Modèles et conversations Gemini : les synthèses exportées dans Google Docs sont répertoriées ; l'historique web direct gemini.google.com et le cache Chrome local restent hors périmètre.",
+      "sources": [
+        "GoogleDrive:gdocs.json",
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "CANDIDAT_OUVERT"
+    },
+    {
+      "id": "DICT-042",
+      "terme": "Arc Browser",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "TheBrowserCompany.Arc / StorableSidebar.json",
+      "definition": "Navigateur Arc : données locales Windows (AppData/Packages) et historiques d'espaces/IA hors périmètre cloud ; collectables localement par PowerShell.",
+      "sources": [
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-043",
+      "terme": "Brave Browser & Brave Leo",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "BraveSoftware\\Brave-Browser\\User Data",
+      "definition": "Navigateur Brave et assistant Leo : exécutable d'installation repéré dans Drive Downloads ; profils et discussions locales hors périmètre cloud.",
+      "sources": [
+        "GoogleDrive:laptop_downloads.json",
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-044",
+      "terme": "Opera & Aria",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "Opera Software\\Opera Stable / .opera",
+      "definition": "Navigateur Opera : raccourci Bureau et dossier .opera synchronisés (vide dans Drive) ; profil actif Windows hors périmètre.",
+      "sources": [
+        "GoogleDrive:laptop_desktop.json",
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-045",
+      "terme": "Antigravity & Cursor / Kilo / Cline",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "IDE & Agents IA (.gemini / Cursor / VS Code)",
+      "definition": "Écosystème d'agents de code : dépôts forkés sur GitHub (kilocode, cline, sourcery), guide Cursor CLI dans Google Docs et session Antigravity persistée.",
+      "sources": [
+        "GitHub:gadboisjean1000-arch",
+        "GoogleDoc:1qcDmfGhgnVAYqhlv3iSl-uscgKlris54RNTCZYRCu2A"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-046",
+      "terme": "ChatGPT (OpenAI) & Claude (Anthropic)",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "conversations.json / Web History",
+      "definition": "Conversations externes ChatGPT et Claude : hors API directe ; indexables via les synthèses exportées en Google Docs ou export conversations.json scanné par collect_local_encyclopedie.ps1.",
+      "sources": [
+        "GoogleDrive:gdocs.json",
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-047",
+      "terme": "Disques locaux Windows C:\\ et D:\\ (excited-meitner)",
+      "categorie": "ECOSYSTEME_OUTILS_IA",
+      "notation": "C:\\Users\\Group\\Documents\\antigravity\\excited-meitner ; D:\\",
+      "definition": "Arborescences système Windows locales non montées sur la VM cloud Linux ; inventoriées en lecture seule par collect_local_encyclopedie.ps1 sans lecture de secrets.",
+      "sources": [
+        "scripts/install_into_excited_meitner.ps1",
+        "scripts/collect_local_encyclopedie.ps1"
+      ],
+      "statut_epistemique": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE"
+    },
+    {
+      "id": "DICT-048",
+      "terme": "Revue Humaine Obligatoire",
+      "categorie": "GOUVERNANCE_ET_NORMES",
+      "notation": "ADMISSIBLE_A_REVUE_HUMAINE",
+      "definition": "Statut maximal qu'un système automatisé Supela Ω-ZERO peut accorder après 8 paliers et 10 conditions ; aucune promotion autonome sur main.",
+      "sources": [
+        "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
+        "policies/omega_zero_invariants.rego"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-049",
+      "terme": "Loi d'Autorité Bornée",
+      "categorie": "GOUVERNANCE_ET_NORMES",
+      "notation": "Autorité(C) ≤ Preuve(C)",
+      "definition": "Invariant fondamental garantissant qu'aucune hypothèse, score statistique ou delta asynchrone ne reçoit une autorité supérieure à sa preuve vérifiée.",
+      "sources": [
+        "policies/omega_zero_invariants.rego",
+        "src/omega_zero/protocol.py"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-050",
+      "terme": "Fraîcheur Probante (15 minutes)",
+      "categorie": "GOUVERNANCE_ET_NORMES",
+      "notation": "max_attestation_age_ns = 900000000000",
+      "definition": "Fenêtre temporelle maximale (900 s) exigée par OPA Rego v1 entre l'horodatage RFC 3339 d'attestation et l'évaluation de gouvernance.",
+      "sources": [
+        "policies/omega_zero_invariants.rego"
+      ],
+      "statut_epistemique": "VERIFIE_EXECUTEE"
+    },
+    {
+      "id": "DICT-051",
+      "terme": "Norme ISO-GDS-2026 & Modules HDR",
+      "categorie": "GOUVERNANCE_ET_NORMES",
+      "notation": "ISO-GDS-2026",
+      "definition": "Spécification normative dérivée du corpus doctoral GDS = ⟨D, O, A, γ⟩ déclinée en article scientifique et Habilitation à Diriger des Recherches.",
+      "sources": [
+        "GoogleDrive:1nAtBQlAkVXyB_R5T4CjZlfSWSCLTUEY6"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    },
+    {
+      "id": "DICT-052",
+      "terme": "Architecture 3 Couches (Supela / K3 / Ω)",
+      "categorie": "GOUVERNANCE_ET_NORMES",
+      "notation": "INV-SUP-01 / INV-K3 / INV-OMG",
+      "definition": "Séparation hiérarchique stricte entre exécution (Supela), orchestration k3s/PowerShell (K3) et oracle de ratification indépendant (Ω).",
+      "sources": [
+        "GoogleDoc:1SJRQt_ebmOw7lvUkNnHzPFbOKtDzdayrieyh2JlLx1A"
+      ],
+      "statut_epistemique": "DOCUMENTE_NORMATIF"
+    }
+  ],
+  "encyclopedie": {
+    "github_depots": [
+      {
+        "name_with_owner": "gadboisjean1000-arch/omega-zero-4d",
+        "url": "https://github.com/gadboisjean1000-arch/omega-zero-4d",
+        "type": "ORIGINAL",
+        "is_private": false,
+        "primary_language": "Python",
+        "disk_usage_kb": 96,
+        "default_branch": "main",
+        "updated_at": "2026-11-16T05:18:23Z",
+        "description": "Supela Ω-ZERO · Local-Cloud-4D : Π₀, machine à états du Manque, protocole TEST-4D-ESC-01, schémas Draft 2020-12, OPA Rego v1 et pont GRPO",
+        "role_ecosysteme": "Dépôt canonique Supela Ω-ZERO · Local-Cloud-4D : Π₀, 7 statuts du Manque, protocole TEST-4D-ESC-01, schémas Draft 2020-12, OPA Rego v1, WORM, Ed25519, GRPO et Règle A12.",
+        "fichiers_cles": [
+          "docs/constitution/INDEX_CONSTITUTION.md",
+          "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
+          "docs/constitution/supela-article-registry-1.json",
+          "policies/omega_zero_invariants.rego",
+          "src/omega_zero/protocol.py",
+          "scripts/verify_a12.py"
+        ]
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/cli-1",
+        "url": "https://github.com/gadboisjean1000-arch/cli-1",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "JavaScript",
+        "disk_usage_kb": 180430,
+        "default_branch": "latest",
+        "updated_at": "2026-11-16T00:09:15Z",
+        "description": "the package manager for JavaScript",
+        "role_ecosysteme": "Fork miroir/référence de cli-1 (JavaScript) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/kilocode",
+        "url": "https://github.com/gadboisjean1000-arch/kilocode",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "TypeScript",
+        "disk_usage_kb": 486561,
+        "default_branch": "main",
+        "updated_at": "2026-11-11T01:11:43Z",
+        "description": "Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent.",
+        "role_ecosysteme": "Fork miroir/référence de kilocode (TypeScript) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/gk-cli",
+        "url": "https://github.com/gadboisjean1000-arch/gk-cli",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "Non spécifié",
+        "disk_usage_kb": 7622,
+        "default_branch": "main",
+        "updated_at": "2026-10-19T00:31:14Z",
+        "description": "GitKraken CLI Releases and Documentation",
+        "role_ecosysteme": "Fork miroir/référence de gk-cli (multi-langage) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/git",
+        "url": "https://github.com/gadboisjean1000-arch/git",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "C",
+        "disk_usage_kb": 324345,
+        "default_branch": "master",
+        "updated_at": "2026-11-10T16:10:22Z",
+        "description": "Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.",
+        "role_ecosysteme": "Fork miroir/référence de git (C) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/Supela-K3-Omega",
+        "url": "https://github.com/gadboisjean1000-arch/Supela-K3-Omega",
+        "type": "ORIGINAL",
+        "is_private": false,
+        "primary_language": "PowerShell",
+        "disk_usage_kb": 329,
+        "default_branch": "main",
+        "updated_at": "2026-10-29T19:53:44Z",
+        "description": "Supela-K3-Omega : monolith formel, preuves (OPA 13/13, cosign, WORM idempotent, CI ops)",
+        "role_ecosysteme": "Monolithe formel historique Supela-K3-Ω : GDS = ⟨D, O, A, γ⟩, OPA 13/13, Cosign v3, WORM PowerShell idempotent, VR-Fractal-Ω et pipeline CI.",
+        "fichiers_cles": [
+          "Supela-MONOLITHE-INTEGRAL.md",
+          "VR-Fractal-Omega.md",
+          "policies/gds_invariants.rego",
+          "runtime/init_gds_pipeline.ps1",
+          "monolithe.ps1"
+        ]
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/sourcery",
+        "url": "https://github.com/gadboisjean1000-arch/sourcery",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "Non spécifié",
+        "disk_usage_kb": 3664,
+        "default_branch": "main",
+        "updated_at": "2026-10-10T13:37:00Z",
+        "description": "Instant AI code reviews",
+        "role_ecosysteme": "Fork miroir/référence de sourcery (multi-langage) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/cline",
+        "url": "https://github.com/gadboisjean1000-arch/cline",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "TypeScript",
+        "disk_usage_kb": 593890,
+        "default_branch": "main",
+        "updated_at": "2026-09-28T21:24:06Z",
+        "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+        "role_ecosysteme": "Fork miroir/référence de cline (TypeScript) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/pytest",
+        "url": "https://github.com/gadboisjean1000-arch/pytest",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "Python",
+        "disk_usage_kb": 41992,
+        "default_branch": "main",
+        "updated_at": "2026-09-22T21:31:57Z",
+        "description": "The pytest framework makes it easy to write small tests, yet scales to support complex functional testing",
+        "role_ecosysteme": "Fork miroir/référence de pytest (Python) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/vscode-github-actions",
+        "url": "https://github.com/gadboisjean1000-arch/vscode-github-actions",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "TypeScript",
+        "disk_usage_kb": 38405,
+        "default_branch": "main",
+        "updated_at": "2026-07-01T22:52:36Z",
+        "description": "GitHub Actions extension for VS Code",
+        "role_ecosysteme": "Fork miroir/référence de vscode-github-actions (TypeScript) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/sevengate-store",
+        "url": "https://github.com/gadboisjean1000-arch/sevengate-store",
+        "type": "ORIGINAL",
+        "is_private": false,
+        "primary_language": "HTML",
+        "disk_usage_kb": 94,
+        "default_branch": "main",
+        "updated_at": "2026-08-02T19:31:43Z",
+        "description": "SevenGate Store — Cloud-deployed storefront with Cloudflare, Railway and Vercel integrations",
+        "role_ecosysteme": "Vitrine et API cloud SevenGate Store avec intégrations Cloudflare, Railway et Vercel.",
+        "fichiers_cles": [
+          "index.html",
+          "api_cloud.py",
+          "api/finance.py",
+          "DEPLOYMENT_GUIDE.md",
+          "vercel.json"
+        ]
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/utilise",
+        "url": "https://github.com/gadboisjean1000-arch/utilise",
+        "type": "ORIGINAL",
+        "is_private": false,
+        "primary_language": "Non spécifié",
+        "disk_usage_kb": 0,
+        "default_branch": "main",
+        "updated_at": "2026-08-02T19:29:22Z",
+        "description": "Scripts et ressources utilitaires polyvalents",
+        "role_ecosysteme": "Dépôt de scripts utilitaires polyvalents pour automatisation et outillage.",
+        "fichiers_cles": [
+          "README.md"
+        ]
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/cloudflare-docs",
+        "url": "https://github.com/gadboisjean1000-arch/cloudflare-docs",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "MDX",
+        "disk_usage_kb": 1334451,
+        "default_branch": "production",
+        "updated_at": "2026-05-13T17:45:41Z",
+        "description": "Cloudflare’s documentation",
+        "role_ecosysteme": "Fork miroir/référence de cloudflare-docs (MDX) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/LibreHardwareMonitor",
+        "url": "https://github.com/gadboisjean1000-arch/LibreHardwareMonitor",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "C#",
+        "disk_usage_kb": 13467,
+        "default_branch": "master",
+        "updated_at": "2026-05-13T15:38:35Z",
+        "description": "Libre Hardware Monitor is free software that can monitor the temperature sensors, fan speeds, voltages, load and clock speeds of your computer.",
+        "role_ecosysteme": "Fork miroir/référence de LibreHardwareMonitor (C#) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      },
+      {
+        "name_with_owner": "gadboisjean1000-arch/PSReadLine",
+        "url": "https://github.com/gadboisjean1000-arch/PSReadLine",
+        "type": "FORK",
+        "is_private": false,
+        "primary_language": "C#",
+        "disk_usage_kb": 3098,
+        "default_branch": "master",
+        "updated_at": "2026-02-11T05:07:59Z",
+        "description": "A bash inspired readline implementation for PowerShell",
+        "role_ecosysteme": "Fork miroir/référence de PSReadLine (C#) rattaché au compte gadboisjean1000-arch.",
+        "fichiers_cles": []
+      }
+    ],
+    "omega_zero_4d_arborescence": [
+      {
+        "chemin": ".github/workflows/omega-zero-ci.yml",
+        "categorie": ".github",
+        "taille_octets": 3605
+      },
+      {
+        "chemin": ".gitignore",
+        "categorie": "root",
+        "taille_octets": 157
+      },
+      {
+        "chemin": "Makefile",
+        "categorie": "root",
+        "taille_octets": 2534
+      },
+      {
+        "chemin": "README.md",
+        "categorie": "root",
+        "taille_octets": 1964
+      },
+      {
+        "chemin": "docs/constitution/DEFINITION_P0_PROJECTION.json",
+        "categorie": "docs",
+        "taille_octets": 6963
+      },
+      {
+        "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
+        "categorie": "docs",
+        "taille_octets": 42778
+      },
+      {
+        "chemin": "docs/constitution/HARNAIS_TEST_ESCALADE_4D.py",
+        "categorie": "docs",
+        "taille_octets": 1634
+      },
+      {
+        "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
+        "categorie": "docs",
+        "taille_octets": 6704
+      },
+      {
+        "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
+        "categorie": "docs",
+        "taille_octets": 10041
+      },
+      {
+        "chemin": "docs/constitution/PLAN_4D_OMEGA_ZERO_ESC_01.md",
+        "categorie": "docs",
+        "taille_octets": 10149
+      },
+      {
+        "chemin": "docs/constitution/SCHEMA_GRPO_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 3046
+      },
+      {
+        "chemin": "docs/constitution/STATUT_MANQUE.json",
+        "categorie": "docs",
+        "taille_octets": 10426
+      },
+      {
+        "chemin": "docs/constitution/TEST_P0_EXEMPLE.json",
+        "categorie": "docs",
+        "taille_octets": 6032
+      },
+      {
+        "chemin": "docs/constitution/TEST_P0_EXEMPLE_SEC_DOMAINE.json",
+        "categorie": "docs",
+        "taille_octets": 7489
+      },
+      {
+        "chemin": "docs/constitution/supela-article-registry-1.json",
+        "categorie": "docs",
+        "taille_octets": 11075
+      },
+      {
+        "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
+        "categorie": "docs",
+        "taille_octets": 97867
+      },
+      {
+        "chemin": "omega.ps1",
+        "categorie": "root",
+        "taille_octets": 2270
+      },
+      {
+        "chemin": "policies/omega_zero_invariants.rego",
+        "categorie": "policies",
+        "taille_octets": 5071
+      },
+      {
+        "chemin": "pyproject.toml",
+        "categorie": "root",
+        "taille_octets": 832
+      },
+      {
+        "chemin": "reports/TEST-4D-ESC-01.report.json",
+        "categorie": "reports",
+        "taille_octets": 5025
+      },
+      {
+        "chemin": "runtime/init_omega_vault.ps1",
+        "categorie": "runtime",
+        "taille_octets": 2361
+      },
+      {
+        "chemin": "schemas/execution_report.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 3701
+      },
+      {
+        "chemin": "schemas/exemple_cycle_p0.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 7062
+      },
+      {
+        "chemin": "schemas/manque_statut.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 5013
+      },
+      {
+        "chemin": "schemas/plan_4d_omega_zero_esc_01.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 9161
+      },
+      {
+        "chemin": "schemas/projection_pi0.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 3847
+      },
+      {
+        "chemin": "schemas/supela_article_registry_1.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 11280
+      },
+      {
+        "chemin": "schemas/supela_encyclopedie_1.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 15723
+      },
+      {
+        "chemin": "scripts/build_encyclopedie.py",
+        "categorie": "scripts",
+        "taille_octets": 77418
+      },
+      {
+        "chemin": "scripts/collect_local_encyclopedie.ps1",
+        "categorie": "scripts",
+        "taille_octets": 12294
+      },
+      {
+        "chemin": "scripts/install_into_excited_meitner.ps1",
+        "categorie": "scripts",
+        "taille_octets": 1517
+      },
+      {
+        "chemin": "scripts/verify_a12.ps1",
+        "categorie": "scripts",
+        "taille_octets": 364
+      },
+      {
+        "chemin": "scripts/verify_a12.py",
+        "categorie": "scripts",
+        "taille_octets": 3632
+      },
+      {
+        "chemin": "src/omega_zero/__init__.py",
+        "categorie": "src",
+        "taille_octets": 1416
+      },
+      {
+        "chemin": "src/omega_zero/attestation.py",
+        "categorie": "src",
+        "taille_octets": 3542
+      },
+      {
+        "chemin": "src/omega_zero/grpo_bridge.py",
+        "categorie": "src",
+        "taille_octets": 5894
+      },
+      {
+        "chemin": "src/omega_zero/harness.py",
+        "categorie": "src",
+        "taille_octets": 23650
+      },
+      {
+        "chemin": "src/omega_zero/models.py",
+        "categorie": "src",
+        "taille_octets": 15089
+      },
+      {
+        "chemin": "src/omega_zero/projection.py",
+        "categorie": "src",
+        "taille_octets": 7706
+      },
+      {
+        "chemin": "src/omega_zero/protocol.py",
+        "categorie": "src",
+        "taille_octets": 18946
+      },
+      {
+        "chemin": "src/omega_zero/scenarios.py",
+        "categorie": "src",
+        "taille_octets": 9935
+      },
+      {
+        "chemin": "src/omega_zero/worm_ledger.py",
+        "categorie": "src",
+        "taille_octets": 6008
+      },
+      {
+        "chemin": "tests/init_omega_vault.Tests.ps1",
+        "categorie": "tests",
+        "taille_octets": 1715
+      },
+      {
+        "chemin": "tests/rego/omega_zero_invariants_test.rego",
+        "categorie": "tests",
+        "taille_octets": 8100
+      },
+      {
+        "chemin": "tests/test_encyclopedie_dictionnaire.py",
+        "categorie": "tests",
+        "taille_octets": 12407
+      },
+      {
+        "chemin": "tests/test_escalation_4d.py",
+        "categorie": "tests",
+        "taille_octets": 4016
+      },
+      {
+        "chemin": "tests/test_opa_rego.py",
+        "categorie": "tests",
+        "taille_octets": 3979
+      },
+      {
+        "chemin": "tests/test_pi0_and_manque.py",
+        "categorie": "tests",
+        "taille_octets": 6716
+      },
+      {
+        "chemin": "tests/test_properties_hypothesis.py",
+        "categorie": "tests",
+        "taille_octets": 5280
+      },
+      {
+        "chemin": "tests/test_schemas.py",
+        "categorie": "tests",
+        "taille_octets": 2854
+      },
+      {
+        "chemin": "tests/test_second_domain_example.py",
+        "categorie": "tests",
+        "taille_octets": 3020
+      },
+      {
+        "chemin": "tests/test_supela_article_registry.py",
+        "categorie": "tests",
+        "taille_octets": 6048
+      },
+      {
+        "chemin": "tests/test_worm_and_crypto.py",
+        "categorie": "tests",
+        "taille_octets": 4148
+      }
+    ],
+    "discussions_ia_google_docs": [
+      {
+        "id": "1JN1AfHmewUHdzVLlh7wRezEIriV6t2n4vq6JYOeiN_U",
+        "titre": "Jef, je te réponds direct, technique, optimisé, e...",
+        "url": "https://docs.google.com/document/d/1JN1AfHmewUHdzVLlh7wRezEIriV6t2n4vq6JYOeiN_U/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-10T12:44:21.906Z",
+        "domaine": "Infrastructure Cloud & OIDC (Supela-K3-Ω)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA",
+          "Azure Bicep"
+        ],
+        "resume_verifie": "Spécification OIDC sans secret statique et module Azure Bicep (supela-edge.bicep) avec Key Vault et Health Check.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 108,
+        "caracteres": 4357
+      },
+      {
+        "id": "1qcDmfGhgnVAYqhlv3iSl-uscgKlris54RNTCZYRCu2A",
+        "titre": "Guide d'intégration Cursor CLI - Pipeline Supela-K3-Ω",
+        "url": "https://docs.google.com/document/d/1qcDmfGhgnVAYqhlv3iSl-uscgKlris54RNTCZYRCu2A/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-10T02:06:05.245Z",
+        "domaine": "Intégration CLI & Agents IA",
+        "outils_ia_associes": [
+          "Cursor CLI",
+          "Claude / Gemini"
+        ],
+        "resume_verifie": "Guide d'intégration Cursor CLI ↔ Pipeline Supela-K3-Ω : Shell Mode (K3s/PowerShell/Nomad), Headless CI (OPA/Rego) et ACP.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 163,
+        "caracteres": 9653
+      },
+      {
+        "id": "1gBbj-OyJe0zp2sbB64XeqUFAvGiG129W_5hfT8G36oE",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1gBbj-OyJe0zp2sbB64XeqUFAvGiG129W_5hfT8G36oE/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-09T17:51:58.462Z",
+        "domaine": "Corpus Doctoral Supela (Ch. 1-3)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Corpus doctoral unifié regroupant les chapitres 1 à 3 (Rituel/Pipeline, Graal cognitif & ancrages silicium, GDS/SCT).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1v8hbxMcTKo3ImgkX3kQJKDk3DXGOnMk9Ko0o9gaxY2Y",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1v8hbxMcTKo3ImgkX3kQJKDk3DXGOnMk9Ko0o9gaxY2Y/edit",
+        "type_artefact": "GOOGLE_DOC_COPIE",
+        "date_modif": "2026-10-09T17:51:54.655Z",
+        "domaine": "Corpus Doctoral Supela (Copie)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Copie du corpus doctoral unifié (chapitres 1 à 3) archivée dans Drive.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1UX-kqgR0S54hl0EJOzA0LGyL8MOdNMP8FZcvDe2I98c",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1UX-kqgR0S54hl0EJOzA0LGyL8MOdNMP8FZcvDe2I98c/edit",
+        "type_artefact": "GOOGLE_DOC_COPIE",
+        "date_modif": "2026-10-09T17:51:52.254Z",
+        "domaine": "Corpus Doctoral Supela (Copie)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Copie du corpus doctoral unifié (chapitres 1 à 3) archivée dans Drive.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1AmGMFHC7ehMT1Q5uCbigrMLOvM3CpXwr4b25mUlu0UA",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1AmGMFHC7ehMT1Q5uCbigrMLOvM3CpXwr4b25mUlu0UA/edit",
+        "type_artefact": "GOOGLE_DOC_COPIE",
+        "date_modif": "2026-10-09T17:51:48.658Z",
+        "domaine": "Corpus Doctoral Supela (Copie)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Copie du corpus doctoral unifié (chapitres 1 à 3) archivée dans Drive.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1F6OtEXHwY229UAX51XBLF93PdOCKwTVKgY0OCOG-HgI",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1F6OtEXHwY229UAX51XBLF93PdOCKwTVKgY0OCOG-HgI/edit",
+        "type_artefact": "GOOGLE_DOC_COPIE",
+        "date_modif": "2026-10-09T17:51:35.639Z",
+        "domaine": "Corpus Doctoral Supela (Copie)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Copie du corpus doctoral unifié (chapitres 1 à 3) archivée dans Drive.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1xwNrrRFpRJgPzQgh9YZrSbdI6QP4cSCZwDbRbJhC8lw",
+        "titre": "toutes les chapitre un coups",
+        "url": "https://docs.google.com/document/d/1xwNrrRFpRJgPzQgh9YZrSbdI6QP4cSCZwDbRbJhC8lw/edit",
+        "type_artefact": "GOOGLE_DOC_COPIE",
+        "date_modif": "2026-10-09T17:51:35.608Z",
+        "domaine": "Corpus Doctoral Supela (Copie)",
+        "outils_ia_associes": [
+          "Gemini / Assistant IA"
+        ],
+        "resume_verifie": "Copie du corpus doctoral unifié (chapitres 1 à 3) archivée dans Drive.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 93,
+        "caracteres": 13683
+      },
+      {
+        "id": "1aI4MIBTwNfCzlkE_-bNc8XxrJUpYTkM7hNyBLmkP7DQ",
+        "titre": "{   \"message\": \"Not Found\",   \"documentation_url\"...",
+        "url": "https://docs.google.com/document/d/1aI4MIBTwNfCzlkE_-bNc8XxrJUpYTkM7hNyBLmkP7DQ/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-05T23:39:18.411Z",
+        "domaine": "Débogage GitHub API",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "GitHub API"
+        ],
+        "resume_verifie": "Diagnostic des erreurs HTTP 404 d'obfuscation sur l'API GitHub et élévation de permissions PAT (Fine-grained / repo).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 51,
+        "caracteres": 3069
+      },
+      {
+        "id": "1nTp9MuemFpvQyeYyZHC6G4f6S-ZGJPcdjGbAXsWKeuc",
+        "titre": "exprime toi dans le fond fond des fondement en co...",
+        "url": "https://docs.google.com/document/d/1nTp9MuemFpvQyeYyZHC6G4f6S-ZGJPcdjGbAXsWKeuc/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-03T16:51:55.432Z",
+        "domaine": "Noyau Cryptographique Rust (Ω-AXE-01)",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Rust"
+        ],
+        "resume_verifie": "Implémentation conceptuelle Rust omega_axe_01::core::terminal_gate avec séparation F_sign != F_certif et trait SupelaLedger.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 50,
+        "caracteres": 3231
+      },
+      {
+        "id": "1VpFXq3hHPEsMTO5NyX5nvM7jfCkBSBnppeBiseCM0sI",
+        "titre": "Contrat Supela-Ω : Spécification de la Fonction CONTROLE",
+        "url": "https://docs.google.com/document/d/1VpFXq3hHPEsMTO5NyX5nvM7jfCkBSBnppeBiseCM0sI/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-03T16:43:51.985Z",
+        "domaine": "Spécification Supela-Ω (Ébauche)",
+        "outils_ia_associes": [
+          "Google Docs"
+        ],
+        "resume_verifie": "Document créé le 2026-10-03 intitulé « Contrat Supela-Ω : Spécification de la Fonction CONTROLE » (corps actuellement vide : 1 caractère).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 0,
+        "caracteres": 1
+      },
+      {
+        "id": "1SJRQt_ebmOw7lvUkNnHzPFbOKtDzdayrieyh2JlLx1A",
+        "titre": "Supela-K3-Ω: Architecture and Governance",
+        "url": "https://docs.google.com/document/d/1SJRQt_ebmOw7lvUkNnHzPFbOKtDzdayrieyh2JlLx1A/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-03T16:43:14.938Z",
+        "domaine": "Architecture 3 couches Supela-K3-Ω",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Architecture et gouvernance en 3 couches (Supela, K3, Omega) avec invariants INV-SUP-01, INV-K3-01/02, INV-OMG-01/02.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 40,
+        "caracteres": 3698
+      },
+      {
+        "id": "1jfcutVxolADj-eTHbxETul0girYTmHhoF08lsz4-pBA",
+        "titre": "La version prototype robuste (SQLite WAL + socket...",
+        "url": "https://docs.google.com/document/d/1jfcutVxolADj-eTHbxETul0girYTmHhoF08lsz4-pBA/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T22:21:31.963Z",
+        "domaine": "Prototype Souverain SQLite WAL",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Bash / SQLite"
+        ],
+        "resume_verifie": "Prototype robuste SQLite WAL + socket local avec script de bootstrap et sonde d'indépendance anti-auto-certification.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 133,
+        "caracteres": 6069
+      },
+      {
+        "id": "1qtgSooem_Z1VA1Qa5wK7HQF1k3_hGNggnpH9LWYmPk8",
+        "titre": "GO OPTIMUM SUPREMA PREMIUM",
+        "url": "https://docs.google.com/document/d/1qtgSooem_Z1VA1Qa5wK7HQF1k3_hGNggnpH9LWYmPk8/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T21:29:32.401Z",
+        "domaine": "Audit Cryptographique AIS-Ω",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "PowerShell"
+        ],
+        "resume_verifie": "Séquence d'audit cryptographique SUPREMA PREMIUM (AIS-Ω) en PowerShell testant signatures, sabotage et hachage.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 67,
+        "caracteres": 4849
+      },
+      {
+        "id": "1R71yti9PR0djXoxV5coXflmxGTz7-N39WovkpmFSQn4",
+        "titre": "formalisation est prête.",
+        "url": "https://docs.google.com/document/d/1R71yti9PR0djXoxV5coXflmxGTz7-N39WovkpmFSQn4/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T16:14:43.615Z",
+        "domaine": "Note de Scellement",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Courte note déclarative (4 lignes) actant la formalisation de l'axiome.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 4,
+        "caracteres": 458
+      },
+      {
+        "id": "1D9RKMHlOxgm52Mx8tvzW3PgWCCsnyeq2oBXhwO66TNs",
+        "titre": "unfie les deux",
+        "url": "https://docs.google.com/document/d/1D9RKMHlOxgm52Mx8tvzW3PgWCCsnyeq2oBXhwO66TNs/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T16:04:36.297Z",
+        "domaine": "Mathématisation Zéro Moteur",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Axiome unifié de l'émergence orthogonale (ΔPoids = 0 ⇒ ΔRésonance ⊥ Poids) et tenseur de profondeur.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 37,
+        "caracteres": 3850
+      },
+      {
+        "id": "1r6R0_7l7Z1ydw5yxjOQJpLxnz9gLxhciYWeQyXCFJho",
+        "titre": "OPTIMISE A BRULER LES BYTES DES ALCULATEUR",
+        "url": "https://docs.google.com/document/d/1r6R0_7l7Z1ydw5yxjOQJpLxnz9gLxhciYWeQyXCFJho/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T02:01:54.521Z",
+        "domaine": "Phase A v3.1 (Couche C1)",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Spécification Phase A v3.1 faisant de la Couche 1 (C1) l'arbitre déterministe et introduisant 9 disjoncteurs orthogonaux D0-D8.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 103,
+        "caracteres": 7996
+      },
+      {
+        "id": "1oOB3T-MrBnlIxwXZahFQYJar9Osl0zrz8lz6mLw2R1Y",
+        "titre": "Confirmation officielle Phase A v3 GELÉE Décision...",
+        "url": "https://docs.google.com/document/d/1oOB3T-MrBnlIxwXZahFQYJar9Osl0zrz8lz6mLw2R1Y/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-10-01T01:54:10.612Z",
+        "domaine": "Phase B (Couche C2 Stochastique)",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Confirmation Phase A v3 gelée et contrat de validation stochastique Phase B (Couche C2) par injection de mutations.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 193,
+        "caracteres": 11894
+      },
+      {
+        "id": "1S_gioLWccxrMIIRYOpqhXICMLEaErY-of1eoD3hz1WQ",
+        "titre": "Artefact de Gouvernance Durable",
+        "url": "https://docs.google.com/document/d/1S_gioLWccxrMIIRYOpqhXICMLEaErY-of1eoD3hz1WQ/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-27T18:33:41.190Z",
+        "domaine": "Gouvernance Durable (PDD-01)",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Axiome de Persistance au Point de Décision (PDD-01) : complétude (Commande, Sortie) et exclusion des états volatils RAM/chat.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 66,
+        "caracteres": 5926
+      },
+      {
+        "id": "1gAYDB8WPVc0UtRhiqQG61J_dqcBJ-4I6fqTJaSVM3CQ",
+        "titre": "go",
+        "url": "https://docs.google.com/document/d/1gAYDB8WPVc0UtRhiqQG61J_dqcBJ-4I6fqTJaSVM3CQ/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-26T18:59:31.057Z",
+        "domaine": "SDK Python Supela",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Python"
+        ],
+        "resume_verifie": "Conception du SDK minimal Python (supela_sdk.py) encapsulant Merkle/cryptographie en 3 lignes d'appel.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 81,
+        "caracteres": 4439
+      },
+      {
+        "id": "1KIZi0D9dud4O0ttn5kAssPH2dGrUoEahR27aDMhtwWE",
+        "titre": "À ce stade :     YAML OPAE-3: status: RESOLVED_TE...",
+        "url": "https://docs.google.com/document/d/1KIZi0D9dud4O0ttn5kAssPH2dGrUoEahR27aDMhtwWE/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-26T13:21:20.576Z",
+        "domaine": "Audit IA Zero-Trust (OPAE-3 / XR-50)",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Azure / Zero-Trust"
+        ],
+        "resume_verifie": "Matrice d'audit IA Zero-Trust v2 (14 colonnes, 38 contrôles XR-50 alignés Microsoft AZ-500, CA-01, PIM-02).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 112,
+        "caracteres": 8673
+      },
+      {
+        "id": "1vlJHAMCRTbJb5gkuAYTtbJtam1Ie2G4oH7Bg9JSJ_Pw",
+        "titre": "Diagramme de Souveraineté XaaS",
+        "url": "https://docs.google.com/document/d/1vlJHAMCRTbJb5gkuAYTtbJtam1Ie2G4oH7Bg9JSJ_Pw/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-26T11:15:47.388Z",
+        "domaine": "Souveraineté XaaS (VR-13 à VR-18)",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Mermaid"
+        ],
+        "resume_verifie": "Diagramme Mermaid modélisant la matrice de souveraineté XaaS entre cœur souverain, rituel et couches externalisées.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 40,
+        "caracteres": 1915
+      },
+      {
+        "id": "1X2V7qAg3OLlKl5d2bjmF2CqMNeqkCOg63KtBaPh-MFE",
+        "titre": "recommanderais toutefois trois ajouts normatifs a...",
+        "url": "https://docs.google.com/document/d/1X2V7qAg3OLlKl5d2bjmF2CqMNeqkCOg63KtBaPh-MFE/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-24T20:01:56.291Z",
+        "domaine": "Validation Indépendante (Initiative Gamma)",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport THIRD-PARTY-VALIDATION-REPORT.md (TVR-2026-0001) intégrant Déclaration d'Indépendance, Reproductibilité et Preuve.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 89,
+        "caracteres": 5457
+      },
+      {
+        "id": "1U8jjFymxQz5xWfnqfahA3lyT2wN7oEBbeYab9mHazKo",
+        "titre": "Rédige la PR (Pull Request) Git ou le commit de d...",
+        "url": "https://docs.google.com/document/d/1U8jjFymxQz5xWfnqfahA3lyT2wN7oEBbeYab9mHazKo/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-24T18:58:57.655Z",
+        "domaine": "Pull Request Canon VR-24",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Git"
+        ],
+        "resume_verifie": "Rédaction de PR Git pour ratifier VR-24 (Canon de Continuité) : découplage physico-sémantique, agilité NIST, Merkle.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 60,
+        "caracteres": 5121
+      },
+      {
+        "id": "1HfwN8xTKGw0caKNm7WMm3hRnDohrQGSPSdj4yS6lKP4",
+        "titre": "Sentinel_Snapshot_Architecture_Analytique_V2",
+        "url": "https://docs.google.com/document/d/1HfwN8xTKGw0caKNm7WMm3hRnDohrQGSPSdj4yS6lKP4/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-23T09:50:20.436Z",
+        "domaine": "Sentinel Snapshot V2 (OT/ICS)",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "OPA / Rego"
+        ],
+        "resume_verifie": "Architecture Edge-Mesh cyber-physique, tracking immuable, OPA/Rego et conformité NIS2/DORA.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 117,
+        "caracteres": 6829
+      },
+      {
+        "id": "1SssllqOJn4mtYH-d8-_wt-U7sioFm8Lau377YRiJcHE",
+        "titre": "reforle de la premiere lettre du debut",
+        "url": "https://docs.google.com/document/d/1SssllqOJn4mtYH-d8-_wt-U7sioFm8Lau377YRiJcHE/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-09-19T02:15:47.445Z",
+        "domaine": "Manifeste Supela (Ring -3)",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Refondation du manifeste Supela K3 : Axiome Zéro, Calcul Abyssal Ring -3 et ancrage matériel Ω-AXE-02.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 18,
+        "caracteres": 2948
+      },
+      {
+        "id": "1EgcoLtqJFF9s9MfJ2OtWzUe0UyKu1WeIryMiA_cs7AU",
+        "titre": "Sponsored Videos",
+        "url": "https://docs.google.com/document/d/1EgcoLtqJFF9s9MfJ2OtWzUe0UyKu1WeIryMiA_cs7AU/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-08-28T08:04:54.202Z",
+        "domaine": "Communication / Sponsoring",
+        "outils_ia_associes": [
+          "Google Docs"
+        ],
+        "resume_verifie": "Modèle de réponse tarifaire pour vidéos sponsorisées sur Twitter et YouTube.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 38,
+        "caracteres": 2590
+      },
+      {
+        "id": "1VWlIpNMviD84IVDSCDEehfTDM_MlU0Y1Cm3BLsYTaww",
+        "titre": "_Mise Ã  jour REQ.PDF",
+        "url": "https://docs.google.com/document/d/1VWlIpNMviD84IVDSCDEehfTDM_MlU0Y1Cm3BLsYTaww/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-03-09T12:41:14.495Z",
+        "domaine": "Administration / Entreprise NatuPro",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Accusé de réception administratif de mise à jour courante (Groupe NatuPro, exemplaire 1).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 233,
+        "caracteres": 3535
+      },
+      {
+        "id": "1Q_FNJuZ2OjbFjwG5pt4TuPpBtG6skkaHF7l44Slw6y8",
+        "titre": "_Mise Ã  jour REQ.PDF",
+        "url": "https://docs.google.com/document/d/1Q_FNJuZ2OjbFjwG5pt4TuPpBtG6skkaHF7l44Slw6y8/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2026-03-09T12:40:40.450Z",
+        "domaine": "Administration / Entreprise NatuPro",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Accusé de réception administratif de mise à jour courante (Groupe NatuPro, exemplaire 2).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 233,
+        "caracteres": 3535
+      },
+      {
+        "id": "1cn1j4f4jicgFkRfp02evJPsJ-949ybK5KRFaVp0kycQ",
+        "titre": "facture 1",
+        "url": "https://docs.google.com/document/d/1cn1j4f4jicgFkRfp02evJPsJ-949ybK5KRFaVp0kycQ/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-10-30T11:22:36.379Z",
+        "domaine": "Facturation / Travaux",
+        "outils_ia_associes": [
+          "Google Docs"
+        ],
+        "resume_verifie": "Modèle ou document de facturation pour recherche de couleur et travaux de peinture (octobre 2025).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 43,
+        "caracteres": 751
+      },
+      {
+        "id": "1fpc7Qxv2UORqfOQ5MY-1COJrHz0_1sjxyi63lJ_31wQ",
+        "titre": "Notes_250711_204940",
+        "url": "https://docs.google.com/document/d/1fpc7Qxv2UORqfOQ5MY-1COJrHz0_1sjxyi63lJ_31wQ/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-08-04T23:49:19.708Z",
+        "domaine": "Entreprise / Communication bilingue",
+        "outils_ia_associes": [
+          "Google Docs"
+        ],
+        "resume_verifie": "Notes bilingues FR/EN « LaSalle fait peau neuve / Together, let's unveil the beauty of our walls ».",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 110,
+        "caracteres": 2611
+      },
+      {
+        "id": "1ILIEV8WJWN4UqE8qp8RcKyF_dYPJxfc_ztjozR-XxzA",
+        "titre": "urbanisme et ville lasalle_250712_193618",
+        "url": "https://docs.google.com/document/d/1ILIEV8WJWN4UqE8qp8RcKyF_dYPJxfc_ztjozR-XxzA/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-08-04T23:46:45.374Z",
+        "domaine": "Entreprise / Urbanisme & Éco-quartier",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Analyse assistée par IA du programme d'aide aux graffitis d'Éco-quartier LaSalle (exemplaire 1).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 86,
+        "caracteres": 18759
+      },
+      {
+        "id": "1QiTXg7hPU7tOy3eEqwBrsAil-YAFap73CEv_XX7AyTc",
+        "titre": "Plan Stratégique pour le Groupe NatuPro : Embellis...",
+        "url": "https://docs.google.com/document/d/1QiTXg7hPU7tOy3eEqwBrsAil-YAFap73CEv_XX7AyTc/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T03:17:26.403Z",
+        "domaine": "Entreprise / Stratégie NatuPro",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Analyse et critique stratégique par IA du plan d'embellissement et verdissement urbain pour Groupe NatuPro.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 101,
+        "caracteres": 19666
+      },
+      {
+        "id": "1JtZ-7BW-2UM_MVhFtSEpigQ4XZ_Sa2hnS6aMnjStOiY",
+        "titre": "Plan stratégique OBNL anti-graffitis",
+        "url": "https://docs.google.com/document/d/1JtZ-7BW-2UM_MVhFtSEpigQ4XZ_Sa2hnS6aMnjStOiY/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T02:16:15.346Z",
+        "domaine": "Entreprise / OBNL Anti-Graffitis",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Plan stratégique OBNL anti-graffitis et partenariat municipal produit en collaboration avec IA.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 103,
+        "caracteres": 26941
+      },
+      {
+        "id": "1jY2gxV3pbSeGuhcl97lXHM8a-10UJJzKgmW8dOagPhc",
+        "titre": "Analyse de la gestion des graffitis",
+        "url": "https://docs.google.com/document/d/1jY2gxV3pbSeGuhcl97lXHM8a-10UJJzKgmW8dOagPhc/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T01:35:02.589Z",
+        "domaine": "Entreprise / Gestion Graffitis Montréal",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport structuré généré avec IA sur le modèle hybride « La Propreté en Partenariat » (exemplaire 1).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 235,
+        "caracteres": 47824
+      },
+      {
+        "id": "1KTmUK_CS7qkutqKoP_LTmZ13_1ajIi09O6MyZDC0M9w",
+        "titre": "Analyse de la gestion des graffitis",
+        "url": "https://docs.google.com/document/d/1KTmUK_CS7qkutqKoP_LTmZ13_1ajIi09O6MyZDC0M9w/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T01:21:49.732Z",
+        "domaine": "Entreprise / Gestion Graffitis Montréal",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport structuré généré avec IA sur le modèle hybride « La Propreté en Partenariat » (exemplaire 2).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 235,
+        "caracteres": 47824
+      },
+      {
+        "id": "15HyYKXo7X5k61grNoitcmVXVypHlnz6OJjNUZeobnO0",
+        "titre": "Graffitis, NatuPro, LaSalle : Rapport.",
+        "url": "https://docs.google.com/document/d/15HyYKXo7X5k61grNoitcmVXVypHlnz6OJjNUZeobnO0/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T01:09:59.213Z",
+        "domaine": "Entreprise / Gestion Graffitis LaSalle",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport « La Propreté en Partenariat : Analyse du Modèle Hybride de Gestion des Graffitis à Montréal / LaSalle ».",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 121,
+        "caracteres": 34311
+      },
+      {
+        "id": "1od7HSVRx6JfTMXdgZ_24HqR8vXC-rTECHYS_opGWWrI",
+        "titre": "urbanisme et ville lasalle_250712_193618",
+        "url": "https://docs.google.com/document/d/1od7HSVRx6JfTMXdgZ_24HqR8vXC-rTECHYS_opGWWrI/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-13T00:40:14.375Z",
+        "domaine": "Entreprise / Urbanisme & Éco-quartier",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Analyse assistée par IA du programme d'aide aux graffitis d'Éco-quartier LaSalle (exemplaire 2).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 86,
+        "caracteres": 18759
+      },
+      {
+        "id": "1PkLopHkkWyJU3vvv8KQ41CXWQvfJoPUMYk6fSFErYoY",
+        "titre": "Untitled",
+        "url": "https://docs.google.com/document/d/1PkLopHkkWyJU3vvv8KQ41CXWQvfJoPUMYk6fSFErYoY/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T23:35:40.173Z",
+        "domaine": "Note / Ébauche Drive",
+        "outils_ia_associes": [
+          "Google Docs"
+        ],
+        "resume_verifie": "Document intitulé « Untitled » ne contenant qu'un tiret (ébauche de 1 caractère).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 1,
+        "caracteres": 1
+      },
+      {
+        "id": "1Qeu2RRkF4uYor-7_4NQOt7YjFJLKco1C1jRkDm2i168",
+        "titre": "Urbanisme",
+        "url": "https://docs.google.com/document/d/1Qeu2RRkF4uYor-7_4NQOt7YjFJLKco1C1jRkDm2i168/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T23:16:18.641Z",
+        "domaine": "Entreprise / Urbanisme Montréal",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Essai analytique généré avec IA « Urbanisme Responsable : Un Modèle Déployé par Montréal ».",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 65,
+        "caracteres": 15274
+      },
+      {
+        "id": "1t5rICR3ED_7F-9xg4BkjudKjqMzY-u29Q6tkMiAFxqY",
+        "titre": "Fait moi un plan daffaire sur 5 ans pour groupe pr...",
+        "url": "https://docs.google.com/document/d/1t5rICR3ED_7F-9xg4BkjudKjqMzY-u29Q6tkMiAFxqY/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T22:50:58.918Z",
+        "domaine": "Entreprise / Plan d'affaires 5 ans",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Prompt et réponse IA générant un plan d'affaires sur 5 ans pour Groupe Pro Nature.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 122,
+        "caracteres": 13283
+      },
+      {
+        "id": "1LAGCD4r6xA20bfpM6_je5DHpp9vOl_fK-vbpVdtLkPk",
+        "titre": "Fait moi le texte claire et profesionnelle et dina...",
+        "url": "https://docs.google.com/document/d/1LAGCD4r6xA20bfpM6_je5DHpp9vOl_fK-vbpVdtLkPk/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T22:44:50.339Z",
+        "domaine": "Entreprise / Rédaction commerciale",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Prompt et réponse IA produisant un texte de présentation professionnelle pour l'entreprise.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 17,
+        "caracteres": 4612
+      },
+      {
+        "id": "1vIdPsRP1PAwP9sShUESLqUCBw5z1Z5qcR2eWXdilB50",
+        "titre": "Analyse du programme d'aide graffitis",
+        "url": "https://docs.google.com/document/d/1vIdPsRP1PAwP9sShUESLqUCBw5z1Z5qcR2eWXdilB50/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T22:04:00.719Z",
+        "domaine": "Entreprise / Valorisation LaSalle",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport généré avec IA sur la gestion des graffitis et la valorisation des murs à LaSalle (exemplaire 1).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 188,
+        "caracteres": 31959
+      },
+      {
+        "id": "125Jdt1RF54v2IK-mCUoqXFOeCUSN1GrvbbotTbiURCg",
+        "titre": "Analyse du programme d'aide graffitis",
+        "url": "https://docs.google.com/document/d/125Jdt1RF54v2IK-mCUoqXFOeCUSN1GrvbbotTbiURCg/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T21:56:43.538Z",
+        "domaine": "Entreprise / Valorisation LaSalle",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Rapport généré avec IA sur la gestion des graffitis et la valorisation des murs à LaSalle (exemplaire 2).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 190,
+        "caracteres": 32098
+      },
+      {
+        "id": "1RgKCYm6JC_i91CTHnpqGLAinCTRIlTRNYCDDY7Wp5Lk",
+        "titre": "Notes_250712_143002",
+        "url": "https://docs.google.com/document/d/1RgKCYm6JC_i91CTHnpqGLAinCTRIlTRNYCDDY7Wp5Lk/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T21:29:00.839Z",
+        "domaine": "Entreprise / Rédaction prospectus IA",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Réponse directe d'un assistant IA structurant un prospectus commercial (archive 2025-07-12).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 82,
+        "caracteres": 2557
+      },
+      {
+        "id": "1-_tbb44FJ9PJVa1wwI-LuNcEPbdndmXCeY5ZZss0Bqg",
+        "titre": "Faire un cv",
+        "url": "https://docs.google.com/document/d/1-_tbb44FJ9PJVa1wwI-LuNcEPbdndmXCeY5ZZss0Bqg/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T20:05:43.430Z",
+        "domaine": "Personnel / Rédaction CV IA",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Synthèse de CV générée avec assistant IA (détails personnels volontairement non reproduits).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 56,
+        "caracteres": 2048
+      },
+      {
+        "id": "19C99ylHBzTtYJzUbjGw0-JDkk8I1ej4MkKx7g9GkgkU",
+        "titre": "Texte",
+        "url": "https://docs.google.com/document/d/19C99ylHBzTtYJzUbjGw0-JDkk8I1ej4MkKx7g9GkgkU/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2025-07-12T18:24:56.319Z",
+        "domaine": "Entreprise / Rédaction prospectus IA",
+        "outils_ia_associes": [
+          "Assistant IA"
+        ],
+        "resume_verifie": "Version développée (4 504 car.) d'une réponse IA rédigeant le prospectus complet.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 49,
+        "caracteres": 4504
+      },
+      {
+        "id": "13z70FVp2OLb9r2PVtbBuMZsgllNP93AMLAjmfc4WsBk",
+        "titre": "Référence #3-4157 s",
+        "url": "https://docs.google.com/document/d/13z70FVp2OLb9r2PVtbBuMZsgllNP93AMLAjmfc4WsBk/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2024-04-01T23:46:43.434Z",
+        "domaine": "Personnel / Coopérative d'habitation",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Lettre de correspondance destinée à une coopérative (données nominatives masquées).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 25,
+        "caracteres": 959
+      },
+      {
+        "id": "15tqF5npGQoTPU1FlmGefgbpAysGsiYSQ6inEz-agPMg",
+        "titre": "Document sans titre",
+        "url": "https://docs.google.com/document/d/15tqF5npGQoTPU1FlmGefgbpAysGsiYSQ6inEz-agPMg/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2024-03-17T22:07:15.047Z",
+        "domaine": "Personnel / Candidature coopérative",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Ébauche de formulaire de candidature coopérative (données personnelles non reproduites).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 64,
+        "caracteres": 2843
+      },
+      {
+        "id": "14ySgiG8J5_L5F-iC-Fp0GAOQh49WuGlmw_eykFmB_xI",
+        "titre": "Document sans titre",
+        "url": "https://docs.google.com/document/d/14ySgiG8J5_L5F-iC-Fp0GAOQh49WuGlmw_eykFmB_xI/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2024-03-16T20:36:19.548Z",
+        "domaine": "Personnel / Candidature coopérative",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Version intermédiaire de formulaire de candidature coopérative (données personnelles masquées).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 139,
+        "caracteres": 5375
+      },
+      {
+        "id": "1oS_h6R7whFigQp8BWuYIbYM6XLUSs1rlDCrmPAfnM9k",
+        "titre": "Coop du college - Formulaire de candidature",
+        "url": "https://docs.google.com/document/d/1oS_h6R7whFigQp8BWuYIbYM6XLUSs1rlDCrmPAfnM9k/edit",
+        "type_artefact": "GOOGLE_DOC",
+        "date_modif": "2024-03-10T00:28:10.480Z",
+        "domaine": "Personnel / Candidature coopérative",
+        "outils_ia_associes": [
+          "Google Docs / Archive"
+        ],
+        "resume_verifie": "Formulaire de candidature finalisé pour coopérative d'habitation (données personnelles masquées).",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "lignes": 142,
+        "caracteres": 5406
+      },
+      {
+        "id": "1nAtBQlAkVXyB_R5T4CjZlfSWSCLTUEY6",
+        "titre": "Supela-K3-Omega : Versions Dérivées (Article, HDR, Norme ISO).md",
+        "url": "https://drive.google.com/file/d/1nAtBQlAkVXyB_R5T4CjZlfSWSCLTUEY6/view",
+        "type_artefact": "MARKDOWN_DRIVE",
+        "date_modif": "2026-10-09T17:26:55.434Z",
+        "domaine": "Modules Dérivés Supela-K3-Ω (Article, HDR, ISO-GDS-2026)",
+        "outils_ia_associes": [
+          "Assistant IA",
+          "Markdown"
+        ],
+        "resume_verifie": "Déclinaisons post-Chapitre 3 : Article scientifique EN, HDR et norme ISO-GDS-2026 pour GDS = ⟨D, O, A, G⟩.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE"
+      },
+      {
+        "id": "1EF_rY1uJieUFZ-zd4Hl7CvMOkWeu2STj",
+        "titre": "supela_ratification_simulation_v2.ipynb",
+        "url": "https://drive.google.com/file/d/1EF_rY1uJieUFZ-zd4Hl7CvMOkWeu2STj/view",
+        "type_artefact": "COLAB_NOTEBOOK",
+        "date_modif": "2026-10-22T23:10:03.540Z",
+        "domaine": "Simulation & Ratification Cryptographique Supela-K3-Ω",
+        "outils_ia_associes": [
+          "Google Colab / Jupyter",
+          "Python / Ed25519"
+        ],
+        "resume_verifie": "Notebook déterministe exécutant invariants INV-SUP/K3/OMG, scénarios A1→F6, WORM, scellement Ed25519 et ancrage G7→Y2.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE"
+      },
+      {
+        "id": "1BFAZSZYkYhrsElGpJUDI-2SE-1yQ8SJe",
+        "titre": "supela_ratification_simulation.ipynb",
+        "url": "https://drive.google.com/file/d/1BFAZSZYkYhrsElGpJUDI-2SE-1yQ8SJe/view",
+        "type_artefact": "COLAB_NOTEBOOK",
+        "date_modif": "2026-10-22T23:01:17.184Z",
+        "domaine": "Simulation & Ratification Cryptographique Supela-K3-Ω",
+        "outils_ia_associes": [
+          "Google Colab / Jupyter",
+          "Python / Ed25519"
+        ],
+        "resume_verifie": "Notebook déterministe exécutant invariants INV-SUP/K3/OMG, scénarios A1→F6, WORM, scellement Ed25519 et ancrage G7→Y2.",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE"
+      }
+    ],
+    "plateformes_ia_et_navigateurs": [
+      {
+        "id": "copilot_edge",
+        "nom": "Microsoft Copilot & Edge",
+        "categorie": "ASSISTANT_IA",
+        "trace_accessible_cloud": "Aucune API Copilot connectée ; matrice Zero-Trust Microsoft AZ-500/CA-01/PIM-02 documentée dans Google Docs.",
+        "emplacement_local_windows": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (Bookmarks + URLs History SQLite Copilot/Bing)",
+        "notes": "Requiert l'exécution locale sur Windows pour inventorier les discussions Copilot et favoris Edge."
+      },
+      {
+        "id": "gemini_google",
+        "nom": "Google Gemini & AI Studio",
+        "categorie": "ASSISTANT_IA",
+        "trace_accessible_cloud": "51 Google Docs + 2 notebooks Colab Supela exportés dans Google Drive ; aucun accès direct à l'historique web gemini.google.com.",
+        "emplacement_local_windows": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\",
+        "perimetre_statut": "PARTIELLEMENT_SYNCHRONISE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (URLs gemini.google.com / aistudio.google.com dans Chrome/Edge/Arc/Brave)",
+        "notes": "Les exports Gemini sauvegardés en Google Docs sont indexés ; le fil web direct reste hors API."
+      },
+      {
+        "id": "arc_browser",
+        "nom": "Arc Browser",
+        "categorie": "NAVIGATEUR_IA",
+        "trace_accessible_cloud": "Aucune donnée Arc synchronisée dans Drive ou GitHub.",
+        "emplacement_local_windows": "%LOCALAPPDATA%\\Packages\\TheBrowserCompany.Arc*\\LocalCache\\Local\\Arc\\User Data\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (StorableSidebar.json + History SQLite + Bookmarks)",
+        "notes": "Profil local Arc uniquement sur le poste Windows."
+      },
+      {
+        "id": "brave_leo",
+        "nom": "Brave Browser & Brave Leo",
+        "categorie": "NAVIGATEUR_IA",
+        "trace_accessible_cloud": "Installeur BraveBrowserSetup-BRV040.exe présent dans Drive/Downloads ; profils et historique Leo non synchronisés.",
+        "emplacement_local_windows": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (Bookmarks + History SQLite)",
+        "notes": "Requiert scan local Windows pour relever les onglets, favoris et URLs IA de Brave."
+      },
+      {
+        "id": "opera_aria",
+        "nom": "Opera & Aria",
+        "categorie": "NAVIGATEUR_IA",
+        "trace_accessible_cloud": "Raccourci « Navigateur Opera.lnk » dans Drive/Desktop et dossier .opera vide (0 item) dans Drive/Downloads.",
+        "emplacement_local_windows": "%APPDATA%\\Opera Software\\Opera Stable\\",
+        "perimetre_statut": "PARTIELLEMENT_SYNCHRONISE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (Bookmarks + History SQLite)",
+        "notes": "Le profil actif Windows contient l'historique réel hors synchronisation Drive."
+      },
+      {
+        "id": "antigravity_agent",
+        "nom": "Antigravity (Google DeepMind)",
+        "categorie": "IDE_AGENT_IA",
+        "trace_accessible_cloud": "Dépôt omega-zero-4d + artefacts persistés dans ~/.gemini/jetski/brain (tableau de bord HTML + session active).",
+        "emplacement_local_windows": "%USERPROFILE%\\.gemini\\jetski\\brain\\",
+        "perimetre_statut": "ACCESSIBLE_VERIFIE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (indexation des identifiants de sessions .gemini)",
+        "notes": "Connecté avec GitHub, Google Drive, Docs, Sheets, Slides et Calendar."
+      },
+      {
+        "id": "cursor_ide",
+        "nom": "Cursor CLI & IDE",
+        "categorie": "IDE_AGENT_IA",
+        "trace_accessible_cloud": "Documentation complète « Guide d'intégration Cursor CLI - Pipeline Supela-K3-Ω » dans Google Docs.",
+        "emplacement_local_windows": "%APPDATA%\\Cursor\\User\\globalStorage\\",
+        "perimetre_statut": "PARTIELLEMENT_SYNCHRONISE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (répertoire globalStorage Cursor)",
+        "notes": "Spécification cloud indexée ; conversations locales dans AppData\\Cursor sur Windows."
+      },
+      {
+        "id": "kilocode_cline_vscode",
+        "nom": "KiloCode / Cline / VS Code",
+        "categorie": "IDE_AGENT_IA",
+        "trace_accessible_cloud": "Dépôts forkés kilocode, cline, sourcery et vscode-github-actions présents sur GitHub gadboisjean1000-arch.",
+        "emplacement_local_windows": "%APPDATA%\\Code\\User\\globalStorage\\",
+        "perimetre_statut": "PARTIELLEMENT_SYNCHRONISE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (extensions et tâches locales VS Code)",
+        "notes": "Code source des agents forkés indexé sur GitHub ; historiques locaux de tâches sur disque C:."
+      },
+      {
+        "id": "chatgpt_claude",
+        "nom": "ChatGPT (OpenAI) & Claude (Anthropic)",
+        "categorie": "ASSISTANT_IA",
+        "trace_accessible_cloud": "Aucune API ChatGPT/Claude connectée ; traces potentielles dans Google Docs exportés ou exports locaux conversations.json.",
+        "emplacement_local_windows": "Navigateurs locaux + fichiers conversations.json sur C:\\ ou D:\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "methode_collecte_locale": "scripts/collect_local_encyclopedie.ps1 (détection des fichiers conversations.json et URLs historiques)",
+        "notes": "Pour inclure tout l'historique ChatGPT/Claude, exporter conversations.json sur C:/D: puis lancer le collecteur."
+      }
+    ],
+    "google_drive_inventaire": {
+      "quota_utilise_gb": 33.6,
+      "quota_limite_gb": 5120.0,
+      "note_pagination": "Les recherches gdrive readonly search sont bornées aux 100 premiers résultats par filtre de type ; les dossiers Desktop/Documents/Downloads sont listés complètement.",
+      "pc_synchronise_dossier": {
+        "nom": "Mon ordinateur portable (1)",
+        "id": "1PJ3p5Dhs6AS7MweywrmUEqMJKPB8D0ml",
+        "desktop_items": 9,
+        "documents_items": 86,
+        "downloads_items": 262,
+        "statut": "PARTIELLEMENT_SYNCHRONISE"
+      },
+      "comptes_par_categorie": {
+        "google_docs_natifs": 51,
+        "google_sheets_et_xlsx": 43,
+        "google_slides_et_pptx": 5,
+        "pdfs_echantillon_borne": 100,
+        "dossiers_echantillon_borne": 100,
+        "notebooks_et_raccourcis": 4,
+        "fichiers_docx": 34,
+        "desktop_synchronise": 9,
+        "documents_synchronise": 86,
+        "downloads_synchronise": 262
+      },
+      "echantillons_documents_cles": [
+        {
+          "id": "1EF_rY1uJieUFZ-zd4Hl7CvMOkWeu2STj",
+          "nom": "supela_ratification_simulation_v2.ipynb",
+          "categorie": "COLAB_NOTEBOOK",
+          "date_modif": "2026-10-22T23:10:03.540Z"
+        },
+        {
+          "id": "1BFAZSZYkYhrsElGpJUDI-2SE-1yQ8SJe",
+          "nom": "supela_ratification_simulation.ipynb",
+          "categorie": "COLAB_NOTEBOOK",
+          "date_modif": "2026-10-22T23:01:17.184Z"
+        },
+        {
+          "id": "16kycuSJK0ku3Ilp8GtQTZBLV62DCrlTc",
+          "nom": "Stability API - Initial Image Inference w/ Image Masking.ipynb",
+          "categorie": "COLAB_NOTEBOOK",
+          "date_modif": "2024-02-28T11:10:27.918Z"
+        },
+        {
+          "id": "11YnbO9f9crMej4I_6J7RAWdMr1EokOU4",
+          "nom": "Stability API - Initial Image Inference w/ Image Masking.ipynb",
+          "categorie": "COLAB_NOTEBOOK",
+          "date_modif": "2024-02-28T11:09:46.363Z"
+        },
+        {
+          "id": "1cdUhJD-kGzsc-58YU_hpvcqTNZ9jgBoEROIz473pXXs",
+          "nom": "Plan de cours",
+          "categorie": "GOOGLE_SLIDES",
+          "date_modif": "2025-07-12T23:31:48.726Z"
+        },
+        {
+          "id": "1Ozi9wssUIkp8HZHB98SZPZ62FSXyDGrT0TdAL8b0c2I",
+          "nom": "Fiches",
+          "categorie": "GOOGLE_SLIDES",
+          "date_modif": "2025-07-12T23:31:47.115Z"
+        },
+        {
+          "id": "1C1Tjtgw42Gz7czERtIkl_t7IC86IjVLTxC6ZC24H-sY",
+          "nom": "Présentation sans titre",
+          "categorie": "GOOGLE_SLIDES",
+          "date_modif": "2025-07-11T22:53:30.238Z"
+        },
+        {
+          "id": "1UDZU_ADkG7uo2HiQe6aV3x2QAdXHfm-xJEg5ov1kDrI",
+          "nom": "Présentation sans titre",
+          "categorie": "GOOGLE_SLIDES",
+          "date_modif": "2025-07-11T22:49:38.229Z"
+        },
+        {
+          "id": "10p4Whm0MxoWa33ek4FFfPN0aSf8g5FGr",
+          "nom": "Jetez un œil à mon design Canva !",
+          "categorie": "GOOGLE_SLIDES",
+          "date_modif": "2025-07-11T21:45:49.355Z"
+        },
+        {
+          "id": "1-IFW7W2ftzSGePODUP3FxEEJsN0tmoAX",
+          "nom": "Vapon-VP996-Function-and-Car-List.xlsx",
+          "categorie": "GOOGLE_SHEETS",
+          "date_modif": "2024-01-17T16:46:22.385Z"
+        },
+        {
+          "id": "1CUWH5s0K72pw0S6op_M30PihQ7N33k1-",
+          "nom": "BMW N55 Diagnostic Fault Codes.xlsx",
+          "categorie": "GOOGLE_SHEETS",
+          "date_modif": "2024-01-10T17:40:29.000Z"
+        },
+        {
+          "id": "1qIGu_VY2DFSyHVOd8IGvD3m-RM203CyQ",
+          "nom": "Réponses - Formulaire pour permettre l'enlèvement de graffitis .xlsx",
+          "categorie": "GOOGLE_SHEETS",
+          "date_modif": "2023-09-19T17:31:15.023Z"
+        },
+        {
+          "id": "11d6Mjt_vkZYF1OkhnCoSfrtsGrr9abA7",
+          "nom": "Microsoft-Nonprofit-Offers-Guide_copie.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2025-07-12T02:48:16.414Z"
+        },
+        {
+          "id": "1h_3BZ7XzWhquRmzjpeSo5L5eTh4ivJqu",
+          "nom": "ST916 N55 Engine_copie.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2025-06-01T17:30:04.450Z"
+        },
+        {
+          "id": "162xaGIKAMK7eaDqRDxegnxiFOoYamO9t",
+          "nom": "cgdi-mb-prog-car-key-adding-user-manual.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2024-01-19T23:06:33.858Z"
+        },
+        {
+          "id": "161j79m-5DbFRvzTh7OWcmrw9mWrY5qH5",
+          "nom": "FC200_Manual.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2024-01-19T23:06:10.925Z"
+        },
+        {
+          "id": "16vyfgmlxKHz9_JD9mIbqE6QioUioX8Ls",
+          "nom": "mk3-features_bf71d2d0-071e-4f21-bae4-972268774057.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2024-01-19T23:00:39.271Z"
+        },
+        {
+          "id": "1mQl2ecX35JJ1m5rEadLC0uKwEFEGKRCu",
+          "nom": "mk3-remotes-unlocking-connections-diagrams_b087cde0-1ecb-474c-8563-bb058dbb16ad.pdf",
+          "categorie": "PDF_DRIVE",
+          "date_modif": "2024-01-19T23:00:13.578Z"
+        },
+        {
+          "id": "1oi7DtWpa9_ymz-uPOVqvpAkFY8aMKcWs",
+          "nom": "FO_demande_conversion_claims.docx",
+          "categorie": "DOCX_DOCUMENTS",
+          "date_modif": "2023-12-06T04:32:00.171Z"
+        },
+        {
+          "id": "15OYCj0I9LKEPAQLTkjru0Vjye4oXLyka",
+          "nom": "Document (19).docx",
+          "categorie": "DOCX_DOCUMENTS",
+          "date_modif": "2023-11-28T21:21:21.000Z"
+        },
+        {
+          "id": "187yR-mSSVAUHlny7wPh1_ul6-4FeeCx4",
+          "nom": "Document (18).docx",
+          "categorie": "DOCX_DOCUMENTS",
+          "date_modif": "2023-10-10T22:33:04.000Z"
+        },
+        {
+          "id": "1Cf5ZWvKqnfPT1xuLnr_8H6_54xbtSLWw",
+          "nom": "Document (17).docx",
+          "categorie": "DOCX_DOCUMENTS",
+          "date_modif": "2023-10-10T21:52:16.000Z"
+        }
+      ]
+    },
+    "disques_locaux_windows": [
+      {
+        "lecteur": "C:\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "raison": "Disque système local Windows inaccessible depuis la VM cloud Linux. Contient notamment les dépôts locaux (excited-meitner) et les profils Edge/Chrome/Arc/Brave/Cursor/Antigravity.",
+        "cibles_connues": [
+          "C:\\Users\\Group\\Documents\\antigravity\\excited-meitner",
+          "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\",
+          "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\",
+          "%LOCALAPPDATA%\\Packages\\TheBrowserCompany.Arc*\\",
+          "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\",
+          "%APPDATA%\\Opera Software\\Opera Stable\\",
+          "%APPDATA%\\Cursor\\User\\globalStorage\\",
+          "%USERPROFILE%\\.gemini\\jetski\\brain\\"
+        ],
+        "collecteur_script": "scripts/collect_local_encyclopedie.ps1",
+        "elements_indexes": []
+      },
+      {
+        "lecteur": "D:\\",
+        "perimetre_statut": "INACCESSIBLE_DANS_LE_PÉRIMÈTRE",
+        "raison": "Disque secondaire local Windows D:\\ inaccessible depuis la VM cloud Linux. À scanner sur le poste hôte via PowerShell.",
+        "cibles_connues": [
+          "D:\\ (projets, archives, exports conversations.json, dépôts Git locaux)"
+        ],
+        "collecteur_script": "scripts/collect_local_encyclopedie.ps1",
+        "elements_indexes": []
+      }
+    ]
+  },
+  "collecteur_local": {
+    "script_powershell": "scripts/collect_local_encyclopedie.ps1",
+    "script_fusion_python": "scripts/build_encyclopedie.py",
+    "commande_windows": ".\\scripts\\collect_local_encyclopedie.ps1 -Drives C,D -OutJson .\\docs\\constitution\\local_pc_inventory.json",
+    "commande_fusion": "python scripts/build_encyclopedie.py --local-inventory docs/constitution/local_pc_inventory.json",
+    "garanties_securite": [
+      "Exécution strictement lecture-seule sur C:\\ et D:\\.",
+      "Exclusion explicite de Cookies, Login Data, Local State, .env, .ssh, .kdbx, .pfx, .key et jetons.",
+      "Validation Draft 2020-12 obligatoire avant écriture du registre fusionné."
+    ],
+    "dernier_import_local": null
+  },
+  "conclusion": "Le Dictionnaire et l'Encyclopédie répertorient de façon vérifiée les 15 dépôts GitHub, les discussions IA et artefacts Google Drive/Docs/Colab ainsi que la nomenclature complète Supela Ω-ZERO ; les disques locaux C:/D: et historiques directs Copilot/Gemini/Arc/Brave restent honnêtement marqués INACCESSIBLE_DANS_LE_PÉRIMÈTRE jusqu'à exécution du collecteur PowerShell local."
+}
