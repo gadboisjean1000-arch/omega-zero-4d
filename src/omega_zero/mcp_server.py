@@ -211,6 +211,14 @@ TOOLS_SPEC: list[dict[str, Any]] = [
         "description": "Exécute le banc d'auto-validation SupelaInherentCore (ZERO-STATE-01, ZERO-AGENT-01, SUP-NORM-NET-01/1.0, Anti-EaaS, Ed25519, topologies).",
         "inputSchema": {"type": "object", "properties": {}},
     },
+    {
+        "name": "omega_math_supela_eval",
+        "description": "Exécute les invariants mathématiques unifiés MAT-00..MAT-08 et GENERIC (dE/dt=0, dS/dt>=0) avec séparation honnête A_PROUVER.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"validator_name": {"type": "string"}},
+        },
+    },
 ]
 
 RESOURCES_SPEC: list[dict[str, str]] = [
@@ -413,6 +421,10 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         from .sovereign_net import run_sovereign_net_self_check
 
         return run_sovereign_net_self_check()
+    if name == "omega_math_supela_eval":
+        from .supela_math_core import run_supela_math_unification
+
+        return run_supela_math_unification(validator_name=str(arguments.get("validator_name", "Jean-François Gadbois")))
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 

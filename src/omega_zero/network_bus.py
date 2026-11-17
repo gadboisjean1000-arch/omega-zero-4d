@@ -595,6 +595,11 @@ def main(argv: list[str] | None = None) -> int:
         "sovereign-verify",
         help="Vérifie le noyau inhérent (ZERO-STATE-01, SUP-NORM-NET-01/1.0, Anti-EaaS, Ed25519, topologies).",
     )
+    math_p = sub.add_parser(
+        "math-eval",
+        help="Exécute les invariants mathématiques unifiés MAT-00..MAT-08 et GENERIC.",
+    )
+    math_p.add_argument("--validator", default="Jean-François Gadbois")
 
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
@@ -615,6 +620,13 @@ def main(argv: list[str] | None = None) -> int:
         res = run_sovereign_net_self_check()
         print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0 if res["audit_trail_verified"] and not res["external_eaas_recalculation"] else 1
+
+    if args.cmd == "math-eval":
+        from .supela_math_core import run_supela_math_unification
+
+        res = run_supela_math_unification(validator_name=args.validator)
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        return 0 if res["generic_thermodynamics"]["generic_valid"] and res["mat_00_monotone_k"] else 1
 
     res = run_integrated_network_pipeline(query=args.query)
     print(json.dumps(res, indent=2, ensure_ascii=False))

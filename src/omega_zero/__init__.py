@@ -83,6 +83,14 @@ from .sovereign_net import (
     TransportVector,
     run_sovereign_net_self_check,
 )
+from .supela_math_core import (
+    BoundedAuthorityEvaluation,
+    GenericThermodynamicStep,
+    ProofLatticeLevel,
+    SupelaStateTuple,
+    ThreeDimensionalSeparation,
+    run_supela_math_unification,
+)
 from .vr_compliance import VRRuleResult, verify_vr_compliance
 from .worm_ledger import VaultRunResult, WormTamperError, WormVault
 
@@ -95,6 +103,7 @@ __all__ = [
     "AutoRevocationTransition",
     "BenchOutcome",
     "BenchVerdict",
+    "BoundedAuthorityEvaluation",
     "CalculatedAuthorityAgent",
     "CandidateExploration",
     "ClaimNode",
@@ -116,6 +125,7 @@ __all__ = [
     "GRPOStepAnalysis",
     "GenerationStage",
     "GenerationTransitionRecord",
+    "GenericThermodynamicStep",
     "GuardKernelError",
     "KernelObject",
     "KernelObjectStatus",
@@ -131,6 +141,7 @@ __all__ = [
     "OmegaZeroEngine",
     "PCEPEngine",
     "Pi0Projector",
+    "ProofLatticeLevel",
     "ProvenanceRecord",
     "Raccord",
     "RaccordStatus",
@@ -151,6 +162,8 @@ __all__ = [
     "SupelaGuardKernel",
     "SupelaInherentCore",
     "SupelaMultiEngineBench",
+    "SupelaStateTuple",
+    "ThreeDimensionalSeparation",
     "TransitionError",
     "TransportProfile",
     "TransportVector",
@@ -165,6 +178,7 @@ __all__ = [
     "run_network_doctor",
     "run_pcep_prepare",
     "run_sovereign_net_self_check",
+    "run_supela_math_unification",
     "verify_vr_compliance",
 ]
 
