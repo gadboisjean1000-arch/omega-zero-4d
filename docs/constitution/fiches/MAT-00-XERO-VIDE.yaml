@@ -1,0 +1,48 @@
+# Fiche Encyclopédique Supela Ω-ZERO · MAT-00-XERO-VIDE
+# Générée automatiquement par scripts/build_encyclopedie.py (squelette universel 29 clés)
+id: "MAT-00-XERO-VIDE"
+nom: "Axiomatique Xero (𝕏 / Z₀) & Vide Intact (𝕍)"
+type: "Axiome"
+discipline: "Ontologie Fondamentale & Géométrie du Zéro (Corpus Unifié v3.0)"
+formulation_brute: "𝕏 = Z₀ (orthogonalité temporelle t=0) ; 𝕍 ≠ Z₀ (Vide intact ontologique) ; D1.1–D1.5 ; A0–A4 ; Z₀ → Sₙ → R → Z₀ ; D(Sₙ, Z₀) < θ_critique"
+formulation_normalisee: "Formalisation du Livre Supela — Corpus Unifié v3.0 (Parties III et XI) distinguant l'espace d'initialisation et de retour cyclique Xero (𝕏 = Z₀) du Vide intact ontologique (𝕍 ≠ Z₀ §3.2), tout en conservant la tension documentaire avec §4.1 (« depuis l'état Zéro — le Vide intact ») dans CONTR-Z0-TENSION."
+notation_mathématique: "\\mathbb{X} = Z_0,\\; \\mathbb{V} \\neq Z_0,\\; Z_0 \\to S_n \\to R \\to Z_0,\\; D(S_n, Z_0) < \\theta_{\\text{critique}}"
+auteur_source: "Jean-François Gadbois (Jef) — Institut Supela"
+contribution_ia: "Extraction Corpus Unifié v3.0 PR-M365-01 sans écrasement des tensions inter-sections"
+origine: "Livre Supela — Corpus Unifié v3.0.docx (Prologue, Partie III §3.1–3.3, Partie IV §4.1, Partie XI)"
+date_source: "2026-07-30"
+statut_epistemique: "SUPPORTÉ"
+portee: "Fondation ontologique Xero+Vide v3.0 (D1.1–D1.5, A0–A4, T1–T5, C1–C5)"
+conditions:
+  - "Séparation D1.1–D1.5 entre Vide (𝕍), Excitation (ΔS), Surface (S), Intégration (I) et Xero (Z₀)"
+  - "Coexistence explicite avec Branche A (PDF TZI) et divergences cycle_def consignées dans CONTR-Z0-TENSION"
+dependances:
+  - "MAT-00-ZERO-INT"
+  - "MAT-00-PI0"
+implique: "Ancrage textuel complet des axiomes A0–A4 et de la dualité Z₀ / 𝕍 issue du Corpus Unifié v3.0."
+n_implique_pas: "Ne résout pas la contradiction conservée CONTR-Z0-TENSION entre §3.2 (𝕍 ≠ Z₀), §4.1 et cycle_def."
+preuves:
+  - "M365-SRC-09 : texte intégral Corpus Unifié v3.0 fourni par l'auteur (Parties III, IV, XI)"
+tests:
+  - "tests/test_encyclopedie_dictionnaire.py::test_formulas_and_yaml_cards_honesty"
+resultats:
+  - "Classée SUPPORTÉ (DOCUMENTE_NORMATIF) avec tension Z₀ conservée"
+contre_exemples:
+  - "Assimiler 𝕍 ≡ Z₀ partout ou effacer §3.2 lors d'une synthèse"
+contradictions:
+  - "CONTR-Z0-TENSION"
+implementations: []
+artefacts:
+  - "docs/constitution/fiches/MAT-00-XERO-VIDE.yaml"
+  - "docs/constitution/REGISTRE_CONTRADICTIONS.json"
+etat_4d: "ACTIF"
+historique_statuts:
+  - date: "2026-11-16"
+    statut: "SUPPORTÉ"
+    etat_4d: "ACTIF"
+    motif: "Ajoutée via Corpus Unifié v3.0 intégral sous statut SUPPORTÉ (EXTRACTED ⇏ VALIDATED)"
+conditions_reouverture: "Unification formelle LPO/Catégories de 𝕍, Z₀ et cycle_def levant CONTR-Z0-TENSION."
+sources:
+  - "OneDrive Corpus Unifié v3.0: https://onedrive.live.com/personal/172bcdc878ead1c9/_layouts/15/doc.aspx?resid=12e8eb37-4f68-49b6-9814-33328cf8c3ac&cid=172bcdc878ead1c9&EntityRepresentationId=89069acb-8231-48e7-bc8c-42576200fb0a"
+  - "OneDrive PDF TZI: https://onedrive.live.com/?id=3d411db4-56fc-4d4f-aa62-3a69da2899a3&cid=172bcdc878ead1c9&web=1&EntityRepresentationId=97423cb3-1a76-47cd-ac37-23b31da3f698"
+notes: "Corpus Unifié v3.0 (30 juillet 2026, Beauharnois, QC) — aucune formalisation automatique au-delà de SUPPORTÉ."

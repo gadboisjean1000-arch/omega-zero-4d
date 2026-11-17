@@ -20,6 +20,7 @@
     "architecture_xiii_sections",
     "registre_formules",
     "registre_contradictions_ref",
+    "registre_provenance_m365_ref",
     "collecteur_local",
     "conclusion"
   ],
@@ -106,7 +107,8 @@
         "entrees_locales_c_d",
         "formules_normalisees",
         "fiches_yaml_initiales",
-        "contradictions_conservees"
+        "contradictions_conservees",
+        "sources_m365_candidates"
       ],
       "properties": {
         "termes_dictionnaire": { "type": "integer", "minimum": 1 },
@@ -122,7 +124,8 @@
         "entrees_locales_c_d": { "type": "integer", "minimum": 0 },
         "formules_normalisees": { "type": "integer", "minimum": 0 },
         "fiches_yaml_initiales": { "type": "integer", "minimum": 0 },
-        "contradictions_conservees": { "type": "integer", "minimum": 0 }
+        "contradictions_conservees": { "type": "integer", "minimum": 0 },
+        "sources_m365_candidates": { "type": "integer", "minimum": 0 }
       }
     },
     "dictionnaire": {
@@ -551,6 +554,28 @@
         "fichier_json": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.json" },
         "fichier_md": { "const": "docs/constitution/REGISTRE_CONTRADICTIONS.md" },
         "nombre_contradictions": { "type": "integer", "minimum": 1 },
+        "effacement_interdit": { "const": true }
+      }
+    },
+    "registre_provenance_m365_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fichier_json",
+        "fichier_md",
+        "schema_json",
+        "sources_m365_candidates",
+        "candidats_m365_suivis",
+        "politique_locale_defaut",
+        "effacement_interdit"
+      ],
+      "properties": {
+        "fichier_json": { "const": "docs/constitution/REGISTRE_PROVENANCE_M365.json" },
+        "fichier_md": { "const": "docs/constitution/REGISTRE_PROVENANCE_M365.md" },
+        "schema_json": { "const": "schemas/supela_provenance_m365_1.schema.json" },
+        "sources_m365_candidates": { "type": "integer", "minimum": 14 },
+        "candidats_m365_suivis": { "type": "integer", "minimum": 4 },
+        "politique_locale_defaut": { "const": "LOCAL_UNIQUEMENT_PAR_DEFAUT" },
         "effacement_interdit": { "const": true }
       }
     },

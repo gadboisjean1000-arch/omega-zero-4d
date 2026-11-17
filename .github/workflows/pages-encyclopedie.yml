@@ -36,7 +36,7 @@ jobs:
         run: |
           python scripts/verify_a12.py
           pytest -v tests/test_encyclopedie_dictionnaire.py
-          python -c "import json, pathlib; from scripts.build_encyclopedie import verify_html_parity, verify_html_js_syntax; d=json.loads(pathlib.Path('docs/constitution/supela-dictionnaire-encyclopedie-1.json').read_text(encoding='utf-8')); h=pathlib.Path('docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html').read_text(encoding='utf-8'); js=verify_html_parity(d, h); syn=verify_html_js_syntax(h); assert syn['ok'], syn; print('PARITY_AND_SYNTAX_OK', len(js))"
+          python -c "import json, pathlib; from scripts.build_encyclopedie import load_provenance_m365_registry, validate_provenance_m365_registry, verify_html_parity, verify_html_js_syntax; d=json.loads(pathlib.Path('docs/constitution/supela-dictionnaire-encyclopedie-1.json').read_text(encoding='utf-8')); h=pathlib.Path('docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html').read_text(encoding='utf-8'); prov=load_provenance_m365_registry(); validate_provenance_m365_registry(prov); js=verify_html_parity(d, h); syn=verify_html_js_syntax(h); assert syn['ok'], syn; print('PARITY_AND_SYNTAX_OK', len(js), len(prov['sources_onedrive_m365']))"
       - name: Préparer l'artefact statique _site pour GitHub Pages
         run: |
           mkdir -p _site
@@ -44,6 +44,7 @@ jobs:
           cp docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html _site/index.html
           cp docs/constitution/supela-dictionnaire-encyclopedie-1.json _site/supela-dictionnaire-encyclopedie-1.json
           cp docs/constitution/REGISTRE_CONTRADICTIONS.json _site/REGISTRE_CONTRADICTIONS.json
+          cp docs/constitution/REGISTRE_PROVENANCE_M365.json _site/REGISTRE_PROVENANCE_M365.json
       - name: Upload artifact GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:

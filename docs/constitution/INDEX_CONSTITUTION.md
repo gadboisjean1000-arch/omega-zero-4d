@@ -30,6 +30,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `schemas/supela_article_registry_1.schema.json`
 - `schemas/supela_encyclopedie_1.schema.json`
 - `schemas/supela_contradictions_1.schema.json`
+- `schemas/supela_provenance_m365_1.schema.json`
 - `schemas/supela_guard_kernel_1.schema.json`
 - `schemas/supela_multi_engine_bench_1.schema.json`
 - `schemas/supela_pcep_network_1.schema.json`
@@ -105,25 +106,30 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `scripts/verify_a12.ps1` — Enveloppe PowerShell pour la vérification A12.
 - `scripts/install_into_excited_meitner.ps1` — Script PowerShell de déploiement et vérification SHA-256 vers `C:\Users\Group\Documents\antigravity\excited-meitner`.
 
-## 8. Dictionnaire, Encyclopédie Universelle, Formules & Contradictions
-- [supela-dictionnaire-encyclopedie-1.json](supela-dictionnaire-encyclopedie-1.json) — Catalogue canonique JSON unifié (Dictionnaire 52 termes, 15 dépôts GitHub, 54 discussions/docs/notebooks Drive, 9 plateformes IA/navigateurs, taxonomie `MATH/00_FONDEMENTS/`..`MATH/08_TESTS/`, architecture XIII domaines, 20 formules normalisées, lien contradictions et suivi `C:\`/`D:\`).
+## 8. Dictionnaire, Encyclopédie Universelle, Formules, Contradictions & Provenance M365
+- [supela-dictionnaire-encyclopedie-1.json](supela-dictionnaire-encyclopedie-1.json) — Catalogue canonique JSON unifié (Dictionnaire 62 termes, 15 dépôts GitHub, 54 discussions/docs/notebooks Drive, 9 plateformes IA/navigateurs, 16 sources OneDrive/M365 via `PR-M365-01`, taxonomie `MATH/00_FONDEMENTS/`..`MATH/08_TESTS/`, architecture XIII domaines, 25 formules normalisées, lien contradictions et suivi `C:\`/`D:\`).
 - [ENCYCLOPEDIE_DICTIONNAIRE.md](ENCYCLOPEDIE_DICTIONNAIRE.md) — Vue Markdown lisible générée depuis le catalogue JSON canonique.
 - [ENCYCLOPEDIE_DICTIONNAIRE.html](ENCYCLOPEDIE_DICTIONNAIRE.html) — Explorateur HTML statique autonome (zéro CDN) exporté dans le dépôt avec contrôle de parité SHA-256 et syntaxe JS vérifiée.
-- [REGISTRE_FORMULES_SUPELA.md](REGISTRE_FORMULES_SUPELA.md) — Registre normalisé des 20 formules retrouvées, taxonomie `MATH/00..08` et architecture XIII sections (`Source ≠ Autorité`, `M3`).
-- [REGISTRE_CONTRADICTIONS.json](REGISTRE_CONTRADICTIONS.json) — Registre canonique JSON des contradictions et échecs conservés sans effacement (`CONTR-T11`, `CONTR-C001`, `CONTR-GRPO-001`, `CONTR-TRANSFO-UNDEF`, `CONTR-PR1-PS1-AUDIT`, `CONTR-ZERO-INT-MANQUANT`).
+- [REGISTRE_FORMULES_SUPELA.md](REGISTRE_FORMULES_SUPELA.md) — Registre normalisé des 25 formules retrouvées, taxonomie `MATH/00..08`, réduction M365 et architecture XIII sections (`Source ≠ Autorité`, `M3`).
+- [REGISTRE_CONTRADICTIONS.json](REGISTRE_CONTRADICTIONS.json) — Registre canonique JSON des 7 contradictions et échecs conservés sans effacement (`CONTR-T11`, `CONTR-C001`, `CONTR-GRPO-001`, `CONTR-TRANSFO-UNDEF`, `CONTR-PR1-PS1-AUDIT`, `CONTR-ZERO-INT-MANQUANT`, `CONTR-Z0-TENSION`).
 - [REGISTRE_CONTRADICTIONS.md](REGISTRE_CONTRADICTIONS.md) — Vue Markdown générée du registre des contradictions (`effacement_interdit = true`).
+- [REGISTRE_PROVENANCE_M365.json](REGISTRE_PROVENANCE_M365.json) — Registre canonique de provenance M365 (`PR-M365-01`, 16 sources OneDrive/M365, 5 candidats suivis, anonymisation locale `LOCAL_UNIQUEMENT_PAR_DEFAUT`, sonde VM `HTTP/2 403`).
+- [REGISTRE_PROVENANCE_M365.md](REGISTRE_PROVENANCE_M365.md) — Vue Markdown générée du registre de provenance M365, politique `collecté ≠ publiable` et réduction de manque M3.
 - `schemas/supela_encyclopedie_1.schema.json` — Schéma JSON Draft 2020-12 avec verrou épistémique M3 interdisant toute clôture sans preuve locale (`NON_EXECUTEE` / `PARTIELLE`).
 - `schemas/supela_contradictions_1.schema.json` — Schéma JSON Draft 2020-12 imposant `effacement_interdit: true` sur le registre des contradictions.
-- `scripts/build_encyclopedie.py` — Constructeur, normalisateur YAML/Formules, vérificateur HTML/JS et fusionneur Python (`--sources-dir`, `--local-inventory`).
+- `schemas/supela_provenance_m365_1.schema.json` — Schéma JSON Draft 2020-12 verrouillant `retrouver ≠ canoniser` (`SOURCE_IDENTIFIED ⇏ PROUVÉ`, `CODE_RECOVERED ⇏ CODE_EXECUTED`) et interdisant la fuite de chemins Windows privés.
+- `scripts/build_encyclopedie.py` — Constructeur, normalisateur YAML/Formules, vérificateur HTML/JS, anonymiseur `--anonymize-local` et fusionneur Python (`--sources-dir`, `--local-inventory`).
 - `scripts/collect_local_encyclopedie.ps1` — Collecteur PowerShell lecture-seule pour `C:\`, `D:\`, Edge/Copilot, Chrome/Gemini, Arc, Brave, Opera, Antigravity, Cursor et VS Code (`local_pc_inventory.json` produit au runtime et ignoré par Git/A12).
-- `tests/test_encyclopedie_dictionnaire.py` — Suite `pytest` vérifiant schémas 2020-12, barrière M3, exhaustivité, parité HTML/JS, fiches YAML 29 clés, non-effacement des contradictions, exclusions de secrets et Règle A12.
+- `tests/test_encyclopedie_dictionnaire.py` — Suite `pytest` vérifiant schémas 2020-12, barrière M3, exhaustivité, parité HTML/JS, fiches YAML 29 clés, non-effacement des contradictions, provenance M365, anonymisation locale, exclusions de secrets et Règle A12.
 
-### 8.1 Fiches Encyclopédiques YAML Initiales (`docs/constitution/fiches/`)
-- [INDEX_FICHES.md](fiches/INDEX_FICHES.md) — Index des 20 fiches initiales conformes au squelette universel à 29 clés.
+### 8.1 Fiches Encyclopédiques YAML (`docs/constitution/fiches/`)
+- [INDEX_FICHES.md](fiches/INDEX_FICHES.md) — Index des 25 fiches conformes au squelette universel à 29 clés.
 - [MAT-00-ETAT-FOND.yaml](fiches/MAT-00-ETAT-FOND.yaml) — État fondamental Supela $S_i = \langle P_i, E_i, C_i, K_i \rangle$.
 - [MAT-00-MONOTONIE-K.yaml](fiches/MAT-00-MONOTONIE-K.yaml) — Monotonie du registre $K_t \subseteq K_{t+1}$ et reset $C \to \emptyset$.
 - [MAT-00-PI0.yaml](fiches/MAT-00-PI0.yaml) — Opérateur de projection zéro $\Pi_0$ et idempotence.
-- [MAT-00-ZERO-INT.yaml](fiches/MAT-00-ZERO-INT.yaml) — Théorème du Zéro-Intégration (`INCONNU` / `LATENT` sous M3).
+- [MAT-00-XERO-VIDE.yaml](fiches/MAT-00-XERO-VIDE.yaml) — Axiome ontologique dual Xero ($\mathbb{X} = Z_0$) et Vide ($\mathbb{V}$) (*Corpus Unifié v3.0*, `SUPPORTÉ`).
+- [MAT-00-ZERO-INT.yaml](fiches/MAT-00-ZERO-INT.yaml) — Théorème du Zéro-Intégration (`SUPPORTÉ` / `RÉOUVERT` — `MANQUE ↓`, 7 primitives, 6 écritures Section 2.1 PDF + Partie IV v3.0, clause semi-formelle).
+- [MAT-01-PRINCIPES-P1-P12.yaml](fiches/MAT-01-PRINCIPES-P1-P12.yaml) — Grille normative des Douze Principes Directeurs `P1..P12` et invariants `I1..I4` (*Corpus Unifié v3.0*, `SUPPORTÉ`).
 - [MAT-01-TREILLIS.yaml](fiches/MAT-01-TREILLIS.yaml) — Treillis probatoire $G_0 \prec G_1 \prec G_2 \prec G_3 \prec G_4$.
 - [MAT-01-AUTORITE-BORNEE.yaml](fiches/MAT-01-AUTORITE-BORNEE.yaml) — Loi d'autorité bornée par la preuve $\mathrm{Authority}(G) \le \mathrm{Proof}(G)$.
 - [MAT-01-RECURSIVITE-G.yaml](fiches/MAT-01-RECURSIVITE-G.yaml) — Récursivité de la garantie $G(G) \le P$ et $G \Rightarrow P(G)$.
@@ -131,14 +137,17 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [MAT-02-ETATS-4D.yaml](fiches/MAT-02-ETATS-4D.yaml) — Cycle temporel 4D `ACTIF → LATENT → RÉOUVERT → ACTIF` (`explorable ≠ actif`).
 - [MAT-02-CONSERVATION-ECHEC.yaml](fiches/MAT-02-CONSERVATION-ECHEC.yaml) — Conservation des échecs adversariaux (`T11`).
 - [MAT-02-MANQUE-M.yaml](fiches/MAT-02-MANQUE-M.yaml) — Objet Manque $M(S_t, G)$ et règles M1–M5.
-- [MAT-03-RESET-STAR.yaml](fiches/MAT-03-RESET-STAR.yaml) — Famille `RESET*`, `R*`, `VR-22` (`INCONNU` / `LATENT` sous M3).
+- [MAT-03-PRZ-V3.yaml](fiches/MAT-03-PRZ-V3.yaml) — Protocole de Reset Zéro `PRZ v3.0.0`, Niveaux `N1..N3` et distance $D(S_n, Z_0)$ (*Corpus Unifié v3.0*, `SUPPORTÉ`).
+- [MAT-03-RESET-STAR.yaml](fiches/MAT-03-RESET-STAR.yaml) — Famille `RESET*`, `R*`, `VR-22` (`vr22.py`, `SUPPORTÉ` / `RÉOUVERT`, exécution `RAPPORTÉ`).
 - [MAT-03-REVIDAGE-LOAD.yaml](fiches/MAT-03-REVIDAGE-LOAD.yaml) — Saturation `Load(C)` et revidage transactionnel `E6` / `C09`.
 - [MAT-04-HLP.yaml](fiches/MAT-04-HLP.yaml) — Distinction tridimensionnelle $H \neq L \neq P$ sans effacement.
 - [MAT-05-MERGE-STAR.yaml](fiches/MAT-05-MERGE-STAR.yaml) — Opérateur `Merge*` et invariance aux 24 permutations (`E3`).
+- [MAT-05-SCDH-TRICOUCHE.yaml](fiches/MAT-05-SCDH-TRICOUCHE.yaml) — Architecture `SCDH Tricouche` (`Fond`/`Surface`/`Cible`), 5 noyaux, 3 axiomes IPC et `Module Zéro` (*Corpus Unifié v3.0*, `SUPPORTÉ`).
 - [MAT-05-CONFLIT-C001.yaml](fiches/MAT-05-CONFLIT-C001.yaml) — Conflit interdisciplinaire conservé `C-001`.
 - [MAT-06-AMELIORATION-AUTO.yaml](fiches/MAT-06-AMELIORATION-AUTO.yaml) — Séparation `amélioration ≠ autorisation` (`C10`).
-- [MAT-06-CHAINE-TRANSFO.yaml](fiches/MAT-06-CHAINE-TRANSFO.yaml) — Chaîne de transformation H (`formulation_brute: undefined`, `INCONNU` / `RÉOUVERT`).
+- [MAT-06-CHAINE-TRANSFO.yaml](fiches/MAT-06-CHAINE-TRANSFO.yaml) — Chaîne de transformation H (`formulation_brute: undefined`, `INCONNU` / `RÉOUVERT`, `PROMOTION_FORBIDDEN`).
 - [MAT-07-REWARD-NOT-TRUTH.yaml](fiches/MAT-07-REWARD-NOT-TRUTH.yaml) — Découplage $\mathrm{Reward}(x) \nRightarrow \text{Vérité}(x)$ et contre-exemple GRPO ($L=0, \nabla L \neq 0$).
+- [MAT-08-PATTERNS-LAS.yaml](fiches/MAT-08-PATTERNS-LAS.yaml) — Patterns `PA-01..10`/`PC-01..05`/`MP-01..03`, `AP-01..15`, métriques `MOG-E` (`SGG_v2`) et grammaire `LAS` (*Corpus Unifié v3.0*, `SUPPORTÉ`).
 - [MAT-08-TESTS-PARITE.yaml](fiches/MAT-08-TESTS-PARITE.yaml) — Chaîne de vérification A12, `GDS`, `SCT` et parité HTML/JS.
 
 ## 9. Noyau Rust `supela-guard-kernel` (`rust/supela-guard-kernel/`)
