@@ -1,0 +1,31 @@
+{
+  "schema": "supela-thesis-metadata/1.0",
+  "these_id": "THESIS-INV-001-ORCID0009",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "titre": "Systèmes d'Invariants INV-AXE-01",
+  "domaine": "Cadre à 5 questions (origine, dépendances, maintien, perte, remplacement)",
+  "invariant_id": "INV-AXE-01",
+  "statut": "CONTROLE",
+  "timestamp": "2026-11-17T23:07:16.508678+00:00",
+  "autonomie": "complete_self_contained",
+  "apport_cle": "Formaliser quand les énoncés mathématiques sont INDETERMINE vs. CONTROLE",
+  "indetermine_conditions": [
+    "Aucune condition INDETERMINE active : 5/5 questions renseignées"
+  ],
+  "cross_references": [
+    "INV-LUC-PROPOSE",
+    "INV-FASE-01",
+    "INV-04/INV-05",
+    "N1->N2->N3",
+    "R-00"
+  ],
+  "sovereignty_clause": "Ce système peut être contesté, audité, réévalué.\nIl ne peut pas modifier son histoire sans que cela apparaisse.\nLa forme permanente n'est pas l'absence de contestation.\nC'est l'impossibilité de contester silencieusement.\nDouter oblige à annoncer pourquoi on agit, sur quelles preuves,\navec quelles limites, et dans quelles conditions on changera de décision.\nUn protocole qui interdit d'agir sous incertitude produit de la paralysie,\npas de la rigueur.",
+  "details": {
+    "answered": 5,
+    "required": 5,
+    "missing": []
+  },
+  "pdf_sha256": "ccbe8250b3550c6a6dfadc3364f8939e1672f200e695b45cd3330b73b61219f1",
+  "metadata_sha256": "40c3eee59dad06f2d7e67da24a7b601428b053528ef859329d8d77f08c94de3b"
+}

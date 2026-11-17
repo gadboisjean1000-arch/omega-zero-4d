@@ -2,7 +2,7 @@
   "schema": "execution-report-4d/1",
   "protocol_id": "TEST-4D-ESC-01",
   "protocol_sha256": "be1ce58a92ec9fac5ecc3432c09697db4673eb6cbc55db08849215e255ad5faf",
-  "timestamp_utc": "2026-11-17T19:25:31.390938+00:00",
+  "timestamp_utc": "2026-11-17T23:08:31.839102+00:00",
   "load_metrics_declared": {
     "metric": "max_ratio(bytes, objects, edges, latency)",
     "capacity_limit": {
@@ -13,7 +13,7 @@
     },
     "unit": "bytes / count / count / ms",
     "measurement_method": "Mesure directe UTF-8 JSON, comptage d'objets/arêtes et latence simulée déterministe",
-    "timestamp": "2026-11-17T19:25:31.389232+00:00",
+    "timestamp": "2026-11-17T23:08:31.837616+00:00",
     "tested_environment": "Linux Python 3.11 OmegaZeroEngine"
   },
   "palier_results": [

@@ -157,3 +157,30 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `rust/supela-guard-kernel/tests/acceptance_tests.rs` — Suite d'acceptation exécutable IPC, barrières `SUP-ICI-01`, Base64/horloge, altération WORM et binaire CLI.
 - `rust/supela-guard-kernel/tests/concurrency_recovery_tests.rs` — Tests de concurrence multi-thread/multi-processus (`File::lock()`), idempotence/conflit et reprise après coupure.
 
+## 10. Framework Autonome des 6 Thèses Supela (`ORCID 0009-0001-5361-6795`)
+- `src/omega_zero/theses/__init__.py` — Exports du package autonome des 6 thèses Supela.
+- `src/omega_zero/theses/common.py` — Socle commun (statuts `CONTROLE`/`INDETERMINE`/`ABSENT`, clause de souveraineté, générateur PDF 1.4 déterministe, BibTeX, ORCID Work v3.0, graphe de citations).
+- `src/omega_zero/theses/thesis_invariant_axe01.py` — Thèse 1 (`INV-AXE-01`) : cadre à 5 questions.
+- `src/omega_zero/theses/thesis_luc_promise.py` — Thèse 2 (`INV-LUC-PROPOSE`) : axiome de lucidité sans zone grise.
+- `src/omega_zero/theses/thesis_fase_one.py` — Thèse 3 (`INV-FASE-01`) : non-indépendance `TOI/NOUS` avec trace écrite rang 10.
+- `src/omega_zero/theses/thesis_verification_distrib.py` — Thèse 4 (`INV-04/INV-05`) : consensus ne peut pas élever le niveau de preuve.
+- `src/omega_zero/theses/thesis_architecture_3niveaux.py` — Thèse 5 (`N1->N2->N3`) : hiérarchie Faits → Décisions → Omissions.
+- `src/omega_zero/theses/thesis_dependance_souveraine.py` — Thèse 6 (`R-00`) : dépendance souveraine (7 invalidateurs, 25 transitions).
+- `scripts/deposit_theses.py` — Orchestrateur complet de déposition horodatée UTC, export PDF/JSON/BibTeX/ORCID v3.0 et signature Ed25519.
+- `tests/test_theses_framework.py` — Suite pytest des 6 thèses et du manifeste de déposition signé.
+- `reports/theses_orcid_0009/THESIS-INV-001-ORCID0009.pdf` — PDF autonome Thèse 1 (`INV-AXE-01`).
+- `reports/theses_orcid_0009/THESIS-INV-001-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 1.
+- `reports/theses_orcid_0009/THESIS-LUC-002-ORCID0009.pdf` — PDF autonome Thèse 2 (`INV-LUC-PROPOSE`).
+- `reports/theses_orcid_0009/THESIS-LUC-002-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 2.
+- `reports/theses_orcid_0009/THESIS-FASE-003-ORCID0009.pdf` — PDF autonome Thèse 3 (`INV-FASE-01`).
+- `reports/theses_orcid_0009/THESIS-FASE-003-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 3.
+- `reports/theses_orcid_0009/THESIS-VERIF-004-ORCID0009.pdf` — PDF autonome Thèse 4 (`INV-04/INV-05`).
+- `reports/theses_orcid_0009/THESIS-VERIF-004-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 4.
+- `reports/theses_orcid_0009/THESIS-ARCHI-005-ORCID0009.pdf` — PDF autonome Thèse 5 (`N1->N2->N3`).
+- `reports/theses_orcid_0009/THESIS-ARCHI-005-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 5.
+- `reports/theses_orcid_0009/THESIS-DEP-006-ORCID0009.pdf` — PDF autonome Thèse 6 (`R-00`).
+- `reports/theses_orcid_0009/THESIS-DEP-006-ORCID0009_metadata.json` — Métadonnées JSON horodatées Thèse 6.
+- `reports/theses_orcid_0009/citation_network.json` — Graphe de références croisées entre les 6 thèses.
+- `reports/theses_orcid_0009/theses_orcid_0009.bib` — Export BibTeX prêt pour import ORCID.
+- `reports/theses_orcid_0009/orcid_works_v3.json` — Bundle JSON conforme au schéma ORCID Work v3.0.
+- `reports/theses_orcid_0009/deposit_manifest.json` — Manifeste complet horodaté UTC et signé Ed25519.

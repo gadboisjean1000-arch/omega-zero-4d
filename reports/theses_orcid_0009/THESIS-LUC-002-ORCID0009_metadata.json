@@ -1,0 +1,31 @@
+{
+  "schema": "supela-thesis-metadata/1.0",
+  "these_id": "THESIS-LUC-002-ORCID0009",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "titre": "Axiome de Lucidité INV-LUC-PROPOSE",
+  "domaine": "Ce qui peut être omis vs ce qui doit rester visible (pas de zone grise)",
+  "invariant_id": "INV-LUC-PROPOSE",
+  "statut": "CONTROLE",
+  "timestamp": "2026-11-17T23:07:16.509240+00:00",
+  "autonomie": "complete_self_contained",
+  "apport_cle": "Distinguer démontré vs non-démontré sans zones grises",
+  "indetermine_conditions": [
+    "Partition stricte DEMONTRE / NON_DEMONTRE respectée sans zone grise"
+  ],
+  "cross_references": [
+    "INV-AXE-01",
+    "INV-FASE-01",
+    "INV-04/INV-05",
+    "N1->N2->N3",
+    "R-00"
+  ],
+  "sovereignty_clause": "Ce système peut être contesté, audité, réévalué.\nIl ne peut pas modifier son histoire sans que cela apparaisse.\nLa forme permanente n'est pas l'absence de contestation.\nC'est l'impossibilité de contester silencieusement.\nDouter oblige à annoncer pourquoi on agit, sur quelles preuves,\navec quelles limites, et dans quelles conditions on changera de décision.\nUn protocole qui interdit d'agir sous incertitude produit de la paralysie,\npas de la rigueur.",
+  "details": {
+    "total_statements": 2,
+    "violations_count": 0,
+    "violations": []
+  },
+  "pdf_sha256": "a30df55546c1c72dfd66b28a67ba218d7e0e9f890c726cc5dfa61356a321303a",
+  "metadata_sha256": "8dd034e5bf5c652abddb85f8979486deaee9958d61455be983f8bacf75b3e841"
+}
