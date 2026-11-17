@@ -410,3 +410,50 @@ test_deny_pcep_direct_contradicted_to_valid if {
 	bad := object.union(valid_input, {"pcep_envelope": bad_env})
 	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
 }
+
+# === TESTS NOYAU INHÉRENT & RÉSEAU SOUVERAIN (Anti-EaaS) ===================
+valid_sovereign_net := {
+	"external_saas_telemetry": false,
+	"external_eaas_recalculation": false,
+	"exogenous_unsigned_rejected": true,
+	"audit_trail_verified": true,
+	"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": false,
+		"signature_verified": true,
+	}],
+}
+
+test_allow_valid_sovereign_net if {
+	good := object.union(valid_input, {"sovereign_net": valid_sovereign_net})
+	allow_human_review with input as good with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_external_eaas if {
+	bad_sn := object.union(valid_sovereign_net, {"external_eaas_recalculation": true})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_type_param_injection if {
+	bad_sn := object.union(valid_sovereign_net, {"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": true,
+		"signature_verified": true,
+	}]})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_unsigned_query if {
+	bad_sn := object.union(valid_sovereign_net, {"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": false,
+		"signature_verified": false,
+	}]})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}

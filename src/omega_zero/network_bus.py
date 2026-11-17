@@ -591,6 +591,11 @@ def main(argv: list[str] | None = None) -> int:
     pcep_p = sub.add_parser("pcep-prepare", help="Formalise l'enveloppe réseau PCEP prête à signer (EN_ATTENTE_SIGNATURE).")
     pcep_p.add_argument("--out", default="", help="Chemin JSON de sortie optionnel.")
 
+    sub.add_parser(
+        "sovereign-verify",
+        help="Vérifie le noyau inhérent (ZERO-STATE-01, SUP-NORM-NET-01/1.0, Anti-EaaS, Ed25519, topologies).",
+    )
+
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
         res = run_network_doctor(online=bool(args.online))
@@ -603,6 +608,13 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(res, indent=2, ensure_ascii=False))
         sig_env = res["signature_envelope"]
         return 0 if sig_env["ready_for_signature"] and sig_env["signature_status"] == "EN_ATTENTE_SIGNATURE" else 1
+
+    if args.cmd == "sovereign-verify":
+        from .sovereign_net import run_sovereign_net_self_check
+
+        res = run_sovereign_net_self_check()
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        return 0 if res["audit_trail_verified"] and not res["external_eaas_recalculation"] else 1
 
     res = run_integrated_network_pipeline(query=args.query)
     print(json.dumps(res, indent=2, ensure_ascii=False))

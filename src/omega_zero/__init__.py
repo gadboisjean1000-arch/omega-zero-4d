@@ -73,10 +73,22 @@ from .protocol import (
     RevidageFailure,
     SaturationWithoutDeclarationError,
 )
+from .sovereign_net import (
+    EMPTY_SHA,
+    TRANSPORT_PROFILES,
+    SovereignNetReport,
+    SovereignSearchQuery,
+    SupelaInherentCore,
+    TransportProfile,
+    TransportVector,
+    run_sovereign_net_self_check,
+)
 from .vr_compliance import VRRuleResult, verify_vr_compliance
 from .worm_ledger import VaultRunResult, WormTamperError, WormVault
 
 __all__ = [
+    "EMPTY_SHA",
+    "TRANSPORT_PROFILES",
     "AccessibilityMode",
     "AttestationSigner",
     "AuthorityLevel",
@@ -133,10 +145,15 @@ __all__ = [
     "SemanticResidue",
     "SignatureStatus",
     "SignedAttestation",
+    "SovereignNetReport",
+    "SovereignSearchQuery",
     "SupelaGRPOBridge",
     "SupelaGuardKernel",
+    "SupelaInherentCore",
     "SupelaMultiEngineBench",
     "TransitionError",
+    "TransportProfile",
+    "TransportVector",
     "TruthLevel",
     "VRRuleResult",
     "VaultRunResult",
@@ -147,6 +164,7 @@ __all__ = [
     "run_integrated_network_pipeline",
     "run_network_doctor",
     "run_pcep_prepare",
+    "run_sovereign_net_self_check",
     "verify_vr_compliance",
 ]
 

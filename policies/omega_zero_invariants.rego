@@ -289,6 +289,25 @@ pcep_signature_envelope_honest(sig_env) if {
 	sig_env.signature != ""
 }
 
+# --- 7e. Noyau Inhérent & Réseau Souverain (Anti-EaaS, SUP-NORM-NET-01/1.0) ---
+sovereign_net_satisfied if {
+	not input.sovereign_net
+}
+
+sovereign_net_satisfied if {
+	sn := input.sovereign_net
+	sn.external_saas_telemetry == false
+	sn.external_eaas_recalculation == false
+	sn.exogenous_unsigned_rejected == true
+	sn.audit_trail_verified == true
+	every q in sn.search_queries {
+		q.type_param_present == false
+		q.signature_verified == true
+		regex.match("^[a-z0-9_\\-]+$", q.query)
+		q.workspace in {"k8s", "dev", "prod", "monitoring", "local"}
+	}
+}
+
 # --- 8. Synthèse de cohérence Ω-ZERO ---------------------------------------
 coherence_satisfied if {
 	attestation_complete
@@ -305,6 +324,7 @@ coherence_satisfied if {
 	sup_ici_01_satisfied
 	grpo_guardrails_satisfied
 	pcep_invariants_satisfied
+	sovereign_net_satisfied
 }
 
 # --- 9. Barrière de promotion (jamais automatique !) -----------------------

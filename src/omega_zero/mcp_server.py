@@ -206,6 +206,11 @@ TOOLS_SPEC: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "name": "omega_sovereign_net_verify",
+        "description": "Exécute le banc d'auto-validation SupelaInherentCore (ZERO-STATE-01, ZERO-AGENT-01, SUP-NORM-NET-01/1.0, Anti-EaaS, Ed25519, topologies).",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
 ]
 
 RESOURCES_SPEC: list[dict[str, str]] = [
@@ -404,6 +409,10 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         from .pcep import build_pcep_network_envelope
 
         return build_pcep_network_envelope(protocol_sha256=str(arguments.get("protocol_sha256", "")))
+    if name == "omega_sovereign_net_verify":
+        from .sovereign_net import run_sovereign_net_self_check
+
+        return run_sovereign_net_self_check()
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 
