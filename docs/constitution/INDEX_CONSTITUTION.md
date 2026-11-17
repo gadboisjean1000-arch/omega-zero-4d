@@ -15,6 +15,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [COMPARAISON_GRPO_OMEGA_ZERO.md](COMPARAISON_GRPO_OMEGA_ZERO.md) — Formalisation mathématique corrigée de `GRPO ≠ Ω-ZERO` et des 5 garde-fous `GF1`–`GF5`.
 - [SUPELA_GUARD_KERNEL.md](SUPELA_GUARD_KERNEL.md) — Spécification exécutable `Supela-Guard-Kernel` (`SUP-ICI-01`, `C0`/`C1`/`C2`, résidu $R_{\min}(O)$, `G0..G5`).
 - [BANC_MULTI_MOTEURS_SUPELA.md](BANC_MULTI_MOTEURS_SUPELA.md) — Spécification du Banc multi-moteurs Supela (non-votant, 10 champs minimaux, symétrie `SUPELA_EN_DÉFAUT`).
+- [MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md](MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md) — Application des mathématiques Supela (`MAT-00..MAT-08`) à la mécanique physique irréversible (GENERIC, $W_2$, Kružkov, GKSL) horodatée.
 - [VR_STRUCTURA_OFFICIAL_SEALED.md](VR_STRUCTURA_OFFICIAL_SEALED.md) — Référentiel officiel `VR Structura Supela (VR-01..VR-20)` et gouvernance CTO/CTA/TI.
 - [HARNAIS_TEST_ESCALADE_4D.py](HARNAIS_TEST_ESCALADE_4D.py) — Point d'entrée CLI du harnais exécutable.
 
