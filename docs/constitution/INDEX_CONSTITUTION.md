@@ -14,6 +14,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [SCHEMA_GRPO_SUPELA.md](SCHEMA_GRPO_SUPELA.md) — Pont méthodologique GRPO → Supela (`Score ≠ Preuve ≠ Vérité` et démonstration `L=0, ∇L≠0`).
 - [COMPARAISON_GRPO_OMEGA_ZERO.md](COMPARAISON_GRPO_OMEGA_ZERO.md) — Formalisation mathématique corrigée de `GRPO ≠ Ω-ZERO` et des 5 garde-fous `GF1`–`GF5`.
 - [SUPELA_GUARD_KERNEL.md](SUPELA_GUARD_KERNEL.md) — Spécification exécutable `Supela-Guard-Kernel` (`SUP-ICI-01`, `C0`/`C1`/`C2`, résidu $R_{\min}(O)$, `G0..G5`).
+- [BANC_MULTI_MOTEURS_SUPELA.md](BANC_MULTI_MOTEURS_SUPELA.md) — Spécification du Banc multi-moteurs Supela (non-votant, 10 champs minimaux, symétrie `SUPELA_EN_DÉFAUT`).
 - [VR_STRUCTURA_OFFICIAL_SEALED.md](VR_STRUCTURA_OFFICIAL_SEALED.md) — Référentiel officiel `VR Structura Supela (VR-01..VR-20)` et gouvernance CTO/CTA/TI.
 - [HARNAIS_TEST_ESCALADE_4D.py](HARNAIS_TEST_ESCALADE_4D.py) — Point d'entrée CLI du harnais exécutable.
 
@@ -27,6 +28,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `schemas/supela_encyclopedie_1.schema.json`
 - `schemas/supela_contradictions_1.schema.json`
 - `schemas/supela_guard_kernel_1.schema.json`
+- `schemas/supela_multi_engine_bench_1.schema.json`
 
 ## 3. Moteur Python, Guard-Kernel & Bus Réseau (`src/omega_zero/`)
 - `src/omega_zero/__init__.py` — Exports publics du package `omega_zero`.
@@ -35,9 +37,10 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `src/omega_zero/protocol.py` — Moteur Local–Cloud–4D, `Merge*`, `Load(C)`, migration sans perte, revidage transactionnel `PREPARE→VERIFY→COMMIT→CLEAN`, réouverture de cône et émergence candidate.
 - `src/omega_zero/grpo_bridge.py` — Pont GRPO ↔ Ω-ZERO (`GF1`–`GF5`, `explore_with_guardrails`) et analyse numérique `L=0, ∇L≠0`.
 - `src/omega_zero/guard_kernel.py` — Noyau `SupelaGuardKernel` (`SUP-ICI-01`, `C0`/`C1`/`C2`, test de perte de sens à 8 questions, cycles `G0..G5` et registre des rejets).
+- `src/omega_zero/multi_engine_bench.py` — Banc multi-moteurs non-votant (`SupelaMultiEngineBench`, 10 champs minimaux, détection `SUPELA_EN_DÉFAUT`).
 - `src/omega_zero/vr_compliance.py` — Auditeur déterministe `VR-01..VR-20` (`verify_vr_compliance`).
 - `src/omega_zero/network_bus.py` — Bus réseau CLI `omega-network` (`doctor` & `pipeline` intégrés `GRPO → Π₀ → Guard-Kernel → 4D → OPA → WORM → Ed25519` + pont `Supela-K3-Omega`).
-- `src/omega_zero/mcp_server.py` — Serveur MCP JSON-RPC 2.0 `stdin`/`stdout` exposant les 9 outils et 3 ressources constitutionnelles (`omega-zero-mcp`).
+- `src/omega_zero/mcp_server.py` — Serveur MCP JSON-RPC 2.0 `stdin`/`stdout` exposant les 10 outils et 3 ressources constitutionnelles (`omega-zero-mcp`).
 - `src/omega_zero/worm_ledger.py` — Coffre-fort WORM logique (manifeste lecture seule + ledger append-only chaîné SHA-256).
 - `src/omega_zero/attestation.py` — Signatures et vérifications cryptographiques Ed25519 non-répudiables.
 - `src/omega_zero/scenarios.py` — Scénario `TEST-4D-ESC-01` et second exemple inter-domaines hydrologie/droit/secours/éthique.
@@ -50,6 +53,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `tests/test_escalation_4d.py` — Exécution positive de `TEST-4D-ESC-01` + 10 tests négatifs (échecs critiques `C01`..`C10`).
 - `tests/test_second_domain_example.py` — Exécution end-to-end du second exemple inter-domaines et de l'architecture Supela-GRPO.
 - `tests/test_guard_kernel.py` — Tests `Supela-Guard-Kernel` (`SUP-ICI-01`, `C0`/`C1`/`C2`, `G0..G5`, réclamation `G4→G1/G2`, `REJET_JUSTIFIE`, schéma Draft 2020-12).
+- `tests/test_multi_engine_bench.py` — Tests du Banc multi-moteurs Supela (non-vote, divergence, `SUPELA_EN_DÉFAUT`, schéma Draft 2020-12 et MCP).
 - `tests/test_network_bus_and_mcp.py` — Tests bout-en-bout `GF1`–`GF5`, `VR-01..VR-20` (20/20), `omega-network doctor/pipeline` et sous-processus JSON-RPC 2.0 `mcp_server`.
 - `tests/test_opa_rego.py` — Pont `pytest` vérifiant `opa fmt`, `opa check --strict`, les 22 tests Rego et l'évaluation directe du rapport `TEST-4D-ESC-01` avec traces Guard-Kernel & GRPO.
 - `tests/test_worm_and_crypto.py` — Coffre-fort WORM, Ed25519, Cosign v3 `--bundle` et vérification A12.

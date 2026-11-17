@@ -22,6 +22,12 @@ from .models import (
     Raccord,
     RaccordStatus,
 )
+from .multi_engine_bench import (
+    EngineRecordStatus,
+    EngineResult,
+    EngineRunRecord,
+    SupelaMultiEngineBench,
+)
 from .projection import ManqueStateMachine, Pi0Projector
 from .vr_compliance import verify_vr_compliance
 
@@ -287,6 +293,28 @@ def _tool_guard_kernel_compress(args: dict[str, Any]) -> dict[str, Any]:
     return {"object": after.to_dict(), "transition": record.to_dict()}
 
 
+def _tool_omega_multi_engine_bench(args: dict[str, Any]) -> dict[str, Any]:
+    records = [
+        EngineRunRecord(
+            objet=str(r["objet"]),
+            moteur=str(r["moteur"]),
+            version=str(r["version"]),
+            referentiel=str(r["referentiel"]),
+            premisses=tuple(str(p) for p in r.get("premisses", [])),
+            methode=str(r["methode"]),
+            resultat=EngineResult(str(r["resultat"])),
+            preuve_fournie=str(r.get("preuve_fournie", "")),
+            contradictions=tuple(str(c) for c in r.get("contradictions", [])),
+            statut=EngineRecordStatus(str(r.get("statut", "CANDIDAT"))),
+            preuve_verifiee=bool(r.get("preuve_verifiee", False)),
+            est_supela=r.get("est_supela"),
+            auto_promotion_tentee=bool(r.get("auto_promotion_tentee", False)),
+        )
+        for r in args["runs"]
+    ]
+    return SupelaMultiEngineBench.evaluate(records).to_dict()
+
+
 def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
     if name == "omega_pi0_project":
         return _tool_omega_pi0_project(arguments)
@@ -318,6 +346,8 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         from .network_bus import run_network_doctor
 
         return run_network_doctor(ROOT_DIR, online=bool(arguments.get("online", False)))
+    if name == "omega_multi_engine_bench":
+        return _tool_omega_multi_engine_bench(arguments)
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 
