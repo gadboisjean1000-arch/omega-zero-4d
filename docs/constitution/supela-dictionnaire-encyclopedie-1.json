@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 128,
+    "fichiers_omega_zero_4d": 129,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1023,7 +1023,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 224216
+        "taille_octets": 224334
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1038,7 +1038,12 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 18063
+        "taille_octets": 18296
+      },
+      {
+        "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 4714
       },
       {
         "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
@@ -1208,7 +1213,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 144517
+        "taille_octets": 144673
       },
       {
         "chemin": "omega.ps1",
