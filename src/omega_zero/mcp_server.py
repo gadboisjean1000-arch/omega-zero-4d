@@ -154,6 +154,48 @@ TOOLS_SPEC: list[dict[str, Any]] = [
             "properties": {"online": {"type": "boolean"}},
         },
     },
+    {
+        "name": "omega_multi_engine_bench",
+        "description": "Exécute le Banc multi-moteurs Supela (non-votant, 10 champs obligatoires, détection symétrique SUPELA_EN_DÉFAUT).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "runs": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "objet": {"type": "string"},
+                            "moteur": {"type": "string"},
+                            "version": {"type": "string"},
+                            "referentiel": {"type": "string"},
+                            "premisses": {"type": "array", "items": {"type": "string"}},
+                            "methode": {"type": "string"},
+                            "resultat": {"type": "string", "enum": ["VRAI", "FAUX", "INDÉTERMINÉ", "ERREUR"]},
+                            "preuve_fournie": {"type": "string"},
+                            "preuve_verifiee": {"type": "boolean"},
+                            "contradictions": {"type": "array", "items": {"type": "string"}},
+                            "statut": {"type": "string"},
+                            "est_supela": {"type": "boolean"},
+                            "auto_promotion_tentee": {"type": "boolean"},
+                        },
+                        "required": [
+                            "objet",
+                            "moteur",
+                            "version",
+                            "referentiel",
+                            "premisses",
+                            "methode",
+                            "resultat",
+                            "preuve_fournie",
+                        ],
+                    },
+                }
+            },
+            "required": ["runs"],
+        },
+    },
 ]
 
 RESOURCES_SPEC: list[dict[str, str]] = [

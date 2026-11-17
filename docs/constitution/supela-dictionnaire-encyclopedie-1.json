@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 129,
+    "fichiers_omega_zero_4d": 130,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1023,7 +1023,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 224334
+        "taille_octets": 224441
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1038,7 +1038,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 18296
+        "taille_octets": 18479
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1094,6 +1094,11 @@
         "chemin": "docs/constitution/TEST_P0_EXEMPLE_SEC_DOMAINE.json",
         "categorie": "docs",
         "taille_octets": 7489
+      },
+      {
+        "chemin": "docs/constitution/UNIFICATION_MULTI_BRANCHES.md",
+        "categorie": "docs",
+        "taille_octets": 2694
       },
       {
         "chemin": "docs/constitution/VR_STRUCTURA_OFFICIAL_SEALED.md",
@@ -1213,7 +1218,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 144673
+        "taille_octets": 144818
       },
       {
         "chemin": "omega.ps1",
@@ -1438,7 +1443,7 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 22018
+        "taille_octets": 22265
       },
       {
         "chemin": "src/omega_zero/projection.py",

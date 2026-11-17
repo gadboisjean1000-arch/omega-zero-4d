@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -60,9 +61,14 @@ def _probe_mcp_stdio(root: Path, python_exe: str) -> dict[str, Any]:
         },
     ]
     stdin_payload = "\n".join(json.dumps(req) for req in requests) + "\n"
+    probe_env = dict(os.environ)
+    src_path = str(root / "src")
+    existing_pp = probe_env.get("PYTHONPATH", "")
+    probe_env["PYTHONPATH"] = f"{src_path}{os.pathsep}{existing_pp}" if existing_pp else src_path
     proc = subprocess.run(
         [python_exe, "-m", "omega_zero.mcp_server"],
         cwd=root,
+        env=probe_env,
         input=stdin_payload,
         text=True,
         capture_output=True,
