@@ -40,6 +40,17 @@ from .models import (
     RevidageStage,
     ZeroState,
 )
+from .multi_engine_bench import (
+    BenchOutcome,
+    BenchVerdict,
+    EngineRecordStatus,
+    EngineResult,
+    EngineRunRecord,
+    MultiEngineBenchError,
+    MultiEngineBenchReport,
+    SupelaMultiEngineBench,
+    TruthLevel,
+)
 from .network_bus import run_integrated_network_pipeline, run_network_doctor
 from .projection import ManqueStateMachine, Pi0Projector, TransitionError
 from .protocol import (
@@ -54,6 +65,8 @@ __all__ = [
     "AccessibilityMode",
     "AttestationSigner",
     "AuthorityLevel",
+    "BenchOutcome",
+    "BenchVerdict",
     "CandidateExploration",
     "CloudOmega",
     "CompressionFailureError",
@@ -62,6 +75,9 @@ __all__ = [
     "Container",
     "Delta4D",
     "DisciplineAssessment",
+    "EngineRecordStatus",
+    "EngineResult",
+    "EngineRunRecord",
     "G5Decision",
     "GRPOGuardrailReport",
     "GRPOGuardrailTrace",
@@ -78,6 +94,8 @@ __all__ = [
     "ManqueStateMachine",
     "ManqueStatus",
     "MergeOutcome",
+    "MultiEngineBenchError",
+    "MultiEngineBenchReport",
     "OmegaZeroEngine",
     "Pi0Projector",
     "Raccord",
@@ -90,7 +108,9 @@ __all__ = [
     "SignedAttestation",
     "SupelaGRPOBridge",
     "SupelaGuardKernel",
+    "SupelaMultiEngineBench",
     "TransitionError",
+    "TruthLevel",
     "VRRuleResult",
     "VaultRunResult",
     "WormTamperError",

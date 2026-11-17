@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 124,
+    "fichiers_omega_zero_4d": 128,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1006,6 +1006,11 @@
         "taille_octets": 1964
       },
       {
+        "chemin": "docs/constitution/BANC_MULTI_MOTEURS_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 5991
+      },
+      {
         "chemin": "docs/constitution/COMPARAISON_GRPO_OMEGA_ZERO.md",
         "categorie": "docs",
         "taille_octets": 4374
@@ -1018,7 +1023,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 223811
+        "taille_octets": 224216
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1033,7 +1038,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 17528
+        "taille_octets": 18063
       },
       {
         "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
@@ -1203,7 +1208,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 143960
+        "taille_octets": 144517
       },
       {
         "chemin": "omega.ps1",
@@ -1346,6 +1351,11 @@
         "taille_octets": 2345
       },
       {
+        "chemin": "schemas/supela_multi_engine_bench_1.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 4362
+      },
+      {
         "chemin": "scripts/__init__.py",
         "categorie": "scripts",
         "taille_octets": 65
@@ -1383,7 +1393,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 2442
+        "taille_octets": 2892
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1408,12 +1418,17 @@
       {
         "chemin": "src/omega_zero/mcp_server.py",
         "categorie": "src",
-        "taille_octets": 15696
+        "taille_octets": 16874
       },
       {
         "chemin": "src/omega_zero/models.py",
         "categorie": "src",
         "taille_octets": 15089
+      },
+      {
+        "chemin": "src/omega_zero/multi_engine_bench.py",
+        "categorie": "src",
+        "taille_octets": 12570
       },
       {
         "chemin": "src/omega_zero/network_bus.py",
@@ -1469,6 +1484,11 @@
         "chemin": "tests/test_guard_kernel.py",
         "categorie": "tests",
         "taille_octets": 10549
+      },
+      {
+        "chemin": "tests/test_multi_engine_bench.py",
+        "categorie": "tests",
+        "taille_octets": 7974
       },
       {
         "chemin": "tests/test_network_bus_and_mcp.py",
