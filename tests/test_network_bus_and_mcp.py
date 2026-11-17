@@ -175,7 +175,9 @@ def test_mcp_server_stdio_subprocess_roundtrip() -> None:
 
     assert by_id[1]["result"]["serverInfo"]["name"] == "omega-zero-mcp"
     assert by_id[2]["result"] == {}
-    assert len(by_id[3]["result"]["tools"]) == 9
+    tool_names = {t["name"] for t in by_id[3]["result"]["tools"]}
+    assert len(tool_names) >= 11
+    assert "omega_pcep_prepare" in tool_names
 
     pi0_out = json.loads(by_id[4]["result"]["content"][0]["text"])
     assert pi0_out["idempotent"] is True

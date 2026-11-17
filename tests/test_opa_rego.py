@@ -41,7 +41,7 @@ def test_opa_fmt_check_and_22_rego_refutation_tests() -> None:
         text=True,
         check=True,
     )
-    assert "PASS: 22/22" in res.stdout
+    assert "PASS: 27/27" in res.stdout
 
 
 @pytest.mark.skipif(OPA_BIN is None, reason="OPA CLI non installé")

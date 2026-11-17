@@ -1,0 +1,316 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.org/schemas/supela_pcep_network_1.schema.json",
+  "title": "Supela PCEP Network Envelope (Proof-Carrying Evolutionary Programming)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generated_at_utc",
+    "signature_envelope",
+    "claims",
+    "referential_evaluations",
+    "referential_transports",
+    "dependency_cone",
+    "auto_revocation_transitions",
+    "agent_authorities",
+    "self_refuting_probes",
+    "evolution_steps",
+    "open_proofs_registry"
+  ],
+  "properties": {
+    "schema": {
+      "const": "supela-pcep-network/1"
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "minLength": 10
+    },
+    "signature_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signature_status",
+        "ready_for_signature",
+        "canonical_payload_sha256",
+        "signature",
+        "required_signer_role",
+        "sign_commands"
+      ],
+      "properties": {
+        "signature_status": {
+          "type": "string",
+          "enum": ["EN_ATTENTE_SIGNATURE", "SIGNEE"]
+        },
+        "ready_for_signature": {
+          "type": "boolean"
+        },
+        "canonical_payload_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "signature": {
+          "type": ["string", "null"]
+        },
+        "required_signer_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sign_commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim_id",
+          "statement",
+          "referential",
+          "sources",
+          "proofs",
+          "counter_evidence",
+          "dependencies",
+          "status",
+          "history"
+        ],
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 1 },
+          "statement": { "type": "string", "minLength": 1 },
+          "referential": { "type": "string", "minLength": 1 },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "proofs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "counter_evidence": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["VALID", "CONTRADICTED", "REOPEN", "REVALIDATE", "UNKNOWN", "A_PROUVER"]
+          },
+          "history": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["timestamp", "action", "actor", "state_hash"],
+              "properties": {
+                "timestamp": { "type": "string", "minLength": 1 },
+                "action": { "type": "string", "minLength": 1 },
+                "actor": { "type": "string", "minLength": 1 },
+                "state_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "referential_evaluations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "referential", "verdict", "proof_present"],
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 1 },
+          "referential": { "type": "string", "minLength": 1 },
+          "verdict": {
+            "type": "string",
+            "enum": ["TRUE", "UNKNOWN", "CONTRADICTORY"]
+          },
+          "proof_present": { "type": "boolean" }
+        }
+      }
+    },
+    "referential_transports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim_id",
+          "source_referential",
+          "target_referential",
+          "conditions",
+          "transport_proof_verified",
+          "transport_allowed",
+          "target_verdict"
+        ],
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 1 },
+          "source_referential": { "type": "string", "minLength": 1 },
+          "target_referential": { "type": "string", "minLength": 1 },
+          "conditions": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "transport_proof_verified": { "type": "boolean" },
+          "transport_allowed": { "type": "boolean" },
+          "target_verdict": {
+            "type": "string",
+            "enum": ["TRUE", "UNKNOWN", "CONTRADICTORY"]
+          }
+        }
+      }
+    },
+    "dependency_cone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_claim_id", "impacted_claims", "reevaluation_order"],
+      "properties": {
+        "root_claim_id": { "type": "string", "minLength": 1 },
+        "impacted_claims": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "reevaluation_order": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "auto_revocation_transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "from_status", "to_status", "reason", "contradiction_preserved"],
+        "properties": {
+          "claim_id": { "type": "string", "minLength": 1 },
+          "from_status": {
+            "type": "string",
+            "enum": ["VALID", "CONTRADICTED", "REOPEN", "REVALIDATE"]
+          },
+          "to_status": {
+            "type": "string",
+            "enum": ["VALID", "CONTRADICTED", "REOPEN", "REVALIDATE"]
+          },
+          "reason": { "type": "string", "minLength": 1 },
+          "contradiction_preserved": { "type": "boolean" }
+        }
+      }
+    },
+    "agent_authorities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent_id",
+          "reasoning_capacity",
+          "verified_proof_level",
+          "action_authority",
+          "bounded_ok"
+        ],
+        "properties": {
+          "agent_id": { "type": "string", "minLength": 1 },
+          "reasoning_capacity": { "type": "integer", "minimum": 0, "maximum": 4 },
+          "verified_proof_level": { "type": "integer", "minimum": 0, "maximum": 4 },
+          "action_authority": { "type": "integer", "minimum": 0, "maximum": 4 },
+          "bounded_ok": { "type": "boolean" }
+        }
+      }
+    },
+    "self_refuting_probes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "probe_id",
+          "target_claim_id",
+          "outcome",
+          "fail_informative_preserved",
+          "counter_evidence_ref"
+        ],
+        "properties": {
+          "probe_id": { "type": "string", "minLength": 1 },
+          "target_claim_id": { "type": "string", "minLength": 1 },
+          "outcome": { "type": "string", "enum": ["PASS", "FAIL_INFORMATIF"] },
+          "fail_informative_preserved": { "type": "boolean" },
+          "counter_evidence_ref": { "type": "string" }
+        }
+      }
+    },
+    "evolution_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "previous_hash",
+          "next_hash",
+          "transformation",
+          "trace",
+          "scope",
+          "proof_refs",
+          "counter_evidence",
+          "generation_stage"
+        ],
+        "properties": {
+          "step_id": { "type": "string", "minLength": 1 },
+          "previous_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "next_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "transformation": { "type": "string", "minLength": 1 },
+          "trace": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "proof_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "counter_evidence": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "generation_stage": {
+            "type": "string",
+            "enum": ["G0", "G1", "G2", "G3", "G4", "G5"]
+          }
+        }
+      }
+    },
+    "open_proofs_registry": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "status", "promoted", "reason"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "status": { "const": "A_PROUVER" },
+          "promoted": { "const": false },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -196,6 +196,16 @@ TOOLS_SPEC: list[dict[str, Any]] = [
             "required": ["runs"],
         },
     },
+    {
+        "name": "omega_pcep_prepare",
+        "description": "Formalise l'enveloppe réseau PCEP (9 familles de codage + points A_PROUVER) prête à signer (EN_ATTENTE_SIGNATURE).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "protocol_sha256": {"type": "string"},
+            },
+        },
+    },
 ]
 
 RESOURCES_SPEC: list[dict[str, str]] = [
@@ -390,6 +400,10 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         return run_network_doctor(ROOT_DIR, online=bool(arguments.get("online", False)))
     if name == "omega_multi_engine_bench":
         return _tool_omega_multi_engine_bench(arguments)
+    if name == "omega_pcep_prepare":
+        from .pcep import build_pcep_network_envelope
+
+        return build_pcep_network_envelope(protocol_sha256=str(arguments.get("protocol_sha256", "")))
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 

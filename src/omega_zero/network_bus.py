@@ -553,6 +553,28 @@ def run_integrated_network_pipeline(
     }
 
 
+def run_pcep_prepare(root: Path | None = None, *, out_path: Path | None = None) -> dict[str, Any]:
+    """Formalise toutes les possibilités PCEP sur le réseau et produit l'enveloppe prête à signer."""
+    from jsonschema import Draft202012Validator
+
+    from .pcep import build_pcep_network_envelope
+
+    repo_root = (root or Path(__file__).resolve().parents[2]).resolve()
+    plan_path = repo_root / "docs" / "constitution" / "PLAN-4D-ΩZERO-ESC-01.json"
+    protocol_sha = canonical_sha256(json.loads(plan_path.read_text(encoding="utf-8"))) if plan_path.exists() else ""
+
+    envelope = build_pcep_network_envelope(protocol_sha256=protocol_sha)
+    schema_path = repo_root / "schemas" / "supela_pcep_network_1.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    Draft202012Validator(schema).validate(envelope)
+
+    if out_path is not None:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(envelope, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    return envelope
+
+
 def main(argv: list[str] | None = None) -> int:
     if isinstance(sys.stdout, io.TextIOWrapper):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -566,11 +588,21 @@ def main(argv: list[str] | None = None) -> int:
     pipe_p = sub.add_parser("pipeline", help="Exécute un cycle complet GRPO → Π₀ → Guard-Kernel → OPA → WORM → Ed25519.")
     pipe_p.add_argument("--query", default="M-NET-GRPO-01")
 
+    pcep_p = sub.add_parser("pcep-prepare", help="Formalise l'enveloppe réseau PCEP prête à signer (EN_ATTENTE_SIGNATURE).")
+    pcep_p.add_argument("--out", default="", help="Chemin JSON de sortie optionnel.")
+
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
         res = run_network_doctor(online=bool(args.online))
         print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0 if res["operational"] else 1
+
+    if args.cmd == "pcep-prepare":
+        out = Path(args.out) if args.out else None
+        res = run_pcep_prepare(out_path=out)
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        sig_env = res["signature_envelope"]
+        return 0 if sig_env["ready_for_signature"] and sig_env["signature_status"] == "EN_ATTENTE_SIGNATURE" else 1
 
     res = run_integrated_network_pipeline(query=args.query)
     print(json.dumps(res, indent=2, ensure_ascii=False))
