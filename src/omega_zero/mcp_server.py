@@ -196,6 +196,29 @@ TOOLS_SPEC: list[dict[str, Any]] = [
             "required": ["runs"],
         },
     },
+    {
+        "name": "omega_pcep_prepare",
+        "description": "Formalise l'enveloppe réseau PCEP (9 familles de codage + points A_PROUVER) prête à signer (EN_ATTENTE_SIGNATURE).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "protocol_sha256": {"type": "string"},
+            },
+        },
+    },
+    {
+        "name": "omega_sovereign_net_verify",
+        "description": "Exécute le banc d'auto-validation SupelaInherentCore (ZERO-STATE-01, ZERO-AGENT-01, SUP-NORM-NET-01/1.0, Anti-EaaS, Ed25519, topologies).",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "omega_math_supela_eval",
+        "description": "Exécute les invariants mathématiques unifiés MAT-00..MAT-08 et GENERIC (dE/dt=0, dS/dt>=0) avec séparation honnête A_PROUVER.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"validator_name": {"type": "string"}},
+        },
+    },
 ]
 
 RESOURCES_SPEC: list[dict[str, str]] = [
@@ -390,6 +413,18 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         return run_network_doctor(ROOT_DIR, online=bool(arguments.get("online", False)))
     if name == "omega_multi_engine_bench":
         return _tool_omega_multi_engine_bench(arguments)
+    if name == "omega_pcep_prepare":
+        from .pcep import build_pcep_network_envelope
+
+        return build_pcep_network_envelope(protocol_sha256=str(arguments.get("protocol_sha256", "")))
+    if name == "omega_sovereign_net_verify":
+        from .sovereign_net import run_sovereign_net_self_check
+
+        return run_sovereign_net_self_check()
+    if name == "omega_math_supela_eval":
+        from .supela_math_core import run_supela_math_unification
+
+        return run_supela_math_unification(validator_name=str(arguments.get("validator_name", "Jean-François Gadbois")))
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 

@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 130,
+    "fichiers_omega_zero_4d": 139,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1023,7 +1023,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 224441
+        "taille_octets": 225285
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1038,12 +1038,17 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 18479
+        "taille_octets": 19882
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
         "categorie": "docs",
         "taille_octets": 4714
+      },
+      {
+        "chemin": "docs/constitution/PCEP_PROGRAMMATION_EVOLUTIVE_PREUVE.md",
+        "categorie": "docs",
+        "taille_octets": 6069
       },
       {
         "chemin": "docs/constitution/PLAN-4D-ΩZERO-ESC-01.json",
@@ -1218,7 +1223,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 144818
+        "taille_octets": 146004
       },
       {
         "chemin": "omega.ps1",
@@ -1228,12 +1233,17 @@
       {
         "chemin": "policies/omega_zero_invariants.rego",
         "categorie": "policies",
-        "taille_octets": 6439
+        "taille_octets": 8643
       },
       {
         "chemin": "pyproject.toml",
         "categorie": "root",
         "taille_octets": 944
+      },
+      {
+        "chemin": "reports/PCEP-NETWORK-SIGN-READY.json",
+        "categorie": "reports",
+        "taille_octets": 10368
       },
       {
         "chemin": "reports/TEST-4D-ESC-01.report.json",
@@ -1366,6 +1376,11 @@
         "taille_octets": 4362
       },
       {
+        "chemin": "schemas/supela_pcep_network_1.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 9715
+      },
+      {
         "chemin": "scripts/__init__.py",
         "categorie": "scripts",
         "taille_octets": 65
@@ -1403,7 +1418,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 2892
+        "taille_octets": 4419
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1428,7 +1443,7 @@
       {
         "chemin": "src/omega_zero/mcp_server.py",
         "categorie": "src",
-        "taille_octets": 16874
+        "taille_octets": 20374
       },
       {
         "chemin": "src/omega_zero/models.py",
@@ -1443,7 +1458,12 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 22265
+        "taille_octets": 24931
+      },
+      {
+        "chemin": "src/omega_zero/pcep.py",
+        "categorie": "src",
+        "taille_octets": 21486
       },
       {
         "chemin": "src/omega_zero/projection.py",
@@ -1459,6 +1479,16 @@
         "chemin": "src/omega_zero/scenarios.py",
         "categorie": "src",
         "taille_octets": 9935
+      },
+      {
+        "chemin": "src/omega_zero/sovereign_net.py",
+        "categorie": "src",
+        "taille_octets": 12437
+      },
+      {
+        "chemin": "src/omega_zero/supela_math_core.py",
+        "categorie": "src",
+        "taille_octets": 8651
       },
       {
         "chemin": "src/omega_zero/vr_compliance.py",
@@ -1478,7 +1508,7 @@
       {
         "chemin": "tests/rego/omega_zero_invariants_test.rego",
         "categorie": "tests",
-        "taille_octets": 11169
+        "taille_octets": 15460
       },
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
@@ -1503,12 +1533,17 @@
       {
         "chemin": "tests/test_network_bus_and_mcp.py",
         "categorie": "tests",
-        "taille_octets": 7621
+        "taille_octets": 7717
       },
       {
         "chemin": "tests/test_opa_rego.py",
         "categorie": "tests",
         "taille_octets": 4965
+      },
+      {
+        "chemin": "tests/test_pcep.py",
+        "categorie": "tests",
+        "taille_octets": 4566
       },
       {
         "chemin": "tests/test_pi0_and_manque.py",
@@ -1531,9 +1566,19 @@
         "taille_octets": 3020
       },
       {
+        "chemin": "tests/test_sovereign_net.py",
+        "categorie": "tests",
+        "taille_octets": 3516
+      },
+      {
         "chemin": "tests/test_supela_article_registry.py",
         "categorie": "tests",
         "taille_octets": 6048
+      },
+      {
+        "chemin": "tests/test_supela_math_core.py",
+        "categorie": "tests",
+        "taille_octets": 2560
       },
       {
         "chemin": "tests/test_worm_and_crypto.py",

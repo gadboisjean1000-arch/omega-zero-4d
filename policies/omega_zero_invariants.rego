@@ -219,6 +219,95 @@ grpo_trace_status_valid(t) if {
 	t.final_status == "CANDIDAT"
 }
 
+# --- 7d. Programmation Évolutive à Preuve Conservée (PCEP) -------------------
+pcep_invariants_satisfied if {
+	not input.pcep_envelope
+}
+
+pcep_invariants_satisfied if {
+	env := input.pcep_envelope
+	env.schema == "supela-pcep-network/1"
+	pcep_open_proofs_not_promoted(env)
+	pcep_transports_safe(env)
+	pcep_agents_bounded(env)
+	pcep_evolution_steps_complete(env)
+	pcep_revocations_safe(env)
+	pcep_signature_envelope_honest(env.signature_envelope)
+}
+
+pcep_open_proofs_not_promoted(env) if {
+	every item in env.open_proofs_registry {
+		item.status == "A_PROUVER"
+		item.promoted == false
+	}
+}
+
+pcep_transports_safe(env) if {
+	bad := [t |
+		some t in env.referential_transports
+		t.transport_allowed == true
+		t.transport_proof_verified == false
+	]
+	count(bad) == 0
+}
+
+pcep_agents_bounded(env) if {
+	every a in env.agent_authorities {
+		a.action_authority <= a.verified_proof_level
+		a.bounded_ok == true
+	}
+}
+
+pcep_evolution_steps_complete(env) if {
+	every s in env.evolution_steps {
+		s.trace != ""
+		s.scope != ""
+		count(s.proof_refs) > 0
+		is_array(s.counter_evidence)
+	}
+}
+
+pcep_revocations_safe(env) if {
+	bad := [tx |
+		some tx in env.auto_revocation_transitions
+		tx.from_status == "CONTRADICTED"
+		tx.to_status == "VALID"
+	]
+	count(bad) == 0
+}
+
+pcep_signature_envelope_honest(sig_env) if {
+	sig_env.signature_status == "EN_ATTENTE_SIGNATURE"
+	sig_env.ready_for_signature == true
+	sig_env.signature == null
+	sig_env.canonical_payload_sha256 != ""
+}
+
+pcep_signature_envelope_honest(sig_env) if {
+	sig_env.signature_status == "SIGNEE"
+	is_string(sig_env.signature)
+	sig_env.signature != ""
+}
+
+# --- 7e. Noyau Inhérent & Réseau Souverain (Anti-EaaS, SUP-NORM-NET-01/1.0) ---
+sovereign_net_satisfied if {
+	not input.sovereign_net
+}
+
+sovereign_net_satisfied if {
+	sn := input.sovereign_net
+	sn.external_saas_telemetry == false
+	sn.external_eaas_recalculation == false
+	sn.exogenous_unsigned_rejected == true
+	sn.audit_trail_verified == true
+	every q in sn.search_queries {
+		q.type_param_present == false
+		q.signature_verified == true
+		regex.match("^[a-z0-9_\\-]+$", q.query)
+		q.workspace in {"k8s", "dev", "prod", "monitoring", "local"}
+	}
+}
+
 # --- 8. Synthèse de cohérence Ω-ZERO ---------------------------------------
 coherence_satisfied if {
 	attestation_complete
@@ -234,6 +323,8 @@ coherence_satisfied if {
 	revidage_transactional
 	sup_ici_01_satisfied
 	grpo_guardrails_satisfied
+	pcep_invariants_satisfied
+	sovereign_net_satisfied
 }
 
 # --- 9. Barrière de promotion (jamais automatique !) -----------------------

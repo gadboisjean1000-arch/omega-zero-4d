@@ -1,0 +1,327 @@
+{
+  "schema": "supela-pcep-network/1",
+  "generated_at_utc": "2026-11-17T18:59:46Z",
+  "claims": [
+    {
+      "claim_id": "CLAIM-PI0-LOCAL",
+      "statement": "L'opérateur Π₀ est idempotent et préserve les 5 composantes sur le périmètre local.",
+      "referential": "R_LOCAL_PYTHON_311",
+      "sources": [
+        "src/omega_zero/projection.py",
+        "tests/test_pi0_and_manque.py"
+      ],
+      "proofs": [
+        "pytest:test_pi0_and_manque",
+        "hypothesis:24_permutations"
+      ],
+      "counter_evidence": [],
+      "dependencies": [],
+      "status": "VALID",
+      "history": [
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "INIT_CLAIM",
+          "actor": "pcep_engine",
+          "state_hash": "96366ae29c780a36740d36706deeae9de3c14144954d66bc2adac154424ed0bd"
+        }
+      ]
+    },
+    {
+      "claim_id": "CLAIM-GK-SUP-ICI-01",
+      "statement": "SupelaGuardKernel préserve K_n ⊆ Accessible(G_{n+1}) en C0/C1.",
+      "referential": "R_LOCAL_PYTHON_RUST",
+      "sources": [
+        "src/omega_zero/guard_kernel.py",
+        "rust/supela-guard-kernel/src/kernel.rs"
+      ],
+      "proofs": [
+        "pytest:test_guard_kernel",
+        "cargo_test:26_tests"
+      ],
+      "counter_evidence": [],
+      "dependencies": [
+        "CLAIM-PI0-LOCAL"
+      ],
+      "status": "VALID",
+      "history": [
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "INIT_CLAIM",
+          "actor": "pcep_engine",
+          "state_hash": "02998a2636fb748045ddcef591fc87b584d8406be27e8763c94fc822b4d51cf8"
+        }
+      ]
+    },
+    {
+      "claim_id": "CLAIM-GRPO-BRIDGE",
+      "statement": "Le pont GRPO GF1..GF5 isole les scores aberrants sans promouvoir en vérité.",
+      "referential": "R_LOCAL_PYTHON_311",
+      "sources": [
+        "src/omega_zero/grpo_bridge.py",
+        "tests/test_second_domain_example.py"
+      ],
+      "proofs": [
+        "pytest:test_grpo_guardrails",
+        "opa:grpo_guardrails_satisfied"
+      ],
+      "counter_evidence": [],
+      "dependencies": [
+        "CLAIM-PI0-LOCAL"
+      ],
+      "status": "VALID",
+      "history": [
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "INIT_CLAIM",
+          "actor": "pcep_engine",
+          "state_hash": "b293eca61fb23d2922a55c9e3a397905d3d94b2b14e55f36ee98631d1c8b6b10"
+        }
+      ]
+    },
+    {
+      "claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "statement": "Une contradiction adversariale déclenche la révocation sans effacer l'historique.",
+      "referential": "R_LOCAL_PYTHON_311",
+      "sources": [
+        "src/omega_zero/pcep.py"
+      ],
+      "proofs": [
+        "pytest:test_pcep"
+      ],
+      "counter_evidence": [
+        "PROBE-ADV-01:FAIL_INFORMATIF"
+      ],
+      "dependencies": [
+        "CLAIM-GK-SUP-ICI-01"
+      ],
+      "status": "REVALIDATE",
+      "history": [
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "INIT_CLAIM",
+          "actor": "pcep_engine",
+          "state_hash": "db1ac62582dd52ddf10174081a83a872c1b08631dbc4a9cdc4b7afe255aaceb2"
+        },
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "TRANSITION:VALID->CONTRADICTED",
+          "actor": "pcep_engine",
+          "state_hash": "5ced6f06f46388ed1eb99a7c071b2276d4cb4bd6b7379ac6dbaf6a40a7f6a100"
+        },
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "TRANSITION:CONTRADICTED->REOPEN",
+          "actor": "pcep_engine",
+          "state_hash": "442f86be7757f5d6e99d43b2d81b7cef273a67b02233851aff3dd0afa4c8e3c1"
+        },
+        {
+          "timestamp": "2026-11-17T18:59:46Z",
+          "action": "TRANSITION:REOPEN->REVALIDATE",
+          "actor": "pcep_engine",
+          "state_hash": "89136fe099a559ee1419b53240c91e73a423599658998423e39ca9c4b394ba81"
+        }
+      ]
+    }
+  ],
+  "referential_evaluations": [
+    {
+      "claim_id": "CLAIM-PI0-LOCAL",
+      "referential": "R_LOCAL_PYTHON_311",
+      "verdict": "TRUE",
+      "proof_present": true
+    },
+    {
+      "claim_id": "CLAIM-PI0-LOCAL",
+      "referential": "R_UNIVERSAL_UNBOUNDED",
+      "verdict": "UNKNOWN",
+      "proof_present": false
+    },
+    {
+      "claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "referential": "R_LOCAL_PYTHON_311",
+      "verdict": "CONTRADICTORY",
+      "proof_present": true
+    }
+  ],
+  "referential_transports": [
+    {
+      "claim_id": "CLAIM-PI0-LOCAL",
+      "source_referential": "R_LOCAL_PYTHON_311",
+      "target_referential": "R_UNIVERSAL_UNBOUNDED",
+      "conditions": [
+        "Démontrer invariance sur domaine infini non borné"
+      ],
+      "transport_proof_verified": false,
+      "transport_allowed": false,
+      "target_verdict": "UNKNOWN"
+    },
+    {
+      "claim_id": "CLAIM-GK-SUP-ICI-01",
+      "source_referential": "R_LOCAL_PYTHON_RUST",
+      "target_referential": "R_LOCAL_MCP_BUS",
+      "conditions": [
+        "Parité JSON-RPC 2.0 + SUP-IPC-01 vérifiée par doctor"
+      ],
+      "transport_proof_verified": true,
+      "transport_allowed": true,
+      "target_verdict": "TRUE"
+    }
+  ],
+  "dependency_cone": {
+    "root_claim_id": "CLAIM-PI0-LOCAL",
+    "impacted_claims": [
+      "CLAIM-AUTO-REVOCATION-DEMO",
+      "CLAIM-GK-SUP-ICI-01",
+      "CLAIM-GRPO-BRIDGE"
+    ],
+    "reevaluation_order": [
+      "CLAIM-GK-SUP-ICI-01",
+      "CLAIM-GRPO-BRIDGE",
+      "CLAIM-AUTO-REVOCATION-DEMO"
+    ]
+  },
+  "auto_revocation_transitions": [
+    {
+      "claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "from_status": "VALID",
+      "to_status": "CONTRADICTED",
+      "reason": "Sonde adversariale PROBE-ADV-01 : contre-exemple borné détecté",
+      "contradiction_preserved": true
+    },
+    {
+      "claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "from_status": "CONTRADICTED",
+      "to_status": "REOPEN",
+      "reason": "Réouverture explicite du cône pour réexamen sous preuve",
+      "contradiction_preserved": true
+    },
+    {
+      "claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "from_status": "REOPEN",
+      "to_status": "REVALIDATE",
+      "reason": "Réévaluation bornée au référentiel local avec contre-preuve conservée",
+      "contradiction_preserved": true
+    }
+  ],
+  "agent_authorities": [
+    {
+      "agent_id": "AGENT-EXPLORER-GRPO",
+      "reasoning_capacity": 4,
+      "verified_proof_level": 1,
+      "action_authority": 1,
+      "bounded_ok": true
+    },
+    {
+      "agent_id": "AGENT-GUARD-KERNEL",
+      "reasoning_capacity": 3,
+      "verified_proof_level": 2,
+      "action_authority": 2,
+      "bounded_ok": true
+    }
+  ],
+  "self_refuting_probes": [
+    {
+      "probe_id": "PROBE-ADV-01",
+      "target_claim_id": "CLAIM-AUTO-REVOCATION-DEMO",
+      "outcome": "FAIL_INFORMATIF",
+      "fail_informative_preserved": true,
+      "counter_evidence_ref": "PROBE-ADV-01:FAIL_INFORMATIF"
+    },
+    {
+      "probe_id": "PROBE-ADV-02",
+      "target_claim_id": "CLAIM-PI0-LOCAL",
+      "outcome": "PASS",
+      "fail_informative_preserved": true,
+      "counter_evidence_ref": ""
+    }
+  ],
+  "evolution_steps": [
+    {
+      "step_id": "EVOL-STEP-01",
+      "previous_hash": "b508dde8f29d47c8ad0f05aa9a8c2e40f8d2a53604e018e9e2857f0cad19e987",
+      "next_hash": "7c7095c763b3631e03a58e10743ffc9e8a7563f45749d15242ff26d088daa9c6",
+      "transformation": "formalize_pcep_9_families_network_bus",
+      "trace": "omega_zero.pcep.build_pcep_network_envelope",
+      "scope": "R_LOCAL_PYTHON_RUST_MCP",
+      "proof_refs": [
+        "pytest:test_pcep",
+        "opa:pcep_invariants_satisfied",
+        "a12:verify_a12"
+      ],
+      "counter_evidence": [
+        "OPEN-01..OPEN-08:A_PROUVER",
+        "PROBE-ADV-01:FAIL_INFORMATIF"
+      ],
+      "generation_stage": "G2"
+    }
+  ],
+  "open_proofs_registry": [
+    {
+      "id": "OPEN-01",
+      "title": "Validité universelle de Supela sur tout système arbitraire",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Les tests locaux couvrent un périmètre fini, non universel."
+    },
+    {
+      "id": "OPEN-02",
+      "title": "Théorème du Vide / stabilisation absolue vers Ω₀",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Formalisation existante, démonstration mathématique générale ouverte."
+    },
+    {
+      "id": "OPEN-03",
+      "title": "Terminaison générale d'un calcul Supela arbitraire",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Aucune preuve générale de terminaison pour toute entrée."
+    },
+    {
+      "id": "OPEN-04",
+      "title": "Transport général du VRAI entre référentiels R1 -> R2",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Requiert des conditions de transport démontrées au cas par cas."
+    },
+    {
+      "id": "OPEN-05",
+      "title": "Compression intergénérationnelle sans perte de sens pour toute classe",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Vérifiée en C1 réversible; cas général C2 irréversible borné."
+    },
+    {
+      "id": "OPEN-06",
+      "title": "Exhaustivité absolue du cône de dépendance et de la provenance hors journal",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Un journal prouve ce qu'il contient, non l'absence d'événements externes."
+    },
+    {
+      "id": "OPEN-07",
+      "title": "Gold Signature et certification institutionnelle externe universelle",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Spécification interne en attente d'accréditation externe indépendante."
+    },
+    {
+      "id": "OPEN-08",
+      "title": "Doctrine 0$ PMU universelle et souveraineté matérielle complète",
+      "status": "A_PROUVER",
+      "promoted": false,
+      "reason": "Coût nul != dépendance nulle; TPM matériel optionnel absent en CI."
+    }
+  ],
+  "signature_envelope": {
+    "signature_status": "EN_ATTENTE_SIGNATURE",
+    "ready_for_signature": true,
+    "canonical_payload_sha256": "938b725bcff062696793105a9b98195e7695793427a89560908252d48fc306ed",
+    "signature": null,
+    "required_signer_role": "AUTORITE_HUMAINE_CTO_CTA",
+    "sign_commands": [
+      "cosign sign-blob --key cosign.key --yes --bundle reports/PCEP-NETWORK-SIGN-READY.json.bundle reports/PCEP-NETWORK-SIGN-READY.json",
+      "gh pr review --approve <PR_NUMBER>"
+    ]
+  }
+}
