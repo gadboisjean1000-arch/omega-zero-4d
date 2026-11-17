@@ -234,3 +234,226 @@ test_deny_tampered_ledger if {
 	bad := object.union(valid_input, {"ledger": {"mode": "append-only", "tamper_detected": true}})
 	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
 }
+
+# === TESTS SUP-ICI-01 & GRPO GF1..GF5 ======================================
+valid_guard_kernel_transitions := [
+	{
+		"object_id": "OBJ-001",
+		"from_generation": "G0",
+		"to_generation": "G1",
+		"compression_level": "C1",
+		"preserved_fields": ["identity", "provenance", "status", "scope", "dependencies", "reopening_conditions"],
+		"reversible": true,
+		"authority": "PENDING_HUMAN_RATIFICATION",
+		"semantic_loss_passed": true,
+	},
+	{
+		"object_id": "OBJ-001",
+		"from_generation": "G2",
+		"to_generation": "G4",
+		"compression_level": "C2",
+		"preserved_fields": ["identity", "provenance", "status", "scope", "dependencies", "reopening_conditions"],
+		"reversible": false,
+		"authority": "PENDING_HUMAN_RATIFICATION",
+		"semantic_loss_passed": true,
+	},
+]
+
+valid_grpo_explorations := [
+	{
+		"candidate_id": "H-OUTLIER",
+		"gf1_outlier_blocked": true,
+		"gf2_admitted": false,
+		"final_status": "REJETE_GF1_ABERRANT",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+	{
+		"candidate_id": "H-LOW",
+		"gf1_outlier_blocked": false,
+		"gf2_admitted": false,
+		"final_status": "FILTRE_GF2_SOUS_SEUIL",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+	{
+		"candidate_id": "H-CAND",
+		"gf1_outlier_blocked": false,
+		"gf2_admitted": true,
+		"final_status": "CANDIDAT",
+		"authority_level": "AUCUNE",
+		"human_review_required": true,
+	},
+]
+
+test_allow_valid_guard_kernel_and_grpo_traces if {
+	good := object.union(valid_input, {
+		"guard_kernel_transitions": valid_guard_kernel_transitions,
+		"grpo_explorations": valid_grpo_explorations,
+	})
+	allow_human_review with input as good with time.now_ns as fresh_ok_ns
+}
+
+test_deny_c2_reversible_claim if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[1], {"reversible": true})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_guard_kernel_semantic_loss_failed if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[0], {"semantic_loss_passed": false})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_guard_kernel_missing_preserved_field if {
+	bad_tx := [object.union(valid_guard_kernel_transitions[0], {"preserved_fields": ["identity", "status"]})]
+	bad := object.union(valid_input, {"guard_kernel_transitions": bad_tx})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_grpo_trace_auto_authority if {
+	bad_grpo := [object.union(valid_grpo_explorations[2], {"authority_level": "RATIFIEE"})]
+	bad := object.union(valid_input, {"grpo_explorations": bad_grpo})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_grpo_trace_auto_established if {
+	bad_grpo := [object.union(valid_grpo_explorations[2], {"final_status": "ETABLI"})]
+	bad := object.union(valid_input, {"grpo_explorations": bad_grpo})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+# === TESTS PCEP (Programmation Évolutive à Preuve Conservée) ===============
+valid_pcep_envelope := {
+	"schema": "supela-pcep-network/1",
+	"signature_envelope": {
+		"signature_status": "EN_ATTENTE_SIGNATURE",
+		"ready_for_signature": true,
+		"canonical_payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		"signature": null,
+	},
+	"referential_transports": [{
+		"claim_id": "CLAIM-PI0-LOCAL",
+		"transport_proof_verified": false,
+		"transport_allowed": false,
+	}],
+	"agent_authorities": [{
+		"agent_id": "AGENT-EXPLORER-GRPO",
+		"reasoning_capacity": 4,
+		"verified_proof_level": 1,
+		"action_authority": 1,
+		"bounded_ok": true,
+	}],
+	"evolution_steps": [{
+		"step_id": "EVOL-STEP-01",
+		"trace": "trace-01",
+		"scope": "R_LOCAL",
+		"proof_refs": ["pytest:test_pcep"],
+		"counter_evidence": [],
+	}],
+	"auto_revocation_transitions": [{
+		"claim_id": "CLAIM-AUTO",
+		"from_status": "VALID",
+		"to_status": "CONTRADICTED",
+	}],
+	"open_proofs_registry": [{
+		"id": "OPEN-01",
+		"status": "A_PROUVER",
+		"promoted": false,
+	}],
+}
+
+test_allow_valid_pcep_envelope if {
+	good := object.union(valid_input, {"pcep_envelope": valid_pcep_envelope})
+	allow_human_review with input as good with time.now_ns as fresh_ok_ns
+}
+
+test_deny_pcep_unproved_transport if {
+	bad_env := object.union(valid_pcep_envelope, {"referential_transports": [{
+		"claim_id": "CLAIM-PI0-LOCAL",
+		"transport_proof_verified": false,
+		"transport_allowed": true,
+	}]})
+	bad := object.union(valid_input, {"pcep_envelope": bad_env})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_pcep_promoted_open_proof if {
+	bad_env := object.union(valid_pcep_envelope, {"open_proofs_registry": [{
+		"id": "OPEN-01",
+		"status": "A_PROUVER",
+		"promoted": true,
+	}]})
+	bad := object.union(valid_input, {"pcep_envelope": bad_env})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_pcep_agent_authority_exceeds_proof if {
+	bad_env := object.union(valid_pcep_envelope, {"agent_authorities": [{
+		"agent_id": "AGENT-EXPLORER-GRPO",
+		"reasoning_capacity": 4,
+		"verified_proof_level": 1,
+		"action_authority": 3,
+		"bounded_ok": false,
+	}]})
+	bad := object.union(valid_input, {"pcep_envelope": bad_env})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_pcep_direct_contradicted_to_valid if {
+	bad_env := object.union(valid_pcep_envelope, {"auto_revocation_transitions": [{
+		"claim_id": "CLAIM-AUTO",
+		"from_status": "CONTRADICTED",
+		"to_status": "VALID",
+	}]})
+	bad := object.union(valid_input, {"pcep_envelope": bad_env})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+# === TESTS NOYAU INHÉRENT & RÉSEAU SOUVERAIN (Anti-EaaS) ===================
+valid_sovereign_net := {
+	"external_saas_telemetry": false,
+	"external_eaas_recalculation": false,
+	"exogenous_unsigned_rejected": true,
+	"audit_trail_verified": true,
+	"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": false,
+		"signature_verified": true,
+	}],
+}
+
+test_allow_valid_sovereign_net if {
+	good := object.union(valid_input, {"sovereign_net": valid_sovereign_net})
+	allow_human_review with input as good with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_external_eaas if {
+	bad_sn := object.union(valid_sovereign_net, {"external_eaas_recalculation": true})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_type_param_injection if {
+	bad_sn := object.union(valid_sovereign_net, {"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": true,
+		"signature_verified": true,
+	}]})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}
+
+test_deny_sovereign_net_unsigned_query if {
+	bad_sn := object.union(valid_sovereign_net, {"search_queries": [{
+		"query": "box_noire",
+		"workspace": "monitoring",
+		"type_param_present": false,
+		"signature_verified": false,
+	}]})
+	bad := object.union(valid_input, {"sovereign_net": bad_sn})
+	not coherence_satisfied with input as bad with time.now_ns as fresh_ok_ns
+}

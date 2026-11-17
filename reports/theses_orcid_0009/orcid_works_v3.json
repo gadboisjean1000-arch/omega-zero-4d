@@ -1,0 +1,220 @@
+{
+  "schema": "orcid-works-v3-bundle/1.0",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "generated_at_utc": "2026-11-17T23:07:16.508645+00:00",
+  "remote_push_executed": false,
+  "honesty_note": "Export ORCID Work v3.0 généré localement et scellé cryptographiquement. Le dépôt distant vers api.orcid.org requiert un jeton OAuth2 personnel ORCID.",
+  "works": [
+    {
+      "title": {
+        "title": {
+          "value": "Systèmes d'Invariants INV-AXE-01 [INV-AXE-01]"
+        },
+        "subtitle": {
+          "value": "Cadre à 5 questions (origine, dépendances, maintien, perte, remplacement)"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Formaliser quand les énoncés mathématiques sont INDETERMINE vs. CONTROLE | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: ccbe8250b3550c6a6dfadc3364f8939e1672f200e695b45cd3330b73b61219f1",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-INV-001-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    },
+    {
+      "title": {
+        "title": {
+          "value": "Axiome de Lucidité INV-LUC-PROPOSE [INV-LUC-PROPOSE]"
+        },
+        "subtitle": {
+          "value": "Ce qui peut être omis vs ce qui doit rester visible (pas de zone grise)"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Distinguer démontré vs non-démontré sans zones grises | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: a30df55546c1c72dfd66b28a67ba218d7e0e9f890c726cc5dfa61356a321303a",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-LUC-002-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    },
+    {
+      "title": {
+        "title": {
+          "value": "Non-indépendance Fase One INV-FASE-01 [INV-FASE-01]"
+        },
+        "subtitle": {
+          "value": "Non-indépendance \"TOI/NOUS\" avec trace écrite obligatoire (rang 10)"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Modéliser les structures \"TOI/NOUS\" dans la découverte mathématique | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: 4ad3f0488110c4585014aa57d58ffb26299b338a11452f942b1cb2d0d4b76058",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-FASE-003-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    },
+    {
+      "title": {
+        "title": {
+          "value": "Vérification Distribuée INV-04/INV-05 [INV-04/INV-05]"
+        },
+        "subtitle": {
+          "value": "Consensus ne peut pas élever niveau preuve N1->N2->N3"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Prouver que consensus != élévation niveau preuve | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: ed29bc4c419b4e88ba0a9abfac73b0c8c4b191a84480788767cb7649c680a7a5",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-VERIF-004-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    },
+    {
+      "title": {
+        "title": {
+          "value": "Architecture 3 Niveaux N1->N2->N3 [N1->N2->N3]"
+        },
+        "subtitle": {
+          "value": "Hiérarchie Faits->Décisions->Omissions (N1->N2->N3)"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Formaliser l'omission comme état mathématique de première classe | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: 4a664b80451db8da1f1049662dc8c8cbd263ce6947b063ab0235a73a51b283b7",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-ARCHI-005-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    },
+    {
+      "title": {
+        "title": {
+          "value": "Dépendance Souveraine R-00 [R-00]"
+        },
+        "subtitle": {
+          "value": "\"De quoi dépends-tu ?\" + 7 invalidators + 25 transitions + souveraineté"
+        }
+      },
+      "type": "working-paper",
+      "publication-date": {
+        "year": {
+          "value": "2026"
+        },
+        "month": {
+          "value": "11"
+        },
+        "day": {
+          "value": "17"
+        }
+      },
+      "short-description": "Souveraineté complète de déclaration de dépendance sans validation externe | Statut: CONTROLE | Autonomie: complete_self_contained | PDF SHA-256: 1066a0872ce28497bc28ac286f55be9c034b29c275b6eea601bef112ac5f5ac6",
+      "external-ids": {
+        "external-id": [
+          {
+            "external-id-type": "other-id",
+            "external-id-value": "THESIS-DEP-006-ORCID0009",
+            "external-id-relationship": "self"
+          }
+        ]
+      },
+      "url": {
+        "value": "https://orcid.org/0009-0001-5361-6795"
+      }
+    }
+  ]
+}

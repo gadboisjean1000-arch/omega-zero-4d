@@ -1,0 +1,34 @@
+{
+  "schema": "supela-thesis-metadata/1.0",
+  "these_id": "THESIS-FASE-003-ORCID0009",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "titre": "Non-indépendance Fase One INV-FASE-01",
+  "domaine": "Non-indépendance \"TOI/NOUS\" avec trace écrite obligatoire (rang 10)",
+  "invariant_id": "INV-FASE-01",
+  "statut": "CONTROLE",
+  "timestamp": "2026-11-17T23:07:16.509651+00:00",
+  "autonomie": "complete_self_contained",
+  "apport_cle": "Modéliser les structures \"TOI/NOUS\" dans la découverte mathématique",
+  "indetermine_conditions": [
+    "Non-indépendance TOI/NOUS déclarée avec trace écrite de rang >= 10"
+  ],
+  "cross_references": [
+    "INV-AXE-01",
+    "INV-LUC-PROPOSE",
+    "INV-04/INV-05",
+    "N1->N2->N3",
+    "R-00"
+  ],
+  "sovereignty_clause": "Ce système peut être contesté, audité, réévalué.\nIl ne peut pas modifier son histoire sans que cela apparaisse.\nLa forme permanente n'est pas l'absence de contestation.\nC'est l'impossibilité de contester silencieusement.\nDouter oblige à annoncer pourquoi on agit, sur quelles preuves,\navec quelles limites, et dans quelles conditions on changera de décision.\nUn protocole qui interdit d'agir sous incertitude produit de la paralysie,\npas de la rigueur.",
+  "details": {
+    "toi_actor": "Chercheur ORCID 0009-0001-5361-6795",
+    "nous_collective": "Réseau formel Supela Omega-Zero-4D",
+    "written_trace_id": "TRACE-RANG10-FASE01-001",
+    "trace_rank": 10,
+    "mandatory_rank": 10,
+    "non_independent": true
+  },
+  "pdf_sha256": "4ad3f0488110c4585014aa57d58ffb26299b338a11452f942b1cb2d0d4b76058",
+  "metadata_sha256": "547a93569853e0cbc6f74b7377fb4a34cd83ade7a69c6ab7db4fffcc12735141"
+}

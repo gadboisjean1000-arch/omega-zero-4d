@@ -1,0 +1,62 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1777 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+14 TL
+(SUPELA THESIS DEPOSIT | THESIS-INV-001-ORCID0009) Tj
+T* (ORCID: 0009-0001-5361-6795 \(https://orcid.org/0009-0001-5361-6795\)) Tj
+T* (Title: Systemes d'Invariants INV-AXE-01) Tj
+T* (Domain: Cadre a 5 questions \(origine, dependances, maintien, perte, remplacement\) | Invarian) Tj
+T* (Status: CONTROLE | Autonomy: complete_self_contained) Tj
+T* (Timestamp UTC: 2026-11-17T23:07:16.508678+00:00) Tj
+T* (------------------------------------------------------------------------) Tj
+T* (Key Contribution: Formaliser quand les enonces mathematiques sont INDETERMINE vs. CONTROLE) Tj
+T* (------------------------------------------------------------------------) Tj
+T* (INDETERMINE Conditions:) Tj
+T* (  - Aucune condition INDETERMINE active : 5/5 questions renseignees) Tj
+T* (------------------------------------------------------------------------) Tj
+T* (Cross-References:) Tj
+T* (  INV-LUC-PROPOSE, INV-FASE-01, INV-04/INV-05, N1->N2->N3, R-00) Tj
+T* (------------------------------------------------------------------------) Tj
+T* (Sovereignty Clause:) Tj
+T* (  Ce systeme peut etre conteste, audite, reevalue.) Tj
+T* (  Il ne peut pas modifier son histoire sans que cela apparaisse.) Tj
+T* (  La forme permanente n'est pas l'absence de contestation.) Tj
+T* (  C'est l'impossibilite de contester silencieusement.) Tj
+T* (  Douter oblige a annoncer pourquoi on agit, sur quelles preuves,) Tj
+T* (  avec quelles limites, et dans quelles conditions on changera de decision.) Tj
+T* (  Un protocole qui interdit d'agir sous incertitude produit de la paralysie,) Tj
+T* (  pas de la rigueur.) Tj
+T* (------------------------------------------------------------------------) Tj
+T* (Verification Details: {"answered": 5, "missing": [], "required": 5}) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000002070 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2140
+%%EOF

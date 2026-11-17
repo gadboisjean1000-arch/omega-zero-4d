@@ -22,6 +22,7 @@ EXCLUDED_DIRS = {
     ".omega_vault",
     "__pycache__",
     "dist",
+    "target",
     "omega_zero_4d.egg-info",
 }
 

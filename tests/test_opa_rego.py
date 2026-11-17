@@ -16,7 +16,7 @@ OPA_BIN = str(OPA_CANDIDATE) if OPA_CANDIDATE.exists() else shutil.which("opa")
 
 
 @pytest.mark.skipif(OPA_BIN is None, reason="OPA CLI non installé")
-def test_opa_fmt_check_and_16_rego_refutation_tests() -> None:
+def test_opa_fmt_check_and_22_rego_refutation_tests() -> None:
     fmt = subprocess.run(
         [OPA_BIN, "fmt", "--diff", "policies/", "tests/rego/"],
         cwd=ROOT_DIR,
@@ -41,7 +41,7 @@ def test_opa_fmt_check_and_16_rego_refutation_tests() -> None:
         text=True,
         check=True,
     )
-    assert "PASS: 16/16" in res.stdout
+    assert "PASS: 31/31" in res.stdout
 
 
 @pytest.mark.skipif(OPA_BIN is None, reason="OPA CLI non installé")
@@ -97,6 +97,35 @@ def test_opa_evaluates_live_harness_report_to_allow_human_review(tmp_path: Path)
                 "ReconstructionPASS": True,
             },
         },
+        "guard_kernel_transitions": [
+            {
+                "object_id": "OBJ-PYTEST-01",
+                "from_generation": "G0",
+                "to_generation": "G1",
+                "compression_level": "C1",
+                "preserved_fields": [
+                    "identity",
+                    "provenance",
+                    "status",
+                    "scope",
+                    "dependencies",
+                    "reopening_conditions",
+                ],
+                "reversible": True,
+                "authority": "PENDING_HUMAN_RATIFICATION",
+                "semantic_loss_passed": True,
+            }
+        ],
+        "grpo_explorations": [
+            {
+                "candidate_id": "H-PYTEST-01",
+                "gf1_outlier_blocked": False,
+                "gf2_admitted": True,
+                "final_status": "CANDIDAT",
+                "authority_level": "AUCUNE",
+                "human_review_required": True,
+            }
+        ],
     }
     input_file = tmp_path / "opa_live_input.json"
     input_file.write_text(json.dumps(opa_input), encoding="utf-8")

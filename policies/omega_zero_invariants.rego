@@ -161,6 +161,153 @@ revidage_transactional if {
 	}
 }
 
+# --- 7b. Supela-Guard-Kernel (SUP-ICI-01, C0/C1/C2, G0..G5) -----------------
+required_guard_kernel_fields := {
+	"identity",
+	"provenance",
+	"status",
+	"scope",
+	"dependencies",
+	"reopening_conditions",
+}
+
+sup_ici_01_satisfied if {
+	transitions := object.get(input, "guard_kernel_transitions", [])
+	every tx in transitions {
+		tx.semantic_loss_passed == true
+		tx.authority != "AUTO_ESTABLISHED"
+		guard_kernel_c2_honest(tx)
+		every field in required_guard_kernel_fields {
+			field in tx.preserved_fields
+		}
+	}
+}
+
+guard_kernel_c2_honest(tx) if {
+	tx.compression_level != "C2"
+}
+
+guard_kernel_c2_honest(tx) if {
+	tx.compression_level == "C2"
+	tx.reversible == false
+}
+
+# --- 7c. Pont GRPO GF1..GF5 -------------------------------------------------
+grpo_guardrails_satisfied if {
+	traces := object.get(input, "grpo_explorations", [])
+	every t in traces {
+		t.authority_level == "AUCUNE"
+		t.human_review_required == true
+		grpo_trace_status_valid(t)
+	}
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == true
+	t.final_status == "REJETE_GF1_ABERRANT"
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == false
+	t.gf2_admitted == false
+	t.final_status == "FILTRE_GF2_SOUS_SEUIL"
+}
+
+grpo_trace_status_valid(t) if {
+	t.gf1_outlier_blocked == false
+	t.gf2_admitted == true
+	t.final_status == "CANDIDAT"
+}
+
+# --- 7d. Programmation Évolutive à Preuve Conservée (PCEP) -------------------
+pcep_invariants_satisfied if {
+	not input.pcep_envelope
+}
+
+pcep_invariants_satisfied if {
+	env := input.pcep_envelope
+	env.schema == "supela-pcep-network/1"
+	pcep_open_proofs_not_promoted(env)
+	pcep_transports_safe(env)
+	pcep_agents_bounded(env)
+	pcep_evolution_steps_complete(env)
+	pcep_revocations_safe(env)
+	pcep_signature_envelope_honest(env.signature_envelope)
+}
+
+pcep_open_proofs_not_promoted(env) if {
+	every item in env.open_proofs_registry {
+		item.status == "A_PROUVER"
+		item.promoted == false
+	}
+}
+
+pcep_transports_safe(env) if {
+	bad := [t |
+		some t in env.referential_transports
+		t.transport_allowed == true
+		t.transport_proof_verified == false
+	]
+	count(bad) == 0
+}
+
+pcep_agents_bounded(env) if {
+	every a in env.agent_authorities {
+		a.action_authority <= a.verified_proof_level
+		a.bounded_ok == true
+	}
+}
+
+pcep_evolution_steps_complete(env) if {
+	every s in env.evolution_steps {
+		s.trace != ""
+		s.scope != ""
+		count(s.proof_refs) > 0
+		is_array(s.counter_evidence)
+	}
+}
+
+pcep_revocations_safe(env) if {
+	bad := [tx |
+		some tx in env.auto_revocation_transitions
+		tx.from_status == "CONTRADICTED"
+		tx.to_status == "VALID"
+	]
+	count(bad) == 0
+}
+
+pcep_signature_envelope_honest(sig_env) if {
+	sig_env.signature_status == "EN_ATTENTE_SIGNATURE"
+	sig_env.ready_for_signature == true
+	sig_env.signature == null
+	sig_env.canonical_payload_sha256 != ""
+}
+
+pcep_signature_envelope_honest(sig_env) if {
+	sig_env.signature_status == "SIGNEE"
+	is_string(sig_env.signature)
+	sig_env.signature != ""
+}
+
+# --- 7e. Noyau Inhérent & Réseau Souverain (Anti-EaaS, SUP-NORM-NET-01/1.0) ---
+sovereign_net_satisfied if {
+	not input.sovereign_net
+}
+
+sovereign_net_satisfied if {
+	sn := input.sovereign_net
+	sn.external_saas_telemetry == false
+	sn.external_eaas_recalculation == false
+	sn.exogenous_unsigned_rejected == true
+	sn.audit_trail_verified == true
+	every q in sn.search_queries {
+		q.type_param_present == false
+		q.signature_verified == true
+		regex.match("^[a-z0-9_\\-]+$", q.query)
+		q.workspace in {"k8s", "dev", "prod", "monitoring", "local"}
+	}
+}
+
 # --- 8. Synthèse de cohérence Ω-ZERO ---------------------------------------
 coherence_satisfied if {
 	attestation_complete
@@ -174,6 +321,10 @@ coherence_satisfied if {
 	grpo_barrier_respected
 	manques_valid
 	revidage_transactional
+	sup_ici_01_satisfied
+	grpo_guardrails_satisfied
+	pcep_invariants_satisfied
+	sovereign_net_satisfied
 }
 
 # --- 9. Barrière de promotion (jamais automatique !) -----------------------

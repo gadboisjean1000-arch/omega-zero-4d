@@ -17,6 +17,11 @@ dev = [
     "ruff>=0.8.0",
 ]
 
+[project.scripts]
+omega-zero-mcp = "omega_zero.mcp_server:main"
+omega-network = "omega_zero.network_bus:main"
+
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]
