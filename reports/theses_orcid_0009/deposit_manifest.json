@@ -1,0 +1,84 @@
+{
+  "schema": "supela-theses-deposit-manifest/1.0",
+  "protocol_sha256": "89a7c7d3c7a9b3a152c5401b8a8f55c7e90b821065af4cd48f4721501d8b3c8a",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "deposit_timestamp_utc": "2026-11-17T23:07:16.508645+00:00",
+  "thesis_count": 6,
+  "all_controle": true,
+  "theses": [
+    {
+      "these_id": "THESIS-INV-001-ORCID0009",
+      "invariant_id": "INV-AXE-01",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.508678+00:00",
+      "pdf_file": "THESIS-INV-001-ORCID0009.pdf",
+      "pdf_sha256": "ccbe8250b3550c6a6dfadc3364f8939e1672f200e695b45cd3330b73b61219f1",
+      "metadata_file": "THESIS-INV-001-ORCID0009_metadata.json",
+      "metadata_sha256": "40c3eee59dad06f2d7e67da24a7b601428b053528ef859329d8d77f08c94de3b"
+    },
+    {
+      "these_id": "THESIS-LUC-002-ORCID0009",
+      "invariant_id": "INV-LUC-PROPOSE",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.509240+00:00",
+      "pdf_file": "THESIS-LUC-002-ORCID0009.pdf",
+      "pdf_sha256": "a30df55546c1c72dfd66b28a67ba218d7e0e9f890c726cc5dfa61356a321303a",
+      "metadata_file": "THESIS-LUC-002-ORCID0009_metadata.json",
+      "metadata_sha256": "8dd034e5bf5c652abddb85f8979486deaee9958d61455be983f8bacf75b3e841"
+    },
+    {
+      "these_id": "THESIS-FASE-003-ORCID0009",
+      "invariant_id": "INV-FASE-01",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.509651+00:00",
+      "pdf_file": "THESIS-FASE-003-ORCID0009.pdf",
+      "pdf_sha256": "4ad3f0488110c4585014aa57d58ffb26299b338a11452f942b1cb2d0d4b76058",
+      "metadata_file": "THESIS-FASE-003-ORCID0009_metadata.json",
+      "metadata_sha256": "547a93569853e0cbc6f74b7377fb4a34cd83ade7a69c6ab7db4fffcc12735141"
+    },
+    {
+      "these_id": "THESIS-VERIF-004-ORCID0009",
+      "invariant_id": "INV-04/INV-05",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.509957+00:00",
+      "pdf_file": "THESIS-VERIF-004-ORCID0009.pdf",
+      "pdf_sha256": "ed29bc4c419b4e88ba0a9abfac73b0c8c4b191a84480788767cb7649c680a7a5",
+      "metadata_file": "THESIS-VERIF-004-ORCID0009_metadata.json",
+      "metadata_sha256": "705b6b160680633d0bffb334b3a90acd1b0955ea9a9d12aeedf0501efc3729dd"
+    },
+    {
+      "these_id": "THESIS-ARCHI-005-ORCID0009",
+      "invariant_id": "N1->N2->N3",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.510332+00:00",
+      "pdf_file": "THESIS-ARCHI-005-ORCID0009.pdf",
+      "pdf_sha256": "4a664b80451db8da1f1049662dc8c8cbd263ce6947b063ab0235a73a51b283b7",
+      "metadata_file": "THESIS-ARCHI-005-ORCID0009_metadata.json",
+      "metadata_sha256": "b480baa5260a073c9f77af858119b64cd7c3bfa35e45db9b00a09796936ad111"
+    },
+    {
+      "these_id": "THESIS-DEP-006-ORCID0009",
+      "invariant_id": "R-00",
+      "statut": "CONTROLE",
+      "timestamp_utc": "2026-11-17T23:07:16.510614+00:00",
+      "pdf_file": "THESIS-DEP-006-ORCID0009.pdf",
+      "pdf_sha256": "1066a0872ce28497bc28ac286f55be9c034b29c275b6eea601bef112ac5f5ac6",
+      "metadata_file": "THESIS-DEP-006-ORCID0009_metadata.json",
+      "metadata_sha256": "e1492214d932788368d74cd899e4482038c05049984a47902b9a0ba575956111"
+    }
+  ],
+  "citation_network_sha256": "89a7c7d3c7a9b3a152c5401b8a8f55c7e90b821065af4cd48f4721501d8b3c8a",
+  "bibtex_sha256": "11d2983237bae2aca7168b4c50885b6f783ddff3f674f1a1b9d73e1ab8f08433",
+  "orcid_works_sha256": "de85cf92150468dfadda7f21ad6ef468c05729c822e93df1eea4210c7216b982",
+  "attestation_ed25519": {
+    "producer_id": "supela-theses-depositor",
+    "provenance": "scripts/deposit_theses.py",
+    "nonce": "9bc08375748320a8d6c2f252c89d9d54",
+    "timestamp": "2026-11-17T23:07:16.508645+00:00",
+    "protocol_sha256": "89a7c7d3c7a9b3a152c5401b8a8f55c7e90b821065af4cd48f4721501d8b3c8a",
+    "report_sha256": "2b4f4683031eabe88fd11d7e481e97d52c972e9034690967b67786fd18d7e684",
+    "signature_b64": "TK812EyGBw/8Zkp2VI+VPgxfsKJG/79HeythWUbbZm9R48U1sXKUb48u8Hskd4Vp6WYxXU6dE4jjkuf1ebAIAw==",
+    "public_key_b64": "WGrU84+wE8YCCjp+6vCmgH2SNbGPK+YoKsxsiPZHTz4="
+  }
+}

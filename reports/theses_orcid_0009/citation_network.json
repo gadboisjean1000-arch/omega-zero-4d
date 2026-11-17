@@ -1,0 +1,217 @@
+{
+  "schema": "supela-citation-network/1.0",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "thesis_count": 6,
+  "all_controle": true,
+  "nodes": [
+    {
+      "these_id": "THESIS-INV-001-ORCID0009",
+      "invariant_id": "INV-AXE-01",
+      "domaine": "Cadre à 5 questions (origine, dépendances, maintien, perte, remplacement)",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.508678+00:00"
+    },
+    {
+      "these_id": "THESIS-LUC-002-ORCID0009",
+      "invariant_id": "INV-LUC-PROPOSE",
+      "domaine": "Ce qui peut être omis vs ce qui doit rester visible (pas de zone grise)",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.509240+00:00"
+    },
+    {
+      "these_id": "THESIS-FASE-003-ORCID0009",
+      "invariant_id": "INV-FASE-01",
+      "domaine": "Non-indépendance \"TOI/NOUS\" avec trace écrite obligatoire (rang 10)",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.509651+00:00"
+    },
+    {
+      "these_id": "THESIS-VERIF-004-ORCID0009",
+      "invariant_id": "INV-04/INV-05",
+      "domaine": "Consensus ne peut pas élever niveau preuve N1->N2->N3",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.509957+00:00"
+    },
+    {
+      "these_id": "THESIS-ARCHI-005-ORCID0009",
+      "invariant_id": "N1->N2->N3",
+      "domaine": "Hiérarchie Faits->Décisions->Omissions (N1->N2->N3)",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.510332+00:00"
+    },
+    {
+      "these_id": "THESIS-DEP-006-ORCID0009",
+      "invariant_id": "R-00",
+      "domaine": "\"De quoi dépends-tu ?\" + 7 invalidators + 25 transitions + souveraineté",
+      "statut": "CONTROLE",
+      "orcid": "0009-0001-5361-6795",
+      "autonomie": "complete_self_contained",
+      "timestamp_utc": "2026-11-17T23:07:16.510614+00:00"
+    }
+  ],
+  "edges": [
+    {
+      "source": "THESIS-INV-001-ORCID0009",
+      "target_invariant": "INV-LUC-PROPOSE",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-INV-001-ORCID0009",
+      "target_invariant": "INV-FASE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-INV-001-ORCID0009",
+      "target_invariant": "INV-04/INV-05",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-INV-001-ORCID0009",
+      "target_invariant": "N1->N2->N3",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-INV-001-ORCID0009",
+      "target_invariant": "R-00",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-LUC-002-ORCID0009",
+      "target_invariant": "INV-AXE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-LUC-002-ORCID0009",
+      "target_invariant": "INV-FASE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-LUC-002-ORCID0009",
+      "target_invariant": "INV-04/INV-05",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-LUC-002-ORCID0009",
+      "target_invariant": "N1->N2->N3",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-LUC-002-ORCID0009",
+      "target_invariant": "R-00",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-FASE-003-ORCID0009",
+      "target_invariant": "INV-AXE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-FASE-003-ORCID0009",
+      "target_invariant": "INV-LUC-PROPOSE",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-FASE-003-ORCID0009",
+      "target_invariant": "INV-04/INV-05",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-FASE-003-ORCID0009",
+      "target_invariant": "N1->N2->N3",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-FASE-003-ORCID0009",
+      "target_invariant": "R-00",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-VERIF-004-ORCID0009",
+      "target_invariant": "INV-AXE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-VERIF-004-ORCID0009",
+      "target_invariant": "INV-LUC-PROPOSE",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-VERIF-004-ORCID0009",
+      "target_invariant": "INV-FASE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-VERIF-004-ORCID0009",
+      "target_invariant": "N1->N2->N3",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-VERIF-004-ORCID0009",
+      "target_invariant": "R-00",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-ARCHI-005-ORCID0009",
+      "target_invariant": "INV-AXE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-ARCHI-005-ORCID0009",
+      "target_invariant": "INV-LUC-PROPOSE",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-ARCHI-005-ORCID0009",
+      "target_invariant": "INV-FASE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-ARCHI-005-ORCID0009",
+      "target_invariant": "INV-04/INV-05",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-ARCHI-005-ORCID0009",
+      "target_invariant": "R-00",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-DEP-006-ORCID0009",
+      "target_invariant": "INV-AXE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-DEP-006-ORCID0009",
+      "target_invariant": "INV-LUC-PROPOSE",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-DEP-006-ORCID0009",
+      "target_invariant": "INV-FASE-01",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-DEP-006-ORCID0009",
+      "target_invariant": "INV-04/INV-05",
+      "relation": "invariant_cross_reference"
+    },
+    {
+      "source": "THESIS-DEP-006-ORCID0009",
+      "target_invariant": "N1->N2->N3",
+      "relation": "invariant_cross_reference"
+    }
+  ],
+  "generated_at_utc": "2026-11-17T23:07:16.510906+00:00",
+  "network_sha256": "89a7c7d3c7a9b3a152c5401b8a8f55c7e90b821065af4cd48f4721501d8b3c8a"
+}

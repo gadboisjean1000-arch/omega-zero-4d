@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 139,
+    "fichiers_omega_zero_4d": 165,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1023,7 +1023,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 225285
+        "taille_octets": 228200
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1038,7 +1038,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 19882
+        "taille_octets": 22996
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1223,7 +1223,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 146004
+        "taille_octets": 149907
       },
       {
         "chemin": "omega.ps1",
@@ -1249,6 +1249,86 @@
         "chemin": "reports/TEST-4D-ESC-01.report.json",
         "categorie": "reports",
         "taille_octets": 5025
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-ARCHI-005-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2333
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-ARCHI-005-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1534
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-DEP-006-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2364
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-DEP-006-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1674
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-FASE-003-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2353
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-FASE-003-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1728
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-INV-001-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2324
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-INV-001-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1534
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-LUC-002-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2325
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-LUC-002-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1538
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-VERIF-004-ORCID0009.pdf",
+        "categorie": "reports",
+        "taille_octets": 2344
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/THESIS-VERIF-004-ORCID0009_metadata.json",
+        "categorie": "reports",
+        "taille_octets": 1661
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/citation_network.json",
+        "categorie": "reports",
+        "taille_octets": 6815
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/deposit_manifest.json",
+        "categorie": "reports",
+        "taille_octets": 4103
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/orcid_works_v3.json",
+        "categorie": "reports",
+        "taille_octets": 6693
+      },
+      {
+        "chemin": "reports/theses_orcid_0009/theses_orcid_0009.bib",
+        "categorie": "reports",
+        "taille_octets": 2138
       },
       {
         "chemin": "runtime/init_omega_vault.ps1",
@@ -1396,6 +1476,11 @@
         "taille_octets": 16914
       },
       {
+        "chemin": "scripts/deposit_theses.py",
+        "categorie": "scripts",
+        "taille_octets": 6382
+      },
+      {
         "chemin": "scripts/install_into_excited_meitner.ps1",
         "categorie": "scripts",
         "taille_octets": 1517
@@ -1491,6 +1576,46 @@
         "taille_octets": 8651
       },
       {
+        "chemin": "src/omega_zero/theses/__init__.py",
+        "categorie": "src",
+        "taille_octets": 1179
+      },
+      {
+        "chemin": "src/omega_zero/theses/common.py",
+        "categorie": "src",
+        "taille_octets": 9882
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_architecture_3niveaux.py",
+        "categorie": "src",
+        "taille_octets": 4000
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_dependance_souveraine.py",
+        "categorie": "src",
+        "taille_octets": 4927
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_fase_one.py",
+        "categorie": "src",
+        "taille_octets": 4030
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_invariant_axe01.py",
+        "categorie": "src",
+        "taille_octets": 4084
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_luc_promise.py",
+        "categorie": "src",
+        "taille_octets": 4173
+      },
+      {
+        "chemin": "src/omega_zero/theses/thesis_verification_distrib.py",
+        "categorie": "src",
+        "taille_octets": 4282
+      },
+      {
         "chemin": "src/omega_zero/vr_compliance.py",
         "categorie": "src",
         "taille_octets": 8947
@@ -1579,6 +1704,11 @@
         "chemin": "tests/test_supela_math_core.py",
         "categorie": "tests",
         "taille_octets": 2560
+      },
+      {
+        "chemin": "tests/test_theses_framework.py",
+        "categorie": "tests",
+        "taille_octets": 4788
       },
       {
         "chemin": "tests/test_worm_and_crypto.py",

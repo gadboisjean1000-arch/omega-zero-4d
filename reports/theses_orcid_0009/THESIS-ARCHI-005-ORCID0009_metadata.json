@@ -1,0 +1,32 @@
+{
+  "schema": "supela-thesis-metadata/1.0",
+  "these_id": "THESIS-ARCHI-005-ORCID0009",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "titre": "Architecture 3 Niveaux N1->N2->N3",
+  "domaine": "Hiérarchie Faits->Décisions->Omissions (N1->N2->N3)",
+  "invariant_id": "N1->N2->N3",
+  "statut": "CONTROLE",
+  "timestamp": "2026-11-17T23:07:16.510332+00:00",
+  "autonomie": "complete_self_contained",
+  "apport_cle": "Formaliser l'omission comme état mathématique de première classe",
+  "indetermine_conditions": [
+    "Hiérarchie N1->N2->N3 disjointe avec omissions N3 formalisées"
+  ],
+  "cross_references": [
+    "INV-AXE-01",
+    "INV-LUC-PROPOSE",
+    "INV-FASE-01",
+    "INV-04/INV-05",
+    "R-00"
+  ],
+  "sovereignty_clause": "Ce système peut être contesté, audité, réévalué.\nIl ne peut pas modifier son histoire sans que cela apparaisse.\nLa forme permanente n'est pas l'absence de contestation.\nC'est l'impossibilité de contester silencieusement.\nDouter oblige à annoncer pourquoi on agit, sur quelles preuves,\navec quelles limites, et dans quelles conditions on changera de décision.\nUn protocole qui interdit d'agir sous incertitude produit de la paralysie,\npas de la rigueur.",
+  "details": {
+    "n1_count": 2,
+    "n2_count": 1,
+    "n3_count": 1,
+    "disjoint_layers": true
+  },
+  "pdf_sha256": "4a664b80451db8da1f1049662dc8c8cbd263ce6947b063ab0235a73a51b283b7",
+  "metadata_sha256": "b480baa5260a073c9f77af858119b64cd7c3bfa35e45db9b00a09796936ad111"
+}

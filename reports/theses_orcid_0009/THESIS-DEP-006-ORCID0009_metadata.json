@@ -1,0 +1,33 @@
+{
+  "schema": "supela-thesis-metadata/1.0",
+  "these_id": "THESIS-DEP-006-ORCID0009",
+  "orcid": "0009-0001-5361-6795",
+  "orcid_uri": "https://orcid.org/0009-0001-5361-6795",
+  "titre": "Dépendance Souveraine R-00",
+  "domaine": "\"De quoi dépends-tu ?\" + 7 invalidators + 25 transitions + souveraineté",
+  "invariant_id": "R-00",
+  "statut": "CONTROLE",
+  "timestamp": "2026-11-17T23:07:16.510614+00:00",
+  "autonomie": "complete_self_contained",
+  "apport_cle": "Souveraineté complète de déclaration de dépendance sans validation externe",
+  "indetermine_conditions": [
+    "Théorie R-00 complète : 7 invalidateurs, 25 transitions, souveraineté autonome"
+  ],
+  "cross_references": [
+    "INV-AXE-01",
+    "INV-LUC-PROPOSE",
+    "INV-FASE-01",
+    "INV-04/INV-05",
+    "N1->N2->N3"
+  ],
+  "sovereignty_clause": "Ce système peut être contesté, audité, réévalué.\nIl ne peut pas modifier son histoire sans que cela apparaisse.\nLa forme permanente n'est pas l'absence de contestation.\nC'est l'impossibilité de contester silencieusement.\nDouter oblige à annoncer pourquoi on agit, sur quelles preuves,\navec quelles limites, et dans quelles conditions on changera de décision.\nUn protocole qui interdit d'agir sous incertitude produit de la paralysie,\npas de la rigueur.",
+  "details": {
+    "question_r00": "De quoi dépends-tu ?",
+    "dependencies_count": 3,
+    "invalidators_count": 7,
+    "transitions_count": 25,
+    "sovereign_without_external_validation": true
+  },
+  "pdf_sha256": "1066a0872ce28497bc28ac286f55be9c034b29c275b6eea601bef112ac5f5ac6",
+  "metadata_sha256": "e1492214d932788368d74cd899e4482038c05049984a47902b9a0ba575956111"
+}
