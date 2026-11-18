@@ -38,6 +38,9 @@ def test_supela_state_schema_valid_and_complete_cycle(tmp_path: Path) -> None:
 
     report = run_supela_runtime_complete_cycle_demo(ROOT_DIR, work_dir=tmp_path)
     assert all(report["invariants_verified"].values())
+    assert report["executed_at_utc"].endswith("Z")
+    assert len(report["report_sha256"]) == 64
+    assert report["ed25519_attestation"]["verified"] is True
     assert report["reported_m365_artifacts"] == REPORTED_M365_ARTIFACTS
     assert (
         report["reported_m365_artifacts"]["supela-local-bridge-v0.1.zip"]["sha256"]

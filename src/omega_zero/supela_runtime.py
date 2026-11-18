@@ -1050,8 +1050,13 @@ def run_supela_runtime_complete_cycle_demo(
         )
 
         ledger_check = runtime.verify_ledger()
-        return {
+        from .attestation import AttestationSigner
+
+        executed_at_utc = _utc_now_iso()
+        core_report: dict[str, Any] = {
             "schema": "supela-runtime-v02-cycle-report/1",
+            "executed_at_utc": executed_at_utc,
+            "protocol_sha256": canonical_sha256(REPORTED_M365_ARTIFACTS),
             "reported_m365_artifacts": REPORTED_M365_ARTIFACTS,
             "invariants_verified": {
                 "g1_status_was_contradictoire": g1_snapshot_status == DossierStatus.CONTRADICTOIRE.value,
@@ -1067,6 +1072,24 @@ def run_supela_runtime_complete_cycle_demo(
             "ledger_verification": ledger_check,
             "ratified_snapshot": ratified_state,
             "final_reopened_state": reopened_state,
+        }
+        report_sha256 = canonical_sha256(core_report)
+        signer = AttestationSigner()
+        signed = signer.sign_report(core_report, producer_id="supela-runtime-v0.2", timestamp=executed_at_utc)
+        sig_ok = AttestationSigner.verify(signed, core_report)
+        core_report["invariants_verified"]["ed25519_verified"] = sig_ok
+        return {
+            **core_report,
+            "report_sha256": report_sha256,
+            "ed25519_attestation": {
+                "producer_id": signed.producer_id,
+                "timestamp": signed.timestamp,
+                "protocol_sha256": signed.protocol_sha256,
+                "report_sha256": signed.report_sha256,
+                "public_key_b64": signed.public_key_b64,
+                "signature_b64": signed.signature_b64,
+                "verified": sig_ok,
+            },
         }
 
     if work_dir is not None:
