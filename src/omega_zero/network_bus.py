@@ -601,6 +601,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     math_p.add_argument("--validator", default="Jean-François Gadbois")
 
+    rt_p = sub.add_parser(
+        "runtime-cycle",
+        help="Exécute un cycle complet du système nerveux Supela Runtime v0.2 (L0-L7 : Concept -> Contradiction -> Révision G2 -> Ratification -> Réouverture).",
+    )
+    rt_p.add_argument("--out", default="", help="Chemin JSON de sortie optionnel.")
+
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
         res = run_network_doctor(online=bool(args.online))
@@ -628,6 +634,19 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0 if res["generic_thermodynamics"]["generic_valid"] and res["mat_00_monotone_k"] else 1
 
+    if args.cmd == "runtime-cycle":
+        from .supela_runtime import run_supela_runtime_complete_cycle_demo
+
+        repo_root = Path(__file__).resolve().parents[2]
+        res = run_supela_runtime_complete_cycle_demo(repo_root)
+        if args.out:
+            out_path = Path(args.out)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(json.dumps(res, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        inv = res["invariants_verified"]
+        return 0 if all(inv.values()) else 1
+
     res = run_integrated_network_pipeline(query=args.query)
     print(json.dumps(res, indent=2, ensure_ascii=False))
     ok = (
@@ -643,3 +662,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

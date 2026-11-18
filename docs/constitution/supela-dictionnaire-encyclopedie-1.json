@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 173,
+    "fichiers_omega_zero_4d": 178,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1138,7 +1138,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 317684
+        "taille_octets": 318181
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1153,7 +1153,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 24976
+        "taille_octets": 26086
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1214,6 +1214,11 @@
         "chemin": "docs/constitution/SUPELA_GUARD_KERNEL.md",
         "categorie": "docs",
         "taille_octets": 4023
+      },
+      {
+        "chemin": "docs/constitution/SUPELA_RUNTIME_V02_SYSTEME_NERVEUX.md",
+        "categorie": "docs",
+        "taille_octets": 5647
       },
       {
         "chemin": "docs/constitution/TEST_P0_EXEMPLE.json",
@@ -1373,7 +1378,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 170928
+        "taille_octets": 171615
       },
       {
         "chemin": "omega.ps1",
@@ -1394,6 +1399,11 @@
         "chemin": "reports/PCEP-NETWORK-SIGN-READY.json",
         "categorie": "reports",
         "taille_octets": 10368
+      },
+      {
+        "chemin": "reports/SUPELA-RUNTIME-V02-CYCLE.json",
+        "categorie": "reports",
+        "taille_octets": 19754
       },
       {
         "chemin": "reports/TEST-4D-ESC-01.report.json",
@@ -1581,6 +1591,11 @@
         "taille_octets": 3847
       },
       {
+        "chemin": "schemas/supela-state.schema.json",
+        "categorie": "schemas",
+        "taille_octets": 9288
+      },
+      {
         "chemin": "schemas/supela_article_registry_1.schema.json",
         "categorie": "schemas",
         "taille_octets": 11280
@@ -1658,7 +1673,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 4419
+        "taille_octets": 5396
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1683,7 +1698,7 @@
       {
         "chemin": "src/omega_zero/mcp_server.py",
         "categorie": "src",
-        "taille_octets": 20374
+        "taille_octets": 29714
       },
       {
         "chemin": "src/omega_zero/models.py",
@@ -1698,7 +1713,7 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 24931
+        "taille_octets": 25847
       },
       {
         "chemin": "src/omega_zero/pcep.py",
@@ -1729,6 +1744,11 @@
         "chemin": "src/omega_zero/supela_math_core.py",
         "categorie": "src",
         "taille_octets": 8651
+      },
+      {
+        "chemin": "src/omega_zero/supela_runtime.py",
+        "categorie": "src",
+        "taille_octets": 41536
       },
       {
         "chemin": "src/omega_zero/theses/__init__.py",
@@ -1859,6 +1879,11 @@
         "chemin": "tests/test_supela_math_core.py",
         "categorie": "tests",
         "taille_octets": 2560
+      },
+      {
+        "chemin": "tests/test_supela_runtime_v02.py",
+        "categorie": "tests",
+        "taille_octets": 13704
       },
       {
         "chemin": "tests/test_theses_framework.py",

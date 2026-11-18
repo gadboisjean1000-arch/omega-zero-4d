@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supela.org/schemas/supela-state.schema.json",
+  "title": "Supela Runtime v0.2 State Schema (L0-L7 Nervous System)",
+  "description": "Schéma d'état canonique du système nerveux exécutable Supela v0.2 (CONCEPT -> CODE -> EXÉCUTION -> PREUVE -> CONTRADICTION -> RÉVISION -> CANDIDAT À RATIFICATION -> Jean-François Gadbois -> RÉOUVERTURE POSSIBLE).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "dossier_id",
+    "generation",
+    "status",
+    "claim",
+    "artifacts",
+    "executions",
+    "evidence",
+    "contradictions",
+    "revision",
+    "previous_generations",
+    "history",
+    "normative_decision",
+    "state_hash"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "supela-state/0.2"
+    },
+    "dossier_id": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Identifiant unique du dossier épistémique."
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Numéro de génération courant (incrémenté à chaque révision sans effacer l'historique)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CONCEPT",
+        "CODE_REGISTERED",
+        "EXECUTED",
+        "EVIDENCE_COLLECTED",
+        "CONTRADICTOIRE",
+        "REVISION_REQUESTED",
+        "CANDIDAT_A_RATIFICATION",
+        "RATIFIED_ACCEPTED",
+        "RATIFIED_REFUSED",
+        "RATIFIED_ADJOURNED",
+        "REOPENED"
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "scope", "provenance", "created_at"],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "created_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "relative_path", "sha256", "generation", "concept_link", "registered_at"],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "relative_path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "generation": { "type": "integer", "minimum": 1 },
+          "concept_link": { "type": "string", "minLength": 1 },
+          "registered_at": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "executions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "execution_id",
+          "command_key",
+          "argv",
+          "returncode",
+          "observed_outcome",
+          "scope",
+          "stdout_preview",
+          "stderr_preview",
+          "generation",
+          "executed_at"
+        ],
+        "properties": {
+          "execution_id": { "type": "string", "minLength": 1 },
+          "command_key": { "type": "string", "minLength": 1 },
+          "argv": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "returncode": { "type": "integer" },
+          "observed_outcome": {
+            "type": "string",
+            "enum": ["OBSERVED_PASS_IN_SCOPE", "OBSERVED_FAIL_IN_SCOPE"]
+          },
+          "scope": { "type": "string", "minLength": 1 },
+          "stdout_preview": { "type": "string" },
+          "stderr_preview": { "type": "string" },
+          "generation": { "type": "integer", "minimum": 1 },
+          "executed_at": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "generation",
+          "execution_ids",
+          "artifact_hashes",
+          "environment",
+          "ledger_entry_hash",
+          "proof_status",
+          "collected_at"
+        ],
+        "properties": {
+          "evidence_id": { "type": "string", "minLength": 1 },
+          "generation": { "type": "integer", "minimum": 1 },
+          "execution_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "artifact_hashes": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+          },
+          "environment": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ledger_entry_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "proof_status": {
+            "type": "string",
+            "enum": ["PASS_IN_SCOPE", "FAIL_IN_SCOPE", "INCONNU"]
+          },
+          "collected_at": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "contradiction_id",
+          "generation",
+          "description",
+          "scope",
+          "status",
+          "detected_at"
+        ],
+        "properties": {
+          "contradiction_id": { "type": "string", "minLength": 1 },
+          "generation": { "type": "integer", "minimum": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["OPEN", "SUPERSEDED_BY_REVISION"]
+          },
+          "detected_at": { "type": "string", "minLength": 1 },
+          "resolved_in_generation": {
+            "type": ["integer", "null"]
+          }
+        }
+      }
+    },
+    "revision": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "revision_id",
+        "from_generation",
+        "to_generation",
+        "reason",
+        "triggered_by_contradictions",
+        "requested_at"
+      ],
+      "properties": {
+        "revision_id": { "type": "string", "minLength": 1 },
+        "from_generation": { "type": "integer", "minimum": 1 },
+        "to_generation": { "type": "integer", "minimum": 2 },
+        "reason": { "type": "string", "minLength": 1 },
+        "triggered_by_contradictions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "requested_at": { "type": "string", "minLength": 1 }
+      }
+    },
+    "previous_generations": {
+      "type": "array",
+      "description": "Snapshots immuables des générations précédentes préservant l'ancienne trace lors d'une révision.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "generation",
+          "status_at_archive",
+          "state_hash",
+          "reason",
+          "archived_at"
+        ],
+        "properties": {
+          "generation": { "type": "integer", "minimum": 1 },
+          "status_at_archive": { "type": "string", "minLength": 1 },
+          "state_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "reason": { "type": "string", "minLength": 1 },
+          "archived_at": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "history": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step",
+          "layer",
+          "from_status",
+          "to_status",
+          "generation",
+          "actor",
+          "reason",
+          "timestamp"
+        ],
+        "properties": {
+          "step": { "type": "integer", "minimum": 1 },
+          "layer": {
+            "type": "string",
+            "enum": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"]
+          },
+          "from_status": { "type": ["string", "null"] },
+          "to_status": { "type": "string", "minLength": 1 },
+          "generation": { "type": "integer", "minimum": 1 },
+          "actor": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "timestamp": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "normative_decision": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["actor", "decision", "rationale", "generation", "decided_at"],
+      "properties": {
+        "actor": {
+          "type": "string",
+          "const": "Jean-François Gadbois"
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["ACCEPT", "REFUSE", "ADJOURN"]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "decided_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "state_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

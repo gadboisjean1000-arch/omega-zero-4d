@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -29,11 +31,24 @@ from .multi_engine_bench import (
     SupelaMultiEngineBench,
 )
 from .projection import ManqueStateMachine, Pi0Projector
+from .supela_runtime import SupelaRuntime
 from .vr_compliance import verify_vr_compliance
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 PROTOCOL_VERSION = "2024-11-05"
-SERVER_INFO = {"name": "omega-zero-mcp", "version": "1.2.0"}
+SERVER_INFO = {"name": "omega-zero-mcp", "version": "1.3.0"}
+
+_DEFAULT_RUNTIME_TMPDIR = tempfile.TemporaryDirectory(prefix="supela_runtime_mcp_")
+_RUNTIMES_BY_DIR: dict[str, SupelaRuntime] = {}
+
+
+def _get_supela_runtime(state_dir_arg: str | None = None) -> SupelaRuntime:
+    target_dir_str = state_dir_arg or os.environ.get("SUPELA_RUNTIME_STATE_DIR") or _DEFAULT_RUNTIME_TMPDIR.name
+    key = str(Path(target_dir_str).resolve())
+    if key not in _RUNTIMES_BY_DIR:
+        _RUNTIMES_BY_DIR[key] = SupelaRuntime(repository_root=ROOT_DIR, state_dir=Path(key))
+    return _RUNTIMES_BY_DIR[key]
+
 
 
 TOOLS_SPEC: list[dict[str, Any]] = [
@@ -217,6 +232,153 @@ TOOLS_SPEC: list[dict[str, Any]] = [
         "inputSchema": {
             "type": "object",
             "properties": {"validator_name": {"type": "string"}},
+        },
+    },
+    {
+        "name": "supela_create_concept",
+        "description": "L1 Concept : Crée un nouveau dossier Supela v0.2 avec affirmation, périmètre et provenance.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "statement": {"type": "string"},
+                "scope": {"type": "string"},
+                "provenance": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "statement", "scope"],
+        },
+    },
+    {
+        "name": "supela_register_code",
+        "description": "L2 Build : Enregistre un artefact de code borné au dépôt avec son empreinte SHA-256 et son lien concept -> artefact.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "artifact_id": {"type": "string"},
+                "relative_path": {"type": "string"},
+                "content": {"type": "string"},
+                "concept_link": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "artifact_id", "relative_path"],
+        },
+    },
+    {
+        "name": "supela_execute",
+        "description": "L3 Execute : Exécute une commande de la liste blanche L0 sans shell libre et conserve le résultat observé dans son périmètre.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "command_key": {"type": "string"},
+                "scope": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "command_key"],
+        },
+    },
+    {
+        "name": "supela_collect_evidence",
+        "description": "L4 Evidence : Scelle les preuves (artefacts SHA-256, exécutions, environnement) dans le journal probatoire append-only.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id"],
+        },
+    },
+    {
+        "name": "supela_evaluate",
+        "description": "L5 Contradiction : Évalue les contradictions dans le périmètre (une contradiction ouverte passe le statut à CONTRADICTOIRE et bloque la ratification).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "contradiction_descriptions": {"type": "array", "items": {"type": "string"}},
+                "auto_detect_from_executions": {"type": "boolean"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id"],
+        },
+    },
+    {
+        "name": "supela_request_revision",
+        "description": "L6 Revision : Crée une nouvelle génération (generation + 1) explicitement motivée sans supprimer l'ancienne trace.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "reason": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "reason"],
+        },
+    },
+    {
+        "name": "supela_submit_ratification",
+        "description": "L7 Seuil normatif : Soumet le dossier sans contradiction ouverte au statut CANDIDAT_A_RATIFICATION.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id"],
+        },
+    },
+    {
+        "name": "supela_ratify",
+        "description": "L7 Autorité humaine : Franchit la frontière normative (réservé exclusivement à 'Jean-François Gadbois', décisions ACCEPT/REFUSE/ADJOURN).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "actor": {"type": "string"},
+                "decision": {"type": "string", "enum": ["ACCEPT", "REFUSE", "ADJOURN"]},
+                "rationale": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "actor", "decision", "rationale"],
+        },
+    },
+    {
+        "name": "supela_reopen",
+        "description": "L7 Réouverture : Réouvre un dossier ratifié, refusé ou ajourné avec une raison inscrite dans l'historique.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "reason": {"type": "string"},
+                "actor": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id", "reason"],
+        },
+    },
+    {
+        "name": "supela_get_state",
+        "description": "Retourne l'état complet vérifié SHA-256 d'un dossier Supela v0.2.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "dossier_id": {"type": "string"},
+                "state_dir": {"type": "string"},
+            },
+            "required": ["dossier_id"],
+        },
+    },
+    {
+        "name": "supela_verify_ledger",
+        "description": "Vérifie l'intégrité du registre probatoire JSONL chaîné par SHA-256.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "state_dir": {"type": "string"},
+            },
         },
     },
 ]
@@ -425,6 +587,70 @@ def call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         from .supela_math_core import run_supela_math_unification
 
         return run_supela_math_unification(validator_name=str(arguments.get("validator_name", "Jean-François Gadbois")))
+    if name == "supela_create_concept":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.create_concept(
+            dossier_id=str(arguments["dossier_id"]),
+            statement=str(arguments["statement"]),
+            scope=str(arguments["scope"]),
+            provenance=str(arguments.get("provenance", "MCP-Client")),
+        )
+    if name == "supela_register_code":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.register_code(
+            dossier_id=str(arguments["dossier_id"]),
+            artifact_id=str(arguments["artifact_id"]),
+            relative_path=str(arguments["relative_path"]),
+            content=arguments.get("content"),
+            concept_link=arguments.get("concept_link"),
+        )
+    if name == "supela_execute":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.execute(
+            dossier_id=str(arguments["dossier_id"]),
+            command_key=str(arguments["command_key"]),
+            scope=arguments.get("scope"),
+        )
+    if name == "supela_collect_evidence":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.collect_evidence(dossier_id=str(arguments["dossier_id"]))
+    if name == "supela_evaluate":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.evaluate(
+            dossier_id=str(arguments["dossier_id"]),
+            contradiction_descriptions=arguments.get("contradiction_descriptions"),
+            auto_detect_from_executions=bool(arguments.get("auto_detect_from_executions", True)),
+        )
+    if name == "supela_request_revision":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.request_revision(
+            dossier_id=str(arguments["dossier_id"]),
+            reason=str(arguments["reason"]),
+        )
+    if name == "supela_submit_ratification":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.submit_ratification(dossier_id=str(arguments["dossier_id"]))
+    if name == "supela_ratify":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.ratify(
+            dossier_id=str(arguments["dossier_id"]),
+            actor=str(arguments["actor"]),
+            decision=str(arguments["decision"]),
+            rationale=str(arguments["rationale"]),
+        )
+    if name == "supela_reopen":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.reopen(
+            dossier_id=str(arguments["dossier_id"]),
+            reason=str(arguments["reason"]),
+            actor=str(arguments.get("actor", "Jean-François Gadbois")),
+        )
+    if name == "supela_get_state":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.get_state(dossier_id=str(arguments["dossier_id"]))
+    if name == "supela_verify_ledger":
+        rt = _get_supela_runtime(arguments.get("state_dir"))
+        return rt.verify_ledger()
     raise KeyError(f"Outil MCP inconnu : {name}")
 
 
