@@ -1,5 +1,7 @@
 {
   "schema": "supela-runtime-v02-cycle-report/1",
+  "executed_at_utc": "2026-11-18T00:26:55Z",
+  "protocol_sha256": "e8f325857aaa6dd377f3678ccfd148ab5ace174f0bd38a2649db209c7404a961",
   "reported_m365_artifacts": {
     "supela-local-bridge-v0.1.zip": {
       "sha256": "650337274c316f1cf76f47be5489eec592fa6bcfbdb5fbc614809cf8c2085710",
@@ -19,12 +21,13 @@
     "ai_self_ratification_refused": true,
     "human_ratification_succeeded": true,
     "reopen_preserved_full_history": true,
-    "ledger_chain_valid": true
+    "ledger_chain_valid": true,
+    "ed25519_verified": true
   },
   "ledger_verification": {
     "valid": true,
     "entry_count": 13,
-    "head_hash": "3d80bc01a26d43921206d6ebae2aaae4c3c25c3d8323b8ca96b3ae7f5a272ed5",
+    "head_hash": "f5b6defa6ccfe95ec3f25a6d0216ddc07b6b39b01c110c37e142bedf931d0d92",
     "error": null
   },
   "ratified_snapshot": {
@@ -61,7 +64,7 @@
         "execution_id": "EXEC-G1-01",
         "command_key": "probe_fail",
         "argv": [
-          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python3",
           "-c",
           "import sys; print('SUPELA_EXEC_FAIL_IN_SCOPE'); sys.exit(1)"
         ],
@@ -77,7 +80,7 @@
         "execution_id": "EXEC-G2-02",
         "command_key": "probe_pass",
         "argv": [
-          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python3",
           "-c",
           "print('SUPELA_EXEC_PASS_IN_SCOPE')"
         ],
@@ -105,7 +108,7 @@
           "platform": "Linux",
           "scope": "omega-zero-4d/runtime-v0.2"
         },
-        "ledger_entry_hash": "7249efd033de9f43eeb191e67fa6f5ad3e0639f0b99a7a865a2518ac9ccfc240",
+        "ledger_entry_hash": "0a41141ca57bf83041167caad0ef52c19114a09f67c5c4672269e47bde7e9c33",
         "proof_status": "FAIL_IN_SCOPE",
         "collected_at": "2026-11-17T23:50:15Z"
       },
@@ -123,7 +126,7 @@
           "platform": "Linux",
           "scope": "omega-zero-4d/runtime-v0.2"
         },
-        "ledger_entry_hash": "ae553e38e8d91599ef1908a4914f1bf94e571493e6636d73cfe21d370215fc6e",
+        "ledger_entry_hash": "9fca7b91126ab5d5d3cc7677a3e0ca10b22466bba48e9aeca98c457599bddc72",
         "proof_status": "PASS_IN_SCOPE",
         "collected_at": "2026-11-17T23:50:40Z"
       }
@@ -153,7 +156,7 @@
       {
         "generation": 1,
         "status_at_archive": "CONTRADICTOIRE",
-        "state_hash": "c9c7f5962f2745819f25a5e0085198e1e1bcb2077103799df0ac2d0b1b181306",
+        "state_hash": "f39cb333e4059529efac02e339a8e84047b596d4ba5190e436562c199fce1f46",
         "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
         "archived_at": "2026-11-17T23:50:25Z"
       }
@@ -196,7 +199,7 @@
         "to_status": "EVIDENCE_COLLECTED",
         "generation": 1,
         "actor": "SupelaAgent",
-        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=7249efd033de)",
+        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=0a41141ca57b)",
         "timestamp": "2026-11-17T23:50:15Z"
       },
       {
@@ -246,7 +249,7 @@
         "to_status": "EVIDENCE_COLLECTED",
         "generation": 2,
         "actor": "SupelaAgent",
-        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=ae553e38e8d9)",
+        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=9fca7b91126a)",
         "timestamp": "2026-11-17T23:50:40Z"
       },
       {
@@ -287,7 +290,7 @@
       "generation": 2,
       "decided_at": "2026-11-17T23:50:55Z"
     },
-    "state_hash": "a00f55e03f9779d7d7da67fb08954bac50ccd5ee08456245f804b2d8fe8a1063"
+    "state_hash": "7cd170d6f731e52d9ad8afde62789a8825b90ba99414fec5d6d4a56d686ce40c"
   },
   "final_reopened_state": {
     "schema": "supela-state/0.2",
@@ -323,7 +326,7 @@
         "execution_id": "EXEC-G1-01",
         "command_key": "probe_fail",
         "argv": [
-          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python3",
           "-c",
           "import sys; print('SUPELA_EXEC_FAIL_IN_SCOPE'); sys.exit(1)"
         ],
@@ -339,7 +342,7 @@
         "execution_id": "EXEC-G2-02",
         "command_key": "probe_pass",
         "argv": [
-          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python3",
           "-c",
           "print('SUPELA_EXEC_PASS_IN_SCOPE')"
         ],
@@ -367,7 +370,7 @@
           "platform": "Linux",
           "scope": "omega-zero-4d/runtime-v0.2"
         },
-        "ledger_entry_hash": "7249efd033de9f43eeb191e67fa6f5ad3e0639f0b99a7a865a2518ac9ccfc240",
+        "ledger_entry_hash": "0a41141ca57bf83041167caad0ef52c19114a09f67c5c4672269e47bde7e9c33",
         "proof_status": "FAIL_IN_SCOPE",
         "collected_at": "2026-11-17T23:50:15Z"
       },
@@ -385,7 +388,7 @@
           "platform": "Linux",
           "scope": "omega-zero-4d/runtime-v0.2"
         },
-        "ledger_entry_hash": "ae553e38e8d91599ef1908a4914f1bf94e571493e6636d73cfe21d370215fc6e",
+        "ledger_entry_hash": "9fca7b91126ab5d5d3cc7677a3e0ca10b22466bba48e9aeca98c457599bddc72",
         "proof_status": "PASS_IN_SCOPE",
         "collected_at": "2026-11-17T23:50:40Z"
       }
@@ -415,7 +418,7 @@
       {
         "generation": 1,
         "status_at_archive": "CONTRADICTOIRE",
-        "state_hash": "c9c7f5962f2745819f25a5e0085198e1e1bcb2077103799df0ac2d0b1b181306",
+        "state_hash": "f39cb333e4059529efac02e339a8e84047b596d4ba5190e436562c199fce1f46",
         "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
         "archived_at": "2026-11-17T23:50:25Z"
       }
@@ -458,7 +461,7 @@
         "to_status": "EVIDENCE_COLLECTED",
         "generation": 1,
         "actor": "SupelaAgent",
-        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=7249efd033de)",
+        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=0a41141ca57b)",
         "timestamp": "2026-11-17T23:50:15Z"
       },
       {
@@ -508,7 +511,7 @@
         "to_status": "EVIDENCE_COLLECTED",
         "generation": 2,
         "actor": "SupelaAgent",
-        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=ae553e38e8d9)",
+        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=9fca7b91126a)",
         "timestamp": "2026-11-17T23:50:40Z"
       },
       {
@@ -559,6 +562,16 @@
       "generation": 2,
       "decided_at": "2026-11-17T23:50:55Z"
     },
-    "state_hash": "19a2e2eb9d9f6298e44cf7a79404cef550605383067393a381c34dc2b8a09474"
+    "state_hash": "ddc4bef7d35c684a7c07f1bdb7ba6f0bf1cabea51d5c6962a1008a14e7963455"
+  },
+  "report_sha256": "96b348494f94d8cc281a8245e957d78cb9374479ca6061237391725c89d82b79",
+  "ed25519_attestation": {
+    "producer_id": "supela-runtime-v0.2",
+    "timestamp": "2026-11-18T00:26:55Z",
+    "protocol_sha256": "e8f325857aaa6dd377f3678ccfd148ab5ace174f0bd38a2649db209c7404a961",
+    "report_sha256": "96b348494f94d8cc281a8245e957d78cb9374479ca6061237391725c89d82b79",
+    "public_key_b64": "bu+Bwuq+Gz0ZjKbmR8Yz7eLtQvJmC/JnbyXWo7nG7Oc=",
+    "signature_b64": "75NMoDYtFHPPabGy7twza8dT/GLQGBnu5Hkl4ghpkaR0PI5bxNDgIsuuOdftQKo1Z28zO2RUfsvwbt4avosaBQ==",
+    "verified": true
   }
 }

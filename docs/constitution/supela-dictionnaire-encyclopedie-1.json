@@ -1403,7 +1403,7 @@
       {
         "chemin": "reports/SUPELA-RUNTIME-V02-CYCLE.json",
         "categorie": "reports",
-        "taille_octets": 19754
+        "taille_octets": 20508
       },
       {
         "chemin": "reports/TEST-4D-ESC-01.report.json",
@@ -1748,7 +1748,7 @@
       {
         "chemin": "src/omega_zero/supela_runtime.py",
         "categorie": "src",
-        "taille_octets": 41536
+        "taille_octets": 42621
       },
       {
         "chemin": "src/omega_zero/theses/__init__.py",
@@ -1883,7 +1883,7 @@
       {
         "chemin": "tests/test_supela_runtime_v02.py",
         "categorie": "tests",
-        "taille_octets": 13704
+        "taille_octets": 13862
       },
       {
         "chemin": "tests/test_theses_framework.py",
