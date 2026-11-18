@@ -1,0 +1,564 @@
+{
+  "schema": "supela-runtime-v02-cycle-report/1",
+  "reported_m365_artifacts": {
+    "supela-local-bridge-v0.1.zip": {
+      "sha256": "650337274c316f1cf76f47be5489eec592fa6bcfbdb5fbc614809cf8c2085710",
+      "layer": "L0_TRANSPORT",
+      "epistemic_status": "RAPPORTE_M365_REIMPLEMENTE_ET_EXECUTE_LOCALEMENT"
+    },
+    "supela-runtime-v0.2.zip": {
+      "sha256": "b5fab177db18288ed78a60a9cd8e84dd866034e0557c0f1c95ed9c06cdebab83",
+      "layer": "L0_TO_L7_NERVOUS_SYSTEM",
+      "epistemic_status": "RAPPORTE_M365_REIMPLEMENTE_ET_EXECUTE_LOCALEMENT"
+    }
+  },
+  "invariants_verified": {
+    "g1_status_was_contradictoire": true,
+    "g1_hash_preserved_in_previous_generations": true,
+    "ratification_blocked_on_open_contradiction": true,
+    "ai_self_ratification_refused": true,
+    "human_ratification_succeeded": true,
+    "reopen_preserved_full_history": true,
+    "ledger_chain_valid": true
+  },
+  "ledger_verification": {
+    "valid": true,
+    "entry_count": 13,
+    "head_hash": "3d80bc01a26d43921206d6ebae2aaae4c3c25c3d8323b8ca96b3ae7f5a272ed5",
+    "error": null
+  },
+  "ratified_snapshot": {
+    "schema": "supela-state/0.2",
+    "dossier_id": "DOSSIER-SUPELA-V02-001",
+    "generation": 2,
+    "status": "RATIFIED_ACCEPTED",
+    "claim": {
+      "statement": "Le système nerveux Supela v0.2 fait circuler un concept jusqu'au seuil de l'autorité sans auto-promotion.",
+      "scope": "omega-zero-4d/runtime-v0.2",
+      "provenance": "M365-Copilot-Bridge-v0.1-to-Runtime-v0.2",
+      "created_at": "2026-11-17T23:50:00Z"
+    },
+    "artifacts": [
+      {
+        "artifact_id": "ART-G1-SCHEMA",
+        "relative_path": "schemas/supela-state.schema.json",
+        "sha256": "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a",
+        "generation": 1,
+        "concept_link": "DOSSIER-SUPELA-V02-001@G1",
+        "registered_at": "2026-11-17T23:50:05Z"
+      },
+      {
+        "artifact_id": "ART-G2-RUNTIME",
+        "relative_path": "schemas/supela-state.schema.json",
+        "sha256": "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a",
+        "generation": 2,
+        "concept_link": "DOSSIER-SUPELA-V02-001@G2",
+        "registered_at": "2026-11-17T23:50:30Z"
+      }
+    ],
+    "executions": [
+      {
+        "execution_id": "EXEC-G1-01",
+        "command_key": "probe_fail",
+        "argv": [
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "-c",
+          "import sys; print('SUPELA_EXEC_FAIL_IN_SCOPE'); sys.exit(1)"
+        ],
+        "returncode": 1,
+        "observed_outcome": "OBSERVED_FAIL_IN_SCOPE",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "stdout_preview": "SUPELA_EXEC_FAIL_IN_SCOPE",
+        "stderr_preview": "",
+        "generation": 1,
+        "executed_at": "2026-11-17T23:50:10Z"
+      },
+      {
+        "execution_id": "EXEC-G2-02",
+        "command_key": "probe_pass",
+        "argv": [
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "-c",
+          "print('SUPELA_EXEC_PASS_IN_SCOPE')"
+        ],
+        "returncode": 0,
+        "observed_outcome": "OBSERVED_PASS_IN_SCOPE",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "stdout_preview": "SUPELA_EXEC_PASS_IN_SCOPE",
+        "stderr_preview": "",
+        "generation": 2,
+        "executed_at": "2026-11-17T23:50:35Z"
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVID-G1-01",
+        "generation": 1,
+        "execution_ids": [
+          "EXEC-G1-01"
+        ],
+        "artifact_hashes": [
+          "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a"
+        ],
+        "environment": {
+          "python_version": "3.11.2",
+          "platform": "Linux",
+          "scope": "omega-zero-4d/runtime-v0.2"
+        },
+        "ledger_entry_hash": "7249efd033de9f43eeb191e67fa6f5ad3e0639f0b99a7a865a2518ac9ccfc240",
+        "proof_status": "FAIL_IN_SCOPE",
+        "collected_at": "2026-11-17T23:50:15Z"
+      },
+      {
+        "evidence_id": "EVID-G2-02",
+        "generation": 2,
+        "execution_ids": [
+          "EXEC-G2-02"
+        ],
+        "artifact_hashes": [
+          "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a"
+        ],
+        "environment": {
+          "python_version": "3.11.2",
+          "platform": "Linux",
+          "scope": "omega-zero-4d/runtime-v0.2"
+        },
+        "ledger_entry_hash": "ae553e38e8d91599ef1908a4914f1bf94e571493e6636d73cfe21d370215fc6e",
+        "proof_status": "PASS_IN_SCOPE",
+        "collected_at": "2026-11-17T23:50:40Z"
+      }
+    ],
+    "contradictions": [
+      {
+        "contradiction_id": "CONTR-G1-01",
+        "generation": 1,
+        "description": "Écart dans le périmètre 'omega-zero-4d/runtime-v0.2' : EXEC-G1-01 (probe_fail) a retourné rc=1",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "status": "SUPERSEDED_BY_REVISION",
+        "detected_at": "2026-11-17T23:50:20Z",
+        "resolved_in_generation": 2
+      }
+    ],
+    "revision": {
+      "revision_id": "REV-G1-TO-G2",
+      "from_generation": 1,
+      "to_generation": 2,
+      "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
+      "triggered_by_contradictions": [
+        "CONTR-G1-01"
+      ],
+      "requested_at": "2026-11-17T23:50:25Z"
+    },
+    "previous_generations": [
+      {
+        "generation": 1,
+        "status_at_archive": "CONTRADICTOIRE",
+        "state_hash": "c9c7f5962f2745819f25a5e0085198e1e1bcb2077103799df0ac2d0b1b181306",
+        "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
+        "archived_at": "2026-11-17T23:50:25Z"
+      }
+    ],
+    "history": [
+      {
+        "step": 1,
+        "layer": "L1",
+        "from_status": null,
+        "to_status": "CONCEPT",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Création du concept dans le périmètre 'omega-zero-4d/runtime-v0.2'",
+        "timestamp": "2026-11-17T23:50:00Z"
+      },
+      {
+        "step": 2,
+        "layer": "L2",
+        "from_status": "CONCEPT",
+        "to_status": "CODE_REGISTERED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Artefact ART-G1-SCHEMA (schemas/supela-state.schema.json) enregistré avec SHA-256 697e0499ccde",
+        "timestamp": "2026-11-17T23:50:05Z"
+      },
+      {
+        "step": 3,
+        "layer": "L3",
+        "from_status": "CODE_REGISTERED",
+        "to_status": "EXECUTED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Exécution EXEC-G1-01 (probe_fail) -> OBSERVED_FAIL_IN_SCOPE (rc=1)",
+        "timestamp": "2026-11-17T23:50:10Z"
+      },
+      {
+        "step": 4,
+        "layer": "L4",
+        "from_status": "EXECUTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=7249efd033de)",
+        "timestamp": "2026-11-17T23:50:15Z"
+      },
+      {
+        "step": 5,
+        "layer": "L5",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "CONTRADICTOIRE",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "1 contradiction(s) ouverte(s) : ratification mécaniquement bloquée",
+        "timestamp": "2026-11-17T23:50:20Z"
+      },
+      {
+        "step": 6,
+        "layer": "L6",
+        "from_status": "CONTRADICTOIRE",
+        "to_status": "REVISION_REQUESTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Révision REV-G1-TO-G2 motivée : Correction de la sonde d'exécution après échec observé en génération 1.",
+        "timestamp": "2026-11-17T23:50:25Z"
+      },
+      {
+        "step": 7,
+        "layer": "L2",
+        "from_status": "REVISION_REQUESTED",
+        "to_status": "CODE_REGISTERED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Artefact ART-G2-RUNTIME (schemas/supela-state.schema.json) enregistré avec SHA-256 697e0499ccde",
+        "timestamp": "2026-11-17T23:50:30Z"
+      },
+      {
+        "step": 8,
+        "layer": "L3",
+        "from_status": "CODE_REGISTERED",
+        "to_status": "EXECUTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Exécution EXEC-G2-02 (probe_pass) -> OBSERVED_PASS_IN_SCOPE (rc=0)",
+        "timestamp": "2026-11-17T23:50:35Z"
+      },
+      {
+        "step": 9,
+        "layer": "L4",
+        "from_status": "EXECUTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=ae553e38e8d9)",
+        "timestamp": "2026-11-17T23:50:40Z"
+      },
+      {
+        "step": 10,
+        "layer": "L5",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Aucune contradiction ouverte dans le périmètre ; dossier éligible au seuil de ratification",
+        "timestamp": "2026-11-17T23:50:45Z"
+      },
+      {
+        "step": 11,
+        "layer": "L7",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "CANDIDAT_A_RATIFICATION",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Soumis au seuil normatif pour ratification par Jean-François Gadbois",
+        "timestamp": "2026-11-17T23:50:50Z"
+      },
+      {
+        "step": 12,
+        "layer": "L7",
+        "from_status": "CANDIDAT_A_RATIFICATION",
+        "to_status": "RATIFIED_ACCEPTED",
+        "generation": 2,
+        "actor": "Jean-François Gadbois",
+        "reason": "Décision normative ACCEPT : Cycle L0-L7 vérifié localement avec blocage de contradiction et registre SHA-256 intact.",
+        "timestamp": "2026-11-17T23:50:55Z"
+      }
+    ],
+    "normative_decision": {
+      "actor": "Jean-François Gadbois",
+      "decision": "ACCEPT",
+      "rationale": "Cycle L0-L7 vérifié localement avec blocage de contradiction et registre SHA-256 intact.",
+      "generation": 2,
+      "decided_at": "2026-11-17T23:50:55Z"
+    },
+    "state_hash": "a00f55e03f9779d7d7da67fb08954bac50ccd5ee08456245f804b2d8fe8a1063"
+  },
+  "final_reopened_state": {
+    "schema": "supela-state/0.2",
+    "dossier_id": "DOSSIER-SUPELA-V02-001",
+    "generation": 2,
+    "status": "REOPENED",
+    "claim": {
+      "statement": "Le système nerveux Supela v0.2 fait circuler un concept jusqu'au seuil de l'autorité sans auto-promotion.",
+      "scope": "omega-zero-4d/runtime-v0.2",
+      "provenance": "M365-Copilot-Bridge-v0.1-to-Runtime-v0.2",
+      "created_at": "2026-11-17T23:50:00Z"
+    },
+    "artifacts": [
+      {
+        "artifact_id": "ART-G1-SCHEMA",
+        "relative_path": "schemas/supela-state.schema.json",
+        "sha256": "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a",
+        "generation": 1,
+        "concept_link": "DOSSIER-SUPELA-V02-001@G1",
+        "registered_at": "2026-11-17T23:50:05Z"
+      },
+      {
+        "artifact_id": "ART-G2-RUNTIME",
+        "relative_path": "schemas/supela-state.schema.json",
+        "sha256": "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a",
+        "generation": 2,
+        "concept_link": "DOSSIER-SUPELA-V02-001@G2",
+        "registered_at": "2026-11-17T23:50:30Z"
+      }
+    ],
+    "executions": [
+      {
+        "execution_id": "EXEC-G1-01",
+        "command_key": "probe_fail",
+        "argv": [
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "-c",
+          "import sys; print('SUPELA_EXEC_FAIL_IN_SCOPE'); sys.exit(1)"
+        ],
+        "returncode": 1,
+        "observed_outcome": "OBSERVED_FAIL_IN_SCOPE",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "stdout_preview": "SUPELA_EXEC_FAIL_IN_SCOPE",
+        "stderr_preview": "",
+        "generation": 1,
+        "executed_at": "2026-11-17T23:50:10Z"
+      },
+      {
+        "execution_id": "EXEC-G2-02",
+        "command_key": "probe_pass",
+        "argv": [
+          "/home/antigravity/gadboisjean1000-arch/omega-zero-4d/.venv/bin/python",
+          "-c",
+          "print('SUPELA_EXEC_PASS_IN_SCOPE')"
+        ],
+        "returncode": 0,
+        "observed_outcome": "OBSERVED_PASS_IN_SCOPE",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "stdout_preview": "SUPELA_EXEC_PASS_IN_SCOPE",
+        "stderr_preview": "",
+        "generation": 2,
+        "executed_at": "2026-11-17T23:50:35Z"
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVID-G1-01",
+        "generation": 1,
+        "execution_ids": [
+          "EXEC-G1-01"
+        ],
+        "artifact_hashes": [
+          "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a"
+        ],
+        "environment": {
+          "python_version": "3.11.2",
+          "platform": "Linux",
+          "scope": "omega-zero-4d/runtime-v0.2"
+        },
+        "ledger_entry_hash": "7249efd033de9f43eeb191e67fa6f5ad3e0639f0b99a7a865a2518ac9ccfc240",
+        "proof_status": "FAIL_IN_SCOPE",
+        "collected_at": "2026-11-17T23:50:15Z"
+      },
+      {
+        "evidence_id": "EVID-G2-02",
+        "generation": 2,
+        "execution_ids": [
+          "EXEC-G2-02"
+        ],
+        "artifact_hashes": [
+          "697e0499ccde75ccc9305148851d5f4e5eb5fe22bc310619c613616d1648c43a"
+        ],
+        "environment": {
+          "python_version": "3.11.2",
+          "platform": "Linux",
+          "scope": "omega-zero-4d/runtime-v0.2"
+        },
+        "ledger_entry_hash": "ae553e38e8d91599ef1908a4914f1bf94e571493e6636d73cfe21d370215fc6e",
+        "proof_status": "PASS_IN_SCOPE",
+        "collected_at": "2026-11-17T23:50:40Z"
+      }
+    ],
+    "contradictions": [
+      {
+        "contradiction_id": "CONTR-G1-01",
+        "generation": 1,
+        "description": "Écart dans le périmètre 'omega-zero-4d/runtime-v0.2' : EXEC-G1-01 (probe_fail) a retourné rc=1",
+        "scope": "omega-zero-4d/runtime-v0.2",
+        "status": "SUPERSEDED_BY_REVISION",
+        "detected_at": "2026-11-17T23:50:20Z",
+        "resolved_in_generation": 2
+      }
+    ],
+    "revision": {
+      "revision_id": "REV-G1-TO-G2",
+      "from_generation": 1,
+      "to_generation": 2,
+      "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
+      "triggered_by_contradictions": [
+        "CONTR-G1-01"
+      ],
+      "requested_at": "2026-11-17T23:50:25Z"
+    },
+    "previous_generations": [
+      {
+        "generation": 1,
+        "status_at_archive": "CONTRADICTOIRE",
+        "state_hash": "c9c7f5962f2745819f25a5e0085198e1e1bcb2077103799df0ac2d0b1b181306",
+        "reason": "Correction de la sonde d'exécution après échec observé en génération 1.",
+        "archived_at": "2026-11-17T23:50:25Z"
+      }
+    ],
+    "history": [
+      {
+        "step": 1,
+        "layer": "L1",
+        "from_status": null,
+        "to_status": "CONCEPT",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Création du concept dans le périmètre 'omega-zero-4d/runtime-v0.2'",
+        "timestamp": "2026-11-17T23:50:00Z"
+      },
+      {
+        "step": 2,
+        "layer": "L2",
+        "from_status": "CONCEPT",
+        "to_status": "CODE_REGISTERED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Artefact ART-G1-SCHEMA (schemas/supela-state.schema.json) enregistré avec SHA-256 697e0499ccde",
+        "timestamp": "2026-11-17T23:50:05Z"
+      },
+      {
+        "step": 3,
+        "layer": "L3",
+        "from_status": "CODE_REGISTERED",
+        "to_status": "EXECUTED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Exécution EXEC-G1-01 (probe_fail) -> OBSERVED_FAIL_IN_SCOPE (rc=1)",
+        "timestamp": "2026-11-17T23:50:10Z"
+      },
+      {
+        "step": 4,
+        "layer": "L4",
+        "from_status": "EXECUTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "Preuve EVID-G1-01 scellée (FAIL_IN_SCOPE, ledger=7249efd033de)",
+        "timestamp": "2026-11-17T23:50:15Z"
+      },
+      {
+        "step": 5,
+        "layer": "L5",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "CONTRADICTOIRE",
+        "generation": 1,
+        "actor": "SupelaAgent",
+        "reason": "1 contradiction(s) ouverte(s) : ratification mécaniquement bloquée",
+        "timestamp": "2026-11-17T23:50:20Z"
+      },
+      {
+        "step": 6,
+        "layer": "L6",
+        "from_status": "CONTRADICTOIRE",
+        "to_status": "REVISION_REQUESTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Révision REV-G1-TO-G2 motivée : Correction de la sonde d'exécution après échec observé en génération 1.",
+        "timestamp": "2026-11-17T23:50:25Z"
+      },
+      {
+        "step": 7,
+        "layer": "L2",
+        "from_status": "REVISION_REQUESTED",
+        "to_status": "CODE_REGISTERED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Artefact ART-G2-RUNTIME (schemas/supela-state.schema.json) enregistré avec SHA-256 697e0499ccde",
+        "timestamp": "2026-11-17T23:50:30Z"
+      },
+      {
+        "step": 8,
+        "layer": "L3",
+        "from_status": "CODE_REGISTERED",
+        "to_status": "EXECUTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Exécution EXEC-G2-02 (probe_pass) -> OBSERVED_PASS_IN_SCOPE (rc=0)",
+        "timestamp": "2026-11-17T23:50:35Z"
+      },
+      {
+        "step": 9,
+        "layer": "L4",
+        "from_status": "EXECUTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Preuve EVID-G2-02 scellée (PASS_IN_SCOPE, ledger=ae553e38e8d9)",
+        "timestamp": "2026-11-17T23:50:40Z"
+      },
+      {
+        "step": 10,
+        "layer": "L5",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "EVIDENCE_COLLECTED",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Aucune contradiction ouverte dans le périmètre ; dossier éligible au seuil de ratification",
+        "timestamp": "2026-11-17T23:50:45Z"
+      },
+      {
+        "step": 11,
+        "layer": "L7",
+        "from_status": "EVIDENCE_COLLECTED",
+        "to_status": "CANDIDAT_A_RATIFICATION",
+        "generation": 2,
+        "actor": "SupelaAgent",
+        "reason": "Soumis au seuil normatif pour ratification par Jean-François Gadbois",
+        "timestamp": "2026-11-17T23:50:50Z"
+      },
+      {
+        "step": 12,
+        "layer": "L7",
+        "from_status": "CANDIDAT_A_RATIFICATION",
+        "to_status": "RATIFIED_ACCEPTED",
+        "generation": 2,
+        "actor": "Jean-François Gadbois",
+        "reason": "Décision normative ACCEPT : Cycle L0-L7 vérifié localement avec blocage de contradiction et registre SHA-256 intact.",
+        "timestamp": "2026-11-17T23:50:55Z"
+      },
+      {
+        "step": 13,
+        "layer": "L7",
+        "from_status": "RATIFIED_ACCEPTED",
+        "to_status": "REOPENED",
+        "generation": 2,
+        "actor": "Jean-François Gadbois",
+        "reason": "Réouverture du dossier : Inspection post-ratification pour ajout d'une sonde multi-moteurs.",
+        "timestamp": "2026-11-17T23:51:00Z"
+      }
+    ],
+    "normative_decision": {
+      "actor": "Jean-François Gadbois",
+      "decision": "ACCEPT",
+      "rationale": "Cycle L0-L7 vérifié localement avec blocage de contradiction et registre SHA-256 intact.",
+      "generation": 2,
+      "decided_at": "2026-11-17T23:50:55Z"
+    },
+    "state_hash": "19a2e2eb9d9f6298e44cf7a79404cef550605383067393a381c34dc2b8a09474"
+  }
+}

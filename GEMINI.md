@@ -11,15 +11,19 @@
 | **Supela Ω-ZERO · 4D** | Moteur formel & barrière fail-closed | $\Pi_0(S_t) = \{I, P, M, A, H\} \neq \emptyset$, 7 statuts du Manque (`M1`–`M5`), `E0..E7`, `C01..C10`, `Load(C)`, revidage `PREPARE→VERIFY→COMMIT→CLEAN` | [`src/omega_zero/`](src/omega_zero/__init__.py), [`policies/omega_zero_invariants.rego`](policies/omega_zero_invariants.rego) |
 | **Supela-Guard-Kernel** | Continuité intercycle & compression contrôlée | `SUP-ICI-01` ($K_n \subseteq \operatorname{Accessible}(G_{n+1})$), `C0`/`C1`/`C2`, résidu $R_{\min}(O)$, `G0..G5`, `SUP-IPC-01` / `SUPELA-WORM-V1` | [`src/omega_zero/guard_kernel.py`](src/omega_zero/guard_kernel.py), [`rust/supela-guard-kernel/`](rust/supela-guard-kernel/README.md), [`SUPELA_GUARD_KERNEL.md`](docs/constitution/SUPELA_GUARD_KERNEL.md) |
 | **Pont GRPO ↔ Ω-ZERO** | Exploration générative sous garde-fous | `GRPO ≠ Ω-ZERO`, `GF1`–`GF5` (`Reward → Candidate → Épreuves → Status`) | [`src/omega_zero/grpo_bridge.py`](src/omega_zero/grpo_bridge.py), [`COMPARAISON_GRPO_OMEGA_ZERO.md`](docs/constitution/COMPARAISON_GRPO_OMEGA_ZERO.md) |
+| **Supela Runtime v0.2 (`L0`–`L7`)** | Système nerveux exécutable & Pont local | `CONCEPT → CODE → EXÉCUTION → PREUVE → CONTRADICTION → RÉVISION (gen+1) → CANDIDAT À RATIFICATION → Jean-François Gadbois → RÉOUVERTURE` | [`src/omega_zero/supela_runtime.py`](src/omega_zero/supela_runtime.py), [`schemas/supela-state.schema.json`](schemas/supela-state.schema.json), [`SUPELA_RUNTIME_V02_SYSTEME_NERVEUX.md`](docs/constitution/SUPELA_RUNTIME_V02_SYSTEME_NERVEUX.md) |
 
 ## 2. Bus Réseau Inter-Outils & Serveur MCP
 
 Les outils du dépôt intercommuniquent de manière exécutable (aucun chemin local spécifique Windows codé en dur) :
 - **Serveur MCP JSON-RPC 2.0 (`stdin`/`stdout`)** : `.venv/bin/python -m omega_zero.mcp_server` (ou `.venv/bin/omega-zero-mcp`), configuré dans [`.agents/mcp_config.json`](.agents/mcp_config.json).
-- **Outils MCP exposés** : `omega_pi0_project`, `omega_manque_transition`, `omega_grpo_explore`, `guard_kernel_compress`, `omega_run_harness`, `omega_verify_a12`, `omega_verify_vr_compliance`, `omega_network_pipeline`, `omega_network_doctor`.
+- **24 Outils MCP exposés** :
+  - *Noyau Ω-ZERO & Réseau (13)* : `omega_pi0_project`, `omega_manque_transition`, `omega_grpo_explore`, `guard_kernel_compress`, `omega_run_harness`, `omega_verify_a12`, `omega_verify_vr_compliance`, `omega_network_pipeline`, `omega_network_doctor`, `omega_multi_engine_bench`, `omega_pcep_prepare`, `omega_sovereign_net_verify`, `omega_math_supela_eval`.
+  - *Système Nerveux Supela Runtime v0.2 (11)* : `supela_create_concept`, `supela_register_code`, `supela_execute`, `supela_collect_evidence`, `supela_evaluate`, `supela_request_revision`, `supela_submit_ratification`, `supela_ratify`, `supela_reopen`, `supela_get_state`, `supela_verify_ledger`.
 - **Orchestrateur réseau CLI** :
-  - `.venv/bin/omega-network doctor --online` : vérifie les binaires (`python`, `pytest`, `ruff`, `mypy`, `opa`, `cosign`, `cargo`, `git`, `gh`, `gdrive`), A12, `VR-01..VR-20`, l'aller-retour réel `mcp_server`, le dialogue réel `SUP-IPC-01` avec `supela-guard-kernel` et l'état du pont `Supela-K3-Omega`.
-  - `.venv/bin/omega-network pipeline` : chaîne un cycle complet `GRPO (GF1–GF5) → Engine/Π₀ → Guard-Kernel (G0→G1→G2 C1) → Harnais 4D → OPA eval → WORM SHA-256 → Ed25519`.
+  - `.venv/bin/omega-network doctor --online` : vérifie les binaires (`python`, `pytest`, `ruff`, `mypy`, `opa`, `cosign`, `cargo`, `git`, `gh`, `gdrive`), A12, `VR-01..VR-20`, l'aller-retour réel `mcp_server` (24 outils), le cycle `SupelaRuntime` v0.2 (`L0`–`L7`), le dialogue réel `SUP-IPC-01` avec `supela-guard-kernel` et l'état du pont `Supela-K3-Omega`.
+  - `.venv/bin/omega-network pipeline` : chaîne un cycle complet `GRPO (GF1–GF5) → Engine/Π₀ → Guard-Kernel (G0→G1→G2 C1) → Supela Runtime v0.2 (L0–L7) → Harnais 4D → OPA eval → WORM SHA-256 → Ed25519`.
+  - `.venv/bin/omega-network runtime-cycle` : exécute le cycle complet `L0`–`L7` (`G1` contradictoire → révision `G2` → ratification `Jean-François Gadbois` → réouverture).
 
 ## 3. Règles Obligatoires & Commandes de Vérification
 

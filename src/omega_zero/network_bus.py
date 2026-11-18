@@ -322,10 +322,16 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
     rust_probe = _probe_rust_guard_kernel(repo_root, cargo_bin)
     k3_bridge = _check_supela_k3_bridge(repo_root, online=online)
 
+    from .supela_runtime import run_supela_runtime_complete_cycle_demo
+
+    rt_demo = run_supela_runtime_complete_cycle_demo(repo_root)
+    rt_ok = all(rt_demo["invariants_verified"].values())
+
     core_operational = (
         a12_ok
         and vr_result["all_passed"]
         and mcp_probe["ok"]
+        and rt_ok
         and tools_found["pytest"] is not None
         and tools_found["opa"] is not None
     )
@@ -344,6 +350,11 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
             "seal_sha256": vr_result["seal_sha256"],
         },
         "mcp_stdio_probe": mcp_probe,
+        "supela_runtime_v02": {
+            "ok": rt_ok,
+            "invariants_verified": rt_demo["invariants_verified"],
+            "ledger_entries": rt_demo["ledger_verification"]["entry_count"],
+        },
         "rust_guard_kernel": rust_probe,
         "supela_k3_bridge": k3_bridge,
     }
@@ -601,6 +612,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     math_p.add_argument("--validator", default="Jean-François Gadbois")
 
+    rt_p = sub.add_parser(
+        "runtime-cycle",
+        help="Exécute un cycle complet du système nerveux Supela Runtime v0.2 (L0-L7 : Concept -> Contradiction -> Révision G2 -> Ratification -> Réouverture).",
+    )
+    rt_p.add_argument("--out", default="", help="Chemin JSON de sortie optionnel.")
+
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
         res = run_network_doctor(online=bool(args.online))
@@ -628,6 +645,19 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0 if res["generic_thermodynamics"]["generic_valid"] and res["mat_00_monotone_k"] else 1
 
+    if args.cmd == "runtime-cycle":
+        from .supela_runtime import run_supela_runtime_complete_cycle_demo
+
+        repo_root = Path(__file__).resolve().parents[2]
+        res = run_supela_runtime_complete_cycle_demo(repo_root)
+        if args.out:
+            out_path = Path(args.out)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(json.dumps(res, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        inv = res["invariants_verified"]
+        return 0 if all(inv.values()) else 1
+
     res = run_integrated_network_pipeline(query=args.query)
     print(json.dumps(res, indent=2, ensure_ascii=False))
     ok = (
@@ -643,3 +673,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
