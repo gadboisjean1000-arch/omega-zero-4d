@@ -1108,7 +1108,7 @@
       {
         "chemin": "GEMINI.md",
         "categorie": "root",
-        "taille_octets": 4389
+        "taille_octets": 5600
       },
       {
         "chemin": "Makefile",
@@ -1713,7 +1713,7 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 25847
+        "taille_octets": 26271
       },
       {
         "chemin": "src/omega_zero/pcep.py",
@@ -1793,7 +1793,7 @@
       {
         "chemin": "src/omega_zero/vr_compliance.py",
         "categorie": "src",
-        "taille_octets": 8947
+        "taille_octets": 9040
       },
       {
         "chemin": "src/omega_zero/worm_ledger.py",

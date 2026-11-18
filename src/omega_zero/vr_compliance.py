@@ -139,9 +139,10 @@ def verify_vr_compliance(root: Path | None = None) -> dict[str, Any]:
                     "schemas/supela_encyclopedie_1.schema.json",
                     "schemas/supela_contradictions_1.schema.json",
                     "schemas/supela_guard_kernel_1.schema.json",
+                    "schemas/supela-state.schema.json",
                 )
             ),
-            "9 schémas Draft 2020-12 valides",
+            "10 schémas Draft 2020-12 valides (incluant supela-state.schema.json)",
         ),
         VRRuleResult(
             "VR-09",

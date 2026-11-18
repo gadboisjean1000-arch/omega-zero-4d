@@ -322,10 +322,16 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
     rust_probe = _probe_rust_guard_kernel(repo_root, cargo_bin)
     k3_bridge = _check_supela_k3_bridge(repo_root, online=online)
 
+    from .supela_runtime import run_supela_runtime_complete_cycle_demo
+
+    rt_demo = run_supela_runtime_complete_cycle_demo(repo_root)
+    rt_ok = all(rt_demo["invariants_verified"].values())
+
     core_operational = (
         a12_ok
         and vr_result["all_passed"]
         and mcp_probe["ok"]
+        and rt_ok
         and tools_found["pytest"] is not None
         and tools_found["opa"] is not None
     )
@@ -344,6 +350,11 @@ def run_network_doctor(root: Path | None = None, *, online: bool = False) -> dic
             "seal_sha256": vr_result["seal_sha256"],
         },
         "mcp_stdio_probe": mcp_probe,
+        "supela_runtime_v02": {
+            "ok": rt_ok,
+            "invariants_verified": rt_demo["invariants_verified"],
+            "ledger_entries": rt_demo["ledger_verification"]["entry_count"],
+        },
         "rust_guard_kernel": rust_probe,
         "supela_k3_bridge": k3_bridge,
     }
