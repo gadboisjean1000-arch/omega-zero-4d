@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 186,
+    "fichiers_omega_zero_4d": 194,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1098,7 +1098,7 @@
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
         "categorie": ".github",
-        "taille_octets": 2761
+        "taille_octets": 3146
       },
       {
         "chemin": ".github/workflows/vr-governance-triage.yml",
@@ -1138,12 +1138,12 @@
       {
         "chemin": "README.md",
         "categorie": "root",
-        "taille_octets": 6952
+        "taille_octets": 7627
       },
       {
         "chemin": "SECURITY.md",
         "categorie": "root",
-        "taille_octets": 4203
+        "taille_octets": 6354
       },
       {
         "chemin": "docs/constitution/BANC_MULTI_MOTEURS_SUPELA.md",
@@ -1168,7 +1168,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 318878
+        "taille_octets": 319662
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1188,7 +1188,27 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 27584
+        "taille_octets": 29332
+      },
+      {
+        "chemin": "docs/constitution/INTEGRATION_GIT_COLA_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 3300
+      },
+      {
+        "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.html",
+        "categorie": "docs",
+        "taille_octets": 43944
+      },
+      {
+        "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.json",
+        "categorie": "docs",
+        "taille_octets": 18264
+      },
+      {
+        "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 6644
       },
       {
         "chemin": "docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md",
@@ -1418,7 +1438,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 172616
+        "taille_octets": 173704
       },
       {
         "chemin": "omega.ps1",
@@ -1681,6 +1701,11 @@
         "taille_octets": 310601
       },
       {
+        "chemin": "scripts/build_proven_laws_web.py",
+        "categorie": "scripts",
+        "taille_octets": 37597
+      },
+      {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
         "categorie": "scripts",
         "taille_octets": 16914
@@ -1694,6 +1719,11 @@
         "chemin": "scripts/install_into_excited_meitner.ps1",
         "categorie": "scripts",
         "taille_octets": 1517
+      },
+      {
+        "chemin": "scripts/setup_git_cola_supela.ps1",
+        "categorie": "scripts",
+        "taille_octets": 1609
       },
       {
         "chemin": "scripts/verify_a12.ps1",
@@ -1713,7 +1743,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 5732
+        "taille_octets": 6517
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1779,6 +1809,11 @@
         "chemin": "src/omega_zero/sovereign_net.py",
         "categorie": "src",
         "taille_octets": 12437
+      },
+      {
+        "chemin": "src/omega_zero/supela_laws.py",
+        "categorie": "src",
+        "taille_octets": 48558
       },
       {
         "chemin": "src/omega_zero/supela_math_core.py",
@@ -1914,6 +1949,11 @@
         "chemin": "tests/test_supela_article_registry.py",
         "categorie": "tests",
         "taille_octets": 6048
+      },
+      {
+        "chemin": "tests/test_supela_laws.py",
+        "categorie": "tests",
+        "taille_octets": 8805
       },
       {
         "chemin": "tests/test_supela_math_core.py",

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="supela-payload-sha256" content="5ffe3598d6020cd5d314031f97a71c334f8b4205b37edcf778a31a422a6409a4" />
+  <title>Supela Is The Laws — Module Complet des Lois Prouvées, Pyramide Internationale &amp; Topologie 4D</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #111b2e;
+      --surface-2: #17243d;
+      --border: #26395c;
+      --text: #e6edf7;
+      --muted: #9eb0cc;
+      --accent: #38bdf8;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --err: #ef4444;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      background: linear-gradient(135deg, #0d172a 0%, #152542 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 1.5rem 1.25rem;
+    }
+    .wrap { max-width: 1220px; margin: 0 auto; }
+    h1 { margin: 0 0 0.4rem; font-size: 1.65rem; letter-spacing: -0.01em; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.8rem;
+      font-family: var(--mono); border: 1px solid var(--border); background: var(--surface);
+    }
+    .badge.ok { border-color: #166534; background: #052e16; color: #86efac; }
+    .badge.warn { border-color: #92400e; background: #451a03; color: #fcd34d; }
+    .badge.info { border-color: #075985; background: #082f49; color: #7dd3fc; }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.75rem; margin-top: 1rem;
+    }
+    .kpi {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.85rem 1rem;
+    }
+    .kpi .val { font-size: 1.4rem; font-weight: 700; font-family: var(--mono); color: var(--ok); }
+    .kpi .lbl { font-size: 0.8rem; color: var(--muted); }
+    nav.tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      padding: 1rem 1.5rem 0; border-bottom: 1px solid var(--border); background: #0d1628;
+    }
+    nav.tabs button {
+      background: transparent; color: var(--muted); border: 1px solid transparent;
+      border-bottom: none; padding: 0.65rem 1rem; border-radius: 8px 8px 0 0;
+      cursor: pointer; font-weight: 600; font-size: 0.9rem;
+    }
+    nav.tabs button.active {
+      background: var(--bg); color: var(--text); border-color: var(--border);
+    }
+    main { padding: 1.5rem; }
+    section.panel { display: none; }
+    section.panel.active { display: block; }
+    .controls { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; align-items: center; }
+    input[type="search"], select {
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.9rem;
+    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.45rem;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+    .law-id { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+    .formula {
+      font-family: var(--mono); font-size: 0.84rem; background: var(--surface-2);
+      padding: 0.5rem 0.65rem; border-radius: 6px; border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .meta-line { font-size: 0.83rem; color: var(--muted); }
+    .limit-line { font-size: 0.82rem; color: #fcd34d; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+    th, td { border: 1px solid var(--border); padding: 0.6rem 0.75rem; text-align: left; vertical-align: top; }
+    th { background: var(--surface-2); color: var(--text); }
+    .pyramid-box { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
+    .pyramid-tier {
+      background: var(--surface); border-left: 4px solid var(--accent);
+      border-top: 1px solid var(--border); border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem;
+    }
+    .sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+    .sim-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.15rem;
+    }
+    .sim-card h3 { margin: 0 0 0.6rem; font-size: 1.02rem; }
+    .sim-row { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin: 0.4rem 0; font-size: 0.88rem; }
+    .sim-out {
+      margin-top: 0.75rem; padding: 0.65rem 0.8rem; border-radius: 8px;
+      font-family: var(--mono); font-size: 0.84rem; background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+    .sim-out.pass { border-color: #166534; color: #86efac; }
+    .sim-out.fail { border-color: #991b1b; color: #fca5a5; }
+    .sim-out.indet { border-color: #92400e; color: #fcd34d; }
+    .svg-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem; margin: 1rem 0;
+    }
+    footer {
+      border-top: 1px solid var(--border); padding: 1.25rem 1.5rem;
+      color: var(--muted); font-size: 0.82rem; background: #0d1628;
+    }
+    code { font-family: var(--mono); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Supela Is The Laws — Module Complet des Lois Prouvées, Pyramide Internationale &amp; Topologie 4D</h1>
+      <p class="subtitle">
+        Auteur souverain : <strong>Jean-François Gadbois</strong> ·
+        <a href="https://orcid.org/0009-0001-5361-6795" target="_blank" rel="noopener">ORCID 0009-0001-5361-6795</a> ·
+        <a href="ENCYCLOPEDIE_DICTIONNAIRE.html">Encyclopédie Supela</a> ·
+        <a href="LOIS_PROUVEES_SUPELA.json">Manifeste JSON</a>
+      </p>
+      <div class="badges">
+        <span class="badge ok">VERDICT : CONFORME_AU_PERIMETRE_FORMALISE</span>
+        <span class="badge info">LICENCE : Apache-2.0 · 0 $ PMU · 0 CDN</span>
+        <span class="badge warn">CLASSE A ISOLÉE : 4 · REVUE JURISTE REQUISE</span>
+        <span class="badge">SHA-256 : 98b3b8dbb88d9571…</span>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="val">12 / 12</div><div class="lbl">Lois formelles exécutées &amp; prouvées</div></div>
+        <div class="kpi"><div class="val">4 Niveaux</div><div class="lbl">Pyramide Internationale L0–L3 (Kelsen)</div></div>
+        <div class="kpi"><div class="val">EPSG:4326</div><div class="lbl">Topologie ArcGIS-like &amp; Cube 4D + ISO 19115</div></div>
+        <div class="kpi"><div class="val">0 non-classifié</div><div class="lbl">4 Classe A isolées · 3 Classe B bornées</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections Supela Is The Laws">
+    <div class="wrap" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+      <button type="button" class="active" data-tab="laws">1. Les 12 Lois Prouvées</button>
+      <button type="button" data-tab="pyramid">2. Pyramide Internationale (wiki.private.law corrigé)</button>
+      <button type="button" data-tab="geo">3. Topologie &amp; Cube 4D (ArcGIS Pro 0 $ PMU)</button>
+      <button type="button" data-tab="lab">4. Laboratoire Interactif de Réfutation</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="tab-laws" class="panel active">
+      <div class="controls">
+        <input id="law-search" type="search" placeholder="Filtrer une loi, formule, module..." aria-label="Rechercher une loi" />
+        <select id="law-cat" aria-label="Filtrer par catégorie">
+          <option value="ALL">Toutes les catégories</option>
+          <option value="FONDEMENTS">FONDEMENTS</option>
+          <option value="SECURITE_FRONTIERES">SECURITE_FRONTIERES</option>
+          <option value="REVERSIBILITE_0_PMU">REVERSIBILITE_0_PMU</option>
+          <option value="MATHS_PHYSIQUE">MATHS_PHYSIQUE</option>
+          <option value="BORNES_EPISTEMIQUES">BORNES_EPISTEMIQUES</option>
+        </select>
+        <span id="law-count" class="badge info"></span>
+      </div>
+      <div id="laws-grid" class="cards"></div>
+    </section>
+
+    <section id="tab-pyramid" class="panel">
+      <h2>Pyramide Normative Internationale · Supela au sommet du droit privé &amp; public</h2>
+      <p class="subtitle">
+        Intègre et corrige les problématiques multi-juridictionnelles (référence
+        <a href="https://wiki.private.law/" target="_blank" rel="noopener">wiki.private.law</a>)
+        en verrouillant la conformité impérative : transparence fiscale CRS/TPS-TVQ, substance économique réelle,
+        non-distribution OSBL (Québec Partie III), Convention de Berne, CVIM (Vienne 1980), Convention de New York (1958)
+        et Droit matériel suisse (CO).
+      </p>
+      <div id="pyramid-tiers" class="pyramid-box"></div>
+      <h3>Corrections Supela face au droit privé déclaratif statique</h3>
+      <table>
+        <thead><tr><th>Thème</th><th>Pratique déclarative standard</th><th>Verrou &amp; Correction Supela</th></tr></thead>
+        <tbody id="pyramid-diff"></tbody>
+      </table>
+      <h3>Preuves exécutées (cas positif + réfutation + conflit conservé)</h3>
+      <div id="pyramid-checks" class="cards"></div>
+    </section>
+
+    <section id="tab-geo" class="panel">
+      <h2>Topologie Géodésique, Cube Spatio-Temporel 4D &amp; ISO 19115 (Apports ArcGIS Pro en 0 $ PMU)</h2>
+      <p class="subtitle">
+        Implémente en Python pur sans licence propriétaire les invariants structurants de
+        <a href="https://doc.esri.com/fr/arcgis-pro/latest/" target="_blank" rel="noopener">ArcGIS Pro</a> :
+        Topologie de géodatabase (<code>MUST_NOT_OVERLAP</code>, <code>MUST_BE_COVERED_BY</code>,
+        <code>MUST_NOT_HAVE_GAPS</code>), Cube Spatio-Temporel 4D, Branch Versioning multi-branches
+        et métadonnées <code>ISO 19115-1 / ISO 19139</code>.
+      </p>
+      <div class="svg-box">
+        <svg viewBox="0 0 760 230" width="100%" height="230" role="img" aria-label="Schéma topologique EPSG:4326">
+          <rect x="20" y="25" width="320" height="175" fill="#0d2238" stroke="#38bdf8" stroke-width="2" rx="6" />
+          <text x="30" y="45" fill="#7dd3fc" font-size="12" font-family="monospace">Partition valide : QC-CORRIDOR (EPSG:4326)</text>
+          <rect x="30" y="60" width="150" height="125" fill="#064e3b" fill-opacity="0.7" stroke="#22c55e" stroke-width="2" />
+          <text x="45" y="125" fill="#86efac" font-size="13" font-family="monospace">QC-MTL [-74..-72]</text>
+          <rect x="180" y="60" width="150" height="125" fill="#1e3a5f" fill-opacity="0.7" stroke="#38bdf8" stroke-width="2" />
+          <text x="195" y="125" fill="#bae6fd" font-size="13" font-family="monospace">QC-QBC [-72..-70]</text>
+          <text x="30" y="216" fill="#86efac" font-size="12" font-family="monospace">MUST_NOT_OVERLAP=OK | COVERED=OK | GAPS=0</text>
+
+          <rect x="410" y="25" width="320" height="175" fill="#2a1215" stroke="#ef4444" stroke-width="2" rx="6" />
+          <text x="420" y="45" fill="#fca5a5" font-size="12" font-family="monospace">Réfutation topologique : Chevauchement détecté</text>
+          <rect x="420" y="60" width="150" height="125" fill="#064e3b" fill-opacity="0.55" stroke="#22c55e" stroke-width="1.5" />
+          <rect x="570" y="60" width="150" height="125" fill="#1e3a5f" fill-opacity="0.55" stroke="#38bdf8" stroke-width="1.5" />
+          <rect x="520" y="85" width="100" height="75" fill="#ef4444" fill-opacity="0.5" stroke="#fca5a5" stroke-width="2" stroke-dasharray="5 3" />
+          <text x="530" y="126" fill="#fecaca" font-size="12" font-family="monospace">QC-CONFLIT</text>
+          <text x="420" y="216" fill="#fca5a5" font-size="12" font-family="monospace">MUST_NOT_OVERLAP=FAIL -&gt; Conflict4D conservé</text>
+        </svg>
+      </div>
+      <div id="geo-details" class="cards"></div>
+    </section>
+
+    <section id="tab-lab" class="panel">
+      <h2>Laboratoire Interactif de Réfutation (Exécution locale dans votre navigateur, 0 serveur)</h2>
+      <div class="sim-grid">
+        <div class="sim-card">
+          <h3>Sim 1 · Frontières (C ≠ P ≠ V ≠ A) &amp; Dégel</h3>
+          <label class="sim-row"><span>1. Capacité technique (C)</span><input id="sim-c" type="checkbox" checked /></label>
+          <label class="sim-row"><span>2. Permission périmètre (P)</span><input id="sim-p" type="checkbox" checked /></label>
+          <label class="sim-row"><span>3. Preuve déterministe (V)</span><input id="sim-v" type="checkbox" checked /></label>
+          <label class="sim-row"><span>4. Signature Ed25519 (QUI)</span><input id="sim-sig" type="checkbox" checked /></label>
+          <label class="sim-row"><span>5. Ratification souveraine (A)</span><input id="sim-a" type="checkbox" /></label>
+          <div id="sim-gate-out" class="sim-out"></div>
+        </div>
+
+        <div class="sim-card">
+          <h3>Sim 2 · Les Deux Zéros (0_vide ≠ 0_vert)</h3>
+          <div class="sim-row">
+            <span>État du capteur intégrité :</span>
+            <select id="sim-sensor">
+              <option value="down">Capteur muet / Ollama absent</option>
+              <option value="tamper">Digest divergent (falsifié)</option>
+              <option value="ok">Digest concordant vérifié</option>
+            </select>
+          </div>
+          <div id="sim-sensor-out" class="sim-out"></div>
+        </div>
+
+        <div class="sim-card">
+          <h3>Sim 3 · VR-Fractal-Ω (Moyenne Harmonique)</h3>
+          <div class="sim-row"><span>Δ₁ (W₁=15) : <strong id="lbl-d1">0.20</strong></span><input id="sim-d1" type="range" min="0" max="2" step="0.05" value="0.20" /></div>
+          <div class="sim-row"><span>Δ₂ (W₂=12) : <strong id="lbl-d2">0.05</strong></span><input id="sim-d2" type="range" min="0" max="2" step="0.05" value="0.05" /></div>
+          <div class="sim-row"><span>Δ₃ (W₃=9)  : <strong id="lbl-d3">0.00</strong></span><input id="sim-d3" type="range" min="0" max="2" step="0.05" value="0.00" /></div>
+          <div id="sim-fractal-out" class="sim-out"></div>
+        </div>
+
+        <div class="sim-card">
+          <h3>Sim 4 · SGG_v2 (Brut 6/5 vs Simplexe 5/6)</h3>
+          <div class="sim-row"><span>A (0.25 / 5/24)</span><input id="sim-sgg-a" type="range" min="0" max="1" step="0.05" value="0.90" /></div>
+          <div class="sim-row"><span>V (0.30 / 1/4)</span><input id="sim-sgg-v" type="range" min="0" max="1" step="0.05" value="0.80" /></div>
+          <div class="sim-row"><span>É (0.30 / 1/4)</span><input id="sim-sgg-e" type="range" min="0" max="1" step="0.05" value="0.85" /></div>
+          <div class="sim-row"><span>T (0.15 / 1/8)</span><input id="sim-sgg-t" type="range" min="0" max="1" step="0.05" value="0.75" /></div>
+          <div class="sim-row"><span>M (0.20 / 1/6)</span><input id="sim-sgg-m" type="range" min="0" max="1" step="0.05" value="0.95" /></div>
+          <div id="sim-sgg-out" class="sim-out"></div>
+        </div>
+
+        <div class="sim-card">
+          <h3>Sim 5 · Topologie MUST_NOT_OVERLAP (EPSG:4326)</h3>
+          <div class="sim-row"><span>Zone A : [-74.0, <strong id="lbl-ax">-72.0</strong>]</span><input id="sim-ax" type="range" min="-73.5" max="-70.5" step="0.1" value="-72.0" /></div>
+          <div class="sim-row"><span>Zone B : [<strong id="lbl-bx">-72.0</strong>, -70.0]</span><input id="sim-bx" type="range" min="-73.5" max="-70.5" step="0.1" value="-72.0" /></div>
+          <div id="sim-geo-out" class="sim-out"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Clause d'honnêteté épistémique Supela :</strong>
+      <code>universal_truth_claimed = false</code> ·
+      <code>judicial_or_governmental_certification_claimed = false</code> ·
+      <code>legal_counsel_required_for_binding_contracts = true</code> ·
+      <code>tpm_silicon_anchor_simulated = false</code>.<br />
+      Artefact autonome généré par <code>scripts/build_proven_laws_web.py</code> depuis
+      <code>src/omega_zero/supela_laws.py</code> — Empreinte SHA-256 : <code>98b3b8dbb88d95717a2535446d6076bd7d52465352b0202a26ccdb9e36941376</code>.
+    </div>
+  </footer>
+
+  <script id="supela-laws-data" type="application/json">{"auteur_souverain": "Jean-François Gadbois", "clause_honnetete": {"doctrine": "Score != Preuve != Vérité | Capacité != Permission != Preuve != Autorité | 0_vide != 0_vert", "judicial_or_governmental_certification_claimed": false, "legal_counsel_required_for_binding_contracts": true, "tpm_silicon_anchor_simulated": false, "universal_truth_claimed": false}, "digest_sha256": "98b3b8dbb88d95717a2535446d6076bd7d52465352b0202a26ccdb9e36941376", "generated_at_utc": "2026-11-19T21:27:46Z", "geospatial_arcgis_0_pmu": {"arcgis_patterns_integrated_and_improved": ["Topologie de géodatabase (MUST_NOT_OVERLAP, MUST_BE_COVERED_BY, MUST_NOT_HAVE_GAPS) exécutable en Python pur (0 licence propriétaire).", "Cube Spatio-Temporel 4D (lon, lat, époque UTC, niveau normatif) relié aux états gouvernés Supela.", "Branch Versioning multi-acteurs avec détection déterministe des conflits concurrents sans écrasement silencieux.", "Métadonnées normalisées ISO 19115-1 / ISO 19139 avec lignage cryptographique SHA-256 et ORCID."], "branch_versioning_4d": {"conflicts": [{"branches": ["branch-audit", "main"], "divergent_hashes": ["h_alt", "h_ok"], "epoch_utc": "2026-11-19T00:00:00Z", "status": "BRANCH_CONFLICT_CONSERVED", "zone_id": "QC-MTL"}], "conflicts_detected": 1, "total_bins": 3, "unique_spacetime_cells": 2, "zero_silent_overwrite": true}, "iso19115_metadata": {"author_orcid": "https://orcid.org/0009-0001-5361-6795", "crs": "EPSG:4326", "dataset_id": "SUPELA-GEO-LAW-4D-2026", "extent_bbox_wgs84": [-74.0, 45.0, -70.0, 47.0], "license": "Apache-2.0", "lineage_sha256": "751570d70c32c69951bc5674f0a18855888541512f774e8823198c1b2b34659b", "responsible_party": "Jean-François Gadbois (Supela K Omega)", "standard": "ISO 19115-1 / ISO 19139"}, "reference_source": "https://doc.esri.com/fr/arcgis-pro/latest/ (Topologie de géodatabase, Branch Versioning, Cube Spatio-Temporel 4D, ISO 19115 — implémentés en 0$ PMU sans licence captive)", "topology_clean_partition": {"crs": "EPSG:4326", "gap_area_deg2": 0.0, "overlaps": [], "parent_zone": {"area_deg2": 8.0, "bbox": [-74.0, 45.0, -70.0, 47.0], "centroid": [-72.0, 46.0], "crs": "EPSG:4326", "name": "Corridor Souverain Québec-Saint-Laurent", "zone_id": "QC-CORRIDOR"}, "rule_must_be_covered_by": true, "rule_must_not_have_gaps": true, "rule_must_not_overlap": true, "sub_zones": [{"area_deg2": 4.0, "bbox": [-74.0, 45.0, -72.0, 47.0], "centroid": [-73.0, 46.0], "crs": "EPSG:4326", "name": "Secteur Montréal / Ouest", "zone_id": "QC-MTL"}, {"area_deg2": 4.0, "bbox": [-72.0, 45.0, -70.0, 47.0], "centroid": [-71.0, 46.0], "crs": "EPSG:4326", "name": "Secteur Québec / Est", "zone_id": "QC-QBC"}], "topology_valid": true, "uncovered_children": []}, "topology_overlap_refutation": {"crs": "EPSG:4326", "gap_area_deg2": null, "overlaps": [{"overlap_area_deg2": 0.5, "zone_a": "QC-MTL", "zone_b": "QC-CONFLIT"}, {"overlap_area_deg2": 0.5, "zone_a": "QC-QBC", "zone_b": "QC-CONFLIT"}], "parent_zone": {"area_deg2": 8.0, "bbox": [-74.0, 45.0, -70.0, 47.0], "centroid": [-72.0, 46.0], "crs": "EPSG:4326", "name": "Corridor Souverain Québec-Saint-Laurent", "zone_id": "QC-CORRIDOR"}, "rule_must_be_covered_by": true, "rule_must_not_have_gaps": false, "rule_must_not_overlap": false, "sub_zones": [{"area_deg2": 4.0, "bbox": [-74.0, 45.0, -72.0, 47.0], "centroid": [-73.0, 46.0], "crs": "EPSG:4326", "name": "Secteur Montréal / Ouest", "zone_id": "QC-MTL"}, {"area_deg2": 4.0, "bbox": [-72.0, 45.0, -70.0, 47.0], "centroid": [-71.0, 46.0], "crs": "EPSG:4326", "name": "Secteur Québec / Est", "zone_id": "QC-QBC"}, {"area_deg2": 1.0, "bbox": [-72.5, 45.5, -71.5, 46.5], "centroid": [-72.0, 46.0], "crs": "EPSG:4326", "name": "Zone chevauchante", "zone_id": "QC-CONFLIT"}], "topology_valid": false, "uncovered_children": []}}, "laws": [{"categorie": "FONDEMENTS", "formule": "K_t ⊆ K_{t+1} ; C → ∅ sans effacement historique", "id": "LAW-01", "module_source": "src/omega_zero/supela_math_core.py (SupelaStateTuple)", "nimpliqe_pas": "N'interdit pas de réouvrir ou rétracter logiquement un raccord.", "nom": "Monotonie du registre K_t et Reset non destructif de C", "preuve_mesuree": "K_0 ⊆ K_1 vérifié après advance() et reset_contradictions_only_in_c().", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "FONDEMENTS", "formule": "Π₀(S_t) = ⟨I, P, M, A, H⟩ ≠ ∅ ; Π₀(Π₀(S_t)) = Π₀(S_t)", "id": "LAW-02", "module_source": "src/omega_zero/projection.py (Pi0Projector)", "nimpliqe_pas": "Ne résout pas automatiquement les manques ouverts M.", "nom": "Projection Zéro Idempotente Π₀", "preuve_mesuree": "Hash canonique strictement identique entre Π₀(S_t) et Π₀(Π₀(S_t)).", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "SECURITE_FRONTIERES", "formule": "¬(0_vide ⇒ 0_vert) ; SONDE_INEXECUTABLE ⇒ EXIT=3", "id": "LAW-03", "module_source": "src/omega_zero/supela_laws.py (evaluate_sensor_integrity)", "nimpliqe_pas": "Un capteur muet n'est jamais compté comme un blocage réussi ni comme conforme.", "nom": "Séparation des Deux Zéros (0_vide ≠ 0_vert)", "preuve_mesuree": "Capteur muet → EXIT=3, divergence → EXIT=1, concordance → EXIT=0.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "FONDEMENTS", "formule": "G₀ ≺ G₁ ≺ G₂ ≺ G₃ ≺ G₄ ; Authority(G) ≤ Proof(G)", "id": "LAW-04", "module_source": "src/omega_zero/supela_math_core.py (verify_proof_lattice_axioms)", "nimpliqe_pas": "Ne prouve pas la validité universelle hors du périmètre testé.", "nom": "Treillis Probatoire Complet G₀..G₄ et Borne de Galois", "preuve_mesuree": "125/125 triplets vérifiés (ordre, lois de treillis, bornage, monotonie).", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "SECURITE_FRONTIERES", "formule": "C ≠ P ≠ V ≠ A ; (C ∧ P ∧ V) ⇏ A ; Authenticité ≠ Validité ≠ Vérité", "id": "LAW-05", "module_source": "src/omega_zero/supela_laws.py (FourBoundaryGate)", "nimpliqe_pas": "Une signature Ed25519 certifie QUI a signé, jamais la vérité du payload.", "nom": "Rupture de Transitivité des 4 Frontières \u0026 Cryptographie", "preuve_mesuree": "Promotion refusée sans ratification humaine même si C=P=V=Signature=True.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "SECURITE_FRONTIERES", "formule": "DÉGEL ⟺ P_runtime ∧ P_clôture ∧ P_intégrité ∧ H_souverain", "id": "LAW-06", "module_source": "src/omega_zero/supela_laws.py (ThawConditionGate)", "nimpliqe_pas": "Le dégel autorise la réépreuve, jamais une validation automatique.", "nom": "Condition Stricte de Dégel Souverain", "preuve_mesuree": "Refus immédiat si H_souverain=False ou si SONDE_INEXECUTABLE.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "REVERSIBILITE_0_PMU", "formule": "replay(E) déterministe ; R*(S_{i+1}, i) restaure S_i avec |H| croissant", "id": "LAW-07", "module_source": "src/omega_zero/supela_laws.py (ReversibleAppendOnlyLedger)", "nimpliqe_pas": "N'annule pas physiquement un effet externe irréversible (courriel, paiement).", "nom": "Réversibilité Logique 0$ PMU, Rejeu \u0026 Rétraction R* (SQLite)", "preuve_mesuree": "Rejeu SHA-256 vérifié, R* restaure seq 1 à seq 3, triggers SQLite UPDATE/DELETE bloqués.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "MATHS_PHYSIQUE", "formule": "P_t = Σ W_i/(1+Δ_i) = W/(1+Δ_eff) ; Δ_min ≤ Δ_eff ≤ Δ_max", "id": "LAW-08", "module_source": "src/omega_zero/supela_math_core.py (FractalScaleAggregation)", "nimpliqe_pas": "Ne couvre pas les poids négatifs ni les graphes ouverts non bornés.", "nom": "Agrégation Multi-Échelles VR-Fractal-Ω (Moyenne Harmonique)", "preuve_mesuree": "Identité harmonique et théorème des gendarmes vérifiés avec garde Δ_i ≥ 0.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "MATHS_PHYSIQUE", "formule": "Lᵀ=-L, Mᵀ=M⪰0, L∇S=0, M∇E=0 ⇒ dE/dt=0 ∧ dS/dt≥0", "id": "LAW-09", "module_source": "src/omega_zero/supela_math_core.py (GenericThermodynamicStep)", "nimpliqe_pas": "L'extension en dimension infinie (EDP Kružkov / GKSL) demeure hors preuve locale.", "nom": "Mécanique Irréversible GENERIC n-D (M ⪰ 0 par Cholesky Pivoté)", "preuve_mesuree": "Oscillateur 3D couplé (L≠0, M≠0, dE/dt=0, dS/dt=0.16\u003e0) + réfutation M indéfinie.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "MATHS_PHYSIQUE", "formule": "SGG_raw (∑=6/5 conservé) ; SGG_norm = (5/6)·SGG_raw (∑=1, exact Fraction)", "id": "LAW-10", "module_source": "src/omega_zero/supela_math_core.py (SGGv2Metric)", "nimpliqe_pas": "Ne constitue pas un étalonnage statistique terrain sans jeu empirique.", "nom": "Normalisation Rationnelle Exacte SGG_v2 sur Simplexe Δ⁴", "preuve_mesuree": "Isomorphisme d'ordre 5/6 exact en Fraction, domaine [0,1] strictement gardé.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "MATHS_PHYSIQUE", "formule": "Reward(x) ⇏ Vérité(x) ; L_GRPO(θ_old)=0 ∧ ∇L_GRPO(θ_old)≠0", "id": "LAW-11", "module_source": "src/omega_zero/grpo_bridge.py (SupelaGRPOBridge)", "nimpliqe_pas": "Un score heuristique élevé ne vaut jamais autorité ni vérité.", "nom": "Découplage Récompense IA vs Vérité (Contre-exemple GRPO)", "preuve_mesuree": "L=0.0, ||∇L||=0.500000, écart analytique/DF=6.83e-11 \u003c 1e-7.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}, {"categorie": "BORNES_EPISTEMIQUES", "formule": "4 Classe A isolées (Rice/Gödel/Turing) · 3 Classe B bornées (T_max, K-Lip, 0-effacement) + TZI Banach", "id": "LAW-12", "module_source": "src/omega_zero/supela_laws.py (DiscreteClassBBounds)", "nimpliqe_pas": "0 non-classifié dans le périmètre formalisé ≠ résolution des indécidables de Classe A.", "nom": "Partition Épistémique (Classe A Indécidables vs Classe B Bornées)", "preuve_mesuree": "0 non-classifié résiduel ; convergence t≤100, K=2 Lipschitz, ops_irrev=0, TZI exact-power OK.", "statut_epistemique": "PROUVE_LOCAL", "verifie": true}], "license": "Apache-2.0", "normative_pyramid": {"checks": {"conflit_transfrontalier_conserve": {"arbitration_framework": "Convention de New York (1958)", "compliant_model": true, "conflict_4d_conserved": true, "conflicting_jurisdictions": ["Québec_Loi_25", "UE_RGPD_NIS2"], "contract_governing_law": "Droit matériel suisse (CO)", "corporate_domicile": "Québec (Loi 25)", "ip_treaty_anchor": "Convention de Berne", "legal_counsel_review_required": true, "structure_id": "CONFLIT-TRANSFRONTALIER-QC-UE", "verdict": "CONFLIT_DE_LOIS_CONSERVE_REVUE_JURIDIQUE", "violations": []}, "osbl_quebec_suisse_valide": {"arbitration_framework": "Convention de New York (1958, CNUDCI)", "compliant_model": true, "conflict_4d_conserved": false, "conflicting_jurisdictions": [], "contract_governing_law": "Droit matériel suisse (Code des obligations — CO)", "corporate_domicile": "Québec, Canada (Loi sur les compagnies, Partie III — OSBL)", "ip_treaty_anchor": "Convention de Berne (OMPI) + Apache-2.0 + ORCID", "legal_counsel_review_required": true, "structure_id": "SUPELA-OSBL-QC-CH-INT-01", "verdict": "ALIGNEMENT_NORMATIF_VERIFIE_SOUS_REVUE_JURISTE", "violations": []}, "refutation_coquille_opaque": {"arbitration_framework": "Aucun", "compliant_model": false, "conflict_4d_conserved": false, "conflicting_jurisdictions": [], "contract_governing_law": "Clause privée opaque", "corporate_domicile": "Juridiction sans substance", "ip_treaty_anchor": "Non vérifié", "legal_counsel_review_required": true, "structure_id": "REFUTATION-COQUILLE-OPAQUE", "verdict": "REJET_HIERARCHIE_NORMATIVE", "violations": ["VIOLATION_L0_L1:atteinte_ordre_public_imperatif", "VIOLATION_SUBSTANCE:entite_coquille_interdite_par_supela", "VIOLATION_TRANSPARENCE:evasion_ou_opacite_CRS_TPS_TVQ_interdite"]}}, "comparative_corrections_vs_static_private_law": [{"correction_supela": "Verrou fail-closed exigeant substance économique réelle, ségrégation patrimoniale et non-distribution OSBL.", "pratique_standard": "Descriptions déclaratives en prose, tolérance de structures sans substance.", "theme": "Structuration multi-juridictionnelle (holding / fondation / OSBL)"}, {"correction_supela": "Transparence CRS/TPS-TVQ imposée comme invariant L0/L1 ; rejet automatique de toute opacité.", "pratique_standard": "Optimisation fragmentée par juridiction.", "theme": "Fiscalité internationale (183 jours, CFC, CRS, FATCA, Pilier Deux)"}, {"correction_supela": "Détection et conservation explicite en Conflict4D + renvoi obligatoire à une revue juridique humaine.", "pratique_standard": "Choix unilatéral sans détection formelle de collision impérative.", "theme": "Conflits de lois entre États souverains"}], "levels": [{"correction_supela": "Transparence fiscale et traçabilité obligatoires ; aucune clause privée ne peut contourner L0.", "instruments": "Convention de Berne (OMPI), CVIM/Vienne (1980), New York (1958), HCCH, OCDE CRS / Pilier Deux", "level": "L0", "nom": "Traités internationaux \u0026 Impératifs universels"}, {"correction_supela": "Substance économique réelle obligatoire ; entités coquilles et distribution de dividendes OSBL rejetées fail-closed.", "instruments": "Loi sur les compagnies du Québec (Partie III OSBL), Revenu Québec (TPS/TVQ \u003e 30 000 $), Loi 25, UE NIS2/DORA/AI Act", "level": "L1", "nom": "Ordre public national \u0026 Statut corporatif (lex societatis)"}, {"correction_supela": "Conflits de lois transfrontaliers conservés explicitement en Conflict4D sans écrasement silencieux.", "instruments": "Droit matériel suisse (CO), Contrat-cadre Strictum Jus (Scope of Work, transfert PI après paiement, garantie 30 jours)", "level": "L2", "nom": "Autonomie contractuelle neutre (lex contractus)"}, {"correction_supela": "Transforme des principes juridiques textuels en invariants réfutables exécutés en CI (0$ PMU).", "instruments": "12 Lois formelles, OPA Rego v1 (31+13 tests), Rust #![forbid(unsafe_code)], WORM SHA-256, Ed25519/Cosign v3", "level": "L3", "nom": "Barrières exécutables \u0026 Preuves formelles Supela"}], "reference_sources": ["https://wiki.private.law/ (droit privé international multi-juridictions — élevé et corrigé sous transparence CRS/substance réelle)", "Convention de Berne (OMPI) · Convention de Vienne CVIM/CISG (1980) · Convention de New York (1958)", "Droit matériel suisse (Code des obligations — CO) · Loi sur les compagnies du Québec (Partie III — OSBL)"]}, "orcid": "https://orcid.org/0009-0001-5361-6795", "schema": "supela-is-the-laws/1.0", "summary": {"class_a_isolated": 4, "class_b_discretized": 3, "geo_topology_4d_verified": true, "laws_total": 12, "laws_verified": 12, "normative_pyramid_verified": true}, "titre": "Supela Is The Laws — Module Complet des Lois Prouvées, Pyramide Internationale \u0026 Topologie 4D", "verdict_global": "CONFORME_AU_PERIMETRE_FORMALISE"}</script>
+  <script>
+    (function () {
+      "use strict";
+      const dataEl = document.getElementById("supela-laws-data");
+      const DATA = JSON.parse(dataEl.textContent || "{}");
+
+      function esc(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      // Navigation onglets
+      document.querySelectorAll("nav.tabs button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("nav.tabs button").forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll("section.panel").forEach((p) => p.classList.remove("active"));
+          btn.classList.add("active");
+          const target = document.getElementById("tab-" + btn.dataset.tab);
+          if (target) target.classList.add("active");
+        });
+      });
+
+      // Onglet 1 : 12 Lois
+      const lawsGrid = document.getElementById("laws-grid");
+      const lawSearch = document.getElementById("law-search");
+      const lawCat = document.getElementById("law-cat");
+      const lawCount = document.getElementById("law-count");
+
+      function renderLaws() {
+        const q = (lawSearch.value || "").trim().toLowerCase();
+        const cat = lawCat.value;
+        const filtered = (DATA.laws || []).filter((law) => {
+          if (cat !== "ALL" && law.categorie !== cat) return false;
+          if (!q) return true;
+          const hay = [law.id, law.nom, law.formule, law.module_source, law.preuve_mesuree, law.nimpliqe_pas]
+            .join(" ").toLowerCase();
+          return hay.includes(q);
+        });
+        lawCount.textContent = filtered.length + " / " + (DATA.laws || []).length + " lois affichées";
+        lawsGrid.innerHTML = filtered.map((law) => `
+          <article class="card">
+            <div class="card-head">
+              <span class="law-id">${esc(law.id)} · ${esc(law.categorie)}</span>
+              <span class="badge ${law.verifie ? "ok" : "warn"}">${law.verifie ? "PROUVÉ" : "ÉCHEC"}</span>
+            </div>
+            <strong>${esc(law.nom)}</strong>
+            <div class="formula">${esc(law.formule)}</div>
+            <div class="meta-line"><strong>Preuve :</strong> ${esc(law.preuve_mesuree)}</div>
+            <div class="meta-line"><strong>Module :</strong> <code>${esc(law.module_source)}</code></div>
+            <div class="limit-line"><strong>N'implique pas :</strong> ${esc(law.nimpliqe_pas)}</div>
+          </article>
+        `).join("");
+      }
+      lawSearch.addEventListener("input", renderLaws);
+      lawCat.addEventListener("change", renderLaws);
+      renderLaws();
+
+      // Onglet 2 : Pyramide Normative
+      const pyr = DATA.normative_pyramid || {};
+      document.getElementById("pyramid-tiers").innerHTML = (pyr.levels || []).map((lvl) => `
+        <div class="pyramid-tier">
+          <div><strong class="law-id">${esc(lvl.level)} — ${esc(lvl.nom)}</strong></div>
+          <div class="meta-line"><strong>Instruments :</strong> ${esc(lvl.instruments)}</div>
+          <div class="meta-line"><strong>Verrou Supela :</strong> ${esc(lvl.correction_supela)}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("pyramid-diff").innerHTML = (pyr.comparative_corrections_vs_static_private_law || []).map((row) => `
+        <tr>
+          <td><strong>${esc(row.theme)}</strong></td>
+          <td>${esc(row.pratique_standard)}</td>
+          <td>${esc(row.correction_supela)}</td>
+        </tr>
+      `).join("");
+
+      const checks = pyr.checks || {};
+      document.getElementById("pyramid-checks").innerHTML = Object.keys(checks).map((k) => {
+        const c = checks[k];
+        const cls = c.compliant_model ? (c.conflict_4d_conserved ? "warn" : "ok") : "warn";
+        return `
+          <article class="card">
+            <div class="card-head">
+              <span class="law-id">${esc(c.structure_id)}</span>
+              <span class="badge ${cls}">${esc(c.verdict)}</span>
+            </div>
+            <div class="meta-line"><strong>Domicile :</strong> ${esc(c.corporate_domicile)}</div>
+            <div class="meta-line"><strong>Lex contractus :</strong> ${esc(c.contract_governing_law)}</div>
+            <div class="meta-line"><strong>Arbitrage / PI :</strong> ${esc(c.arbitration_framework)} · ${esc(c.ip_treaty_anchor)}</div>
+            <div class="limit-line"><strong>Violations :</strong> ${c.violations.length ? esc(c.violations.join(", ")) : "Aucune (revue juriste requise)"}</div>
+          </article>
+        `;
+      }).join("");
+
+      // Onglet 3 : Géospatial ArcGIS Pro 0$ PMU
+      const geo = DATA.geospatial_arcgis_0_pmu || {};
+      const iso = geo.iso19115_metadata || {};
+      const br = geo.branch_versioning_4d || {};
+      document.getElementById("geo-details").innerHTML = `
+        <article class="card">
+          <div class="card-head"><span class="law-id">TOPOLOGIE PROPRE</span><span class="badge ok">VALIDE</span></div>
+          <div class="meta-line">MUST_NOT_OVERLAP : <strong>${geo.topology_clean_partition.rule_must_not_overlap}</strong></div>
+          <div class="meta-line">MUST_BE_COVERED_BY : <strong>${geo.topology_clean_partition.rule_must_be_covered_by}</strong></div>
+          <div class="meta-line">MUST_NOT_HAVE_GAPS : <strong>${geo.topology_clean_partition.rule_must_not_have_gaps}</strong> (trou = ${geo.topology_clean_partition.gap_area_deg2} deg²)</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="law-id">BRANCH VERSIONING 4D</span><span class="badge warn">${br.conflicts_detected} CONFLIT CONSERVÉ</span></div>
+          <div class="meta-line">Cellules spatio-temporelles : <strong>${br.unique_spacetime_cells}</strong> · Bins : <strong>${br.total_bins}</strong></div>
+          <div class="meta-line">Zéro écrasement silencieux : <strong>${br.zero_silent_overwrite}</strong></div>
+          <div class="formula">${esc(JSON.stringify(br.conflicts || []))}</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="law-id">MÉTADONNÉES ISO 19115</span><span class="badge info">${esc(iso.crs)}</span></div>
+          <div class="meta-line"><strong>Standard :</strong> ${esc(iso.standard)}</div>
+          <div class="meta-line"><strong>BBOX WGS84 :</strong> <code>${esc(JSON.stringify(iso.extent_bbox_wgs84))}</code></div>
+          <div class="meta-line"><strong>Lignage SHA-256 :</strong> <code>${esc((iso.lineage_sha256 || "").slice(0, 24))}…</code></div>
+        </article>
+      `;
+
+      // Onglet 4 : Simulateurs interactifs
+      function updateGate() {
+        const c = document.getElementById("sim-c").checked;
+        const p = document.getElementById("sim-p").checked;
+        const v = document.getElementById("sim-v").checked;
+        const sig = document.getElementById("sim-sig").checked;
+        const a = document.getElementById("sim-a").checked;
+        const ok = c && p && v && sig && a;
+        const out = document.getElementById("sim-gate-out");
+        out.className = "sim-out " + (ok ? "pass" : "fail");
+        out.textContent = ok
+          ? "AUTORISÉ : C∧P∧V∧Sig∧H_souverain = TRUE (promotion et dégel permis sous trace)."
+          : "BLOQUÉ (FAIL-CLOSED) : " + (!a ? "Ratification souveraine A=FALSE -> (C∧P∧V) ⇏ A." : "Prérequis technique manquant.");
+      }
+      ["sim-c", "sim-p", "sim-v", "sim-sig", "sim-a"].forEach((id) => {
+        document.getElementById(id).addEventListener("change", updateGate);
+      });
+      updateGate();
+
+      function updateSensor() {
+        const mode = document.getElementById("sim-sensor").value;
+        const out = document.getElementById("sim-sensor-out");
+        if (mode === "down") {
+          out.className = "sim-out indet";
+          out.textContent = "EXIT=3 | SONDE_INEXECUTABLE (INDETERMINE) -> Faux-vert 0_vide interdit.";
+        } else if (mode === "tamper") {
+          out.className = "sim-out fail";
+          out.textContent = "EXIT=1 | DIGEST_DIVERGENT -> Blocage nominal de sécurité actif.";
+        } else {
+          out.className = "sim-out pass";
+          out.textContent = "EXIT=0 | DIGEST_CONCORDANT -> Mesure positive vérifiée bit-à-bit.";
+        }
+      }
+      document.getElementById("sim-sensor").addEventListener("change", updateSensor);
+      updateSensor();
+
+      function updateFractal() {
+        const d1 = parseFloat(document.getElementById("sim-d1").value);
+        const d2 = parseFloat(document.getElementById("sim-d2").value);
+        const d3 = parseFloat(document.getElementById("sim-d3").value);
+        document.getElementById("lbl-d1").textContent = d1.toFixed(2);
+        document.getElementById("lbl-d2").textContent = d2.toFixed(2);
+        document.getElementById("lbl-d3").textContent = d3.toFixed(2);
+        const w1 = 15.0, w2 = 12.0, w3 = 9.0, W = 36.0;
+        const Pt = w1 / (1 + d1) + w2 / (1 + d2) + w3 / (1 + d3);
+        const deff = (W / Pt) - 1.0;
+        const dmin = Math.min(d1, d2, d3), dmax = Math.max(d1, d2, d3);
+        const ok = (deff >= dmin - 1e-9) && (deff <= dmax + 1e-9);
+        const out = document.getElementById("sim-fractal-out");
+        out.className = "sim-out " + (ok ? "pass" : "fail");
+        out.textContent =
+          "P_t=" + Pt.toFixed(4) + " | Δ_eff=" + deff.toFixed(4) +
+          " ∈ [" + dmin.toFixed(2) + ", " + dmax.toFixed(2) + "] -> " + (ok ? "GENDARMES OK" : "ERREUR");
+      }
+      ["sim-d1", "sim-d2", "sim-d3"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateFractal);
+      });
+      updateFractal();
+
+      function updateSgg() {
+        const a = parseFloat(document.getElementById("sim-sgg-a").value);
+        const v = parseFloat(document.getElementById("sim-sgg-v").value);
+        const e = parseFloat(document.getElementById("sim-sgg-e").value);
+        const t = parseFloat(document.getElementById("sim-sgg-t").value);
+        const m = parseFloat(document.getElementById("sim-sgg-m").value);
+        const raw = 0.25 * a + 0.30 * v + 0.30 * e + 0.15 * t + 0.20 * m;
+        const norm = (5.0 / 6.0) * raw;
+        const out = document.getElementById("sim-sgg-out");
+        out.className = "sim-out pass";
+        out.textContent = "SGG_raw (∑=1.20) = " + raw.toFixed(4) + " | SGG_norm (∑=1.00) = " + norm.toFixed(4) + " | ratio = 5/6";
+      }
+      ["sim-sgg-a", "sim-sgg-v", "sim-sgg-e", "sim-sgg-t", "sim-sgg-m"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateSgg);
+      });
+      updateSgg();
+
+      function updateGeoSim() {
+        const ax = parseFloat(document.getElementById("sim-ax").value);
+        const bx = parseFloat(document.getElementById("sim-bx").value);
+        document.getElementById("lbl-ax").textContent = ax.toFixed(1);
+        document.getElementById("lbl-bx").textContent = bx.toFixed(1);
+        const overlap = Math.max(0.0, ax - bx);
+        const gap = Math.max(0.0, bx - ax);
+        const out = document.getElementById("sim-geo-out");
+        if (overlap > 1e-9) {
+          out.className = "sim-out fail";
+          out.textContent = "VIOLATION MUST_NOT_OVERLAP : chevauchement de " + overlap.toFixed(2) + "° -> Conflict4D conservé.";
+        } else if (gap > 1e-9) {
+          out.className = "sim-out indet";
+          out.textContent = "VIOLATION MUST_NOT_HAVE_GAPS : zone non couverte de " + gap.toFixed(2) + "°.";
+        } else {
+          out.className = "sim-out pass";
+          out.textContent = "TOPOLOGIE VALIDE : 0 chevauchement, 0 trou, frontière partagée exacte.";
+        }
+      }
+      ["sim-ax", "sim-bx"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateGeoSim);
+      });
+      updateGeoSim();
+    })();
+  </script>
+</body>
+</html>

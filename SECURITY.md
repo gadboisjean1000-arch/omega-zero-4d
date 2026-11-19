@@ -51,3 +51,20 @@ Pour signaler une faille de sécurité, une rupture d'invariant WORM, un contour
 - **Identité cryptographique de production** : le CI prouve le **mécanisme** `cosign v3 --bundle` avec clé jetable ; une identité de production requiert **Fulcio/OIDC keyless** ou un **HSM/KMS** dédié.
 - **WORM matériel** : `WormVault` fournit un WORM **logique** (`0o444`/`IsReadOnly` + chaînage SHA-256), non un support physique WORM (ex. S3 Object Lock Compliance / bande optique).
 - **Accréditation officielle** : ce dépôt applique une ingénierie alignée sur ISO/IEC 27001, ISO/IEC 42001 et NIST SSDF, mais **ne revendique aucune certification délivrée par un organisme accrédité** sans audit externe indépendant.
+
+---
+
+## 4. Architecture d'Audit Défensif Autorisé (Patterns Dual-Graph & Retest `T11`)
+
+> **Cadre éthique & légal strict :** Supela est un écosystème **exclusivement défensif et d'audit autorisé**. Aucun exploit, aucune charge offensive ni aucun code sous licence copyleft incompatible (`AGPL-3.0` / `GPL-2.0`) n'est intégré dans ce dépôt `Apache-2.0`.
+
+Les patrons architecturaux défensifs de référence (notamment la séparation *Dual-Graph* et boucle de contre-épreuve documentées dans des plateformes d'audit comme [ARTEX / BaaRai](https://github.com/BaaRai) ainsi que les taxonomies défensives structurées par classes de vulnérabilités et matrices identité/infrastructure type [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter)) sont traduits en invariants **purement défensifs** dans Supela :
+
+1. **Séparation Dual-Graph (*Authorized Asset Graph* ≠ *Exploration Graph*)** : toute vérification ou sonde reste confinée au périmètre explicitement autorisé (`FourBoundaryGate` : `C ≠ P ≠ V ≠ A`), bloquant tout accès hors cible ou inter-tenant (`policies/gds_invariants.rego`, `policies/omega_zero_invariants.rego`).
+2. **Boucle de contre-épreuve et non-régression (`Retest Loop` × `T11`)** : toute anomalie corrigée conserve sa trace historique `FAIL` (`REGISTRE_CONTRADICTIONS.json`) et exige un test négatif automatisé (ex. `test_generic_refutes_indefinite_m`, `test_law07_reversible_append_only_ledger`, `test_deny_*` OPA).
+3. **Couverture défensive par classes de risques (identités & infrastructure)** :
+   - *Élévation d'autorité / contournement d'approbation* → `Authority(G) ≤ Proof(G)`, `FourBoundaryGate`, `allow_human_review` ;
+   - *Falsification & rejeu* → chaînage SHA-256 WORM, fenêtre 15 min anti-rejeu, triggers SQLite `BEFORE UPDATE`/`DELETE` ;
+   - *Déni de service structurel & mémoire* → lecteur IPC Rust borné $O(1)$ (`#![forbid(unsafe_code)]`), garde `RecursionError`, bornes finies Classe B ;
+   - *Chaîne d'approvisionnement CI* → binaires `opa` et `cosign` vérifiés SHA-256, `trivy-action@v0.28.0`, 0 crate tierce dans le noyau Rust.
+

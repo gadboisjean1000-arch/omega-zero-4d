@@ -1,0 +1,449 @@
+{
+  "schema": "supela-is-the-laws/1.0",
+  "titre": "Supela Is The Laws — Module Complet des Lois Prouvées, Pyramide Internationale & Topologie 4D",
+  "auteur_souverain": "Jean-François Gadbois",
+  "orcid": "https://orcid.org/0009-0001-5361-6795",
+  "license": "Apache-2.0",
+  "generated_at_utc": "2026-11-19T21:27:46Z",
+  "verdict_global": "CONFORME_AU_PERIMETRE_FORMALISE",
+  "clause_honnetete": {
+    "universal_truth_claimed": false,
+    "judicial_or_governmental_certification_claimed": false,
+    "legal_counsel_required_for_binding_contracts": true,
+    "tpm_silicon_anchor_simulated": false,
+    "doctrine": "Score != Preuve != Vérité | Capacité != Permission != Preuve != Autorité | 0_vide != 0_vert"
+  },
+  "summary": {
+    "laws_total": 12,
+    "laws_verified": 12,
+    "normative_pyramid_verified": true,
+    "geo_topology_4d_verified": true,
+    "class_a_isolated": 4,
+    "class_b_discretized": 3
+  },
+  "laws": [
+    {
+      "id": "LAW-01",
+      "categorie": "FONDEMENTS",
+      "nom": "Monotonie du registre K_t et Reset non destructif de C",
+      "formule": "K_t ⊆ K_{t+1} ; C → ∅ sans effacement historique",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_math_core.py (SupelaStateTuple)",
+      "preuve_mesuree": "K_0 ⊆ K_1 vérifié après advance() et reset_contradictions_only_in_c().",
+      "nimpliqe_pas": "N'interdit pas de réouvrir ou rétracter logiquement un raccord."
+    },
+    {
+      "id": "LAW-02",
+      "categorie": "FONDEMENTS",
+      "nom": "Projection Zéro Idempotente Π₀",
+      "formule": "Π₀(S_t) = ⟨I, P, M, A, H⟩ ≠ ∅ ; Π₀(Π₀(S_t)) = Π₀(S_t)",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/projection.py (Pi0Projector)",
+      "preuve_mesuree": "Hash canonique strictement identique entre Π₀(S_t) et Π₀(Π₀(S_t)).",
+      "nimpliqe_pas": "Ne résout pas automatiquement les manques ouverts M."
+    },
+    {
+      "id": "LAW-03",
+      "categorie": "SECURITE_FRONTIERES",
+      "nom": "Séparation des Deux Zéros (0_vide ≠ 0_vert)",
+      "formule": "¬(0_vide ⇒ 0_vert) ; SONDE_INEXECUTABLE ⇒ EXIT=3",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_laws.py (evaluate_sensor_integrity)",
+      "preuve_mesuree": "Capteur muet → EXIT=3, divergence → EXIT=1, concordance → EXIT=0.",
+      "nimpliqe_pas": "Un capteur muet n'est jamais compté comme un blocage réussi ni comme conforme."
+    },
+    {
+      "id": "LAW-04",
+      "categorie": "FONDEMENTS",
+      "nom": "Treillis Probatoire Complet G₀..G₄ et Borne de Galois",
+      "formule": "G₀ ≺ G₁ ≺ G₂ ≺ G₃ ≺ G₄ ; Authority(G) ≤ Proof(G)",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_math_core.py (verify_proof_lattice_axioms)",
+      "preuve_mesuree": "125/125 triplets vérifiés (ordre, lois de treillis, bornage, monotonie).",
+      "nimpliqe_pas": "Ne prouve pas la validité universelle hors du périmètre testé."
+    },
+    {
+      "id": "LAW-05",
+      "categorie": "SECURITE_FRONTIERES",
+      "nom": "Rupture de Transitivité des 4 Frontières & Cryptographie",
+      "formule": "C ≠ P ≠ V ≠ A ; (C ∧ P ∧ V) ⇏ A ; Authenticité ≠ Validité ≠ Vérité",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_laws.py (FourBoundaryGate)",
+      "preuve_mesuree": "Promotion refusée sans ratification humaine même si C=P=V=Signature=True.",
+      "nimpliqe_pas": "Une signature Ed25519 certifie QUI a signé, jamais la vérité du payload."
+    },
+    {
+      "id": "LAW-06",
+      "categorie": "SECURITE_FRONTIERES",
+      "nom": "Condition Stricte de Dégel Souverain",
+      "formule": "DÉGEL ⟺ P_runtime ∧ P_clôture ∧ P_intégrité ∧ H_souverain",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_laws.py (ThawConditionGate)",
+      "preuve_mesuree": "Refus immédiat si H_souverain=False ou si SONDE_INEXECUTABLE.",
+      "nimpliqe_pas": "Le dégel autorise la réépreuve, jamais une validation automatique."
+    },
+    {
+      "id": "LAW-07",
+      "categorie": "REVERSIBILITE_0_PMU",
+      "nom": "Réversibilité Logique 0$ PMU, Rejeu & Rétraction R* (SQLite)",
+      "formule": "replay(E) déterministe ; R*(S_{i+1}, i) restaure S_i avec |H| croissant",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_laws.py (ReversibleAppendOnlyLedger)",
+      "preuve_mesuree": "Rejeu SHA-256 vérifié, R* restaure seq 1 à seq 3, triggers SQLite UPDATE/DELETE bloqués.",
+      "nimpliqe_pas": "N'annule pas physiquement un effet externe irréversible (courriel, paiement)."
+    },
+    {
+      "id": "LAW-08",
+      "categorie": "MATHS_PHYSIQUE",
+      "nom": "Agrégation Multi-Échelles VR-Fractal-Ω (Moyenne Harmonique)",
+      "formule": "P_t = Σ W_i/(1+Δ_i) = W/(1+Δ_eff) ; Δ_min ≤ Δ_eff ≤ Δ_max",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_math_core.py (FractalScaleAggregation)",
+      "preuve_mesuree": "Identité harmonique et théorème des gendarmes vérifiés avec garde Δ_i ≥ 0.",
+      "nimpliqe_pas": "Ne couvre pas les poids négatifs ni les graphes ouverts non bornés."
+    },
+    {
+      "id": "LAW-09",
+      "categorie": "MATHS_PHYSIQUE",
+      "nom": "Mécanique Irréversible GENERIC n-D (M ⪰ 0 par Cholesky Pivoté)",
+      "formule": "Lᵀ=-L, Mᵀ=M⪰0, L∇S=0, M∇E=0 ⇒ dE/dt=0 ∧ dS/dt≥0",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_math_core.py (GenericThermodynamicStep)",
+      "preuve_mesuree": "Oscillateur 3D couplé (L≠0, M≠0, dE/dt=0, dS/dt=0.16>0) + réfutation M indéfinie.",
+      "nimpliqe_pas": "L'extension en dimension infinie (EDP Kružkov / GKSL) demeure hors preuve locale."
+    },
+    {
+      "id": "LAW-10",
+      "categorie": "MATHS_PHYSIQUE",
+      "nom": "Normalisation Rationnelle Exacte SGG_v2 sur Simplexe Δ⁴",
+      "formule": "SGG_raw (∑=6/5 conservé) ; SGG_norm = (5/6)·SGG_raw (∑=1, exact Fraction)",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_math_core.py (SGGv2Metric)",
+      "preuve_mesuree": "Isomorphisme d'ordre 5/6 exact en Fraction, domaine [0,1] strictement gardé.",
+      "nimpliqe_pas": "Ne constitue pas un étalonnage statistique terrain sans jeu empirique."
+    },
+    {
+      "id": "LAW-11",
+      "categorie": "MATHS_PHYSIQUE",
+      "nom": "Découplage Récompense IA vs Vérité (Contre-exemple GRPO)",
+      "formule": "Reward(x) ⇏ Vérité(x) ; L_GRPO(θ_old)=0 ∧ ∇L_GRPO(θ_old)≠0",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/grpo_bridge.py (SupelaGRPOBridge)",
+      "preuve_mesuree": "L=0.0, ||∇L||=0.500000, écart analytique/DF=6.83e-11 < 1e-7.",
+      "nimpliqe_pas": "Un score heuristique élevé ne vaut jamais autorité ni vérité."
+    },
+    {
+      "id": "LAW-12",
+      "categorie": "BORNES_EPISTEMIQUES",
+      "nom": "Partition Épistémique (Classe A Indécidables vs Classe B Bornées)",
+      "formule": "4 Classe A isolées (Rice/Gödel/Turing) · 3 Classe B bornées (T_max, K-Lip, 0-effacement) + TZI Banach",
+      "statut_epistemique": "PROUVE_LOCAL",
+      "verifie": true,
+      "module_source": "src/omega_zero/supela_laws.py (DiscreteClassBBounds)",
+      "preuve_mesuree": "0 non-classifié résiduel ; convergence t≤100, K=2 Lipschitz, ops_irrev=0, TZI exact-power OK.",
+      "nimpliqe_pas": "0 non-classifié dans le périmètre formalisé ≠ résolution des indécidables de Classe A."
+    }
+  ],
+  "normative_pyramid": {
+    "reference_sources": [
+      "https://wiki.private.law/ (droit privé international multi-juridictions — élevé et corrigé sous transparence CRS/substance réelle)",
+      "Convention de Berne (OMPI) · Convention de Vienne CVIM/CISG (1980) · Convention de New York (1958)",
+      "Droit matériel suisse (Code des obligations — CO) · Loi sur les compagnies du Québec (Partie III — OSBL)"
+    ],
+    "levels": [
+      {
+        "level": "L0",
+        "nom": "Traités internationaux & Impératifs universels",
+        "instruments": "Convention de Berne (OMPI), CVIM/Vienne (1980), New York (1958), HCCH, OCDE CRS / Pilier Deux",
+        "correction_supela": "Transparence fiscale et traçabilité obligatoires ; aucune clause privée ne peut contourner L0."
+      },
+      {
+        "level": "L1",
+        "nom": "Ordre public national & Statut corporatif (lex societatis)",
+        "instruments": "Loi sur les compagnies du Québec (Partie III OSBL), Revenu Québec (TPS/TVQ > 30 000 $), Loi 25, UE NIS2/DORA/AI Act",
+        "correction_supela": "Substance économique réelle obligatoire ; entités coquilles et distribution de dividendes OSBL rejetées fail-closed."
+      },
+      {
+        "level": "L2",
+        "nom": "Autonomie contractuelle neutre (lex contractus)",
+        "instruments": "Droit matériel suisse (CO), Contrat-cadre Strictum Jus (Scope of Work, transfert PI après paiement, garantie 30 jours)",
+        "correction_supela": "Conflits de lois transfrontaliers conservés explicitement en Conflict4D sans écrasement silencieux."
+      },
+      {
+        "level": "L3",
+        "nom": "Barrières exécutables & Preuves formelles Supela",
+        "instruments": "12 Lois formelles, OPA Rego v1 (31+13 tests), Rust #![forbid(unsafe_code)], WORM SHA-256, Ed25519/Cosign v3",
+        "correction_supela": "Transforme des principes juridiques textuels en invariants réfutables exécutés en CI (0$ PMU)."
+      }
+    ],
+    "comparative_corrections_vs_static_private_law": [
+      {
+        "theme": "Structuration multi-juridictionnelle (holding / fondation / OSBL)",
+        "pratique_standard": "Descriptions déclaratives en prose, tolérance de structures sans substance.",
+        "correction_supela": "Verrou fail-closed exigeant substance économique réelle, ségrégation patrimoniale et non-distribution OSBL."
+      },
+      {
+        "theme": "Fiscalité internationale (183 jours, CFC, CRS, FATCA, Pilier Deux)",
+        "pratique_standard": "Optimisation fragmentée par juridiction.",
+        "correction_supela": "Transparence CRS/TPS-TVQ imposée comme invariant L0/L1 ; rejet automatique de toute opacité."
+      },
+      {
+        "theme": "Conflits de lois entre États souverains",
+        "pratique_standard": "Choix unilatéral sans détection formelle de collision impérative.",
+        "correction_supela": "Détection et conservation explicite en Conflict4D + renvoi obligatoire à une revue juridique humaine."
+      }
+    ],
+    "checks": {
+      "osbl_quebec_suisse_valide": {
+        "structure_id": "SUPELA-OSBL-QC-CH-INT-01",
+        "corporate_domicile": "Québec, Canada (Loi sur les compagnies, Partie III — OSBL)",
+        "contract_governing_law": "Droit matériel suisse (Code des obligations — CO)",
+        "arbitration_framework": "Convention de New York (1958, CNUDCI)",
+        "ip_treaty_anchor": "Convention de Berne (OMPI) + Apache-2.0 + ORCID",
+        "violations": [],
+        "conflict_4d_conserved": false,
+        "conflicting_jurisdictions": [],
+        "verdict": "ALIGNEMENT_NORMATIF_VERIFIE_SOUS_REVUE_JURISTE",
+        "compliant_model": true,
+        "legal_counsel_review_required": true
+      },
+      "refutation_coquille_opaque": {
+        "structure_id": "REFUTATION-COQUILLE-OPAQUE",
+        "corporate_domicile": "Juridiction sans substance",
+        "contract_governing_law": "Clause privée opaque",
+        "arbitration_framework": "Aucun",
+        "ip_treaty_anchor": "Non vérifié",
+        "violations": [
+          "VIOLATION_L0_L1:atteinte_ordre_public_imperatif",
+          "VIOLATION_SUBSTANCE:entite_coquille_interdite_par_supela",
+          "VIOLATION_TRANSPARENCE:evasion_ou_opacite_CRS_TPS_TVQ_interdite"
+        ],
+        "conflict_4d_conserved": false,
+        "conflicting_jurisdictions": [],
+        "verdict": "REJET_HIERARCHIE_NORMATIVE",
+        "compliant_model": false,
+        "legal_counsel_review_required": true
+      },
+      "conflit_transfrontalier_conserve": {
+        "structure_id": "CONFLIT-TRANSFRONTALIER-QC-UE",
+        "corporate_domicile": "Québec (Loi 25)",
+        "contract_governing_law": "Droit matériel suisse (CO)",
+        "arbitration_framework": "Convention de New York (1958)",
+        "ip_treaty_anchor": "Convention de Berne",
+        "violations": [],
+        "conflict_4d_conserved": true,
+        "conflicting_jurisdictions": [
+          "Québec_Loi_25",
+          "UE_RGPD_NIS2"
+        ],
+        "verdict": "CONFLIT_DE_LOIS_CONSERVE_REVUE_JURIDIQUE",
+        "compliant_model": true,
+        "legal_counsel_review_required": true
+      }
+    }
+  },
+  "geospatial_arcgis_0_pmu": {
+    "reference_source": "https://doc.esri.com/fr/arcgis-pro/latest/ (Topologie de géodatabase, Branch Versioning, Cube Spatio-Temporel 4D, ISO 19115 — implémentés en 0$ PMU sans licence captive)",
+    "arcgis_patterns_integrated_and_improved": [
+      "Topologie de géodatabase (MUST_NOT_OVERLAP, MUST_BE_COVERED_BY, MUST_NOT_HAVE_GAPS) exécutable en Python pur (0 licence propriétaire).",
+      "Cube Spatio-Temporel 4D (lon, lat, époque UTC, niveau normatif) relié aux états gouvernés Supela.",
+      "Branch Versioning multi-acteurs avec détection déterministe des conflits concurrents sans écrasement silencieux.",
+      "Métadonnées normalisées ISO 19115-1 / ISO 19139 avec lignage cryptographique SHA-256 et ORCID."
+    ],
+    "topology_clean_partition": {
+      "crs": "EPSG:4326",
+      "parent_zone": {
+        "zone_id": "QC-CORRIDOR",
+        "name": "Corridor Souverain Québec-Saint-Laurent",
+        "crs": "EPSG:4326",
+        "bbox": [
+          -74.0,
+          45.0,
+          -70.0,
+          47.0
+        ],
+        "centroid": [
+          -72.0,
+          46.0
+        ],
+        "area_deg2": 8.0
+      },
+      "sub_zones": [
+        {
+          "zone_id": "QC-MTL",
+          "name": "Secteur Montréal / Ouest",
+          "crs": "EPSG:4326",
+          "bbox": [
+            -74.0,
+            45.0,
+            -72.0,
+            47.0
+          ],
+          "centroid": [
+            -73.0,
+            46.0
+          ],
+          "area_deg2": 4.0
+        },
+        {
+          "zone_id": "QC-QBC",
+          "name": "Secteur Québec / Est",
+          "crs": "EPSG:4326",
+          "bbox": [
+            -72.0,
+            45.0,
+            -70.0,
+            47.0
+          ],
+          "centroid": [
+            -71.0,
+            46.0
+          ],
+          "area_deg2": 4.0
+        }
+      ],
+      "rule_must_not_overlap": true,
+      "rule_must_be_covered_by": true,
+      "rule_must_not_have_gaps": true,
+      "overlaps": [],
+      "uncovered_children": [],
+      "gap_area_deg2": 0.0,
+      "topology_valid": true
+    },
+    "topology_overlap_refutation": {
+      "crs": "EPSG:4326",
+      "parent_zone": {
+        "zone_id": "QC-CORRIDOR",
+        "name": "Corridor Souverain Québec-Saint-Laurent",
+        "crs": "EPSG:4326",
+        "bbox": [
+          -74.0,
+          45.0,
+          -70.0,
+          47.0
+        ],
+        "centroid": [
+          -72.0,
+          46.0
+        ],
+        "area_deg2": 8.0
+      },
+      "sub_zones": [
+        {
+          "zone_id": "QC-MTL",
+          "name": "Secteur Montréal / Ouest",
+          "crs": "EPSG:4326",
+          "bbox": [
+            -74.0,
+            45.0,
+            -72.0,
+            47.0
+          ],
+          "centroid": [
+            -73.0,
+            46.0
+          ],
+          "area_deg2": 4.0
+        },
+        {
+          "zone_id": "QC-QBC",
+          "name": "Secteur Québec / Est",
+          "crs": "EPSG:4326",
+          "bbox": [
+            -72.0,
+            45.0,
+            -70.0,
+            47.0
+          ],
+          "centroid": [
+            -71.0,
+            46.0
+          ],
+          "area_deg2": 4.0
+        },
+        {
+          "zone_id": "QC-CONFLIT",
+          "name": "Zone chevauchante",
+          "crs": "EPSG:4326",
+          "bbox": [
+            -72.5,
+            45.5,
+            -71.5,
+            46.5
+          ],
+          "centroid": [
+            -72.0,
+            46.0
+          ],
+          "area_deg2": 1.0
+        }
+      ],
+      "rule_must_not_overlap": false,
+      "rule_must_be_covered_by": true,
+      "rule_must_not_have_gaps": false,
+      "overlaps": [
+        {
+          "zone_a": "QC-MTL",
+          "zone_b": "QC-CONFLIT",
+          "overlap_area_deg2": 0.5
+        },
+        {
+          "zone_a": "QC-QBC",
+          "zone_b": "QC-CONFLIT",
+          "overlap_area_deg2": 0.5
+        }
+      ],
+      "uncovered_children": [],
+      "gap_area_deg2": null,
+      "topology_valid": false
+    },
+    "branch_versioning_4d": {
+      "total_bins": 3,
+      "unique_spacetime_cells": 2,
+      "conflicts_detected": 1,
+      "conflicts": [
+        {
+          "zone_id": "QC-MTL",
+          "epoch_utc": "2026-11-19T00:00:00Z",
+          "branches": [
+            "branch-audit",
+            "main"
+          ],
+          "divergent_hashes": [
+            "h_alt",
+            "h_ok"
+          ],
+          "status": "BRANCH_CONFLICT_CONSERVED"
+        }
+      ],
+      "zero_silent_overwrite": true
+    },
+    "iso19115_metadata": {
+      "standard": "ISO 19115-1 / ISO 19139",
+      "dataset_id": "SUPELA-GEO-LAW-4D-2026",
+      "crs": "EPSG:4326",
+      "extent_bbox_wgs84": [
+        -74.0,
+        45.0,
+        -70.0,
+        47.0
+      ],
+      "responsible_party": "Jean-François Gadbois (Supela K Omega)",
+      "author_orcid": "https://orcid.org/0009-0001-5361-6795",
+      "license": "Apache-2.0",
+      "lineage_sha256": "751570d70c32c69951bc5674f0a18855888541512f774e8823198c1b2b34659b"
+    }
+  },
+  "digest_sha256": "98b3b8dbb88d95717a2535446d6076bd7d52465352b0202a26ccdb9e36941376"
+}
