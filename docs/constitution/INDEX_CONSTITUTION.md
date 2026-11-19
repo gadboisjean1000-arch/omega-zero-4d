@@ -98,8 +98,9 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 ## 5. Politiques OPA Rego v1 & CI (`policies/`, `tests/rego/`, `.github/workflows/`)
 - `policies/omega_zero_invariants.rego` — Contrôle de cohérence `coherence_satisfied` (`sup_ici_01_satisfied`, `grpo_guardrails_satisfied`) et barrière `allow_human_review`.
 - `tests/rego/omega_zero_invariants_test.rego` — Suite de réfutation OPA (22 tests : 3 cas positifs + 19 cas négatifs).
-- `.github/workflows/omega-zero-ci.yml` — Pipeline GitHub Actions Python 3.11 + Draft 2020-12 + OPA Rego v1 + Cosign v3 + PowerShell Pester + `vr_compliance_check` + `omega-network`.
+- `.github/workflows/omega-zero-ci.yml` — Pipeline GitHub Actions Python 3.11 + Draft 2020-12 + OPA Rego v1 + Cosign v3 + Sigstore Fulcio/OIDC & Rekor keyless + PowerShell Pester + `vr_compliance_check` + `omega-network`.
 - `.github/workflows/pages-encyclopedie.yml` — Workflow GitHub Pages manuel (`workflow_dispatch`) séparant trace versionnée et publication après validation parité/JS.
+- `.github/workflows/release-provenance-zenodo.yml` — Workflow de provenance sur GitHub Release (`release: published`) générant `SHA256SUMS.txt`, signant en mode keyless via Sigstore Fulcio/OIDC + Rekor et joignant le bundle vérifiable à la Release (complémentaire à l'archivage DOI Zenodo).
 - `.github/workflows/vr-governance-triage.yml` — Audit continu `VR-01..VR-20` et triage automatique des issues `VR-BUG..VR-GOVERNANCE`.
 
 ## 6. Règles, Environnement Cloud, Configuration MCP & Skills (`.agents/`)

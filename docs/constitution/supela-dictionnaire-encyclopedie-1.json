@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 197,
+    "fichiers_omega_zero_4d": 198,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1098,12 +1098,17 @@
       {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
-        "taille_octets": 5227
+        "taille_octets": 6921
       },
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
         "categorie": ".github",
         "taille_octets": 3146
+      },
+      {
+        "chemin": ".github/workflows/release-provenance-zenodo.yml",
+        "categorie": ".github",
+        "taille_octets": 2019
       },
       {
         "chemin": ".github/workflows/vr-governance-triage.yml",
@@ -1173,7 +1178,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 319950
+        "taille_octets": 320061
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1193,7 +1198,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 29997
+        "taille_octets": 30336
       },
       {
         "chemin": "docs/constitution/INTEGRATION_AZURE_FUNCTIONS_SUPELA.md",
@@ -1223,7 +1228,7 @@
       {
         "chemin": "docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md",
         "categorie": "docs",
-        "taille_octets": 9068
+        "taille_octets": 10178
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1448,7 +1453,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 174106
+        "taille_octets": 174255
       },
       {
         "chemin": "omega.ps1",
