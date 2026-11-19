@@ -59,9 +59,16 @@ def test_citation_cff_yaml_structure_and_required_metadata() -> None:
     assert "Gadbois" in fields["authors"]
     assert "Supela-K3-Omega" in fields["references"]
 
-    # Barrière anti-placeholder : si un champ doi est présent, il doit être strictement numérique
-    if "doi" in fields and fields["doi"]:
-        assert validate_zenodo_doi(fields["doi"]), f"DOI Zenodo invalide ou placeholder: {fields['doi']!r}"
+    # Barrière anti-placeholder : tout DOI (champ `doi` ou `identifiers`) doit être strictement numérique
+    doi_val = fields.get("doi")
+    if doi_val:
+        assert validate_zenodo_doi(doi_val), f"DOI Zenodo invalide ou placeholder: {doi_val!r}"
+    identifiers_block = fields.get("identifiers", "")
+    if "zenodo" in identifiers_block.lower():
+        matches = re.findall(r"10\.5281/zenodo\.[^\s\"']+", identifiers_block)
+        assert matches and all(validate_zenodo_doi(m) for m in matches), (
+            f"Placeholder DOI interdit dans CITATION.cff identifiers: {identifiers_block!r}"
+        )
 
 
 @pytest.mark.parametrize(

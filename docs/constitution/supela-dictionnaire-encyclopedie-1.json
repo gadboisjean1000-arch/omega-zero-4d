@@ -1913,7 +1913,7 @@
       {
         "chemin": "tests/test_citation_and_audit_package.py",
         "categorie": "tests",
-        "taille_octets": 5243
+        "taille_octets": 5601
       },
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
