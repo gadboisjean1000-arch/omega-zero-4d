@@ -17,9 +17,9 @@ SRC_DIR = ROOT_DIR / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from omega_zero.attestation import AttestationSigner
-from omega_zero.models import canonical_sha256
-from omega_zero.theses import (
+from omega_zero.attestation import AttestationSigner  # noqa: E402
+from omega_zero.models import canonical_sha256  # noqa: E402
+from omega_zero.theses import (  # noqa: E402
     ALL_THESIS_MODULES,
     ORCID_ID,
     ORCID_URI,

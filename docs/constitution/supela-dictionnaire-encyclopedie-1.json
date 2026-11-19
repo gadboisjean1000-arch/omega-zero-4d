@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 178,
+    "fichiers_omega_zero_4d": 185,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1086,6 +1086,11 @@
         "taille_octets": 800
       },
       {
+        "chemin": ".gitattributes",
+        "categorie": "root",
+        "taille_octets": 120
+      },
+      {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
         "taille_octets": 5229
@@ -1106,9 +1111,19 @@
         "taille_octets": 223
       },
       {
+        "chemin": "CITATION.cff",
+        "categorie": "root",
+        "taille_octets": 1750
+      },
+      {
         "chemin": "GEMINI.md",
         "categorie": "root",
         "taille_octets": 5600
+      },
+      {
+        "chemin": "LICENSE",
+        "categorie": "root",
+        "taille_octets": 10529
       },
       {
         "chemin": "Makefile",
@@ -1116,9 +1131,19 @@
         "taille_octets": 3254
       },
       {
+        "chemin": "NOTICE",
+        "categorie": "root",
+        "taille_octets": 809
+      },
+      {
         "chemin": "README.md",
         "categorie": "root",
-        "taille_octets": 1964
+        "taille_octets": 6720
+      },
+      {
+        "chemin": "SECURITY.md",
+        "categorie": "root",
+        "taille_octets": 4203
       },
       {
         "chemin": "docs/constitution/BANC_MULTI_MOTEURS_SUPELA.md",
@@ -1138,12 +1163,17 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 318181
+        "taille_octets": 318764
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
         "categorie": "docs",
         "taille_octets": 58467
+      },
+      {
+        "chemin": "docs/constitution/FORMALISATION_MATHEMATIQUE_UNIFIEE.md",
+        "categorie": "docs",
+        "taille_octets": 13721
       },
       {
         "chemin": "docs/constitution/HARNAIS_TEST_ESCALADE_4D.py",
@@ -1153,7 +1183,12 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 26086
+        "taille_octets": 27338
+      },
+      {
+        "chemin": "docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md",
+        "categorie": "docs",
+        "taille_octets": 8399
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1378,7 +1413,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 171615
+        "taille_octets": 172464
       },
       {
         "chemin": "omega.ps1",
@@ -1393,7 +1428,7 @@
       {
         "chemin": "pyproject.toml",
         "categorie": "root",
-        "taille_octets": 944
+        "taille_octets": 1462
       },
       {
         "chemin": "reports/PCEP-NETWORK-SIGN-READY.json",
@@ -1638,7 +1673,7 @@
       {
         "chemin": "scripts/build_encyclopedie.py",
         "categorie": "scripts",
-        "taille_octets": 310549
+        "taille_octets": 310601
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
@@ -1648,7 +1683,7 @@
       {
         "chemin": "scripts/deposit_theses.py",
         "categorie": "scripts",
-        "taille_octets": 6382
+        "taille_octets": 6424
       },
       {
         "chemin": "scripts/install_into_excited_meitner.ps1",
@@ -1668,12 +1703,12 @@
       {
         "chemin": "scripts/vr_compliance_check.py",
         "categorie": "scripts",
-        "taille_octets": 736
+        "taille_octets": 750
       },
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 5396
+        "taille_octets": 5732
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1713,7 +1748,7 @@
       {
         "chemin": "src/omega_zero/network_bus.py",
         "categorie": "src",
-        "taille_octets": 26271
+        "taille_octets": 26319
       },
       {
         "chemin": "src/omega_zero/pcep.py",
@@ -1743,7 +1778,7 @@
       {
         "chemin": "src/omega_zero/supela_math_core.py",
         "categorie": "src",
-        "taille_octets": 8651
+        "taille_octets": 27135
       },
       {
         "chemin": "src/omega_zero/supela_runtime.py",
@@ -1878,7 +1913,7 @@
       {
         "chemin": "tests/test_supela_math_core.py",
         "categorie": "tests",
-        "taille_octets": 2560
+        "taille_octets": 8109
       },
       {
         "chemin": "tests/test_supela_runtime_v02.py",

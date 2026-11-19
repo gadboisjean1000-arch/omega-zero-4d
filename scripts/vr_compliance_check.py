@@ -13,7 +13,7 @@ SRC_DIR = ROOT_DIR / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from omega_zero.vr_compliance import verify_vr_compliance
+from omega_zero.vr_compliance import verify_vr_compliance  # noqa: E402
 
 
 def main() -> int:

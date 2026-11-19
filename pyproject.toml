@@ -3,11 +3,31 @@ name = "omega-zero-4d"
 version = "1.1.0"
 description = "Protocole formel, schémas JSON Draft 2020-12, OPA Rego v1, WORM/Ed25519/Cosign et moteur exécutable Supela Ω-ZERO · Local–Cloud–4D"
 readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Jean-François Gadbois" },
+]
+keywords = [
+    "supela",
+    "formal-verification",
+    "ai-governance",
+    "opa",
+    "rego",
+    "worm",
+    "rust",
+    "generic-thermodynamics",
+]
 requires-python = ">=3.11"
 dependencies = [
     "cryptography>=44.0.0",
     "jsonschema>=4.23.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/gadboisjean1000-arch/omega-zero-4d"
+Repository = "https://github.com/gadboisjean1000-arch/omega-zero-4d"
+ORCID = "https://orcid.org/0009-0001-5361-6795"
+CompanionMonolith = "https://github.com/gadboisjean1000-arch/Supela-K3-Omega"
 
 [project.optional-dependencies]
 dev = [
