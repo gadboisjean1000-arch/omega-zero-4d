@@ -48,3 +48,13 @@ git cola dag    # Visualiseur DAG complet de l'historique immuable
 ```
 
 > **Rappel `VR-03` & `C10` :** `git-cola` facilite l'audit visuel et la préparation de commits signés sur une branche dédiée ; le commit direct sur `main` reste interdit et toute promotion demeure soumise aux workflows CI + ratification humaine souveraine.
+
+---
+
+## 3. Poste de Travail Souverain sans Télémétrie (Apports `VSCodium` / `@daiyam`)
+
+Dans la continuité de la doctrine **0 $ PMU / zéro télémétrie** portée par [VSCodium](https://github.com/VSCodium/vscodium) et son mainteneur principal [Baptiste Augrain (`@daiyam`)](https://github.com/daiyam) :
+
+- **IDE souverain sans télémétrie :** privilégier **VSCodium** (binaire libre reconstruit sans télémétrie ni verrouillage propriétaire) couplé au registre ouvert **Open VSX** et au fichier `.editorconfig` partagé entre `omega-zero-4d` et `Supela-K3-Omega`.
+- **Builds reproductibles & séries de correctifs auditables :** chaque outil de la chaîne locale (`git-cola`, `VSCodium`, `opa v1.22.4`, `cosign v3.1.4`, `cargo --locked`) reste vérifiable par empreinte SHA-256 et remplaçable sans perte du canon Supela.
+
