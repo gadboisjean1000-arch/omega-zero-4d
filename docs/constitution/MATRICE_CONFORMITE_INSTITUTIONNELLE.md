@@ -34,7 +34,7 @@
 | **Cloisonnement Zero-Trust & Quorum recalculé** | Règles Rego v1 anti-cross-tenant, révocations d'agents exclues, déduplication de votes, anti-rejeu temporel (15 min) | `policies/gds_invariants.rego` (13/13) & `omega_zero_invariants.rego` (31/31) | ✅ Prouvé (OPA) |
 | **Journalisation immuable (WORM)** | `WormVault` Python + PowerShell (`0o444`/`IsReadOnly` + chaînage SHA-256) + `DurableJournal` Rust (`File::lock`, `sync_all`) | `test_worm_and_crypto.py` + `concurrency_recovery_tests.rs` | ✅ WORM logique prouvé |
 | **Ancrage matériel silicium (TPM 2.0 / TEE)** | Commande `make attest` / `.\omega.ps1 -Task Attest` échoue honnêtement sans `tpm2_quote` | Aucune simulation TPM | ⏳ Déclaratif (matériel requis) |
-| **Identité cryptographique production (KMS / Fulcio)** | Clés éphémères utilisées en CI pour démontrer le mécanisme uniquement | À raccorder Fulcio/OIDC ou HSM souverain | ⏳ Hors périmètre CI |
+| **Identité cryptographique keyless (Sigstore Fulcio/OIDC + Rekor)** | Certificat X.509 court terme Fulcio émis sur jeton OIDC GitHub (`id-token: write`), vérifié par SAN + `issuer` + inclusion Rekor (`SHA256SUMS.txt.sigstore.json`) ; HSM souverain hors cloud reste optionnel | `omega-zero-ci.yml` (`sigstore-fulcio-oidc-keyless`) & `release-provenance-zenodo.yml` | ✅ Prouvé en CI (Fulcio/OIDC + Rekor) · ⏳ HSM hors CI |
 
 ### 2.2 Gouvernements, Souveraineté & Réglementation Internationale
 
@@ -45,13 +45,14 @@
 | **UE NIS2 (2022/2555) & DORA (2022/2554)** | Résilience transactionnelle (`PREPARE→VERIFY→COMMIT→CLEAN`), reprise après coupure du journal Rust, escalade CTO/CTA/TI | `protocol.py`, `journal.rs`, `.agents/rules/git-workflow.md` | 🔷 Aligné par ingénierie |
 | **UE AI Act & Québec Loi 25** | Transparence des limites (`M1–M5`), anonymisation locale par défaut (`LOCAL_UNIQUEMENT_PAR_DEFAUT`, `anonymize_local_inventory`), traçabilité humaine | `build_encyclopedie.py`, `supela_provenance_m365_1.schema.json` | 🔷 Aligné + ✅ Tests anonymisation |
 | **Standards ouverts IETF / NIST / JSON** | JSON Schema Draft 2020-12 (13 schémas), FIPS 180-4 SHA-256, RFC 3339, RFC 4648 Base64 strict, RFC 9116 (`SECURITY.md`) | `test_schemas.py`, `sha256.rs`, `clock.rs`, `base64.rs` | ✅ Vecteurs vérifiés |
+| **Pyramide normative internationale (PI & Contrats)** | Convention de Berne (OMPI), Convention de Vienne (CVIM/CISG 1980), Convention de New York (1958, arbitrage), Droit matériel suisse (CO) & *Loi sur les compagnies du Québec* (Partie III) | `CADRE_DIRECTEUR_OSBL_VALORISATION.md` (§I–V), `LICENSE` (`Apache-2.0`), `NOTICE` | 🔷 Architecture contractuelle (revue juridique requise par engagement) |
 
 ### 2.3 Universités, Recherche & Reproductibilité Scientifique
 
 | Standard académique | Implémentation Supela | Artefact vérifiable | Statut |
 |---|---|---|---|
 | **Identité chercheur persistante (ORCID)** | Liée aux 6 thèses, `CITATION.cff`, `NOTICE` et manifeste signé Ed25519 | [ORCID 0009-0001-5361-6795](https://orcid.org/0009-0001-5361-6795) | ✅ Intégré |
-| **Citation logicielle normalisée (CFF 1.2.0 / BibTeX)** | Fichiers `CITATION.cff` à la racine des 2 dépôts + export `theses_orcid_0009.bib` + `orcid_works_v3.json` | `CITATION.cff`, `reports/theses_orcid_0009/` | ✅ Prêt (Zenodo DOI via Release) |
+| **Citation logicielle normalisée (CFF 1.2.0 / BibTeX / Zenodo DOI)** | Fichiers `CITATION.cff` à la racine des 2 dépôts + export `theses_orcid_0009.bib` + `orcid_works_v3.json` + workflow Release (`SHA256SUMS.txt` signé Fulcio/OIDC + Rekor) | `CITATION.cff`, `release-provenance-zenodo.yml`, `reports/theses_orcid_0009/` | ✅ Prêt (Zenodo DOI + bundle Fulcio/Rekor automatiques sur Release) |
 | **Reproductibilité mathématique** | Vérificateurs exécutables (`MAT-00..MAT-08`, Cholesky pivoté $M \succeq 0$, `VR-Fractal-Ω`, `SGG_v2` rationnel, `GRPO` analytique + DF, 24 permutations `E3`) | `supela_math_core.py`, `test_supela_math_core.py`, `test_properties_hypothesis.py` | ✅ Prouvé localement & CI |
 | **Intégrité documentaire anti-orphelins (`Règle A12`)** | Bijection vérifiée entre arborescence du dépôt, `INDEX_CONSTITUTION.md`, schémas JSON, OPA Rego et encyclopédie HTML/MD | `scripts/verify_a12.py`, `scripts/vr_compliance_check.py` (20/20) | ✅ Prouvé (0 orphelin) |
 
@@ -79,6 +80,16 @@ cd rust/supela-guard-kernel
 cargo fmt -- --check
 cargo clippy --all-targets --all-features -- -D warnings
 cargo test --locked --all-targets
+
+# 4. Vérification indépendante d'un bundle Sigstore Fulcio/OIDC + Rekor (CI ou Release)
+cosign verify-blob SHA256SUMS.txt \
+  --bundle SHA256SUMS.txt.sigstore.json \
+  --certificate-identity-regexp "^https://github\.com/gadboisjean1000-arch/omega-zero-4d/\.github/workflows/" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
 ```
 
-> **Condition de scellement institutionnel :** conformément à `NOTICE-HDR-ISO-Monolithe-Probant.md`, le qualificatif **« scellé en production »** demeure interdit tant que l'ancrage matériel (`tpm2_quote`), l'identité keyless/HSM (Fulcio/OIDC ou KMS) et un audit externe indépendant ne sont pas raccordés et publiés dans le registre.
+> **Condition de scellement institutionnel (`NOTICE-HDR-ISO-Monolithe-Probant.md`) :** l'interdiction du qualificatif **« scellé en production »** demeure **absolue et active** tant que les trois prérequis complets ne sont pas raccordés et publiés au registre :
+> 1. **Identité keyless Sigstore (`Fulcio/OIDC + Rekor`)** : ✅ raccordée et prouvée en CI (`Authenticité ≠ Validité ≠ Vérité` ; HSM souverain hors cloud optionnel) ;
+> 2. **Ancrage matériel silicium (`tpm2_quote`)** : ⏳ non raccordé (aucune simulation) ;
+> 3. **Audit externe indépendant** : ⏳ non réalisé.
+> En l'absence des prérequis 2 et 3 publiés, tout état demeure strictement au niveau d'homologation/scellement local ou partiel.

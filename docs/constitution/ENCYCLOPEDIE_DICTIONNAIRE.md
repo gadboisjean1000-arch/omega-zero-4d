@@ -29,7 +29,7 @@ Ce document répertorie de manière strictement vérifiable (règles `M3` : *Man
 - **Dépôts GitHub :** `15` (`4` originaux + `11` forks)
 - **Discussions IA / Docs / Notebooks répertoriés :** `54`
 - **Plateformes IA & Navigateurs suivis :** `9`
-- **Fichiers réels dans `omega-zero-4d` :** `186`
+- **Fichiers réels dans `omega-zero-4d` :** `200`
 - **Entrées locales `C:\` / `D:\` importées :** `0`
 
 ## 2. Dictionnaire Terminologique & Conceptuel
