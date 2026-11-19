@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from enum import IntEnum
 from fractions import Fraction
-from typing import Any
+from typing import Any, ClassVar
 
 from .grpo_bridge import SupelaGRPOBridge
 from .models import canonical_sha256
@@ -274,15 +274,15 @@ class SGGv2Metric:
     t: Fraction
     m: Fraction
 
-    RAW_WEIGHTS: tuple[Fraction, ...] = (
+    RAW_WEIGHTS: ClassVar[tuple[Fraction, ...]] = (
         Fraction(1, 4),
         Fraction(3, 10),
         Fraction(3, 10),
         Fraction(3, 20),
         Fraction(1, 5),
     )
-    RAW_WEIGHT_SUM: Fraction = Fraction(6, 5)
-    NORMALIZED_WEIGHTS: tuple[Fraction, ...] = (
+    RAW_WEIGHT_SUM: ClassVar[Fraction] = Fraction(6, 5)
+    NORMALIZED_WEIGHTS: ClassVar[tuple[Fraction, ...]] = (
         Fraction(5, 24),
         Fraction(1, 4),
         Fraction(1, 4),
@@ -300,7 +300,13 @@ class SGGv2Metric:
         vals = (a, v, e, t, m)
         if any(not math.isfinite(x) or x < 0.0 or x > 1.0 for x in vals):
             raise ValueError("Les composantes SGG_v2 (A, V, É, T, M) doivent appartenir à [0, 1].")
-        return cls(*(Fraction(str(x)) for x in vals))
+        return cls(
+            a=Fraction(str(a)),
+            v=Fraction(str(v)),
+            e=Fraction(str(e)),
+            t=Fraction(str(t)),
+            m=Fraction(str(m)),
+        )
 
     def evaluate(self) -> dict[str, Any]:
         components = (self.a, self.v, self.e, self.t, self.m)
