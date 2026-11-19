@@ -113,7 +113,7 @@ jobs:
           components: rustfmt, clippy
       - name: Cargo fmt check
         working-directory: rust/supela-guard-kernel
-        run: cargo fmt -- --check --config newline_style=Native
+        run: cargo fmt -- --check --config newline_style=Unix
       - name: Cargo clippy (strict -D warnings)
         working-directory: rust/supela-guard-kernel
         run: cargo clippy --all-targets --all-features -- -D warnings

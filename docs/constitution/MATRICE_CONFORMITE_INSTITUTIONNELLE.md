@@ -18,6 +18,7 @@
 | **Monolithe formel K3-Ω** | [`gadboisjean1000-arch/Supela-K3-Omega`](https://github.com/gadboisjean1000-arch/Supela-K3-Omega) | Formalisme `GDS = ⟨D, O, A, γ⟩`, `VR-Fractal-Ω`, OPA 13/13, Pester WORM, Notice HDR/ISO, Docker + Trivy + Cosign | Apache-2.0 |
 | **Corpus Académique (6 Thèses)** | `omega-zero-4d/reports/theses_orcid_0009/` | 6 PDF autonomes déterministes + métadonnées JSON + BibTeX + ORCID Work v3.0 + manifeste signé Ed25519 | Apache-2.0 |
 | **Mathématiques Unifiées** | `docs/constitution/FORMALISATION_MATHEMATIQUE_UNIFIEE.md` | Preuves algébriques et vérificateurs exécutables (`MAT-00..MAT-08`, `VR-Fractal-Ω`, `GENERIC n-D` PSD, `SGG_v2`, `GRPO`) | Apache-2.0 |
+| **Gouvernance OSBL (Québec Partie III)** | `docs/constitution/CADRE_DIRECTEUR_OSBL_VALORISATION.md` | Gouvernance économique sans but lucratif, ségrégation patrimoniale, TCB minimal (0 $ dépendance captive), contrat-cadre *Strictum Jus* | Apache-2.0 |
 
 ---
 

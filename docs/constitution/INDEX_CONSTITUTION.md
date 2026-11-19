@@ -11,6 +11,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [.gitattributes](../../.gitattributes) — Normalisation déterministe des fins de ligne (`LF` pour Rego/Python/Rust/Makefile, `CRLF` pour PowerShell).
 - [FORMALISATION_MATHEMATIQUE_UNIFIEE.md](FORMALISATION_MATHEMATIQUE_UNIFIEE.md) — Monographie mathématique unifiée (`MAT-00..MAT-08`, treillis $G_0..G_4$, théorème d'agrégation `VR-Fractal-Ω`, `GENERIC n-D` $M \succeq 0$, simplexe exact `SGG_v2`, contraction `TZI`, `GRPO`).
 - [MATRICE_CONFORMITE_INSTITUTIONNELLE.md](MATRICE_CONFORMITE_INSTITUTIONNELLE.md) — Matrice d'alignement et de vérification Défense / Gouvernement / International (ISO/NIST/SLSA/NIS2/DORA) / Université (ORCID), sous discipline `mesuré, non proclamé`.
+- [CADRE_DIRECTEUR_OSBL_VALORISATION.md](CADRE_DIRECTEUR_OSBL_VALORISATION.md) — Cadre directeur d'ingénierie, de gouvernance corporative OSBL (Loi sur les compagnies du Québec, Partie III), socle TCB minimal et contrat-cadre *Strictum Jus*.
 - [PLAN_4D_OMEGA_ZERO_ESC_01.md](PLAN_4D_OMEGA_ZERO_ESC_01.md) — Spécification complète corrigée ($\Pi_0$, 7 statuts du Manque, 8 paliers `E0..E7`, 10 conditions `C01..C10`, `Load(C)`, revidage transactionnel).
 - [DEFINITION_P0_PROJECTION.json](DEFINITION_P0_PROJECTION.json) — Définition formelle et assertions exécutables de $\Pi_0$.
 - [STATUT_MANQUE.json](STATUT_MANQUE.json) — Les 7 statuts canoniques, règles M1–M5 et machine à états complète (`TR-01`..`TR-16` + transitions interdites).

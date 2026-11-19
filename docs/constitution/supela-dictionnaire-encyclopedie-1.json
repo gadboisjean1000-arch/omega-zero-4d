@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 185,
+    "fichiers_omega_zero_4d": 186,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1093,7 +1093,7 @@
       {
         "chemin": ".github/workflows/omega-zero-ci.yml",
         "categorie": ".github",
-        "taille_octets": 5229
+        "taille_octets": 5227
       },
       {
         "chemin": ".github/workflows/pages-encyclopedie.yml",
@@ -1138,7 +1138,7 @@
       {
         "chemin": "README.md",
         "categorie": "root",
-        "taille_octets": 6720
+        "taille_octets": 6952
       },
       {
         "chemin": "SECURITY.md",
@@ -1149,6 +1149,11 @@
         "chemin": "docs/constitution/BANC_MULTI_MOTEURS_SUPELA.md",
         "categorie": "docs",
         "taille_octets": 5991
+      },
+      {
+        "chemin": "docs/constitution/CADRE_DIRECTEUR_OSBL_VALORISATION.md",
+        "categorie": "docs",
+        "taille_octets": 7896
       },
       {
         "chemin": "docs/constitution/COMPARAISON_GRPO_OMEGA_ZERO.md",
@@ -1163,7 +1168,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 318764
+        "taille_octets": 318878
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1183,12 +1188,12 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 27338
+        "taille_octets": 27584
       },
       {
         "chemin": "docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md",
         "categorie": "docs",
-        "taille_octets": 8399
+        "taille_octets": 8658
       },
       {
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
@@ -1413,7 +1418,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 172464
+        "taille_octets": 172616
       },
       {
         "chemin": "omega.ps1",
@@ -1683,7 +1688,7 @@
       {
         "chemin": "scripts/deposit_theses.py",
         "categorie": "scripts",
-        "taille_octets": 6424
+        "taille_octets": 6382
       },
       {
         "chemin": "scripts/install_into_excited_meitner.ps1",
@@ -1703,7 +1708,7 @@
       {
         "chemin": "scripts/vr_compliance_check.py",
         "categorie": "scripts",
-        "taille_octets": 750
+        "taille_octets": 736
       },
       {
         "chemin": "src/omega_zero/__init__.py",
@@ -1778,7 +1783,7 @@
       {
         "chemin": "src/omega_zero/supela_math_core.py",
         "categorie": "src",
-        "taille_octets": 27135
+        "taille_octets": 27680
       },
       {
         "chemin": "src/omega_zero/supela_runtime.py",
@@ -1913,7 +1918,7 @@
       {
         "chemin": "tests/test_supela_math_core.py",
         "categorie": "tests",
-        "taille_octets": 8109
+        "taille_octets": 9141
       },
       {
         "chemin": "tests/test_supela_runtime_v02.py",

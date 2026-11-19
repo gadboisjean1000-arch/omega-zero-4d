@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import operator
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -38,10 +39,10 @@ def verify_proof_lattice_axioms() -> dict[str, Any]:
     bottom = ProofLatticeLevel.G0_BRUT
     top = ProofLatticeLevel.G4_SCELLE_LOCAL
 
-    reflexive = all(a <= a for a in elems)
-    antisymmetric = all((not (a <= b and b <= a)) or (a == b) for a in elems for b in elems)
+    reflexive = all(operator.le(a, a) for a in elems)
+    antisymmetric = all((not (a <= b <= a)) or (a == b) for a in elems for b in elems)
     transitive = all(
-        (not (a <= b and b <= c)) or (a <= c) for a in elems for b in elems for c in elems
+        (not (a <= b <= c)) or (a <= c) for a in elems for b in elems for c in elems
     )
     commutative = all(
         ProofLatticeLevel.join(a, b) == ProofLatticeLevel.join(b, a)
@@ -229,7 +230,7 @@ class FractalScaleAggregation:
     def evaluate(self, *, tol: float = 1e-12) -> dict[str, Any]:
         weights = [t_i + c_i for t_i, c_i, _ in self.subsystems]
         deltas = [d_i for _, _, d_i in self.subsystems]
-        micro_states = [w_i / (1.0 + d_i) for w_i, d_i in zip(weights, deltas)]
+        micro_states = [w_i / (1.0 + d_i) for w_i, d_i in zip(weights, deltas, strict=True)]
 
         total_weight = sum(weights)
         macro_state = sum(micro_states)
@@ -289,6 +290,11 @@ class SGGv2Metric:
         Fraction(1, 6),
     )
 
+    def __post_init__(self) -> None:
+        components = (self.a, self.v, self.e, self.t, self.m)
+        if any(not isinstance(x, Fraction) or x < Fraction(0) or x > Fraction(1) for x in components):
+            raise ValueError("Les composantes SGG_v2 (A, V, É, T, M) doivent être des Fractions dans [0, 1].")
+
     @classmethod
     def from_floats(cls, a: float, v: float, e: float, t: float, m: float) -> SGGv2Metric:
         vals = (a, v, e, t, m)
@@ -301,8 +307,12 @@ class SGGv2Metric:
         raw_sum_check = sum(self.RAW_WEIGHTS, Fraction(0))
         norm_sum_check = sum(self.NORMALIZED_WEIGHTS, Fraction(0))
 
-        raw_score = sum((w * x for w, x in zip(self.RAW_WEIGHTS, components)), Fraction(0))
-        norm_score = sum((w * x for w, x in zip(self.NORMALIZED_WEIGHTS, components)), Fraction(0))
+        raw_score = sum(
+            (w * x for w, x in zip(self.RAW_WEIGHTS, components, strict=True)), Fraction(0)
+        )
+        norm_score = sum(
+            (w * x for w, x in zip(self.NORMALIZED_WEIGHTS, components, strict=True)), Fraction(0)
+        )
         order_isomorphism_ok = norm_score == Fraction(5, 6) * raw_score
         simplex_range_ok = Fraction(0) <= norm_score <= Fraction(1)
         return {
@@ -352,7 +362,9 @@ class MetricResetContraction:
             k_star = 0
         else:
             ratio = self.critical_threshold / self.initial_distance
-            k_star = int(math.floor(math.log(ratio) / math.log(self.contraction_kappa))) + 1
+            k_star = max(0, math.floor(math.log(ratio) / math.log(self.contraction_kappa)))
+            while self.initial_distance * (self.contraction_kappa**k_star) >= self.critical_threshold:
+                k_star += 1
 
         distances = [self.initial_distance * (self.contraction_kappa**k) for k in range(k_star + 1)]
         strictly_decreasing = all(distances[k + 1] < distances[k] for k in range(len(distances) - 1))
@@ -412,8 +424,7 @@ def _is_symmetric_positive_semidefinite(
             val = work[i][j]
             if not math.isfinite(val):
                 return False
-            if abs(val) > max_abs:
-                max_abs = abs(val)
+            max_abs = max(max_abs, abs(val))
             if abs(val - work[j][i]) > tol * max(1.0, abs(val), abs(work[j][i])):
                 return False
 
@@ -483,7 +494,7 @@ class GenericThermodynamicStep:
 
     @staticmethod
     def _dot(a: Sequence[float], b: Sequence[float]) -> float:
-        return sum(x * y for x, y in zip(a, b))
+        return sum(x * y for x, y in zip(a, b, strict=True))
 
     @classmethod
     def canonical_3d_damped_oscillator(
@@ -622,7 +633,7 @@ def run_supela_math_unification(*, validator_name: str = "Jean-François Gadbois
         rewards=[1.0, 0.2, 0.8, 0.0],
     )
     grpo_max_fd_err = max(
-        abs(a - b) for a, b in zip(grpo_step.analytical_grad, grpo_step.finite_diff_grad)
+        abs(a - b) for a, b in zip(grpo_step.analytical_grad, grpo_step.finite_diff_grad, strict=True)
     )
     mat07_counterexample_ok = (
         abs(grpo_step.scalar_loss) < 1e-12

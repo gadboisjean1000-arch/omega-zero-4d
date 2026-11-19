@@ -36,6 +36,7 @@ flowchart LR
 | [`GEMINI.md`](GEMINI.md) | Constitution opérationnelle, cartographie des instances & 24 outils MCP |
 | [`docs/constitution/FORMALISATION_MATHEMATIQUE_UNIFIEE.md`](docs/constitution/FORMALISATION_MATHEMATIQUE_UNIFIEE.md) | Monographie mathématique unifiée (`MAT-00..MAT-08`, `VR-Fractal-Ω`, `GENERIC n-D` $M \succeq 0$, `SGG_v2`, `TZI`, `GRPO`) |
 | [`docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md`](docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md) | Matrice Défense / Gouvernement / ISO / NIST SSDF / SLSA / Université (prouvé vs déclaratif) |
+| [`docs/constitution/CADRE_DIRECTEUR_OSBL_VALORISATION.md`](docs/constitution/CADRE_DIRECTEUR_OSBL_VALORISATION.md) | Cadre directeur OSBL (Québec Partie III), gouvernance économique, TCB minimal & contrat-cadre *Strictum Jus* |
 | [`CITATION.cff`](CITATION.cff) & [`reports/theses_orcid_0009/`](reports/theses_orcid_0009/deposit_manifest.json) | Citation normalisée CFF 1.2.0, BibTeX, ORCID Work v3.0 et 6 thèses autonomes signées Ed25519 |
 | [`SECURITY.md`](SECURITY.md) & [`LICENSE`](LICENSE) | Politique de divulgation coordonnée (RFC 9116 / SSDF), modèle de menaces & licence `Apache-2.0` |
 | [`docs/constitution/INDEX_CONSTITUTION.md`](docs/constitution/INDEX_CONSTITUTION.md) | Bijection intégrale anti-orphelins (Règle A12) |

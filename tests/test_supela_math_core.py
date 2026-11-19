@@ -95,7 +95,7 @@ def test_generic_refutes_indefinite_m_even_when_single_vector_entropy_positive()
     assert res["m_positive_semidefinite"] is False
     assert res["generic_valid"] is False
 
-    # Matrice zéro sur diagonale avec hors-diagonale non-nul [[0, 1], [1, 0]] : indéfinie (valeurs propres +-1)
+    # Matrice zéro sur diagonale avec hors-diagonale non-nul [[0, 1], [1, 0]] (valeurs propres +-1)
     anti_diag = GenericThermodynamicStep(
         grad_e=(0.0, 0.0),
         grad_s=(1.0, 1.0),
@@ -143,6 +143,11 @@ def test_sgg_v2_exact_rational_simplex_preserves_raw_trace() -> None:
 
     with pytest.raises(ValueError):
         SGGv2Metric.from_floats(1.1, 0.5, 0.5, 0.5, 0.5)
+    # Constructeur direct Fraction : doit rejeter tout composant hors [0, 1] même si moyenne ∈ [0, 1]
+    with pytest.raises(ValueError):
+        SGGv2Metric(Fraction(-1), Fraction(1), Fraction(1), Fraction(1), Fraction(1))
+    with pytest.raises(ValueError):
+        SGGv2Metric(Fraction(3, 2), Fraction(0), Fraction(0), Fraction(0), Fraction(0))
 
 
 def test_tzi_metric_contraction_and_vr22_vitality_guards() -> None:
@@ -153,6 +158,21 @@ def test_tzi_metric_contraction_and_vr22_vitality_guards() -> None:
     assert contr["contraction_verified"] is True
     assert contr["guaranteed_steps_k_star"] == 7
     assert contr["final_distance"] < 0.1
+
+    # Cas limites puissance exacte (arrondi flottant log(0.81)/log(0.9) ≈ 1.9999999999999998)
+    exact_pow = MetricResetContraction(
+        initial_distance=1.0, contraction_kappa=0.9, critical_threshold=0.81
+    ).verify_convergence()
+    assert exact_pow["guaranteed_steps_k_star"] == 3
+    assert exact_pow["final_distance"] < 0.81
+    assert exact_pow["contraction_verified"] is True
+
+    exact_half = MetricResetContraction(
+        initial_distance=1.0, contraction_kappa=0.5, critical_threshold=0.25
+    ).verify_convergence()
+    assert exact_half["guaranteed_steps_k_star"] == 3
+    assert exact_half["final_distance"] < 0.25
+    assert exact_half["contraction_verified"] is True
 
     with pytest.raises(ValueError):
         MetricResetContraction(initial_distance=1.0, contraction_kappa=1.0, critical_threshold=0.1)
