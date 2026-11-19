@@ -1,0 +1,15 @@
+Supela Ω-ZERO · Local–Cloud–4D (`omega-zero-4d`)
+Copyright 2026 Jean-François Gadbois
+ORCID: https://orcid.org/0009-0001-5361-6795
+Organization: Supela K Omega
+
+This product includes software and formal specifications developed by
+Jean-François Gadbois as part of the unified Supela architecture:
+  - Supela Ω-ZERO · Local–Cloud–4D (https://github.com/gadboisjean1000-arch/omega-zero-4d)
+  - Supela-K3-Omega Formal Monolith (https://github.com/gadboisjean1000-arch/Supela-K3-Omega)
+
+Epistemic Notice:
+  This repository distinguishes mechanically verified invariants (CI, pytest,
+  OPA Rego v1, Rust #![forbid(unsafe_code)], SHA-256 WORM, Ed25519/Cosign)
+  from declarative or uncertified claims. Absence of hardware TPM/TEE quote
+  (`tpm2_quote`) or external accreditation is stated explicitly.

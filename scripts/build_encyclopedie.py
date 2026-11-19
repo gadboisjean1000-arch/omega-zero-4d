@@ -3079,7 +3079,7 @@ def enrich_structural_knowledge(
 def scan_repo_tree(root: Path) -> list[dict[str, Any]]:
     """Liste tous les fichiers réels de omega-zero-4d soumis à A12 (robuste aux fichiers transitoires)."""
     items: list[dict[str, Any]] = []
-    for p in sorted(root.rglob("*")):
+    for p in sorted(root.rglob("*"), key=lambda path: path.relative_to(root).as_posix()):
         try:
             if not p.is_file():
                 continue

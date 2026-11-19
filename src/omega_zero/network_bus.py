@@ -496,9 +496,9 @@ def run_integrated_network_pipeline(
             "guard_kernel_transitions": [rec_g1.to_dict(), rec_g2.to_dict()],
             "grpo_explorations": [t.to_dict() for t in grpo_report.traces],
         }
-        with tempfile.NamedTemporaryFile("w", suffix=".json", encoding="utf-8", delete=True) as tf:
-            json.dump(opa_input, tf)
-            tf.flush()
+        with tempfile.TemporaryDirectory() as opa_tmp:
+            opa_input_path = Path(opa_tmp) / "opa_input.json"
+            opa_input_path.write_text(json.dumps(opa_input), encoding="utf-8")
             eval_res = subprocess.run(
                 [
                     opa_bin,
@@ -507,7 +507,7 @@ def run_integrated_network_pipeline(
                     "--data",
                     "policies/omega_zero_invariants.rego",
                     "--input",
-                    tf.name,
+                    str(opa_input_path),
                     "data.supela.omega_zero.governance.allow_human_review",
                 ],
                 cwd=repo_root,

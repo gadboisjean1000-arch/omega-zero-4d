@@ -85,11 +85,17 @@ from .sovereign_net import (
 )
 from .supela_math_core import (
     BoundedAuthorityEvaluation,
+    CanonicalHLPSeparation,
+    FractalScaleAggregation,
     GenericThermodynamicStep,
+    MetricResetContraction,
     ProofLatticeLevel,
+    SGGv2Metric,
     SupelaStateTuple,
     ThreeDimensionalSeparation,
+    VR22VitalityEvaluator,
     run_supela_math_unification,
+    verify_proof_lattice_axioms,
 )
 from .supela_runtime import (
     HUMAN_NORMATIVE_AUTHORITY,
@@ -127,6 +133,7 @@ __all__ = [
     "BoundedAuthorityEvaluation",
     "CalculatedAuthorityAgent",
     "CandidateExploration",
+    "CanonicalHLPSeparation",
     "ClaimNode",
     "ClaimStatus",
     "CloudOmega",
@@ -143,6 +150,7 @@ __all__ = [
     "EngineResult",
     "EngineRunRecord",
     "EvolutionaryCodeStep",
+    "FractalScaleAggregation",
     "G5Decision",
     "GRPOGuardrailReport",
     "GRPOGuardrailTrace",
@@ -162,6 +170,7 @@ __all__ = [
     "ManqueStateMachine",
     "ManqueStatus",
     "MergeOutcome",
+    "MetricResetContraction",
     "MultiEngineBenchError",
     "MultiEngineBenchReport",
     "ObservedOutcome",
@@ -180,6 +189,7 @@ __all__ = [
     "ReferentialVerdict",
     "RevidageFailure",
     "RevidageStage",
+    "SGGv2Metric",
     "SaturationWithoutDeclarationError",
     "SelfRefutingProbe",
     "SemanticLossTestResult",
@@ -203,6 +213,7 @@ __all__ = [
     "TransportVector",
     "TruthLevel",
     "UnauthorizedCommandError",
+    "VR22VitalityEvaluator",
     "VRRuleResult",
     "VaultRunResult",
     "WormTamperError",
@@ -215,6 +226,7 @@ __all__ = [
     "run_sovereign_net_self_check",
     "run_supela_math_unification",
     "run_supela_runtime_complete_cycle_demo",
+    "verify_proof_lattice_axioms",
     "verify_vr_compliance",
 ]
 

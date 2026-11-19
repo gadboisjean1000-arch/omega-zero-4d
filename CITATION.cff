@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+title: "Supela Ω-ZERO · Local–Cloud–4D: Formal Fail-Closed Governance Engine, Rust Guard Kernel, OPA Rego v1 Policies & ORCID Theses Framework"
+message: "If you use this software, formal specifications, or mathematical proofs in academic, institutional, or engineering work, please cite it using these metadata."
+type: software
+authors:
+  - family-names: "Gadbois"
+    given-names: "Jean-François"
+    orcid: "https://orcid.org/0009-0001-5361-6795"
+    affiliation: "Supela K Omega"
+version: "1.1.0"
+date-released: "2026-11-19"
+license: "Apache-2.0"
+repository-code: "https://github.com/gadboisjean1000-arch/omega-zero-4d"
+url: "https://github.com/gadboisjean1000-arch/omega-zero-4d"
+abstract: >-
+  Executable formal governance architecture, JSON Schema Draft 2020-12 specifications,
+  OPA Rego v1 fail-closed policies, zero-unsafe Rust Guard-Kernel (SUP-ICI-01 / SUPELA-WORM-V1),
+  Ed25519 and Cosign v3 cryptographic attestation pipelines, GRPO exploration guardrails,
+  unified formal mathematics core (MAT-00..MAT-08, VR-Fractal-Ω, GENERIC n-D thermodynamics),
+  and autonomous 6-thesis scholarly deposit framework linked to ORCID 0009-0001-5361-6795.
+keywords:
+  - "formal-verification"
+  - "ai-governance"
+  - "open-policy-agent"
+  - "rego"
+  - "rust"
+  - "worm-ledger"
+  - "sigstore-cosign"
+  - "generic-thermodynamics"
+  - "fail-closed"
+  - "supela"
+references:
+  - type: software
+    title: "Supela-K3-Omega: Formal Monolith & Executable Proofs (GDS = <D, O, A, gamma>)"
+    authors:
+      - family-names: "Gadbois"
+        given-names: "Jean-François"
+        orcid: "https://orcid.org/0009-0001-5361-6795"
+    repository-code: "https://github.com/gadboisjean1000-arch/Supela-K3-Omega"
+    license: "Apache-2.0"
