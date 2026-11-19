@@ -74,3 +74,19 @@ Tout engagement liant l'OSBL à un tiers bénéficiaire est subordonné aux clau
    La recette formelle s'opère selon des critères d'acceptation objectifs (tests unitaires, d'intégration et de charge validés). La couverture des anomalies critiques est circonscrite à un horizon de garantie fixe de 30 jours civils post-déploiement, excluant toute maintenance évolutive tacite.
 
 Ce modèle positionne l'organisme comme un laboratoire d'ingénierie logicielle de haut niveau, alliant rigueur mathématique, indépendance d'infrastructure et conformité statutaire rigoureuse.
+
+---
+
+### V. PYRAMIDE NORMATIVE INTERNATIONALE (CONTRATS TRANSFRONTALIERS & PI)
+
+Pour les engagements, licences et coopérations internationales (universités, administrations, défense, partenaires étrangers), l'architecture contractuelle *Strictum Jus* s'articule en deux plans juridiques distincts et complémentaires :
+
+1. **Statut corporatif interne (*lex societatis*) :** l'entité demeure constituée et régie par la *Loi sur les compagnies du Québec* (Partie III) ainsi que par le régime fiscal applicable (TPS/TVQ, Revenu Québec).
+2. **Socle normatif international de référence :**
+   - **Convention de Berne (OMPI / WIPO)** : protection internationale automatique du droit d'auteur sur le code source, les spécifications formelles, les schémas et les thèses scientifiques dans les États signataires, sans formalité préalable de dépôt ;
+   - **Convention de Vienne de 1980 (CVIM / CISG, CNUDCI)** : référentiel uniforme des contrats internationaux de vente, dont l'applicabilité ou l'exclusion expresse (art. 6) est précisée au contrat selon la qualification juridique de la fourniture logicielle ou de la prestation de services ;
+   - **Convention de New York de 1958 (CNUDCI)** : reconnaissance et exécution transfrontalière des sentences arbitrales dans plus de 170 États pour le règlement des différends contractuels internationaux ;
+   - **Droit matériel suisse (Code des obligations — CO)** : *lex contractus* neutre de référence (à l'exclusion de ses règles de conflit de lois) lorsque les parties stipulent un ancrage contractuel international neutre.
+
+> **Clause de rigueur juridique :** l'invocation de ces instruments internationaux dans un contrat effectif requiert l'insertion de clauses écrites explicites (droit applicable, clause compromissoire d'arbitrage, qualification PI/licence) ratifiées par les parties et revues par un conseiller juridique qualifié dans les juridictions concernées.
+

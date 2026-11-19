@@ -45,6 +45,7 @@
 | **UE NIS2 (2022/2555) & DORA (2022/2554)** | Résilience transactionnelle (`PREPARE→VERIFY→COMMIT→CLEAN`), reprise après coupure du journal Rust, escalade CTO/CTA/TI | `protocol.py`, `journal.rs`, `.agents/rules/git-workflow.md` | 🔷 Aligné par ingénierie |
 | **UE AI Act & Québec Loi 25** | Transparence des limites (`M1–M5`), anonymisation locale par défaut (`LOCAL_UNIQUEMENT_PAR_DEFAUT`, `anonymize_local_inventory`), traçabilité humaine | `build_encyclopedie.py`, `supela_provenance_m365_1.schema.json` | 🔷 Aligné + ✅ Tests anonymisation |
 | **Standards ouverts IETF / NIST / JSON** | JSON Schema Draft 2020-12 (13 schémas), FIPS 180-4 SHA-256, RFC 3339, RFC 4648 Base64 strict, RFC 9116 (`SECURITY.md`) | `test_schemas.py`, `sha256.rs`, `clock.rs`, `base64.rs` | ✅ Vecteurs vérifiés |
+| **Pyramide normative internationale (PI & Contrats)** | Convention de Berne (OMPI), Convention de Vienne (CVIM/CISG 1980), Convention de New York (1958, arbitrage), Droit matériel suisse (CO) & *Loi sur les compagnies du Québec* (Partie III) | `CADRE_DIRECTEUR_OSBL_VALORISATION.md` (§I–V), `LICENSE` (`Apache-2.0`), `NOTICE` | 🔷 Architecture contractuelle (revue juridique requise par engagement) |
 
 ### 2.3 Universités, Recherche & Reproductibilité Scientifique
 
