@@ -9,6 +9,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [CITATION.cff](../../CITATION.cff) — Métadonnées de citation académique normalisées (CFF v1.2.0 / BibTeX / ORCID / Zenodo).
 - [SECURITY.md](../../SECURITY.md) — Politique de sécurité, divulgation coordonnée (RFC 9116 / NIST SSDF) et frontière honnête des garanties CI vs silicium.
 - [.gitattributes](../../.gitattributes) — Normalisation déterministe des fins de ligne (`LF` pour Rego/Python/Rust/Makefile, `CRLF` pour PowerShell).
+- [.editorconfig](../../.editorconfig) — Convention de formatage inter-IDE déterministe (`UTF-8`, `LF`, `tab` pour Rego/Makefile, compatible VSCodium/VS Code).
 - [FORMALISATION_MATHEMATIQUE_UNIFIEE.md](FORMALISATION_MATHEMATIQUE_UNIFIEE.md) — Monographie mathématique unifiée (`MAT-00..MAT-08`, treillis $G_0..G_4$, théorème d'agrégation `VR-Fractal-Ω`, `GENERIC n-D` $M \succeq 0$, simplexe exact `SGG_v2`, contraction `TZI`, `GRPO`).
 - [MATRICE_CONFORMITE_INSTITUTIONNELLE.md](MATRICE_CONFORMITE_INSTITUTIONNELLE.md) — Matrice d'alignement et de vérification Défense / Gouvernement / International (ISO/NIST/SLSA/NIS2/DORA) / Université (ORCID), sous discipline `mesuré, non proclamé`.
 - [CADRE_DIRECTEUR_OSBL_VALORISATION.md](CADRE_DIRECTEUR_OSBL_VALORISATION.md) — Cadre directeur d'ingénierie, de gouvernance corporative OSBL (Loi sur les compagnies du Québec, Partie III), socle TCB minimal et contrat-cadre *Strictum Jus*.
@@ -16,6 +17,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [LOIS_PROUVEES_SUPELA.md](LOIS_PROUVEES_SUPELA.md) — Synthèse Markdown auditable du module *Supela Is The Laws*.
 - [LOIS_PROUVEES_SUPELA.html](LOIS_PROUVEES_SUPELA.html) — Page Web interactive autonome (0 CDN, 0 $ PMU) exposant les 12 lois prouvées, la pyramide internationale, la topologie géodésique 4D et 5 simulateurs de réfutation en direct.
 - [INTEGRATION_GIT_COLA_SUPELA.md](INTEGRATION_GIT_COLA_SUPELA.md) — Intégration souveraine de [`git-cola`](https://github.com/git-cola/git-cola) (DAG Git, staging par bloc, signature GPG/SSH, actions `guitool.*` 0 $ PMU sous séparation propre `Apache-2.0` / `GPL-2.0`).
+- [INTEGRATION_AZURE_FUNCTIONS_SUPELA.md](INTEGRATION_AZURE_FUNCTIONS_SUPELA.md) — Intégration serverless lecture seule compatible [`microsoft/vscode-azurefunctions`](https://github.com/microsoft/vscode-azurefunctions) (Python v2, OIDC sans secret, 0 dépendance propriétaire).
 - [PLAN_4D_OMEGA_ZERO_ESC_01.md](PLAN_4D_OMEGA_ZERO_ESC_01.md) — Spécification complète corrigée ($\Pi_0$, 7 statuts du Manque, 8 paliers `E0..E7`, 10 conditions `C01..C10`, `Load(C)`, revidage transactionnel).
 - [DEFINITION_P0_PROJECTION.json](DEFINITION_P0_PROJECTION.json) — Définition formelle et assertions exécutables de $\Pi_0$.
 - [STATUT_MANQUE.json](STATUT_MANQUE.json) — Les 7 statuts canoniques, règles M1–M5 et machine à états complète (`TR-01`..`TR-16` + transitions interdites).
@@ -58,6 +60,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `src/omega_zero/guard_kernel.py` — Noyau `SupelaGuardKernel` (`SUP-ICI-01`, `C0`/`C1`/`C2`, test de perte de sens à 8 questions, cycles `G0..G5` et registre des rejets).
 - `src/omega_zero/multi_engine_bench.py` — Banc multi-moteurs non-votant (`SupelaMultiEngineBench`, 10 champs minimaux, détection `SUPELA_EN_DÉFAUT`).
 - `src/omega_zero/pcep.py` — Moteur PCEP (9 familles de codage évolutif à preuve conservée, registre `A_PROUVER`, enveloppe `EN_ATTENTE_SIGNATURE`).
+- `src/omega_zero/serverless_laws_handler.py` — Adaptateur HTTP serverless agnostique lecture seule (Azure Functions Python v2 / local HTTP) exposant `/api/supela/health`, `/api/supela/laws` et `/api/supela/laws/web`.
 - `src/omega_zero/sovereign_net.py` — Noyau inhérent souverain (`ZERO-STATE-01`, `ZERO-AGENT-01`, `SUP-NORM-NET-01/1.0`, `SovereignSearchQuery` Ed25519, Anti-EaaS et topologies).
 - `src/omega_zero/supela_laws.py` — Module exécutable *Supela Is The Laws* (12 lois prouvées, tri-état `IntegrityStatus`, frontières `C≠P≠V≠A`, dégel, `ReversibleAppendOnlyLedger` SQLite, pyramide normative multi-juridictions et topologie géodésique 4D / ISO 19115).
 - `src/omega_zero/supela_math_core.py` — Noyau mathématique unifié (`MAT-00..MAT-08`, thermodynamique GENERIC $\dot{E}=0, \dot{S}\ge 0$ et séparation honnête `A_PROUVER`).

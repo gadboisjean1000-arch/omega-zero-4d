@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 194,
+    "fichiers_omega_zero_4d": 197,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1086,6 +1086,11 @@
         "taille_octets": 800
       },
       {
+        "chemin": ".editorconfig",
+        "categorie": "root",
+        "taille_octets": 304
+      },
+      {
         "chemin": ".gitattributes",
         "categorie": "root",
         "taille_octets": 120
@@ -1138,7 +1143,7 @@
       {
         "chemin": "README.md",
         "categorie": "root",
-        "taille_octets": 7627
+        "taille_octets": 8013
       },
       {
         "chemin": "SECURITY.md",
@@ -1168,7 +1173,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 319662
+        "taille_octets": 319949
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1188,12 +1193,17 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 29332
+        "taille_octets": 29997
+      },
+      {
+        "chemin": "docs/constitution/INTEGRATION_AZURE_FUNCTIONS_SUPELA.md",
+        "categorie": "docs",
+        "taille_octets": 2945
       },
       {
         "chemin": "docs/constitution/INTEGRATION_GIT_COLA_SUPELA.md",
         "categorie": "docs",
-        "taille_octets": 3300
+        "taille_octets": 3408
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.html",
@@ -1438,7 +1448,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 173704
+        "taille_octets": 174105
       },
       {
         "chemin": "omega.ps1",
@@ -1743,7 +1753,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 6517
+        "taille_octets": 6669
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1804,6 +1814,11 @@
         "chemin": "src/omega_zero/scenarios.py",
         "categorie": "src",
         "taille_octets": 9935
+      },
+      {
+        "chemin": "src/omega_zero/serverless_laws_handler.py",
+        "categorie": "src",
+        "taille_octets": 4255
       },
       {
         "chemin": "src/omega_zero/sovereign_net.py",
@@ -1953,7 +1968,7 @@
       {
         "chemin": "tests/test_supela_laws.py",
         "categorie": "tests",
-        "taille_octets": 8805
+        "taille_octets": 9968
       },
       {
         "chemin": "tests/test_supela_math_core.py",

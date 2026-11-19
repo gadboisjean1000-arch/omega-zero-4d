@@ -13,7 +13,7 @@
 | **Indexation chirurgicale par bloc/ligne (*hunk/line staging*)** | Permet une revue humaine granulaire (`C10 : amélioration ≠ autorisation`) avant chaque commit sur branche de PR (`VR-03`). |
 | **Signature cryptographique GPG / SSH intégrée** | Authentification de l'auteur souverain (`QUI`) directement depuis l'interface locale, en complément des preuves automatisées (`QUOI`). |
 | **Actions personnalisées (`guitool.*`)** | Déclenche en un clic les sondes locales Supela (`verify_a12.py`, `vr_compliance_check.py`, `build_proven_laws_web.py`, `opa test`, `pytest`). |
-| **0 $ PMU & Multi-OS (Windows / Linux / macOS)** | Zéro abonnement, zéro télémétrie, fonctionne 100 % hors ligne dans le socle TCB minimal (`CADRE_DIRECTEUR_OSBL_VALORISATION.md`). |
+| **0 $ PMU & Multi-OS (Windows / Linux / macOS)** | Zéro abonnement, zéro télémétrie, fonctionne 100 % hors ligne dans le socle TCB minimal (`CADRE_DIRECTEUR_OSBL_VALORISATION.md`) aux côtés de [VSCodium](https://github.com/VSCodium/vscodium) (`MIT`, 0 télémétrie) et `.editorconfig`. |
 
 ---
 

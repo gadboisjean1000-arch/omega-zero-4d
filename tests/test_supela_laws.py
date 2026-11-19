@@ -5,6 +5,7 @@ import json
 
 import pytest
 
+from omega_zero.serverless_laws_handler import handle_supela_http_request
 from omega_zero.supela_laws import (
     DiscreteClassBBounds,
     FourBoundaryGate,
@@ -224,3 +225,25 @@ def test_supela_laws_suite_and_web_artifacts_parity() -> None:
 
     js_res = verify_laws_js_syntax(html_text)
     assert js_res["ok"] is True, js_res.get("stderr", "")
+
+
+def test_serverless_azure_functions_adapter_read_only_routes() -> None:
+    health = handle_supela_http_request("GET", "/api/supela/health")
+    assert health.status_code == 200
+    health_data = json.loads(health.body)
+    assert health_data["verdict_global"] == "CONFORME_AU_PERIMETRE_FORMALISE"
+    assert health_data["read_only_edge"] is True
+    assert health_data["canonical_ledger_hosted_here"] is False
+
+    laws_res = handle_supela_http_request("GET", "/api/supela/laws")
+    assert laws_res.status_code == 200
+    assert json.loads(laws_res.body)["summary"]["laws_verified"] == 12
+
+    web_res = handle_supela_http_request("GET", "/api/supela/laws/web")
+    assert web_res.status_code == 200
+    assert "supela-laws-data" in web_res.body
+
+    # Toute mutation est refusée fail-closed (405) et route inconnue -> 404
+    assert handle_supela_http_request("POST", "/api/supela/laws").status_code == 405
+    assert handle_supela_http_request("DELETE", "/api/supela/health").status_code == 405
+    assert handle_supela_http_request("GET", "/api/supela/unknown").status_code == 404

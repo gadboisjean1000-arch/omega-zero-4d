@@ -73,6 +73,7 @@ from .protocol import (
     RevidageFailure,
     SaturationWithoutDeclarationError,
 )
+from .serverless_laws_handler import ServerlessHttpResponse, handle_supela_http_request
 from .sovereign_net import (
     EMPTY_SHA,
     TRANSPORT_PROFILES,
@@ -220,6 +221,7 @@ __all__ = [
     "SelfRefutingProbe",
     "SemanticLossTestResult",
     "SemanticResidue",
+    "ServerlessHttpResponse",
     "SignatureStatus",
     "SignedAttestation",
     "SovereignNetReport",
@@ -249,6 +251,7 @@ __all__ = [
     "ZeroState",
     "build_pcep_network_envelope",
     "evaluate_sensor_integrity",
+    "handle_supela_http_request",
     "run_integrated_network_pipeline",
     "run_network_doctor",
     "run_pcep_prepare",
