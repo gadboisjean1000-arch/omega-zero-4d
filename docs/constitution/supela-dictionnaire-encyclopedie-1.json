@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 198,
+    "fichiers_omega_zero_4d": 200,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1178,7 +1178,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 320061
+        "taille_octets": 320268
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1198,7 +1198,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 30336
+        "taille_octets": 30801
       },
       {
         "chemin": "docs/constitution/INTEGRATION_AZURE_FUNCTIONS_SUPELA.md",
@@ -1208,7 +1208,7 @@
       {
         "chemin": "docs/constitution/INTEGRATION_GIT_COLA_SUPELA.md",
         "categorie": "docs",
-        "taille_octets": 5887
+        "taille_octets": 6303
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.html",
@@ -1234,6 +1234,11 @@
         "chemin": "docs/constitution/MECANIQUE_IRREVERSIBLE_GENERIC_SUPELA.md",
         "categorie": "docs",
         "taille_octets": 4714
+      },
+      {
+        "chemin": "docs/constitution/PACK_AUDIT_EXTERNE_ZENODO.md",
+        "categorie": "docs",
+        "taille_octets": 7753
       },
       {
         "chemin": "docs/constitution/PCEP_PROGRAMMATION_EVOLUTIVE_PREUVE.md",
@@ -1453,7 +1458,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 174255
+        "taille_octets": 174538
       },
       {
         "chemin": "omega.ps1",
@@ -1904,6 +1909,11 @@
         "chemin": "tests/rego/omega_zero_invariants_test.rego",
         "categorie": "tests",
         "taille_octets": 15460
+      },
+      {
+        "chemin": "tests/test_citation_and_audit_package.py",
+        "categorie": "tests",
+        "taille_octets": 5243
       },
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",

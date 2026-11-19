@@ -12,6 +12,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - [.editorconfig](../../.editorconfig) — Convention de formatage inter-IDE déterministe (`UTF-8`, `LF`, `tab` pour Rego/Makefile, compatible VSCodium/VS Code).
 - [FORMALISATION_MATHEMATIQUE_UNIFIEE.md](FORMALISATION_MATHEMATIQUE_UNIFIEE.md) — Monographie mathématique unifiée (`MAT-00..MAT-08`, treillis $G_0..G_4$, théorème d'agrégation `VR-Fractal-Ω`, `GENERIC n-D` $M \succeq 0$, simplexe exact `SGG_v2`, contraction `TZI`, `GRPO`).
 - [MATRICE_CONFORMITE_INSTITUTIONNELLE.md](MATRICE_CONFORMITE_INSTITUTIONNELLE.md) — Matrice d'alignement et de vérification Défense / Gouvernement / International (ISO/NIST/SLSA/NIS2/DORA) / Université (ORCID), sous discipline `mesuré, non proclamé`.
+- [PACK_AUDIT_EXTERNE_ZENODO.md](PACK_AUDIT_EXTERNE_ZENODO.md) — Pack d'audit externe en 10 étapes (`1. Identifier` → `10. Soumettre à décision humaine`) et verrou épistémique de provenance DOI Zenodo (`docs/zenodo-doi-canonical`).
 - [CADRE_DIRECTEUR_OSBL_VALORISATION.md](CADRE_DIRECTEUR_OSBL_VALORISATION.md) — Cadre directeur d'ingénierie, de gouvernance corporative OSBL (Loi sur les compagnies du Québec, Partie III), socle TCB minimal et contrat-cadre *Strictum Jus*.
 - [LOIS_PROUVEES_SUPELA.json](LOIS_PROUVEES_SUPELA.json) — Manifeste JSON canonique scellé SHA-256 du module complet *Supela Is The Laws* (12 lois prouvées, pyramide normative internationale `wiki.private.law` corrigée, topologie 4D ArcGIS Pro 0 $ PMU & ISO 19115).
 - [LOIS_PROUVEES_SUPELA.md](LOIS_PROUVEES_SUPELA.md) — Synthèse Markdown auditable du module *Supela Is The Laws*.
@@ -84,6 +85,7 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `tests/test_pcep.py` — Tests PCEP (9 familles, auto-révocation, transport multi-référentiels, autorité calculée, schéma Draft 2020-12, MCP et CLI `pcep-prepare`).
 - `tests/test_sovereign_net.py` — Tests `SupelaInherentCore` (`EMPTY_SHA`, `audit_trail` réel), `SovereignSearchQuery` (regex + Ed25519), topologies, MCP et CLI `sovereign-verify`.
 - `tests/test_supela_laws.py` — Suite complète de tests positifs et négatifs *Supela Is The Laws* (12 lois, triggers SQLite append-only, pyramide internationale, topologie `EPSG:4326`, parité JSON/HTML/JS 0-CDN).
+- `tests/test_citation_and_audit_package.py` — Validation YAML/CFF v1.2.0 (`CITATION.cff`), blocage fail-closed des placeholders DOI Zenodo, vérification des 10 étapes d'audit externe et du workflow Fulcio/OIDC Release.
 - `tests/test_supela_math_core.py` — Tests du noyau mathématique unifié (`MAT-00..MAT-08`, GENERIC $\dot{E}=0, \dot{S}\ge 0$, validation humaine et CLI `math-eval`).
 - `tests/test_supela_runtime_v02.py` — Tests du Système Nerveux Supela Runtime v0.2 (`L0`–`L7`, `schemas/supela-state.schema.json`, blocage hors dépôt et commandes non autorisées, falsification registre SHA-256, refus auto-ratification IA, contradiction/révision `G1→G2`, réouverture et 11 outils MCP `supela_*`).
 - `tests/test_network_bus_and_mcp.py` — Tests bout-en-bout `GF1`–`GF5`, `VR-01..VR-20` (20/20), `omega-network doctor/pipeline` et sous-processus JSON-RPC 2.0 `mcp_server`.
