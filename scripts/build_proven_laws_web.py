@@ -76,7 +76,7 @@ def render_laws_markdown(doc: dict[str, Any]) -> str:
         mark = "✅" if law["verifie"] else "❌"
         lines.append(
             f"| `{law['id']}` | `{law['categorie']}` | **{law['nom']}** | "
-            f"`{law['formule']}` | `{law['statut_epistemique']}` | {mark} | {law['nimpliqe_pas']} |"
+            f"`{law['formule']}` | `{law['statut_epistemique']}` | {mark} | {law['n_implique_pas']} |"
         )
 
     lines.extend(
@@ -484,7 +484,7 @@ def render_laws_html(doc: dict[str, Any]) -> str:
             <div class="formula">${{esc(law.formule)}}</div>
             <div class="meta-line"><strong>Preuve :</strong> ${{esc(law.preuve_mesuree)}}</div>
             <div class="meta-line"><strong>Module :</strong> <code>${{esc(law.module_source)}}</code></div>
-            <div class="limit-line"><strong>N'implique pas :</strong> ${{esc(law.nimpliqe_pas)}}</div>
+            <div class="limit-line"><strong>N'implique pas :</strong> ${{esc(law.n_implique_pas)}}</div>
           </article>
         `).join("");
       }}

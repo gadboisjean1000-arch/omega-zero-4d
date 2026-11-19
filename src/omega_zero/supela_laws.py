@@ -850,7 +850,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law01_ok,
             "module_source": "src/omega_zero/supela_math_core.py (SupelaStateTuple)",
             "preuve_mesuree": "K_0 ⊆ K_1 vérifié après advance() et reset_contradictions_only_in_c().",
-            "nimpliqe_pas": "N'interdit pas de réouvrir ou rétracter logiquement un raccord.",
+            "n_implique_pas": "N'interdit pas de réouvrir ou rétracter logiquement un raccord.",
         },
         {
             "id": "LAW-02",
@@ -861,7 +861,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law02_ok,
             "module_source": "src/omega_zero/projection.py (Pi0Projector)",
             "preuve_mesuree": "Hash canonique strictement identique entre Π₀(S_t) et Π₀(Π₀(S_t)).",
-            "nimpliqe_pas": "Ne résout pas automatiquement les manques ouverts M.",
+            "n_implique_pas": "Ne résout pas automatiquement les manques ouverts M.",
         },
         {
             "id": "LAW-03",
@@ -872,7 +872,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law03_ok,
             "module_source": "src/omega_zero/supela_laws.py (evaluate_sensor_integrity)",
             "preuve_mesuree": "Capteur muet → EXIT=3, divergence → EXIT=1, concordance → EXIT=0.",
-            "nimpliqe_pas": "Un capteur muet n'est jamais compté comme un blocage réussi ni comme conforme.",
+            "n_implique_pas": "Un capteur muet n'est jamais compté comme un blocage réussi ni comme conforme.",
         },
         {
             "id": "LAW-04",
@@ -883,7 +883,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law04_ok,
             "module_source": "src/omega_zero/supela_math_core.py (verify_proof_lattice_axioms)",
             "preuve_mesuree": "125/125 triplets vérifiés (ordre, lois de treillis, bornage, monotonie).",
-            "nimpliqe_pas": "Ne prouve pas la validité universelle hors du périmètre testé.",
+            "n_implique_pas": "Ne prouve pas la validité universelle hors du périmètre testé.",
         },
         {
             "id": "LAW-05",
@@ -894,7 +894,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law05_ok,
             "module_source": "src/omega_zero/supela_laws.py (FourBoundaryGate)",
             "preuve_mesuree": "Promotion refusée sans ratification humaine même si C=P=V=Signature=True.",
-            "nimpliqe_pas": "Une signature Ed25519 certifie QUI a signé, jamais la vérité du payload.",
+            "n_implique_pas": "Une signature Ed25519 certifie QUI a signé, jamais la vérité du payload.",
         },
         {
             "id": "LAW-06",
@@ -905,7 +905,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law06_ok,
             "module_source": "src/omega_zero/supela_laws.py (ThawConditionGate)",
             "preuve_mesuree": "Refus immédiat si H_souverain=False ou si SONDE_INEXECUTABLE.",
-            "nimpliqe_pas": "Le dégel autorise la réépreuve, jamais une validation automatique.",
+            "n_implique_pas": "Le dégel autorise la réépreuve, jamais une validation automatique.",
         },
         {
             "id": "LAW-07",
@@ -916,7 +916,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law07_ok,
             "module_source": "src/omega_zero/supela_laws.py (ReversibleAppendOnlyLedger)",
             "preuve_mesuree": "Rejeu SHA-256 vérifié, R* restaure seq 1 à seq 3, triggers SQLite UPDATE/DELETE bloqués.",
-            "nimpliqe_pas": "N'annule pas physiquement un effet externe irréversible (courriel, paiement).",
+            "n_implique_pas": "N'annule pas physiquement un effet externe irréversible (courriel, paiement).",
         },
         {
             "id": "LAW-08",
@@ -927,7 +927,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law08_ok,
             "module_source": "src/omega_zero/supela_math_core.py (FractalScaleAggregation)",
             "preuve_mesuree": "Identité harmonique et théorème des gendarmes vérifiés avec garde Δ_i ≥ 0.",
-            "nimpliqe_pas": "Ne couvre pas les poids négatifs ni les graphes ouverts non bornés.",
+            "n_implique_pas": "Ne couvre pas les poids négatifs ni les graphes ouverts non bornés.",
         },
         {
             "id": "LAW-09",
@@ -938,7 +938,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law09_ok,
             "module_source": "src/omega_zero/supela_math_core.py (GenericThermodynamicStep)",
             "preuve_mesuree": "Oscillateur 3D couplé (L≠0, M≠0, dE/dt=0, dS/dt=0.16>0) + réfutation M indéfinie.",
-            "nimpliqe_pas": "L'extension en dimension infinie (EDP Kružkov / GKSL) demeure hors preuve locale.",
+            "n_implique_pas": "L'extension en dimension infinie (EDP Kružkov / GKSL) demeure hors preuve locale.",
         },
         {
             "id": "LAW-10",
@@ -949,7 +949,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law10_ok,
             "module_source": "src/omega_zero/supela_math_core.py (SGGv2Metric)",
             "preuve_mesuree": "Isomorphisme d'ordre 5/6 exact en Fraction, domaine [0,1] strictement gardé.",
-            "nimpliqe_pas": "Ne constitue pas un étalonnage statistique terrain sans jeu empirique.",
+            "n_implique_pas": "Ne constitue pas un étalonnage statistique terrain sans jeu empirique.",
         },
         {
             "id": "LAW-11",
@@ -960,7 +960,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law11_ok,
             "module_source": "src/omega_zero/grpo_bridge.py (SupelaGRPOBridge)",
             "preuve_mesuree": f"L=0.0, ||∇L||={grpo.grad_norm:.6f}, écart analytique/DF={grpo_fd_err:.2e} < 1e-7.",
-            "nimpliqe_pas": "Un score heuristique élevé ne vaut jamais autorité ni vérité.",
+            "n_implique_pas": "Un score heuristique élevé ne vaut jamais autorité ni vérité.",
         },
         {
             "id": "LAW-12",
@@ -971,7 +971,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "verifie": law12_ok,
             "module_source": "src/omega_zero/supela_laws.py (DiscreteClassBBounds)",
             "preuve_mesuree": "0 non-classifié résiduel ; convergence t≤100, K=2 Lipschitz, ops_irrev=0, TZI exact-power OK.",
-            "nimpliqe_pas": "0 non-classifié dans le périmètre formalisé ≠ résolution des indécidables de Classe A.",
+            "n_implique_pas": "0 non-classifié dans le périmètre formalisé ≠ résolution des indécidables de Classe A.",
         },
     ]
 

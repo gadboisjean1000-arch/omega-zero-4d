@@ -51,10 +51,16 @@ git cola dag    # Visualiseur DAG complet de l'historique immuable
 
 ---
 
-## 3. Poste de Travail Souverain sans Télémétrie (Apports `VSCodium` / `@daiyam`)
+## 3. Poste de Travail Souverain sans Télémétrie (Apports `VSCodium` / `@daiyam` / `zokugun`)
 
-Dans la continuité de la doctrine **0 $ PMU / zéro télémétrie** portée par [VSCodium](https://github.com/VSCodium/vscodium) et son mainteneur principal [Baptiste Augrain (`@daiyam`)](https://github.com/daiyam) :
+Dans la continuité de la doctrine **0 $ PMU / zéro télémétrie** portée par [VSCodium](https://github.com/VSCodium/vscodium), son mainteneur principal [Baptiste Augrain (`@daiyam`)](https://github.com/daiyam) et l'organisation MIT [`zokugun`](https://github.com/zokugun) :
 
-- **IDE souverain sans télémétrie :** privilégier **VSCodium** (binaire libre reconstruit sans télémétrie ni verrouillage propriétaire) couplé au registre ouvert **Open VSX** et au fichier `.editorconfig` partagé entre `omega-zero-4d` et `Supela-K3-Omega`.
-- **Builds reproductibles & séries de correctifs auditables :** chaque outil de la chaîne locale (`git-cola`, `VSCodium`, `opa v1.22.4`, `cosign v3.1.4`, `cargo --locked`) reste vérifiable par empreinte SHA-256 et remplaçable sans perte du canon Supela.
+- **IDE souverain sans télémétrie (`VSCodium` / `zokugun/MrCode`) :** privilégier **VSCodium** (ou sa variante durcie [`zokugun/MrCode`](https://github.com/zokugun/MrCode), licence `MIT`) couplé au registre ouvert **Open VSX** et au fichier `.editorconfig` partagé entre `omega-zero-4d` et `Supela-K3-Omega`.
+- **Synchronisation souveraine hors cloud propriétaire (`zokugun/vscode-sync-settings`) :** exporter et versionner la configuration IDE, les profils et la liste d'extensions dans un dépôt Git privé ou un répertoire local chiffré — aucune dépendance à un compte cloud propriétaire (`0 $ PMU`).
+- **Audit lisible des spécifications longues (`zokugun/vscode-explicit-folding`) :** utiliser le pliage explicite par régions nommées pour naviguer proprement les registres canoniques (`ENCYCLOPEDIE_DICTIONNAIRE`, `LOIS_PROUVEES_SUPELA`, politiques Rego v1, noyau Rust).
+- **Discipline *Result-type* & transactions Git typées (`zokugun/node-fs-extra-plus`, `zokugun/node-git-toolkit`) :** adopter le principe des retours explicites (`ok / err` sans avaler les erreurs silencieusement), aligné directement sur la **Loi 3 (`0_vide != 0_vert`)** et le contrôle déterministe des opérations Git locales.
+- **Changelogs & synchronisation multi-dépôts déterministes (`zokugun/extract-changelog`, `zokugun/repo-starter-kit`) :** maintenir une parité traçable (`K_t ⊆ K_{t+1}`) entre `omega-zero-4d` et `Supela-K3-Omega` (`.editorconfig`, `.gitattributes`, `SECURITY.md`, politiques SHA-256).
+- **Builds reproductibles & séries de correctifs auditables :** chaque outil de la chaîne locale (`git-cola`, `VSCodium`/`MrCode`, `opa v1.22.4`, `cosign v3.1.4`, `cargo --locked`) reste vérifiable par empreinte SHA-256 et remplaçable sans perte du canon Supela.
+
+> **Séparation de licence :** tous les projets `zokugun` et `VSCodium` référencés ici sont sous licence `MIT` et intégrés uniquement comme **outillage de poste de travail / références d'architecture** — aucun binaire ni code tiers n'est vendu ni copié dans le cœur `omega-zero-4d` (`Apache-2.0`).
 

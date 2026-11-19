@@ -1203,17 +1203,17 @@
       {
         "chemin": "docs/constitution/INTEGRATION_GIT_COLA_SUPELA.md",
         "categorie": "docs",
-        "taille_octets": 4245
+        "taille_octets": 5887
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.html",
         "categorie": "docs",
-        "taille_octets": 43944
+        "taille_octets": 43970
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.json",
         "categorie": "docs",
-        "taille_octets": 18264
+        "taille_octets": 18288
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.md",
@@ -1713,7 +1713,7 @@
       {
         "chemin": "scripts/build_proven_laws_web.py",
         "categorie": "scripts",
-        "taille_octets": 37597
+        "taille_octets": 37601
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
@@ -1828,7 +1828,7 @@
       {
         "chemin": "src/omega_zero/supela_laws.py",
         "categorie": "src",
-        "taille_octets": 48558
+        "taille_octets": 48582
       },
       {
         "chemin": "src/omega_zero/supela_math_core.py",
