@@ -4,7 +4,7 @@
   "auteur_souverain": "Jean-François Gadbois",
   "orcid": "https://orcid.org/0009-0001-5361-6795",
   "license": "Apache-2.0",
-  "generated_at_utc": "2026-11-19T21:47:10Z",
+  "generated_at_utc": "2026-11-19T21:53:31Z",
   "verdict_global": "CONFORME_AU_PERIMETRE_FORMALISE",
   "clause_honnetete": {
     "universal_truth_claimed": false,
@@ -416,6 +416,7 @@
         {
           "zone_id": "QC-MTL",
           "epoch_utc": "2026-11-19T00:00:00Z",
+          "normative_level": "L1_ORDRE_PUBLIC_NATIONAL",
           "branches": [
             "branch-audit",
             "main"
@@ -445,5 +446,5 @@
       "lineage_sha256": "751570d70c32c69951bc5674f0a18855888541512f774e8823198c1b2b34659b"
     }
   },
-  "digest_sha256": "4e45336fda4e71ee6b29e51f90de41a97b29d95318f7f52b1ff3f19756ab9587"
+  "digest_sha256": "b87e6bc21c20f8e370de553ebd5632171d5d191ae0533bc1cd83b7d55d8e757b"
 }

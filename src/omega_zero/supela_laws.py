@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import math
@@ -197,7 +198,7 @@ class ReversibleAppendOnlyLedger:
             "event_id": f"ev-{sequence_no:04d}",
             "sequence_no": sequence_no,
             "event_type": event_type,
-            "payload": payload,
+            "payload": copy.deepcopy(payload),
             "previous_event_hash": previous_event_hash,
             "actor_id": actor_id,
             "authority_class": authority_class,
@@ -223,20 +224,20 @@ class ReversibleAppendOnlyLedger:
             if computed != ev["event_hash"]:
                 raise LedgerIntegrityError(f"Hash falsifié sur l'événement {ev['event_id']}.")
             ev_type = ev["event_type"]
-            payload = dict(ev["payload"])
+            payload = copy.deepcopy(dict(ev["payload"]))
             if ev_type == "INIT":
-                state_data = dict(payload)
+                state_data = payload
             elif ev_type == "SET":
                 state_data.update(payload)
             elif ev_type == "RETRACT":
-                state_data = dict(payload["restored_state_data"])
+                state_data = copy.deepcopy(dict(payload["restored_state_data"]))
             else:
                 raise ValueError(f"Type d'événement inconnu : {ev_type}")
             expected_prev = str(ev["event_hash"])
             last_seq = seq
         return {
             "sequence_no": last_seq,
-            "data": state_data,
+            "data": copy.deepcopy(state_data),
             "last_event_hash": expected_prev,
         }
 
@@ -252,6 +253,12 @@ class ReversibleAppendOnlyLedger:
         """INV-R0-02 : ajoute un événement RETRACT sans modifier ni supprimer aucun bloc antérieur."""
         if not events:
             raise ValueError("Impossible de rétracter un journal vide.")
+        valid_sequences = {int(ev["sequence_no"]) for ev in events}
+        if target_sequence not in valid_sequences:
+            raise ValueError(
+                f"Séquence cible inexistante pour R* : {target_sequence} "
+                f"(séquences disponibles : {sorted(valid_sequences)})."
+            )
         restored = cls.replay(events, target_sequence=target_sequence)
         last_ev = events[-1]
         retract_ev = cls.make_event(
@@ -259,7 +266,7 @@ class ReversibleAppendOnlyLedger:
             event_type="RETRACT",
             payload={
                 "restore_sequence_no": target_sequence,
-                "restored_state_data": restored["data"],
+                "restored_state_data": copy.deepcopy(restored["data"]),
                 "reason": reason,
             },
             previous_event_hash=str(last_ev["event_hash"]),
@@ -569,18 +576,19 @@ class GeoTopologyEngine:
     @staticmethod
     def detect_branch_version_conflicts(bins: list[SpaceTimeJurisdictionBin]) -> dict[str, Any]:
         """Détecte sans effacement les conflits concurrents de Branch Versioning (ArcGIS Pro × Supela 4D)."""
-        by_cell: dict[tuple[str, str], list[SpaceTimeJurisdictionBin]] = {}
+        by_cell: dict[tuple[str, str, NormativeLevel], list[SpaceTimeJurisdictionBin]] = {}
         for item in bins:
-            by_cell.setdefault((item.zone_id, item.epoch_utc), []).append(item)
+            by_cell.setdefault((item.zone_id, item.epoch_utc, item.normative_level), []).append(item)
 
         conflicts: list[dict[str, Any]] = []
-        for (zone_id, epoch_utc), entries in sorted(by_cell.items()):
+        for (zone_id, epoch_utc, normative_level), entries in sorted(by_cell.items()):
             distinct_hashes = sorted({e.state_hash for e in entries})
             if len(distinct_hashes) > 1:
                 conflicts.append(
                     {
                         "zone_id": zone_id,
                         "epoch_utc": epoch_utc,
+                        "normative_level": normative_level.name,
                         "branches": sorted({e.branch_name for e in entries}),
                         "divergent_hashes": distinct_hashes,
                         "status": "BRANCH_CONFLICT_CONSERVED",
@@ -625,7 +633,11 @@ class GeoTopologyEngine:
         }
 
 
-def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> dict[str, Any]:
+def run_supela_laws_suite(
+    *,
+    validator_name: str = "Jean-François Gadbois",
+    generated_at_utc: str | None = None,
+) -> dict[str, Any]:
     """
     Exécute de bout en bout le module complet « Supela Is The Laws » :
       - Les 12 Lois formelles prouvées (avec contre-tests de réfutation)
@@ -982,7 +994,11 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
         "auteur_souverain": validator_name,
         "orcid": ORCID_URI,
         "license": "Apache-2.0",
-        "generated_at_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_at_utc": (
+            generated_at_utc
+            if generated_at_utc is not None
+            else datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+        ),
         "verdict_global": (
             "CONFORME_AU_PERIMETRE_FORMALISE"
             if (all_laws_passed and pyramid_ok and geo_ok)
@@ -1073,5 +1089,7 @@ def run_supela_laws_suite(*, validator_name: str = "Jean-François Gadbois") -> 
             "iso19115_metadata": iso19115,
         },
     }
-    payload["digest_sha256"] = canonical_sha256(payload)
+    # Empreinte déterministe du contenu (indépendante de l'horloge murale generated_at_utc)
+    deterministic_content = {k: v for k, v in payload.items() if k != "generated_at_utc"}
+    payload["digest_sha256"] = canonical_sha256(deterministic_content)
     return payload

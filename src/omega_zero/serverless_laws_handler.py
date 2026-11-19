@@ -17,6 +17,7 @@ from .supela_laws import run_supela_laws_suite
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_LAWS_HTML_PATH = ROOT_DIR / "docs" / "constitution" / "LOIS_PROUVEES_SUPELA.html"
+DEFAULT_ENCYCLOPEDIE_HTML_PATH = ROOT_DIR / "docs" / "constitution" / "ENCYCLOPEDIE_DICTIONNAIRE.html"
 
 
 @dataclass(frozen=True)
@@ -34,12 +35,15 @@ def handle_supela_http_request(
     path: str,
     *,
     html_path: Path = DEFAULT_LAWS_HTML_PATH,
+    encyclopedie_html_path: Path = DEFAULT_ENCYCLOPEDIE_HTML_PATH,
 ) -> ServerlessHttpResponse:
     """
     Routeur serverless fail-closed en lecture seule pour Supela Is The Laws :
-      - GET /api/supela/health   -> état synthétique JSON
-      - GET /api/supela/laws     -> manifeste complet des 12 lois + pyramide + topologie 4D
-      - GET /api/supela/laws/web -> page web interactive HTML5 autonome (0 CDN)
+      - GET /api/supela/health                               -> état synthétique JSON
+      - GET /api/supela/laws                                 -> manifeste complet JSON
+      - GET /api/supela/laws/LOIS_PROUVEES_SUPELA.json       -> alias compagnon du manifeste JSON
+      - GET /api/supela/laws/web                             -> page web interactive HTML5 (0 CDN)
+      - GET /api/supela/laws/ENCYCLOPEDIE_DICTIONNAIRE.html  -> page web Encyclopédie Supela (0 CDN)
     """
     security_headers = {
         "X-Content-Type-Options": "nosniff",
@@ -84,7 +88,7 @@ def handle_supela_http_request(
             headers=security_headers,
         )
 
-    if normalized_path == "/api/supela/laws":
+    if normalized_path in {"/api/supela/laws", "/api/supela/laws/LOIS_PROUVEES_SUPELA.json"}:
         suite = run_supela_laws_suite()
         return ServerlessHttpResponse(
             status_code=200,
@@ -108,6 +112,28 @@ def handle_supela_http_request(
         return ServerlessHttpResponse(
             status_code=200,
             body=html_path.read_text(encoding="utf-8"),
+            mimetype="text/html; charset=utf-8",
+            headers=security_headers,
+        )
+
+    if normalized_path == "/api/supela/laws/ENCYCLOPEDIE_DICTIONNAIRE.html":
+        if not encyclopedie_html_path.is_file():
+            err_body = json.dumps(
+                {
+                    "error": "ARTIFACT_NOT_BUILT",
+                    "detail": "ENCYCLOPEDIE_DICTIONNAIRE.html introuvable.",
+                },
+                ensure_ascii=False,
+            )
+            return ServerlessHttpResponse(
+                status_code=503,
+                body=err_body,
+                mimetype="application/json; charset=utf-8",
+                headers=security_headers,
+            )
+        return ServerlessHttpResponse(
+            status_code=200,
+            body=encyclopedie_html_path.read_text(encoding="utf-8"),
             mimetype="text/html; charset=utf-8",
             headers=security_headers,
         )

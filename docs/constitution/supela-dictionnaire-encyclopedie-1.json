@@ -1173,7 +1173,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 319949
+        "taille_octets": 319950
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1208,12 +1208,12 @@
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.html",
         "categorie": "docs",
-        "taille_octets": 43970
+        "taille_octets": 44019
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.json",
         "categorie": "docs",
-        "taille_octets": 18288
+        "taille_octets": 18345
       },
       {
         "chemin": "docs/constitution/LOIS_PROUVEES_SUPELA.md",
@@ -1448,7 +1448,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 174105
+        "taille_octets": 174106
       },
       {
         "chemin": "omega.ps1",
@@ -1713,7 +1713,7 @@
       {
         "chemin": "scripts/build_proven_laws_web.py",
         "categorie": "scripts",
-        "taille_octets": 37840
+        "taille_octets": 37842
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",
@@ -1818,7 +1818,7 @@
       {
         "chemin": "src/omega_zero/serverless_laws_handler.py",
         "categorie": "src",
-        "taille_octets": 4255
+        "taille_octets": 5549
       },
       {
         "chemin": "src/omega_zero/sovereign_net.py",
@@ -1828,7 +1828,7 @@
       {
         "chemin": "src/omega_zero/supela_laws.py",
         "categorie": "src",
-        "taille_octets": 48582
+        "taille_octets": 49447
       },
       {
         "chemin": "src/omega_zero/supela_math_core.py",
@@ -1968,7 +1968,7 @@
       {
         "chemin": "tests/test_supela_laws.py",
         "categorie": "tests",
-        "taille_octets": 9968
+        "taille_octets": 12987
       },
       {
         "chemin": "tests/test_supela_math_core.py",

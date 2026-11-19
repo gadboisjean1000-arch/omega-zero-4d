@@ -480,7 +480,7 @@ def render_laws_html(doc: dict[str, Any]) -> str:
         const filtered = (DATA.laws || []).filter((law) => {{
           if (cat !== "ALL" && law.categorie !== cat) return false;
           if (!q) return true;
-          const hay = [law.id, law.nom, law.formule, law.module_source, law.preuve_mesuree, law.nimpliqe_pas]
+          const hay = [law.id, law.nom, law.formule, law.module_source, law.preuve_mesuree, law.n_implique_pas]
             .join(" ").toLowerCase();
           return hay.includes(q);
         }});

@@ -121,6 +121,36 @@ def test_law07_reversible_append_only_ledger_r_star_and_sqlite_triggers() -> Non
     with pytest.raises(LedgerIntegrityError):
         ReversibleAppendOnlyLedger.replay(tampered)
 
+    # Isolation stricte (deepcopy) : muter le payload d'entrée ou le résultat replay ne corrompt pas l'historique
+    nested_input = {"settings": {"mode": "stable"}, "tags": ["v1"]}
+    e_nested = ReversibleAppendOnlyLedger.make_event(
+        sequence_no=1,
+        event_type="INIT",
+        payload=nested_input,
+        previous_event_hash="GENESIS",
+        actor_id="JFG",
+        authority_class="RATIFIED_HUMAN",
+    )
+    nested_input["settings"]["mode"] = "mutated_outside"
+    nested_input["tags"].append("rogue")
+    replayed_nested = ReversibleAppendOnlyLedger.replay([e_nested])
+    assert replayed_nested["data"] == {"settings": {"mode": "stable"}, "tags": ["v1"]}
+    replayed_nested["data"]["settings"]["mode"] = "mutated_after_replay"
+    replayed_nested["data"]["tags"].append("rogue2")
+    assert ReversibleAppendOnlyLedger.replay([e_nested])["data"] == {
+        "settings": {"mode": "stable"},
+        "tags": ["v1"],
+    }
+
+    # R* rejette les séquences cibles négatives, absentes ou futures sans modifier le journal
+    snapshot_before = copy.deepcopy([e1, e2])
+    for bad_target in (-1, 0, 99):
+        with pytest.raises(ValueError, match="Séquence cible inexistante"):
+            ReversibleAppendOnlyLedger.retract_r_star(
+                snapshot_before, target_sequence=bad_target, reason="Invalid", ratified_by="JFG"
+            )
+    assert snapshot_before == [e1, e2]
+
     # Triggers physiques SQLite interdisent UPDATE et DELETE
     trig = ReversibleAppendOnlyLedger.verify_sqlite_append_only_triggers()
     assert trig["triggers_verified"] is True
@@ -188,7 +218,17 @@ def test_geospatial_arcgis_topology_rules_and_branch_conflicts() -> None:
     with pytest.raises(ValueError):
         GeoBoundingBox("BAD", "Hors WGS84", -190.0, 0.0, 10.0, 10.0)
 
-    # Branch Versioning 4D détecte le conflit sans écrasement
+    # Branch Versioning 4D : deux niveaux normatifs distincts (L1 vs L2) ne sont PAS un conflit
+    br_distinct_levels = GeoTopologyEngine.detect_branch_version_conflicts(
+        [
+            SpaceTimeJurisdictionBin("B1", "Z1", "2026-11-19T00:00:00Z", "main", NormativeLevel.L1_ORDRE_PUBLIC_NATIONAL, "h1"),
+            SpaceTimeJurisdictionBin("B2", "Z1", "2026-11-19T00:00:00Z", "main", NormativeLevel.L2_AUTONOMIE_CONTRACTUELLE, "h2"),
+        ]
+    )
+    assert br_distinct_levels["unique_spacetime_cells"] == 2
+    assert br_distinct_levels["conflicts_detected"] == 0
+
+    # Branch Versioning 4D détecte le conflit sans écrasement au même (zone, époque, niveau)
     br = GeoTopologyEngine.detect_branch_version_conflicts(
         [
             SpaceTimeJurisdictionBin("B1", "Z1", "2026-11-19T00:00:00Z", "main", NormativeLevel.L1_ORDRE_PUBLIC_NATIONAL, "h1"),
@@ -196,6 +236,7 @@ def test_geospatial_arcgis_topology_rules_and_branch_conflicts() -> None:
         ]
     )
     assert br["conflicts_detected"] == 1
+    assert br["conflicts"][0]["normative_level"] == "L1_ORDRE_PUBLIC_NATIONAL"
     assert br["zero_silent_overwrite"] is True
 
 
@@ -218,7 +259,14 @@ def test_supela_laws_suite_and_web_artifacts_parity() -> None:
     assert disk_doc["verdict_global"] == "CONFORME_AU_PERIMETRE_FORMALISE"
     assert render_laws_markdown(disk_doc) == DEFAULT_MD_OUT.read_text(encoding="utf-8")
 
+    # Déterminisme du digest indépendamment de l'horloge murale generated_at_utc
+    r_t1 = run_supela_laws_suite(generated_at_utc="2026-11-19T00:00:01Z")
+    r_t2 = run_supela_laws_suite(generated_at_utc="2026-11-19T23:59:59Z")
+    assert r_t1["digest_sha256"] == r_t2["digest_sha256"]
+
     html_text = DEFAULT_HTML_OUT.read_text(encoding="utf-8")
+    assert "nimpliqe_pas" not in html_text
+    assert "law.n_implique_pas" in html_text
     parity = verify_laws_html_parity(disk_doc, html_text)
     assert parity["parity_ok"] is True
     assert parity["zero_cdn_verified"] is True
@@ -242,6 +290,15 @@ def test_serverless_azure_functions_adapter_read_only_routes() -> None:
     web_res = handle_supela_http_request("GET", "/api/supela/laws/web")
     assert web_res.status_code == 200
     assert "supela-laws-data" in web_res.body
+
+    # Routes compagnes résolues par les liens relatifs de /api/supela/laws/web
+    companion_json = handle_supela_http_request("GET", "/api/supela/laws/LOIS_PROUVEES_SUPELA.json")
+    assert companion_json.status_code == 200
+    assert json.loads(companion_json.body)["summary"]["laws_verified"] == 12
+
+    companion_enc = handle_supela_http_request("GET", "/api/supela/laws/ENCYCLOPEDIE_DICTIONNAIRE.html")
+    assert companion_enc.status_code == 200
+    assert "ENCYCLOPEDIE" in companion_enc.body or "Encyclopédie" in companion_enc.body
 
     # Toute mutation est refusée fail-closed (405) et route inconnue -> 404
     assert handle_supela_http_request("POST", "/api/supela/laws").status_code == 405
