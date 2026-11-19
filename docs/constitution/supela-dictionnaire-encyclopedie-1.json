@@ -1713,7 +1713,7 @@
       {
         "chemin": "scripts/build_proven_laws_web.py",
         "categorie": "scripts",
-        "taille_octets": 37601
+        "taille_octets": 37840
       },
       {
         "chemin": "scripts/collect_local_encyclopedie.ps1",

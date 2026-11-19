@@ -4,7 +4,7 @@
   "auteur_souverain": "Jean-François Gadbois",
   "orcid": "https://orcid.org/0009-0001-5361-6795",
   "license": "Apache-2.0",
-  "generated_at_utc": "2026-11-19T21:35:44Z",
+  "generated_at_utc": "2026-11-19T21:47:10Z",
   "verdict_global": "CONFORME_AU_PERIMETRE_FORMALISE",
   "clause_honnetete": {
     "universal_truth_claimed": false,
@@ -445,5 +445,5 @@
       "lineage_sha256": "751570d70c32c69951bc5674f0a18855888541512f774e8823198c1b2b34659b"
     }
   },
-  "digest_sha256": "aedd11fd6d80a10db8bbfc2082bc90ac9bb037cc61c1e54dc7a5003ec42bb2bd"
+  "digest_sha256": "4e45336fda4e71ee6b29e51f90de41a97b29d95318f7f52b1ff3f19756ab9587"
 }

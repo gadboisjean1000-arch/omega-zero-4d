@@ -1,7 +1,7 @@
 # Supela Is The Laws — Module Complet des Lois Prouvées, Pyramide Internationale & Topologie 4D
 
 > **Auteur souverain :** Jean-François Gadbois ([ORCID](https://orcid.org/0009-0001-5361-6795))  
-> **Licence :** `Apache-2.0` · **Verdict :** `CONFORME_AU_PERIMETRE_FORMALISE` · **SHA-256 :** `aedd11fd6d80a10db8bbfc2082bc90ac9bb037cc61c1e54dc7a5003ec42bb2bd`  
+> **Licence :** `Apache-2.0` · **Verdict :** `CONFORME_AU_PERIMETRE_FORMALISE` · **SHA-256 :** `4e45336fda4e71ee6b29e51f90de41a97b29d95318f7f52b1ff3f19756ab9587`  
 > **Doctrine :** `Score != Preuve != Vérité | Capacité != Permission != Preuve != Autorité | 0_vide != 0_vert`  
 > **Page Web interactive autonome (0 CDN, 0 $ PMU) :** [`LOIS_PROUVEES_SUPELA.html`](LOIS_PROUVEES_SUPELA.html) · [`LOIS_PROUVEES_SUPELA.json`](LOIS_PROUVEES_SUPELA.json)
 

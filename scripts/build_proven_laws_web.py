@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Générateur déterministe JSON / Markdown / Page Web HTML autonome pour Supela Is The Laws."""
 
 from __future__ import annotations
@@ -48,22 +47,30 @@ def render_laws_markdown(doc: dict[str, Any]) -> str:
         f"# {doc['titre']}",
         "",
         f"> **Auteur souverain :** {doc['auteur_souverain']} ([ORCID]({doc['orcid']}))  ",
-        f"> **Licence :** `{doc['license']}` · **Verdict :** `{doc['verdict_global']}` · "
-        f"**SHA-256 :** `{doc['digest_sha256']}`  ",
+        (
+            f"> **Licence :** `{doc['license']}` · **Verdict :** `{doc['verdict_global']}` · "
+            f"**SHA-256 :** `{doc['digest_sha256']}`  "
+        ),
         f"> **Doctrine :** `{doc['clause_honnetete']['doctrine']}`  ",
-        "> **Page Web interactive autonome (0 CDN, 0 $ PMU) :** "
-        "[`LOIS_PROUVEES_SUPELA.html`](LOIS_PROUVEES_SUPELA.html) · "
-        "[`LOIS_PROUVEES_SUPELA.json`](LOIS_PROUVEES_SUPELA.json)",
+        (
+            "> **Page Web interactive autonome (0 CDN, 0 $ PMU) :** "
+            "[`LOIS_PROUVEES_SUPELA.html`](LOIS_PROUVEES_SUPELA.html) · "
+            "[`LOIS_PROUVEES_SUPELA.json`](LOIS_PROUVEES_SUPELA.json)"
+        ),
         "",
         "## 1. Synthèse Mesurée",
         "",
         "| Indicateur | Mesure |",
         "|---|---|",
         f"| Lois formelles vérifiées | **{s['laws_verified']} / {s['laws_total']}** |",
-        f"| Pyramide normative internationale (`wiki.private.law` élevé & corrigé) | "
-        f"`{s['normative_pyramid_verified']}` |",
-        f"| Topologie géodésique 4D & ISO 19115 (apports ArcGIS Pro en 0 $ PMU) | "
-        f"`{s['geo_topology_4d_verified']}` |",
+        (
+            "| Pyramide normative internationale (`wiki.private.law` élevé & corrigé) | "
+            f"`{s['normative_pyramid_verified']}` |"
+        ),
+        (
+            "| Topologie géodésique 4D & ISO 19115 (apports ArcGIS Pro en 0 $ PMU) | "
+            f"`{s['geo_topology_4d_verified']}` |"
+        ),
         f"| Indécidables Classe A isolés hors clôture binaire | `{s['class_a_isolated']}` |",
         f"| Bornes discrètes Classe B vérifiées | `{s['class_b_discretized']}` |",
         "",
@@ -106,12 +113,16 @@ def render_laws_markdown(doc: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            f"- **Standard métadonnées :** `{iso['standard']}` · **CRS :** `{iso['crs']}` · "
-            f"**Lignage SHA-256 :** `{iso['lineage_sha256']}`",
+            (
+                f"- **Standard métadonnées :** `{iso['standard']}` · **CRS :** `{iso['crs']}` · "
+                f"**Lignage SHA-256 :** `{iso['lineage_sha256']}`"
+            ),
             "",
-            "> **Clause d'honnêteté :** `universal_truth_claimed = false` · "
-            "`judicial_or_governmental_certification_claimed = false` · "
-            "`legal_counsel_required_for_binding_contracts = true`.",
+            (
+                "> **Clause d'honnêteté :** `universal_truth_claimed = false` · "
+                "`judicial_or_governmental_certification_claimed = false` · "
+                "`legal_counsel_required_for_binding_contracts = true`."
+            ),
             "",
         ]
     )
@@ -696,7 +707,12 @@ def verify_laws_js_syntax(html_text: str) -> dict[str, Any]:
     with tempfile.TemporaryDirectory() as tmpdir:
         js_path = Path(tmpdir) / "laws_check.js"
         js_path.write_text("\n".join(scripts), encoding="utf-8")
-        proc = subprocess.run([node_bin, "--check", str(js_path)], capture_output=True, text=True)
+        proc = subprocess.run(
+            [node_bin, "--check", str(js_path)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         return {"ok": proc.returncode == 0, "skipped": False, "stderr": proc.stderr.strip()}
 
 
