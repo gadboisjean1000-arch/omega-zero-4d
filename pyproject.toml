@@ -40,6 +40,7 @@ dev = [
 [project.scripts]
 omega-zero-mcp = "omega_zero.mcp_server:main"
 omega-network = "omega_zero.network_bus:main"
+omega-cloudrun = "omega_zero.server:main"
 
 
 [tool.pytest.ini_options]

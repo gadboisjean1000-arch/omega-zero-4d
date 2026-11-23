@@ -83,6 +83,13 @@ from .sovereign_net import (
     TransportVector,
     run_sovereign_net_self_check,
 )
+from .supela_agent_ready_engine import (
+    AgentPolicyViolation,
+    SupelaAgentRuntime,
+    ToolSpec,
+    ToolVerificationProof,
+    build_default_runtime,
+)
 from .supela_math_core import (
     BoundedAuthorityEvaluation,
     CanonicalHLPSeparation,
@@ -125,6 +132,7 @@ __all__ = [
     "REPORTED_M365_ARTIFACTS",
     "TRANSPORT_PROFILES",
     "AccessibilityMode",
+    "AgentPolicyViolation",
     "AttestationSigner",
     "AuthorityLevel",
     "AutoRevocationTransition",
@@ -198,6 +206,7 @@ __all__ = [
     "SignedAttestation",
     "SovereignNetReport",
     "SovereignSearchQuery",
+    "SupelaAgentRuntime",
     "SupelaAuthorityError",
     "SupelaGRPOBridge",
     "SupelaGuardKernel",
@@ -208,6 +217,8 @@ __all__ = [
     "SupelaRuntimeError",
     "SupelaStateTuple",
     "ThreeDimensionalSeparation",
+    "ToolSpec",
+    "ToolVerificationProof",
     "TransitionError",
     "TransportProfile",
     "TransportVector",
@@ -219,6 +230,7 @@ __all__ = [
     "WormTamperError",
     "WormVault",
     "ZeroState",
+    "build_default_runtime",
     "build_pcep_network_envelope",
     "run_integrated_network_pipeline",
     "run_network_doctor",

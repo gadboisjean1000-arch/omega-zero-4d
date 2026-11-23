@@ -206,3 +206,12 @@ Ce répertoire rassemble les artefacts normatifs, schémas JSON Draft 2020-12, m
 - `reports/theses_orcid_0009/theses_orcid_0009.bib` — Export BibTeX prêt pour import ORCID.
 - `reports/theses_orcid_0009/orcid_works_v3.json` — Bundle JSON conforme au schéma ORCID Work v3.0.
 - `reports/theses_orcid_0009/deposit_manifest.json` — Manifeste complet horodaté UTC et signé Ed25519.
+
+## 11. Sas Agent Ready (GEAR) & Déploiement Cloud Run 0$ PMU
+- [Dockerfile](../../Dockerfile) — Image conteneur minimale `python:3.12-slim` non-root écoutant `0.0.0.0:$PORT` sans dépendance tierce.
+- [.dockerignore](../../.dockerignore) — Exclusion des artefacts locaux, tests, caches et clés pour maintenir le registre sous le seuil gratuit.
+- [requirements.txt](../../requirements.txt) — Manifeste Python vide (0 dépendance externe, 100 % stdlib).
+- `src/omega_zero/supela_agent_ready_engine.py` — Moteur d'orchestration agentique fail-closed (`SupelaAgentRuntime`, `ToolSpec`, chaîne WORM SHA-256).
+- `src/omega_zero/server.py` — Serveur HTTP 100 % Python stdlib pour Cloud Run (`GET /healthz`, `POST /verify`).
+- `tests/test_agent_ready_engine.py` — Banc d'épreuve du sas Agent Ready (`(1,1,1,1)` vs $\Pi_0 \implies (0,0,0,0)$).
+- `tests/test_server.py` — Tests HTTP `/healthz`, `/verify` et test subprocess autonome sans dépendance externe.
