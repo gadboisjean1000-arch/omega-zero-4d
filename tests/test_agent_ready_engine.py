@@ -11,6 +11,7 @@ from omega_zero.supela_agent_ready_engine import (
     AgentPolicyViolation,
     SupelaAgentRuntime,
     ToolSpec,
+    ToolVerificationProof,
     build_default_runtime,
 )
 
@@ -138,11 +139,72 @@ def test_build_default_runtime_tools() -> None:
     assert state_hash == (1, 1, 1, 1)
     assert out_hash["digest"] == hashlib.sha256(b"omega-zero").hexdigest()
 
-    state_pi0, out_pi0 = runtime.execute_agent_call(
+    # pi0_check sur objet vide ou hors-schéma doit contracter honnêtement à (0, 0, 0, 0)
+    for invalid_payload in ({}, {"b": 2, "a": 1}, {"invariants": ["I1"], "force_reset": True}):
+        state_bad, out_bad = runtime.execute_agent_call(
+            tool_name="pi0_check",
+            arguments=invalid_payload,
+            active_scope="audit",
+        )
+        assert state_bad == (0, 0, 0, 0)
+        assert "CONTRACT_PI0" in out_bad["error"]
+        assert runtime.audit_worm_log[-1].allowed is False
+
+    # pi0_check sur état Supela non vide vérifie la double projection et purge les clés provisoires
+    state_ok, out_ok = runtime.execute_agent_call(
         tool_name="pi0_check",
-        arguments={"b": 2, "a": 1},
+        arguments={
+            "invariants": ["I1"],
+            "proofs": {"P1": {"verified": True}},
+            "history": [{"kind": "PROVISIONAL_DRAFT"}, {"kind": "VERIFIED"}],
+            "provisional_extra": ["drop-me"],
+        },
         active_scope="audit",
     )
-    assert state_pi0 == (1, 1, 1, 1)
-    assert out_pi0["idempotent"] is True
+    assert state_ok == (1, 1, 1, 1)
+    assert out_ok["idempotent"] is True
+    assert out_ok["non_empty"] is True
+    assert out_ok["projected_sha256"] == out_ok["second_projection_sha256"]
+    assert out_ok["dropped_keys"] == ["provisional_extra"]
     assert runtime.verify_worm_chain() is True
+
+
+def test_injectable_clock_produces_deterministic_proof_hashes() -> None:
+    fixed_ns = 1_700_000_000_000_000_000
+    rt_a = SupelaAgentRuntime(clock_ns=lambda: fixed_ns)
+    rt_b = SupelaAgentRuntime(clock_ns=lambda: fixed_ns)
+    for rt in (rt_a, rt_b):
+        rt.register_tool(
+            ToolSpec(
+                name="echo",
+                allowed_scopes=("audit",),
+                handler=lambda args: {"echo": args.get("v", "")},
+            )
+        )
+
+    rec_a = rt_a.execute_agent_call_with_proof("echo", {"v": "supela"}, "audit")
+    rec_b = rt_b.execute_agent_call_with_proof("echo", {"v": "supela"}, "audit")
+    assert rec_a.proof.proof_hash == rec_b.proof.proof_hash
+    assert rec_a.proof.timestamp_ns == fixed_ns
+
+
+def test_incremental_o1_worm_link_detects_tampering() -> None:
+    runtime = build_default_runtime()
+    rec1 = runtime.execute_agent_call_with_proof("local_sha256", {"data": "one"}, "verify")
+    assert rec1.worm_link_verified is True
+
+    # Altération externe de la queue du journal
+    tampered = ToolVerificationProof(
+        tool_name=rec1.proof.tool_name,
+        arguments_hash=rec1.proof.arguments_hash,
+        allowed=rec1.proof.allowed,
+        state=rec1.proof.state,
+        timestamp_ns=rec1.proof.timestamp_ns,
+        prev_proof_hash=rec1.proof.prev_proof_hash,
+        proof_hash="f" * 64,
+    )
+    runtime.audit_worm_log[-1] = tampered
+
+    rec2 = runtime.execute_agent_call_with_proof("local_sha256", {"data": "two"}, "verify")
+    assert rec2.worm_link_verified is False
+    assert runtime.verify_worm_chain() is False

@@ -1178,7 +1178,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 319453
+        "taille_octets": 319455
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1428,7 +1428,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 173457
+        "taille_octets": 173459
       },
       {
         "chemin": "omega.ps1",
@@ -1728,7 +1728,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 6021
+        "taille_octets": 6067
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1793,7 +1793,7 @@
       {
         "chemin": "src/omega_zero/server.py",
         "categorie": "src",
-        "taille_octets": 10142
+        "taille_octets": 13498
       },
       {
         "chemin": "src/omega_zero/sovereign_net.py",
@@ -1803,7 +1803,7 @@
       {
         "chemin": "src/omega_zero/supela_agent_ready_engine.py",
         "categorie": "src",
-        "taille_octets": 9703
+        "taille_octets": 15197
       },
       {
         "chemin": "src/omega_zero/supela_math_core.py",
@@ -1878,7 +1878,7 @@
       {
         "chemin": "tests/test_agent_ready_engine.py",
         "categorie": "tests",
-        "taille_octets": 4385
+        "taille_octets": 6985
       },
       {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
@@ -1938,7 +1938,7 @@
       {
         "chemin": "tests/test_server.py",
         "categorie": "tests",
-        "taille_octets": 7720
+        "taille_octets": 14157
       },
       {
         "chemin": "tests/test_sovereign_net.py",

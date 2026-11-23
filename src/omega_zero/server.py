@@ -19,6 +19,8 @@ if TYPE_CHECKING:
     from .supela_agent_ready_engine import SupelaAgentRuntime
 
 MAX_BODY_BYTES = 65_536
+REQUEST_TIMEOUT_SECONDS = 10.0
+DEFAULT_MAX_WORKERS = 32
 
 
 def _load_engine() -> ModuleType:
@@ -52,21 +54,61 @@ class SupelaHttpServer(ThreadingHTTPServer):
     daemon_threads = True
     runtime: Any
 
+    def __init__(
+        self,
+        server_address: tuple[str, int],
+        request_handler_class: type[BaseHTTPRequestHandler],
+        *,
+        max_workers: int = DEFAULT_MAX_WORKERS,
+    ) -> None:
+        if max_workers < 1:
+            raise ValueError("max_workers doit être >= 1.")
+        self._worker_slots = threading.BoundedSemaphore(max_workers)
+        super().__init__(server_address, request_handler_class)
 
-def _make_handler(runtime: Any) -> type[BaseHTTPRequestHandler]:
+    def process_request(self, request: Any, client_address: Any) -> None:
+        if not self._worker_slots.acquire(blocking=False):
+            self.shutdown_request(request)
+            return
+
+        def _worker() -> None:
+            try:
+                self.process_request_thread(request, client_address)
+            finally:
+                self._worker_slots.release()
+
+        thread = threading.Thread(target=_worker, daemon=True)
+        thread.start()
+
+
+def _make_handler(
+    runtime: Any,
+    allowed_scopes: frozenset[str] | None,
+) -> type[BaseHTTPRequestHandler]:
     class SupelaAgentRequestHandler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
+        timeout = REQUEST_TIMEOUT_SECONDS
 
         def log_message(self, format: str, *args: Any) -> None:
             return
 
-        def _send_json(self, status: HTTPStatus, payload: dict[str, Any]) -> None:
+        def _send_json(
+            self,
+            status: HTTPStatus,
+            payload: dict[str, Any],
+            extra_headers: dict[str, str] | None = None,
+        ) -> None:
             raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            self.close_connection = True
             self.send_response(int(status))
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(raw)))
+            self.send_header("Connection", "close")
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
+            if extra_headers:
+                for key, value in extra_headers.items():
+                    self.send_header(key, value)
             self.end_headers()
             self.wfile.write(raw)
 
@@ -152,33 +194,56 @@ def _make_handler(runtime: Any) -> type[BaseHTTPRequestHandler]:
             arguments = payload.get("arguments", {})
             active_scope = payload.get("active_scope", "")
 
-            state, result = runtime.execute_agent_call(tool_name, arguments, active_scope)
-            admitted = state == (1, 1, 1, 1)
+            if allowed_scopes is not None and (
+                not isinstance(active_scope, str) or active_scope not in allowed_scopes
+            ):
+                self._send_json(
+                    HTTPStatus.FORBIDDEN,
+                    {
+                        "state": [0, 0, 0, 0],
+                        "admitted": False,
+                        "result": {
+                            "error": f"Périmètre '{active_scope}' refusé par la politique serveur (DENY_SCOPE)"
+                        },
+                        "instance_id": runtime.instance_id,
+                        "persistence": "EPHEMERAL_INSTANCE_MEMORY",
+                        "doctrine": "0$ PMU",
+                    },
+                )
+                return
+
+            receipt = runtime.execute_agent_call_with_proof(tool_name, arguments, active_scope)
+            admitted = receipt.state == (1, 1, 1, 1)
             if admitted:
                 status = HTTPStatus.OK
             else:
-                error_msg = str(result.get("error", ""))
+                error_msg = str(receipt.result.get("error", ""))
                 if "DENY_INVALID_ARGS" in error_msg:
                     status = HTTPStatus.BAD_REQUEST
                 elif "DENY_UNKNOWN_TOOL" in error_msg or "DENY_SCOPE" in error_msg:
                     status = HTTPStatus.FORBIDDEN
+                elif "CONTRACT_PI0" in error_msg:
+                    status = HTTPStatus.UNPROCESSABLE_ENTITY
                 else:
                     status = HTTPStatus.INTERNAL_SERVER_ERROR
 
-            latest_proof = runtime.audit_worm_log[-1] if runtime.audit_worm_log else None
             self._send_json(
                 status,
                 {
-                    "state": list(state),
+                    "state": list(receipt.state),
                     "admitted": admitted,
-                    "result": result,
-                    "proof_hash": latest_proof.proof_hash if latest_proof else "",
-                    "worm_chain_valid": runtime.verify_worm_chain(),
+                    "result": receipt.result,
+                    "proof_hash": receipt.proof.proof_hash,
+                    "prev_proof_hash": receipt.proof.prev_proof_hash,
+                    "worm_link_verified": receipt.worm_link_verified,
+                    "chain_length": receipt.chain_length,
+                    "instance_id": runtime.instance_id,
+                    "persistence": "EPHEMERAL_INSTANCE_MEMORY",
                     "doctrine": "0$ PMU",
                 },
             )
 
-        def _method_not_allowed(self) -> None:
+        def _method_not_allowed(self, allow: str) -> None:
             self._send_json(
                 HTTPStatus.METHOD_NOT_ALLOWED,
                 {
@@ -187,6 +252,7 @@ def _make_handler(runtime: Any) -> type[BaseHTTPRequestHandler]:
                     "error": "METHOD_NOT_ALLOWED",
                     "doctrine": "0$ PMU",
                 },
+                extra_headers={"Allow": allow},
             )
 
         def _not_found(self) -> None:
@@ -206,7 +272,7 @@ def _make_handler(runtime: Any) -> type[BaseHTTPRequestHandler]:
                 self._send_json(HTTPStatus.OK, {"status": "ALIVE", "doctrine": "0$ PMU"})
                 return
             if path == "/verify":
-                self._method_not_allowed()
+                self._method_not_allowed("POST")
                 return
             self._not_found()
 
@@ -216,21 +282,31 @@ def _make_handler(runtime: Any) -> type[BaseHTTPRequestHandler]:
                 self._handle_verify()
                 return
             if path == "/healthz":
-                self._method_not_allowed()
+                self._method_not_allowed("GET")
+                return
+            self._not_found()
+
+        def _handle_disallowed_method(self) -> None:
+            path = urlparse(self.path).path
+            if path == "/healthz":
+                self._method_not_allowed("GET")
+                return
+            if path == "/verify":
+                self._method_not_allowed("POST")
                 return
             self._not_found()
 
         def do_PUT(self) -> None:
-            self._method_not_allowed()
+            self._handle_disallowed_method()
 
         def do_DELETE(self) -> None:
-            self._method_not_allowed()
+            self._handle_disallowed_method()
 
         def do_PATCH(self) -> None:
-            self._method_not_allowed()
+            self._handle_disallowed_method()
 
         def do_OPTIONS(self) -> None:
-            self._method_not_allowed()
+            self._handle_disallowed_method()
 
     return SupelaAgentRequestHandler
 
@@ -239,6 +315,9 @@ def create_server(
     host: str = "0.0.0.0",
     port: int = 8080,
     runtime: SupelaAgentRuntime | None = None,
+    *,
+    allowed_scopes: frozenset[str] | None = None,
+    max_workers: int = DEFAULT_MAX_WORKERS,
 ) -> SupelaHttpServer:
     """Instancie le serveur HTTP stdlib Cloud Run (0$ PMU)."""
     if runtime is None:
@@ -247,7 +326,17 @@ def create_server(
     else:
         active_runtime = runtime
 
-    server = SupelaHttpServer((host, port), _make_handler(active_runtime))
+    resolved_scopes = allowed_scopes
+    if resolved_scopes is None:
+        raw_scopes = os.environ.get("SUPELA_ALLOWED_SCOPES", "")
+        parsed = frozenset(s.strip() for s in raw_scopes.split(",") if s.strip())
+        resolved_scopes = parsed if parsed else None
+
+    server = SupelaHttpServer(
+        (host, port),
+        _make_handler(active_runtime, resolved_scopes),
+        max_workers=max_workers,
+    )
     server.runtime = active_runtime
     return server
 
@@ -273,6 +362,7 @@ def main() -> int:
                 "status": "LISTENING",
                 "host": host,
                 "port": bound_port,
+                "instance_id": server.runtime.instance_id,
                 "doctrine": "0$ PMU",
             },
             ensure_ascii=False,

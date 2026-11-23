@@ -84,6 +84,7 @@ from .sovereign_net import (
     run_sovereign_net_self_check,
 )
 from .supela_agent_ready_engine import (
+    AgentCallReceipt,
     AgentPolicyViolation,
     SupelaAgentRuntime,
     ToolSpec,
@@ -132,6 +133,7 @@ __all__ = [
     "REPORTED_M365_ARTIFACTS",
     "TRANSPORT_PROFILES",
     "AccessibilityMode",
+    "AgentCallReceipt",
     "AgentPolicyViolation",
     "AttestationSigner",
     "AuthorityLevel",

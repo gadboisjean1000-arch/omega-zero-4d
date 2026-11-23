@@ -11,11 +11,23 @@ import hashlib
 import json
 import threading
 import time
+import uuid
 from collections.abc import Callable
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Any, NamedTuple
 
 GENESIS_HASH: str = "0" * 64
+_PI0_CORE_KEYS: tuple[str, ...] = (
+    "invariants",
+    "proofs",
+    "refutations",
+    "manques",
+    "authorities",
+    "history",
+)
+_PI0_LIST_KEYS: frozenset[str] = frozenset({"invariants", "history"})
+_PI0_DICT_KEYS: frozenset[str] = frozenset({"proofs", "refutations", "manques", "authorities"})
 
 
 class ToolVerificationProof(NamedTuple):
@@ -26,6 +38,14 @@ class ToolVerificationProof(NamedTuple):
     timestamp_ns: int
     prev_proof_hash: str = GENESIS_HASH
     proof_hash: str = ""
+
+
+class AgentCallReceipt(NamedTuple):
+    state: tuple[int, int, int, int]
+    result: dict[str, Any]
+    proof: ToolVerificationProof
+    worm_link_verified: bool
+    chain_length: int
 
 
 class AgentPolicyViolation(Exception):
@@ -42,10 +62,19 @@ class ToolSpec:
 class SupelaAgentRuntime:
     """Noyau d'exécution agentique sécurisé local (100 % stdlib)."""
 
-    def __init__(self, node_id: str = "node:local-agent") -> None:
+    def __init__(
+        self,
+        node_id: str = "node:local-agent",
+        *,
+        clock_ns: Callable[[], int] = time.time_ns,
+    ) -> None:
         self.node_id = node_id
+        self.instance_id: str = uuid.uuid4().hex[:16]
+        self._clock_ns = clock_ns
         self.tools_registry: dict[str, ToolSpec] = {}
         self.audit_worm_log: list[ToolVerificationProof] = []
+        self._last_proof_hash: str = GENESIS_HASH
+        self._worm_chain_valid: bool = True
         self._lock = threading.Lock()
 
     def register_tool(self, spec: ToolSpec) -> None:
@@ -106,10 +135,11 @@ class SupelaAgentRuntime:
         allowed: bool,
         state: tuple[int, int, int, int],
         timestamp_ns: int,
-    ) -> ToolVerificationProof:
-        prev_hash = self.audit_worm_log[-1].proof_hash if self.audit_worm_log else GENESIS_HASH
+    ) -> tuple[ToolVerificationProof, bool, int]:
+        actual_prev = self.audit_worm_log[-1].proof_hash if self.audit_worm_log else GENESIS_HASH
+        link_ok = (actual_prev == self._last_proof_hash) and self._worm_chain_valid
         proof_hash = self._compute_proof_hash(
-            prev_proof_hash=prev_hash,
+            prev_proof_hash=actual_prev,
             tool_name=tool_name,
             arguments_hash=arguments_hash,
             allowed=allowed,
@@ -122,11 +152,13 @@ class SupelaAgentRuntime:
             allowed=allowed,
             state=state,
             timestamp_ns=timestamp_ns,
-            prev_proof_hash=prev_hash,
+            prev_proof_hash=actual_prev,
             proof_hash=proof_hash,
         )
         self.audit_worm_log.append(proof)
-        return proof
+        self._last_proof_hash = proof_hash
+        self._worm_chain_valid = link_ok
+        return (proof, link_ok, len(self.audit_worm_log))
 
     def verify_worm_chain(self) -> bool:
         """Vérifie l'intégrité complète de la chaîne SHA-256 WORM depuis GENESIS_HASH."""
@@ -146,18 +178,17 @@ class SupelaAgentRuntime:
                 if proof.proof_hash != expected_hash:
                     return False
                 expected_prev = proof.proof_hash
-            return True
+            return expected_prev == self._last_proof_hash and self._worm_chain_valid
 
-    def execute_agent_call(
+    def execute_agent_call_with_proof(
         self,
         tool_name: str,
         arguments: Any,
         active_scope: str,
-    ) -> tuple[tuple[int, int, int, int], dict[str, Any]]:
-        """Sas de contrôle L0-L7 fail-closed avant toute exécution mécanique."""
-        now_ns = time.time_ns()
-
+    ) -> AgentCallReceipt:
+        """Sas L0-L7 atomique retournant le reçu cryptographique WORM sous verrou."""
         with self._lock:
+            now_ns = self._clock_ns()
             safe_tool_name = tool_name if isinstance(tool_name, str) else repr(tool_name)
             if (
                 not isinstance(tool_name, str)
@@ -167,8 +198,16 @@ class SupelaAgentRuntime:
                 or not isinstance(arguments, dict)
             ):
                 fallback_hash = hashlib.sha256(repr(arguments).encode("utf-8")).hexdigest()
-                self._append_proof(safe_tool_name, fallback_hash, False, (0, 0, 0, 0), now_ns)
-                return ((0, 0, 0, 0), {"error": "Arguments ou paramètres invalides (DENY_INVALID_ARGS)"})
+                proof, link_ok, chain_len = self._append_proof(
+                    safe_tool_name, fallback_hash, False, (0, 0, 0, 0), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": "Arguments ou paramètres invalides (DENY_INVALID_ARGS)"},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
 
             try:
                 raw_args_bytes = self._canonical_json(arguments)
@@ -179,22 +218,43 @@ class SupelaAgentRuntime:
                 safe_args: dict[str, Any] = safe_args_obj
             except (TypeError, ValueError):
                 fallback_hash = hashlib.sha256(repr(arguments).encode("utf-8")).hexdigest()
-                self._append_proof(tool_name, fallback_hash, False, (0, 0, 0, 0), now_ns)
-                return ((0, 0, 0, 0), {"error": "Arguments ou paramètres invalides (DENY_INVALID_ARGS)"})
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, fallback_hash, False, (0, 0, 0, 0), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": "Arguments ou paramètres invalides (DENY_INVALID_ARGS)"},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
 
             # Invariant 1 : L'outil doit être formellement déclaré
             if tool_name not in self.tools_registry:
-                self._append_proof(tool_name, args_hash, False, (0, 0, 0, 0), now_ns)
-                return ((0, 0, 0, 0), {"error": f"Outil '{tool_name}' non homologué (DENY_UNKNOWN_TOOL)"})
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, args_hash, False, (0, 0, 0, 0), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": f"Outil '{tool_name}' non homologué (DENY_UNKNOWN_TOOL)"},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
 
             spec = self.tools_registry[tool_name]
 
             # Invariant 2 : Étanchéité de périmètre (Scope Containment)
             if active_scope not in spec.allowed_scopes:
-                self._append_proof(tool_name, args_hash, False, (0, 0, 0, 0), now_ns)
-                return (
-                    (0, 0, 0, 0),
-                    {"error": f"Périmètre '{active_scope}' illégitime pour {tool_name} (DENY_SCOPE)"},
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, args_hash, False, (0, 0, 0, 0), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": f"Périmètre '{active_scope}' illégitime pour {tool_name} (DENY_SCOPE)"},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
                 )
 
             # Invariant 3 : Exécution confinée et vérification de retour
@@ -207,15 +267,52 @@ class SupelaAgentRuntime:
                 if not isinstance(verified_obj, dict):
                     raise TypeError("Retour d'outil non conforme")
                 verified_result: dict[str, Any] = verified_obj
-                self._append_proof(tool_name, args_hash, True, (1, 1, 1, 1), now_ns)
-                return ((1, 1, 1, 1), verified_result)
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, args_hash, True, (1, 1, 1, 1), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(1, 1, 1, 1),
+                    result=verified_result,
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
+            except AgentPolicyViolation as exc:
+                err_msg = str(exc)
+                if "CONTRACT_PI0" not in err_msg:
+                    err_msg = f"{err_msg} (CONTRACT_PI0)"
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, args_hash, False, (0, 0, 0, 0), now_ns
+                )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": err_msg},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
             except Exception as exc:  # noqa: BLE001 — Fail-closed Π₀ sur tout crash d'outil externe
                 # Tout crash d'outil externe contracte au point zéro Pi_0
-                self._append_proof(tool_name, args_hash, False, (0, 0, 0, 0), now_ns)
-                return (
-                    (0, 0, 0, 0),
-                    {"error": f"Échec d'exécution mécanique : {exc} (RESET_PI0)"},
+                proof, link_ok, chain_len = self._append_proof(
+                    tool_name, args_hash, False, (0, 0, 0, 0), now_ns
                 )
+                return AgentCallReceipt(
+                    state=(0, 0, 0, 0),
+                    result={"error": f"Échec d'exécution mécanique : {exc} (RESET_PI0)"},
+                    proof=proof,
+                    worm_link_verified=link_ok,
+                    chain_length=chain_len,
+                )
+
+    def execute_agent_call(
+        self,
+        tool_name: str,
+        arguments: Any,
+        active_scope: str,
+    ) -> tuple[tuple[int, int, int, int], dict[str, Any]]:
+        """Sas de contrôle L0-L7 fail-closed avant toute exécution mécanique."""
+        receipt = self.execute_agent_call_with_proof(tool_name, arguments, active_scope)
+        return (receipt.state, receipt.result)
 
 
 def _tool_local_sha256(args: dict[str, Any]) -> dict[str, Any]:
@@ -223,11 +320,51 @@ def _tool_local_sha256(args: dict[str, Any]) -> dict[str, Any]:
     return {"digest": hashlib.sha256(data).hexdigest()}
 
 
+def _project_pi0_state(raw: dict[str, Any]) -> dict[str, Any]:
+    """Projette un état sur ses champs canoniques Π₀ en purgeant les brouillons provisoires."""
+    projected: dict[str, Any] = {}
+    for key in _PI0_CORE_KEYS:
+        if key not in raw:
+            projected[key] = [] if key in _PI0_LIST_KEYS else {}
+            continue
+        val = raw[key]
+        if key in _PI0_LIST_KEYS:
+            if not isinstance(val, list):
+                raise AgentPolicyViolation(f"Champ Π₀ '{key}' invalide : liste attendue (CONTRACT_PI0)")
+            if key == "history":
+                projected[key] = [
+                    deepcopy(entry)
+                    for entry in val
+                    if not (isinstance(entry, dict) and entry.get("kind") == "PROVISIONAL_DRAFT")
+                ]
+            else:
+                projected[key] = deepcopy(val)
+        elif key in _PI0_DICT_KEYS:
+            if not isinstance(val, dict):
+                raise AgentPolicyViolation(f"Champ Π₀ '{key}' invalide : objet attendu (CONTRACT_PI0)")
+            projected[key] = deepcopy(val)
+    return projected
+
+
 def _tool_pi0_check(args: dict[str, Any]) -> dict[str, Any]:
-    canonical = SupelaAgentRuntime._canonical_json(args)
+    """Vérifie réellement la double projection Π₀(Π₀(S)) = Π₀(S) et la non-vacuité."""
+    if args.get("force_reset") is True:
+        raise AgentPolicyViolation("Contraction forcée au vide Π₀ (CONTRACT_PI0)")
+    z1 = _project_pi0_state(args)
+    z2 = _project_pi0_state(z1)
+    non_empty = any(bool(z1[key]) for key in _PI0_CORE_KEYS)
+    h1 = hashlib.sha256(SupelaAgentRuntime._canonical_json(z1)).hexdigest()
+    h2 = hashlib.sha256(SupelaAgentRuntime._canonical_json(z2)).hexdigest()
+    if not non_empty or h1 != h2:
+        raise AgentPolicyViolation(
+            "Contraction au vide Π₀ : état sans invariant ou preuve vérifiable (CONTRACT_PI0)"
+        )
     return {
-        "canonical_sha256": hashlib.sha256(canonical).hexdigest(),
+        "projected_sha256": h1,
+        "second_projection_sha256": h2,
         "idempotent": True,
+        "non_empty": True,
+        "dropped_keys": sorted(set(args.keys()) - set(_PI0_CORE_KEYS)),
     }
 
 
