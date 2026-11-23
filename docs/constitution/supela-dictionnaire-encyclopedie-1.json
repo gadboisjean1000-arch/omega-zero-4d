@@ -60,7 +60,7 @@
     "depots_github_forks": 11,
     "discussions_ia_google_docs": 54,
     "plateformes_ia_navigateurs": 9,
-    "fichiers_omega_zero_4d": 186,
+    "fichiers_omega_zero_4d": 193,
     "notebooks_colab": 4,
     "documents_drive_indexes": 494,
     "disques_locaux_suivis": 2,
@@ -1086,6 +1086,11 @@
         "taille_octets": 800
       },
       {
+        "chemin": ".dockerignore",
+        "categorie": "root",
+        "taille_octets": 201
+      },
+      {
         "chemin": ".gitattributes",
         "categorie": "root",
         "taille_octets": 120
@@ -1114,6 +1119,11 @@
         "chemin": "CITATION.cff",
         "categorie": "root",
         "taille_octets": 1750
+      },
+      {
+        "chemin": "Dockerfile",
+        "categorie": "root",
+        "taille_octets": 499
       },
       {
         "chemin": "GEMINI.md",
@@ -1168,7 +1178,7 @@
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.html",
         "categorie": "docs",
-        "taille_octets": 318878
+        "taille_octets": 319455
       },
       {
         "chemin": "docs/constitution/ENCYCLOPEDIE_DICTIONNAIRE.md",
@@ -1188,7 +1198,7 @@
       {
         "chemin": "docs/constitution/INDEX_CONSTITUTION.md",
         "categorie": "docs",
-        "taille_octets": 27584
+        "taille_octets": 28553
       },
       {
         "chemin": "docs/constitution/MATRICE_CONFORMITE_INSTITUTIONNELLE.md",
@@ -1418,7 +1428,7 @@
       {
         "chemin": "docs/constitution/supela-dictionnaire-encyclopedie-1.json",
         "categorie": "docs",
-        "taille_octets": 172616
+        "taille_octets": 173459
       },
       {
         "chemin": "omega.ps1",
@@ -1433,7 +1443,7 @@
       {
         "chemin": "pyproject.toml",
         "categorie": "root",
-        "taille_octets": 1462
+        "taille_octets": 1504
       },
       {
         "chemin": "reports/PCEP-NETWORK-SIGN-READY.json",
@@ -1529,6 +1539,11 @@
         "chemin": "reports/theses_orcid_0009/theses_orcid_0009.bib",
         "categorie": "reports",
         "taille_octets": 2138
+      },
+      {
+        "chemin": "requirements.txt",
+        "categorie": "root",
+        "taille_octets": 79
       },
       {
         "chemin": "runtime/init_omega_vault.ps1",
@@ -1713,7 +1728,7 @@
       {
         "chemin": "src/omega_zero/__init__.py",
         "categorie": "src",
-        "taille_octets": 5732
+        "taille_octets": 6067
       },
       {
         "chemin": "src/omega_zero/attestation.py",
@@ -1776,9 +1791,19 @@
         "taille_octets": 9935
       },
       {
+        "chemin": "src/omega_zero/server.py",
+        "categorie": "src",
+        "taille_octets": 13498
+      },
+      {
         "chemin": "src/omega_zero/sovereign_net.py",
         "categorie": "src",
         "taille_octets": 12437
+      },
+      {
+        "chemin": "src/omega_zero/supela_agent_ready_engine.py",
+        "categorie": "src",
+        "taille_octets": 15197
       },
       {
         "chemin": "src/omega_zero/supela_math_core.py",
@@ -1851,6 +1876,11 @@
         "taille_octets": 15460
       },
       {
+        "chemin": "tests/test_agent_ready_engine.py",
+        "categorie": "tests",
+        "taille_octets": 6985
+      },
+      {
         "chemin": "tests/test_encyclopedie_dictionnaire.py",
         "categorie": "tests",
         "taille_octets": 41951
@@ -1904,6 +1934,11 @@
         "chemin": "tests/test_second_domain_example.py",
         "categorie": "tests",
         "taille_octets": 3020
+      },
+      {
+        "chemin": "tests/test_server.py",
+        "categorie": "tests",
+        "taille_octets": 14157
       },
       {
         "chemin": "tests/test_sovereign_net.py",
